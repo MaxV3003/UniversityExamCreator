@@ -55,6 +55,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Examconfig.cs" />
+    <Compile Include="Services\DataService.cs" />
+    <Compile Include="Services\ExamService.cs" />
+    <Compile Include="Services\UserService.cs" />
+    <Compile Include="ViewModels\ExamViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\QuestionViewModel.cs" />
+    <Compile Include="Views\CreateTaskPage.xaml.cs">
+      <DependentUpon>CreateTaskPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExamconfigPage.xaml.cs">
+      <DependentUpon>ExamconfigPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExamPage.xaml.cs">
+      <DependentUpon>ExamPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExamTaskPage.xaml.cs">
+      <DependentUpon>ExamTaskPage.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -67,8 +86,28 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\CreateTaskPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExamconfigPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExamPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExamTaskPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Answer.cs" />
+    <Compile Include="Models\Exam.cs" />
+    <Compile Include="Models\Question.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -94,8 +133,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="View\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
