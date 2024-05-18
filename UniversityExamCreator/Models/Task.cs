@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UniversityExamCreator.Models
 {
-    internal class Question
+    internal class Task
     {
     }
 }

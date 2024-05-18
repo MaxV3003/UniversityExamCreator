@@ -56,6 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Examconfig.cs" />
+    <Compile Include="Models\Taskgoupe.cs" />
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Services\ExamService.cs" />
     <Compile Include="Services\UserService.cs" />
@@ -106,7 +107,7 @@
   <ItemGroup>
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\Exam.cs" />
-    <Compile Include="Models\Question.cs" />
+    <Compile Include="Models\Task.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
