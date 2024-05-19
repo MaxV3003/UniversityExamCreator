@@ -56,13 +56,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Examconfig.cs" />
-    <Compile Include="Models\Taskgoupe.cs" />
+    <Compile Include="Models\Taskgroupe.cs" />
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Services\ExamService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="ViewModels\ExamViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\QuestionViewModel.cs" />
+    <Compile Include="ViewModels\TaskViewModel.cs" />
     <Compile Include="Views\CreateTaskPage.xaml.cs">
       <DependentUpon>CreateTaskPage.xaml</DependentUpon>
     </Compile>

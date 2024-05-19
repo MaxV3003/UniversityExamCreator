@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Automation.Peers;
 using System.Windows.Markup;
+using UniversityExamCreator.Models;
 
 //Ist aktuell eine Idee von der Erzeugung eines Exams. 
 namespace UniversityExamCreator.Models
@@ -24,8 +25,9 @@ namespace UniversityExamCreator.Models
         /// <summary>
         /// List of GoupeItems. An Exam contains one or more GoupeItems
         /// </summary>
-        public List<Groupe> Groups { get; set; } 
+        public List<Taskgroupe> TaskGroups { get; set; } 
 
+        public List<Task> Task { get; set; }
 
 
         /// <summary>
@@ -36,15 +38,16 @@ namespace UniversityExamCreator.Models
         {
             Identifire = name;
             UserID = userID;
-            Groups = new List<Groupe>();
+            TaskGroups = new List<Taskgroupe>();
+            Task = new List<Task>();
         }
 
         /// <summary>
         /// Method to add a group to the GroupeList.
         /// </summary>
-        public void AddGroup(Groupe group)
+        public void AddGroup(Taskgroupe group)
         {
-            Groups.Add(group);
+            TaskGroups.Add(group);
         }
 
         /// <summary>
@@ -54,74 +57,10 @@ namespace UniversityExamCreator.Models
         {
             Console.WriteLine($"Exam Name: {Identifire}");
             Console.WriteLine("Groups:");
-            foreach (var group in Groups)
+            foreach (var group in TaskGroups)
             {
                 group.DisplayGroup();
                 Console.WriteLine();
-            }
-        }
-    }
-
-
-    /// <summary>
-    /// A Goupe is a specific Frame for a Question. 
-    /// It contains:
-    ///     the Heading of the Question
-    ///     the Content of the Question
-    ///     the optional Answer for the Question
-    /// </summary>
-    internal class Groupe
-    {
-        /// <summary>
-        /// Name of a Task.
-        /// </summary>
-        public string TaskName { get; set; }
-
-        /// <summary>
-        /// Content of the Task.
-        /// </summary>
-        public string TaskContent { get; set; }
-
-        /// <summary>
-        /// Optional Answer for a Task.
-        /// </summary>
-        public string TaskAnswer { get; set; }
-
-
-        /// <summary>
-        /// Constructor for a GoupeItem without Answer.
-        /// </summary>
-        public Groupe(string taskName, string taskContent)
-        {
-            TaskName = taskName;
-            TaskContent = taskContent;
-
-        }
-
-        /// <summary>
-        /// Constructor for a GoupeItem with an optional Answer. 
-        /// </summary>
-        public Groupe(string taskName, string taskContent, string taskAnswer)
-        {
-            TaskName = taskName;
-            TaskContent = taskContent;
-            TaskAnswer = taskAnswer;
-        }
-
-        /// <summary>
-        /// Method to display group details
-        /// </summary>
-        public void DisplayGroup()
-        {
-            Console.WriteLine($"Task Name: {TaskName}");
-            Console.WriteLine($"Task Content: {TaskContent}");
-            if (TaskAnswer != null)
-            {
-                Console.WriteLine($"Task Answer: {TaskAnswer}");
-            }
-            else
-            {
-                Console.WriteLine("Task Answer: Not provided");
             }
         }
     }
