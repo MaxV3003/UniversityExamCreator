@@ -27,14 +27,5 @@ namespace UniversityExamCreator.Models
             Name = task.getName();
             Content = task.getContent();
         }
-
-        /// <summary>
-        /// Methode to create an Answer-Item.
-        /// </summary>
-        /// <returns>Retruns an Answer-Item.</returns>
-        public Answer create(string name, string content) 
-        {
-            return new Answer(name, content);
-        }
     }
 }

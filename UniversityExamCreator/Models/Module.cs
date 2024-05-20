@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace UniversityExamCreator.Models
 {
-    internal class Examconfig
+    internal class Module
     {
-        public string ExamName { get; set; }
-
     }
 }

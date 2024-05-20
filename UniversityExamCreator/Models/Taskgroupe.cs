@@ -29,15 +29,6 @@ namespace UniversityExamCreator.Models
         }
 
         /// <summary>
-        /// Methode to create a Taskgroupe. 
-        /// </summary>
-        /// <returns>Returns a new Taskgroupe.</returns>
-        public Taskgroupe createTaskgroupe(string groupeName) 
-        {
-            return new Taskgroupe(groupeName);
-        }
-
-        /// <summary>
         /// Function to add a Task to the TaskList. 
         /// </summary>
         public void addTask(Task task)

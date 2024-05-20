@@ -43,15 +43,6 @@ namespace UniversityExamCreator.Models
         }
 
         /// <summary>
-        /// Methode to create a new Task without an Answer.
-        /// </summary>
-        /// <returns>Returns a new Task.</returns>
-        public Task createTask(string taskName, string taskContent) 
-        {
-            return new Task(taskName, taskContent);
-        }
-
-        /// <summary>
         /// Methode to get a String of the Name of the Task.
         /// </summary>
         /// <returns>String-Name</returns>
@@ -67,15 +58,6 @@ namespace UniversityExamCreator.Models
         public string getContent() 
         {
             return TaskContent;
-        }
-
-        /// <summary>
-        /// Mehtode to create a new Task with an Answer
-        /// </summary>
-        /// <returns>Returns a new Task.</returns>
-        public Task createTask(string taskName, string taskContent, string taskAnswer)
-        {
-            return new Task(taskName, taskContent, taskAnswer);
         }
     }
 }
