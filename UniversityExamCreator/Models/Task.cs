@@ -21,7 +21,7 @@ namespace UniversityExamCreator.Models
         /// <summary>
         /// Optional Answer for a Task.
         /// </summary>
-        public string TaskAnswer { get; set; }
+        public Answer TaskAnswer { get; set; }
 
         /// <summary>
         /// Constructor for a task without an Answer. 
@@ -30,16 +30,17 @@ namespace UniversityExamCreator.Models
         {
             TaskName = taskName;
             TaskContent = taskContent;
+            TaskAnswer = new Answer(taskName,string.Empty);
         }
 
         /// <summary>
         /// Constructor for a task with an Answer. 
         /// </summary>
-        public Task(string taskName, string taskContent, string taskAnswer) 
+        public Task(string taskName, string taskContent, String answerContent) 
         {
             TaskName = taskName;
             TaskContent = taskContent;
-            TaskAnswer = taskAnswer;
+            TaskAnswer = new Answer(taskName, answerContent);
         }
 
         /// <summary>
@@ -58,6 +59,23 @@ namespace UniversityExamCreator.Models
         public string getContent() 
         {
             return TaskContent;
+        }
+
+        /// <summary>
+        /// Methode to get the AnswerItem of a Task.
+        /// </summary>
+        /// <returns>AnswerItem</returns>
+        public Answer getAnswer() 
+        {
+            return TaskAnswer;
+        }
+
+        /// <summary>
+        /// Methode to set the Content of an AnswerItem. 
+        /// </summary>
+        public void setAnswer(string answerContent) 
+        {
+            TaskAnswer.Content = answerContent;
         }
     }
 }
