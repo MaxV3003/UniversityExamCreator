@@ -34,7 +34,7 @@ namespace UniversityExamCreator.Models
         {
             Username = name;
             UserID = ID;
-            Password = "";
+            Password = password;
         }
         /// <summary>
         /// To encrypt the password, so it cant be read out of the database.
