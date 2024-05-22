@@ -39,6 +39,19 @@ namespace UniversityExamCreator.Models
             //maybe hier noch der User -> entweder Professor = user; oder user noch extra hinzufügen
         }
 
+        /// <summary>
+        /// Constructor for a module with ProfessorName.
+        /// </summary>
+        public Module(string name, int identifire, string professor) 
+        {
+            ModuleName = name;
+            ModuleID = identifire;
+            Professor = professor;
+        }
+
+        /// <summary>
+        /// Function to add a Professor to the Module-Element after it was declared
+        /// </summary>
         public void addProfessor(string profName) 
         {
             Professor = profName;
