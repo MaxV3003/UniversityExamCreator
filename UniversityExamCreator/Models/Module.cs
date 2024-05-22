@@ -34,7 +34,14 @@ namespace UniversityExamCreator.Models
         {
             ModuleName = name;
             ModuleID = ID;
-            Professor = "";
+            Professor = string.Empty;
+
+            //maybe hier noch der User -> entweder Professor = user; oder user noch extra hinzufügen
+        }
+
+        public void addProfessor(string profName) 
+        {
+            Professor = profName;
         }
 
         /// <summary>
