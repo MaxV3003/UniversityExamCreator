@@ -24,6 +24,11 @@ namespace UniversityExamCreator.Models
         public Answer TaskAnswer { get; set; }
 
         /// <summary>
+        /// Liste, die die Themengebiete einer Aufgaben spiechern, zu denen man sie zuordnen kann.
+        /// </summary>
+        public List<String> Themengebiete { get; set; } 
+
+        /// <summary>
         /// Constructor for a task without an Answer. 
         /// </summary>
         public Task(string taskName, string taskContent) 

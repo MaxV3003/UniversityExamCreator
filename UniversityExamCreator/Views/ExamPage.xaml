@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="ExamPage" Height="450" Width="800">
     <Grid>
-        
+        <Button>
+            <Button Content="Button" Click="Button_Click"/>
+        </Button>
+
     </Grid>
 </Window>
