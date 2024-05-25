@@ -1,0 +1,21 @@
+﻿<Page x:Class="UniversityExamCreator.Views.ToolsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:UniversityExamCreator.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ToolsPage"
+      Background="White">
+
+    <Grid>
+        <Button Name="KlausurErstellen" Content="Klausur erstellen" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="165" Click="KlausurErstellen_Click"/>
+        <Button Name="AufgabeErstellen" Content="Aufgabe erstellen" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="165" Click="AufgabeErstellen_Click"/>
+        <Button Name="AufgabeLöschen" Content="Aufgabe löschen" HorizontalAlignment="Right" Height="100" VerticalAlignment="Top" Width="165" Click="AufgabeLöschen_Click"/>
+        <Button Name="ModulErstellen" Content="Modul erstellen" HorizontalAlignment="Left" Height="100" VerticalAlignment="Bottom" Width="165" Click="ModulErstellen_Click"/>
+        <Button Name="CommingSoon" Content="Comming soon" HorizontalAlignment="Center" Height="100" VerticalAlignment="Bottom" Width="165" Click="CommingSoon_Click"/>
+        <Button Name="CommingSoon2" Content="Comming soon" HorizontalAlignment="Right" Height="100" VerticalAlignment="Bottom" Width="165"/>
+        
+    </Grid>
+</Page>

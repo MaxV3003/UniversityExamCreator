@@ -23,6 +23,7 @@ namespace UniversityExamCreator
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame.Navigate(new ToolsPage());
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
