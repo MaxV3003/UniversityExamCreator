@@ -14,7 +14,7 @@
         <Button Name="AufgabeErstellen" Content="Aufgabe erstellen" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="165" Click="AufgabeErstellen_Click"/>
         <Button Name="AufgabeLöschen" Content="Aufgabe löschen" HorizontalAlignment="Right" Height="100" VerticalAlignment="Top" Width="165" Click="AufgabeLöschen_Click"/>
         <Button Name="ModulErstellen" Content="Modul erstellen" HorizontalAlignment="Left" Height="100" VerticalAlignment="Bottom" Width="165" Click="ModulErstellen_Click"/>
-        <Button Name="CommingSoon" Content="Comming soon" HorizontalAlignment="Center" Height="100" VerticalAlignment="Bottom" Width="165" Click="CommingSoon_Click"/>
+        <Button Name="CommingSoon" Content="Comming soon" HorizontalAlignment="Center" Height="100" VerticalAlignment="Bottom" Width="165"/>
         <Button Name="CommingSoon2" Content="Comming soon" HorizontalAlignment="Right" Height="100" VerticalAlignment="Bottom" Width="165"/>
         
     </Grid>
