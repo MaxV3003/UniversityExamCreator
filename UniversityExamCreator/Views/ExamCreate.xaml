@@ -10,8 +10,8 @@
       Background="White">
 
     <Grid>
-        <Button Content="Weiter" HorizontalAlignment="Left" Margin="624,383,0,0" VerticalAlignment="Top"/>
-        <Button Content="Zurück" HorizontalAlignment="Left" Margin="104,383,0,0" VerticalAlignment="Top"/>
+        <Button Content="Weiter" HorizontalAlignment="Left" Margin="624,383,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="Zurück" HorizontalAlignment="Left" Margin="104,383,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
         <TextBlock HorizontalAlignment="Center" Margin="0,96,0,0" TextWrapping="Wrap" Text="KlausurErstellen" VerticalAlignment="Top" FontSize="25"/>
 
     </Grid>

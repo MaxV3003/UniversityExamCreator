@@ -70,6 +70,9 @@
     <Compile Include="Views\ExamCreate.xaml.cs">
       <DependentUpon>ExamCreate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ExamPreview.xaml.cs">
+      <DependentUpon>ExamPreview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LogIn.xaml.cs">
       <DependentUpon>LogIn.xaml</DependentUpon>
     </Compile>
@@ -90,6 +93,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ExamCreate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExamPreview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

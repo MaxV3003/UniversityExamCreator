@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace UniversityExamCreator.Views
 {
     /// <summary>
-    /// Interaktionslogik für ExamConfig.xaml
+    /// Interaktionslogik für ExamPreview.xaml
     /// </summary>
-    public partial class ExamConfig : Page
+    public partial class ExamPreview : Page
     {
-        public ExamConfig()
+        public ExamPreview()
         {
             InitializeComponent();
         }
