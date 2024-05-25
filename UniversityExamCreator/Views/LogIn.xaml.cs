@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace UniversityExamCreator.Views
@@ -17,11 +18,16 @@ namespace UniversityExamCreator.Views
     /// <summary>
     /// Interaktionslogik für LogIn.xaml
     /// </summary>
-    public partial class LogIn : Window
+    public partial class LogIn : Page
     {
         public LogIn()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ToolsPage());
         }
     }
 }
