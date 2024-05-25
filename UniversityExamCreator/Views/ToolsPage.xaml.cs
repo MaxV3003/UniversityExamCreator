@@ -27,7 +27,7 @@ namespace UniversityExamCreator.Views
 
         private void KlausurErstellen_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new ExamConfig());
         }
 
         private void AufgabeErstellen_Click(object sender, RoutedEventArgs e)
