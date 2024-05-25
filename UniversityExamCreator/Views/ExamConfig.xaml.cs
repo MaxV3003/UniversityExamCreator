@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace UniversityExamCreator.Views
 {
     /// <summary>
-    /// Interaktionslogik für TaskPage.xaml
+    /// Interaktionslogik für ExamConfig.xaml
     /// </summary>
-    public partial class TaskPage : Window
+    public partial class ExamConfig : Page
     {
-        public TaskPage()
+        public ExamConfig()
         {
             InitializeComponent();
         }
