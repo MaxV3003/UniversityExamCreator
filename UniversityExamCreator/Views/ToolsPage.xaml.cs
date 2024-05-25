@@ -32,17 +32,17 @@ namespace UniversityExamCreator.Views
 
         private void AufgabeErstellen_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new TaskKonfig());
         }
 
         private void AufgabeLöschen_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new TaskDelete());
         }
 
         private void ModulErstellen_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new ModulCreate());
         }
     }
 }

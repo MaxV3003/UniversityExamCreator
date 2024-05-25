@@ -76,6 +76,21 @@
     <Compile Include="Views\LogIn.xaml.cs">
       <DependentUpon>LogIn.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ModulCreate.xaml.cs">
+      <DependentUpon>ModulCreate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TaskCreateMC.xaml.cs">
+      <DependentUpon>TaskCreateMC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TaskCreateOF.xaml.cs">
+      <DependentUpon>TaskCreateOF.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TaskDelete.xaml.cs">
+      <DependentUpon>TaskDelete.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TaskKonfig.xaml.cs">
+      <DependentUpon>TaskKonfig.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ToolsPage.xaml.cs">
       <DependentUpon>ToolsPage.xaml</DependentUpon>
     </Compile>
@@ -104,6 +119,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LogIn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ModulCreate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TaskCreateMC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TaskCreateOF.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TaskDelete.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TaskKonfig.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
