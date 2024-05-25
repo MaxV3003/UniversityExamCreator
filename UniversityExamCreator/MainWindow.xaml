@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Button Name="KlausurErstellen" Content="Klausur erstellen" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="165"/>
+        <Button Name="AufgabeErstellen" Content="Aufgabe erstellen" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="165"/>
+        <Button Name="AufgabeLöschen" Content="Aufgabe löschen" HorizontalAlignment="Right" Height="100" VerticalAlignment="Top" Width="165"/>
+        <Button Name="ModulErstellen" Content="Modul erstellen" HorizontalAlignment="Left" Height="100" VerticalAlignment="Bottom" Width="165"/>
+        <Button Name="CommingSoon" Content="Comming soon" HorizontalAlignment="Center" Height="100" VerticalAlignment="Bottom" Width="165"/>
+        <Button Name="CommingSoon2" Content="Comming soon" HorizontalAlignment="Right" Height="100" VerticalAlignment="Bottom" Width="165"/>
+
     </Grid>
 </Window>

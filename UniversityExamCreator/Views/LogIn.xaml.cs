@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace UniversityExamCreator.Views
 {
     /// <summary>
-    /// Interaktionslogik für test.xaml
+    /// Interaktionslogik für LogIn.xaml
     /// </summary>
-    public partial class test : Window
+    public partial class LogIn : Window
     {
-        public test()
+        public LogIn()
         {
             InitializeComponent();
         }

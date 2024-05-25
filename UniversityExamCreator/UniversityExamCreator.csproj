@@ -76,8 +76,8 @@
     <Compile Include="Views\ExamTaskPage.xaml.cs">
       <DependentUpon>ExamTaskPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\test.xaml.cs">
-      <DependentUpon>test.xaml</DependentUpon>
+    <Compile Include="Views\LogIn.xaml.cs">
+      <DependentUpon>LogIn.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -107,7 +107,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\test.xaml">
+    <Page Include="Views\LogIn.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

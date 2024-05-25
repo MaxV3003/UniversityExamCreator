@@ -1,12 +1,14 @@
-﻿<Window x:Class="UniversityExamCreator.Views.test"
+﻿<Window x:Class="UniversityExamCreator.Views.LogIn"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UniversityExamCreator.Views"
         mc:Ignorable="d"
-        Title="test" Height="450" Width="800">
+        Title="LogIn" Height="450" Width="800">
     <Grid>
-        
+        <TextBlock Text="Exam Creator" FontSize="60" FontWeight="UltraBold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button Content="Weiter" FontSize="40" HorizontalAlignment="Center" Height="80" VerticalAlignment="Bottom" Width="240"/>
+
     </Grid>
 </Window>
