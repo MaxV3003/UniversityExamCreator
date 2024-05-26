@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace UniversityExamCreator.Views
 {
@@ -20,7 +10,12 @@ namespace UniversityExamCreator.Views
     /// </summary>
     public partial class ExamConfig : Page
     {
-        string SelectedItem=string.Empty; 
+        //The Item which was selected in the Module-DD.
+        string SelectedItem=string.Empty;
+
+        //The Item which was selected from ExamType.
+        private RadioButton SelectedRadioButton;
+
 
         public ExamConfig()
         {
@@ -35,6 +30,8 @@ namespace UniversityExamCreator.Views
              * List<string> Items = getDropDownItems();
              */
 
+            //Checkboxen
+            
         }
 
         /// <summary>
@@ -61,16 +58,42 @@ namespace UniversityExamCreator.Views
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectedItem= Module.SelectedItem.ToString();
-            ProcessSelectedItem();
+            //ProcessSelectedItem();
         }
 
         /// <summary>
         /// Testfunktion, ob das richtige Item ausgegeben und gespeichert wird. 
         /// </summary>
-        private void ProcessSelectedItem()
+        /*private void ProcessSelectedItem()
         {
             MessageBox.Show("Ausgewähltes Item für interne Speicherung: " + SelectedItem);
         }
+        */
+
+        /// <summary>
+        /// 3 Radiobuttons to check which Type of Exam it should be. 
+        /// </summary>
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            if (sender is RadioButton checkedRadioButton)
+            {
+                // Den neuen ausgewählten RadioButton speichern
+                SelectedRadioButton = checkedRadioButton;
+            }
+            //ProcessSelectedRadioButton();
+        }
+
+        /// <summary>
+        /// Testfunktion, ob der richtige Radiobutton übergeben wird.
+        /// </summary>
+        /*private void ProcessSelectedRadioButton()
+        {
+            MessageBox.Show("Ausgewählter RadioButton: " + SelectedRadioButton.Content.ToString());
+        }
+        */
+
+
+
 
         /// <summary>
         /// List for DropDown-Items for the ModuleDropDown. 
@@ -81,4 +104,6 @@ namespace UniversityExamCreator.Views
             //add DB-Funcion heare. 
         }*/
     }
+
+  
 }
