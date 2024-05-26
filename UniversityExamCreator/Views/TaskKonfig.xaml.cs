@@ -23,6 +23,27 @@ namespace UniversityExamCreator.Views
         public TaskKonfig()
         {
             InitializeComponent();
+            InitializeDD();
+        }
+        /// <summary>
+        /// Die Klasse StringPair erstellt ein Objekt bestehend aus zwei Strings
+        /// Diese werden gebraucht um der Liste die dem Service übergeben wird immer dem Content und den dazu passenden Namen zu schicken.
+        /// </summary>
+        public class StringPair
+        {
+            public string Name { get; set; }
+            public string Content { get; set; }
+
+            public StringPair(string name, string content)
+            {
+                Name = name;
+                Content = content;
+            }
+
+            public override string ToString()
+            {
+                return Name + ", " + Content;
+            }
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -32,8 +53,113 @@ namespace UniversityExamCreator.Views
 
         private void Next_Click(object sender, RoutedEventArgs e)
         {
+            CreateList();
             NextPath();
         }
+        /// <summary>
+        /// Erzeugt die Dropdown Optionen.
+        /// </summary>
+        private void InitializeDD()
+        {
+            ModulDD.Items.Add("Einfinf");
+            ModulDD.Items.Add("Mathe 1");
+            ModulDD.Items.Add("Mathe 2");
+
+            MCCountDD.Items.Add("1");
+            MCCountDD.Items.Add("2");
+            MCCountDD.Items.Add("3");
+
+            DifficultyDD.Items.Add("Einfinf");
+            DifficultyDD.Items.Add("Einfinf");
+            DifficultyDD.Items.Add("Einfinf");
+
+        }
+
+        /// <summary>
+        /// Die Methode CreateList erstellt je nach dem, ob eine MC oder eine OF Aufgabe erstellt wird eine Liste mit StringPairs
+        /// </summary>
+        /// <returns></returns>
+        private List<StringPair> CreateList()
+        {
+            List<StringPair> contentList = new List<StringPair>();
+
+            ComboBoxItem selectedItem = (ComboBoxItem)MCDD.SelectedItem;
+            string selectedText = selectedItem.Content.ToString();
+
+            if (selectedText == "Multiple Choice")
+            {
+                return CreateListMC(contentList);
+            }
+            else
+            {
+                return CreateListOF(contentList);
+            }
+
+
+        }
+        /// <summary>
+        /// Die Methode CreateListMC erstellt die eigentliche StringPiar Liste mit den Eingaben die für MC gebraucht werden.
+        /// </summary>
+        /// <param name="contentListMC"></param>
+        /// <returns></returns>
+        private List<StringPair> CreateListMC(List<StringPair> contentListMC)
+        {
+            string selectedModulText = ModulDD.SelectedItem.ToString();
+            StringPair modul = new StringPair("Modul", selectedModulText);
+
+            StringPair theme = new StringPair("Theme", ThemeText.Text);
+
+            string selectedMCCountText = MCCountDD.SelectedItem.ToString();
+            StringPair mcCount = new StringPair("MCCOunt", selectedMCCountText);
+
+            StringPair mcRules = new StringPair("MCRules", MCRulesText.Text);
+
+            string selectedDifficultyText = DifficultyDD.SelectedItem.ToString();
+            StringPair difficulty = new StringPair("Difficulty", selectedDifficultyText);
+
+            StringPair points = new StringPair("Points", PointsText.Text);
+
+            StringPair title = new StringPair("Title", TitleText.Text);
+
+            contentListMC.Add(modul);
+            contentListMC.Add(theme);
+            contentListMC.Add(mcCount);
+            contentListMC.Add(mcRules);
+            contentListMC.Add(difficulty);
+            contentListMC.Add(points);
+            contentListMC.Add(title);
+
+            return contentListMC;
+        }
+        /// <summary>
+        /// Die Methode CreateListOF erstellt die eigentliche StringPiar Liste mit den Eingaben die für OF gebraucht werden.
+        /// </summary>
+        /// <param name="contentListOF"></param>
+        /// <returns></returns>
+        private List<StringPair> CreateListOF(List<StringPair> contentListOF)
+        {
+            string selectedModulText = ModulDD.SelectedItem.ToString();
+            StringPair modul = new StringPair("Modul", selectedModulText);
+
+            StringPair theme = new StringPair("Theme", ThemeText.Text);
+
+            string selectedDifficultyText = DifficultyDD.SelectedItem.ToString();
+            StringPair difficulty = new StringPair("Difficulty", selectedDifficultyText);
+
+            StringPair points = new StringPair("Points", PointsText.Text);
+
+            StringPair title = new StringPair("Title", TitleText.Text);
+
+            contentListOF.Add(modul);
+            contentListOF.Add(theme);
+            contentListOF.Add(difficulty);
+            contentListOF.Add(points);
+            contentListOF.Add(title);
+
+            return contentListOF;
+        }
+
+
         /// <summary>
         /// NextPath entscheidet auf welche WPF-Seite der User als nächstes kommt, basierend auf den Eingaben auf der aktuellen Seite.
         /// </summary>
@@ -54,18 +180,13 @@ namespace UniversityExamCreator.Views
             return "";
         }
         
-        private void AddToList (List contentList,string name, string content)
-        {
-
-        }
 
         /// <summary>
         /// greift aud den eigegebenen Text zu.
         /// </summary>
         private void Text()
         {
-            string a = ThemeText.Text;
-            MessageBox.Show(a);
+            CreateList();
         }
         /// <summary>
         /// ZUm testen neuer Funktionen
@@ -74,7 +195,20 @@ namespace UniversityExamCreator.Views
         /// <param name="e"></param>
         private void Test_Click(object sender, RoutedEventArgs e)
         {
-            Text();
+            //string[] test = new string[5];
+            string test = "";
+            for (int i = 0; i < CreateList().Count;  i++)
+            {
+                test = test + CreateList()[i].ToString();
+            }
+            MessageBox.Show(test);
+            /*string testString = "";
+            for (int j = 0; j < 5; j++)
+            {
+                testString = testString + test[j];
+            }*/
+
+            //Text();
         }
 
         /// <summary>
@@ -84,7 +218,10 @@ namespace UniversityExamCreator.Views
         /// <param name="e"></param>
         private void MCDD_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (MCDD.Text == "Offene Frage")
+            ComboBoxItem selectedItem = (ComboBoxItem)MCDD.SelectedItem;
+            string selectedText = selectedItem.Content.ToString();
+
+            if (selectedText == "Multiple Choice")
             {
                 MCCountDD.IsEnabled = true;
                 MCRulesText.IsEnabled = true;
