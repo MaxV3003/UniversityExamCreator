@@ -20,19 +20,65 @@ namespace UniversityExamCreator.Views
     /// </summary>
     public partial class ExamConfig : Page
     {
+        string SelectedItem=string.Empty; 
+
         public ExamConfig()
         {
             InitializeComponent();
+
+            //ComboBox-Content
+            Module.Items.Add("EinfInf");
+            Module.Items.Add("Mathe3");
+            Module.Items.Add("AuD");
+            /*
+             * Implement the Function to get the Items from the list
+             * List<string> Items = getDropDownItems();
+             */
+
         }
 
+        /// <summary>
+        /// Button to get on the next Page. 
+        /// </summary>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            //hier muss noch das ConfigItem erstellt werden. 
+
             NavigationService.Navigate(new ExamCreate());
         }
 
+        /// <summary>
+        /// Button to get to the last Page. 
+        /// </summary>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new ToolsPage());
+            NavigationService.Navigate(new ToolsPage());  
         }
+
+        /// <summary>
+        /// Dropdown-Menu to select the Module. 
+        /// </summary>
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SelectedItem= Module.SelectedItem.ToString();
+            ProcessSelectedItem();
+        }
+
+        /// <summary>
+        /// Testfunktion, ob das richtige Item ausgegeben und gespeichert wird. 
+        /// </summary>
+        private void ProcessSelectedItem()
+        {
+            MessageBox.Show("Ausgewähltes Item für interne Speicherung: " + SelectedItem);
+        }
+
+        /// <summary>
+        /// List for DropDown-Items for the ModuleDropDown. 
+        /// </summary>
+        /// <returns></returns>
+        /*private List<string> getDropDownItems()
+        {
+            //add DB-Funcion heare. 
+        }*/
     }
 }
