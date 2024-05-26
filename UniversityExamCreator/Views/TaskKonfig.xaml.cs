@@ -39,13 +39,60 @@ namespace UniversityExamCreator.Views
         /// </summary>
         private void NextPath()
         {
-            if (MC.IsChecked == true)
+            if (MCDD.Text == "Multiple Choice")
             {
                 NavigationService.Navigate(new TaskCreateMC());
             }
             else
             {
                 NavigationService.Navigate(new TaskCreateOF());
+            }
+        }
+
+        private string CheckEerythingFilled()
+        {
+            return "";
+        }
+        
+        private void AddToList (List contentList,string name, string content)
+        {
+
+        }
+
+        /// <summary>
+        /// greift aud den eigegebenen Text zu.
+        /// </summary>
+        private void Text()
+        {
+            string a = ThemeText.Text;
+            MessageBox.Show(a);
+        }
+        /// <summary>
+        /// ZUm testen neuer Funktionen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Test_Click(object sender, RoutedEventArgs e)
+        {
+            Text();
+        }
+
+        /// <summary>
+        /// Die Felder MCCCountDD und MCRulesText werden erst benutzbar gemacht, wenn Multiple Choice als Art der Klausur ausgewählt wurde.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MCDD_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (MCDD.Text == "Offene Frage")
+            {
+                MCCountDD.IsEnabled = true;
+                MCRulesText.IsEnabled = true;
+            }
+            else
+            {
+                MCCountDD.IsEnabled = false;
+                MCRulesText.IsEnabled = false;
             }
         }
     }
