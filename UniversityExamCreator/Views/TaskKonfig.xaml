@@ -11,8 +11,8 @@
 
     <Grid>
         <Button Name="Back" Content="zurück" HorizontalAlignment="Left" Height="90" Margin="30,325,0,0" VerticalAlignment="Top" Width="165" Click="Back_Click"/>
-        <Button Name="OF" Content="Offene Frage" HorizontalAlignment="Left" Height="75" Margin="620,340,0,0" VerticalAlignment="Top" Width="150" Click="OF_Click"/>
-        <Button Name="MC" Content="Multiple Choice" HorizontalAlignment="Left" Height="75" Margin="430,340,0,0" VerticalAlignment="Top" Width="160" Click="MC_Click"/>
+        <Button Name="Next" Content="Weiter" HorizontalAlignment="Left" Height="75" Margin="620,340,0,0" VerticalAlignment="Top" Width="150" Click="Next_Click"/>
+        <CheckBox Name="MC" Content="Multiple Choice" HorizontalAlignment="Left" Margin="77,95,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>

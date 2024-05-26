@@ -30,14 +30,23 @@ namespace UniversityExamCreator.Views
             NavigationService.Navigate(new ToolsPage());
         }
 
-        private void MC_Click(object sender, RoutedEventArgs e)
+        private void Next_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new TaskCreateMC());
+            NextPath();
         }
-
-        private void OF_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// NextPath entscheidet auf welche WPF-Seite der User als nächstes kommt, basierend auf den Eingaben auf der aktuellen Seite.
+        /// </summary>
+        private void NextPath()
         {
-            NavigationService.Navigate(new TaskCreateOF());
+            if (MC.IsChecked == true)
+            {
+                NavigationService.Navigate(new TaskCreateMC());
+            }
+            else
+            {
+                NavigationService.Navigate(new TaskCreateOF());
+            }
         }
     }
 }
