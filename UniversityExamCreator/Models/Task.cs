@@ -29,6 +29,16 @@ namespace UniversityExamCreator.Models
         public List<String> Themengebiete { get; set; } 
 
         /// <summary>
+        /// Points for a Task.
+        /// </summary>
+        public int Points { get; set; }
+
+        /// <summary>
+        /// Difficulty-Indicator for the Task. 
+        /// </summary>
+        public string Difficulty { get; set; }
+
+        /// <summary>
         /// Constructor for a task without an Answer. 
         /// </summary>
         public Task(string taskName, string taskContent) 
@@ -36,18 +46,22 @@ namespace UniversityExamCreator.Models
             TaskName = taskName;
             TaskContent = taskContent;
             TaskAnswer = new Answer(taskName,string.Empty);
+            Points = 0;
+            Difficulty = string.Empty;
         }
 
         /// <summary>
         /// Constructor for a task with an Answer. 
         /// </summary>
-        public Task(string taskName, string taskContent, String answerContent) 
+        public Task(string taskName, string taskContent, string answerContent) 
         {
             TaskName = taskName;
             TaskContent = taskContent;
             TaskAnswer = new Answer(taskName, answerContent);
+            Points = 0;
+            Difficulty = string.Empty;
         }
-
+                
         /// <summary>
         /// Methode to get a String of the Name of the Task.
         /// </summary>
@@ -81,6 +95,16 @@ namespace UniversityExamCreator.Models
         public void setAnswer(string answerContent) 
         {
             TaskAnswer.Content = answerContent;
+        }
+
+        public void addPoints(int points)
+        {
+            Points = points;
+        }
+
+        public void addDifficulty(string difficulty)
+        {
+            Difficulty = difficulty;
         }
     }
 }
