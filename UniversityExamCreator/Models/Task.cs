@@ -51,7 +51,7 @@ namespace UniversityExamCreator.Models
         /// <summary>
         /// List of MC-Answers (Multiple Choice) for a Task which belongs to the Type: MC.
         /// </summary>
-        public List<string> MCAnswers { get; set; }
+        public List<MCAnswer> MCAnswers { get; set; }
 
         /// <summary>
         /// Constructor for a TaskItem.
@@ -66,7 +66,7 @@ namespace UniversityExamCreator.Models
             TaskName = taskName;
             TaskContent = string.Empty;
             TaskAnswer = new Answer(taskName, string.Empty);
-            MCAnswers = new List<string>();
+            MCAnswers = new List<MCAnswer>();
         }
                 
         /// <summary>
@@ -115,9 +115,13 @@ namespace UniversityExamCreator.Models
         /// <summary>
         /// Methode to add MC-Answers for the MC-Task.
         /// </summary>
-        public void setMCAnswer(string mcAnswer)
+        public void setMCAnswer(string mcAnswerContent, int mcID, int mcFlag)
         {
-            MCAnswers.Add(mcAnswer);
+            if (mcID < 9)
+            {
+                MCAnswer answer = new MCAnswer(TaskName, mcAnswerContent, mcID, mcFlag);
+                MCAnswers.Add(answer);
+            }
         }
     }
 }

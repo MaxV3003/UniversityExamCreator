@@ -56,6 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Examconfig.cs" />
+    <Compile Include="Models\MCAnswer.cs" />
     <Compile Include="Models\Module.cs" />
     <Compile Include="Models\Taskgroupe.cs" />
     <Compile Include="Services\DataService.cs" />
