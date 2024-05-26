@@ -24,9 +24,14 @@ namespace UniversityExamCreator.Models
         public Answer TaskAnswer { get; set; }
 
         /// <summary>
-        /// Liste, die die Themengebiete einer Aufgaben spiechern, zu denen man sie zuordnen kann.
+        /// Module to which the Task belongs. 
         /// </summary>
-        public List<String> Themengebiete { get; set; } 
+        public string Module {  get; set; }
+
+        /// <summary>
+        /// List of the Topic of the Answer.
+        /// </summary>
+        public string Topic { get; set; } 
 
         /// <summary>
         /// Points for a Task.
@@ -39,27 +44,29 @@ namespace UniversityExamCreator.Models
         public string Difficulty { get; set; }
 
         /// <summary>
-        /// Constructor for a task without an Answer. 
+        /// Type of the Task. 
         /// </summary>
-        public Task(string taskName, string taskContent) 
-        {
-            TaskName = taskName;
-            TaskContent = taskContent;
-            TaskAnswer = new Answer(taskName,string.Empty);
-            Points = 0;
-            Difficulty = string.Empty;
-        }
+        public string TaskType { get; set; }
 
         /// <summary>
-        /// Constructor for a task with an Answer. 
+        /// List of MC-Answers (Multiple Choice) for a Task which belongs to the Type: MC.
         /// </summary>
-        public Task(string taskName, string taskContent, string answerContent) 
+        public List<string> MCAnswers { get; set; }
+
+        /// <summary>
+        /// Constructor for a TaskItem.
+        /// </summary>
+        public Task (string module, string topic, string taskType, string difficulty, int points, string taskName)
         {
+            Module = module;
+            Topic = topic;  
+            TaskType = taskType;
+            Difficulty = difficulty;
+            Points = points;
             TaskName = taskName;
-            TaskContent = taskContent;
-            TaskAnswer = new Answer(taskName, answerContent);
-            Points = 0;
-            Difficulty = string.Empty;
+            TaskContent = string.Empty;
+            TaskAnswer = new Answer(taskName, string.Empty);
+            MCAnswers = new List<string>();
         }
                 
         /// <summary>
@@ -92,19 +99,25 @@ namespace UniversityExamCreator.Models
         /// <summary>
         /// Methode to set the Content of an AnswerItem. 
         /// </summary>
-        public void setAnswer(string answerContent) 
+        public void setTaskAnswer(string answerContent) 
         {
             TaskAnswer.Content = answerContent;
         }
 
-        public void addPoints(int points)
+        /// <summary>
+        /// Methode to set the Content of the Task.
+        /// </summary>
+        public void setTaskContent(string content) 
         {
-            Points = points;
+            TaskContent = content;
         }
 
-        public void addDifficulty(string difficulty)
+        /// <summary>
+        /// Methode to add MC-Answers for the MC-Task.
+        /// </summary>
+        public void setMCAnswer(string mcAnswer)
         {
-            Difficulty = difficulty;
+            MCAnswers.Add(mcAnswer);
         }
     }
 }
