@@ -22,6 +22,9 @@ namespace UniversityExamCreator.Models
         /// </summary>
         public string UserID { get; set; }
 
+        /// <summary>
+        /// The Module the Exam belongs to.
+        /// </summary>
         public string Module {  get; set; }
 
         /// <summary>
