@@ -22,6 +22,8 @@ namespace UniversityExamCreator.Models
         /// </summary>
         public string UserID { get; set; }
 
+        public string Module {  get; set; }
+
         /// <summary>
         /// List of GoupeItems. An Exam contains one or more GoupeItems
         /// </summary>
@@ -34,10 +36,11 @@ namespace UniversityExamCreator.Models
         /// Constructor for an Exam. 
         /// It contains the specific Name and a List of GroupeItems which contains the Tasks for the exam. 
         /// </summary>
-        public Exam(string name, string userID)
+        public Exam(string name, string userID, string module)
         {
             Identifire = name;
             UserID = userID;
+            Module = module;
             TaskGroups = new List<Taskgroupe>();
             Task = new List<Task>();
         }

@@ -19,6 +19,11 @@ namespace UniversityExamCreator.Models
         public string ModuleID {  get; set; }
 
         /// <summary>
+        /// ExamName. 
+        /// </summary>
+        public string ExamName { get; set; }
+
+        /// <summary>
         /// Typ of the Exam. "Einheitliche Form" or "Mischform".
         /// </summary>
         public string ExamTyp { get; set; }
@@ -41,9 +46,10 @@ namespace UniversityExamCreator.Models
         /// <summary>
         /// Constructor for an Examconfig-Element.
         /// </summary>
-        public Examconfig(string examName, string moduleID, string examTyp) 
+        public Examconfig(string configName, string examName, string moduleID, string examTyp) 
         {
-            ConfigName = examName;
+            ConfigName = configName;
+            ExamName = examName;
             ModuleID = moduleID;
             ExamTyp = examTyp;
             TaskAmount = 0;
