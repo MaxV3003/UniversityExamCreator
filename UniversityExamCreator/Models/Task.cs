@@ -115,7 +115,7 @@ namespace UniversityExamCreator.Models
         /// <summary>
         /// Methode to add MC-Answers for the MC-Task.
         /// </summary>
-        public void setMCAnswer(string mcAnswerContent, int mcID, int mcFlag)
+        public void addMCAnswer(string mcAnswerContent, int mcID, int mcFlag)
         {
             if (mcID < 9)
             {
