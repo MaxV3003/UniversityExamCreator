@@ -26,7 +26,7 @@ namespace UniversityExamCreator.Models
         /// <summary>
         /// Typ of the Exam. "Einheitliche Form" or "Mischform".
         /// </summary>
-        public string ExamTyp { get; set; }
+        public string ExamType { get; set; }
 
         /// <summary>
         /// Amount of Tasks which should be included in the Exam.
@@ -51,7 +51,7 @@ namespace UniversityExamCreator.Models
             ConfigName = configName;
             ExamName = examName;
             ModuleID = moduleID;
-            ExamTyp = examTyp;
+            ExamType = examTyp;
             TaskAmount = 0;
             PointAmount = 0;
             TaskGroups = new List<Taskgroupe>();

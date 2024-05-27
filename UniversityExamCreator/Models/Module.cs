@@ -28,8 +28,6 @@ namespace UniversityExamCreator.Models
         /// Constructor for a module
         /// Contains the name of the professor in charge
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="ID"></param>
         public Module(string name, int ID)
         {
             ModuleName = name;
@@ -60,9 +58,6 @@ namespace UniversityExamCreator.Models
         /// <summary>
         /// Function to add the module to the database.
         /// </summary>
-        /// <param name="modulename"></param>
-        /// <param name="moduleID"></param>
-        /// <param name="professor"></param>
         public void AddToDB (string modulename, int moduleID, string professor)
         {
             // SQL Code

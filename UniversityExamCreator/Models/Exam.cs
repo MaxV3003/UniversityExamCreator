@@ -51,9 +51,18 @@ namespace UniversityExamCreator.Models
         /// <summary>
         /// Method to add a group to the GroupeList.
         /// </summary>
-        public void AddGroup(Taskgroupe group)
+        public void addGroup(Taskgroupe group)
         {
             TaskGroups.Add(group);
+        }
+
+        /// <summary>
+        /// Methode to add a task to the TaskList.
+        /// </summary>
+        /// <param name="task"></param>
+        public void addTask(Task task) 
+        {
+            Task.Add(task);
         }
 
         /// <summary>

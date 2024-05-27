@@ -35,5 +35,10 @@ namespace UniversityExamCreator.Models
             ID = identifire;
             AnswerFlag = answerFlag;
         }
+
+        public void getTaskName(Task task) 
+        {
+            Name = task.TaskName;
+        }
     }
 }

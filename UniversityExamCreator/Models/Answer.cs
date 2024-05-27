@@ -19,13 +19,11 @@ namespace UniversityExamCreator.Models
         }
 
         /// <summary>
-        /// Methode to get the Properties of a Task-Item.
+        /// Methode to get the Name of a Task-Item.
         /// </summary>
-        /// <param name="task">Specific Task to extract from.</param>
-        public void extract(Task task) 
+        public void getTaskName(Task task) 
         {
             Name = task.getName();
-            Content = task.getContent();
         }
     }
 }

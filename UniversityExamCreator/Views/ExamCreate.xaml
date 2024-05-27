@@ -29,7 +29,6 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="100" />
                                 <!-- Adjust as necessary -->
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>

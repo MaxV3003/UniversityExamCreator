@@ -27,9 +27,6 @@ namespace UniversityExamCreator.Models
         /// <summary>
         /// Constructor for a User.
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="ID"></param>
-        /// <param name="password"></param>
         public User(string name, int ID, string password)
         {
             Username = name;
@@ -39,7 +36,6 @@ namespace UniversityExamCreator.Models
         /// <summary>
         /// To encrypt the password, so it cant be read out of the database.
         /// </summary>
-        /// <param name="password"></param>
         public void encrypt (string password) 
         {
             //encryption with an text we have to choose (forgot the name oft it)
