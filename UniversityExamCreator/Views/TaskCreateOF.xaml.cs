@@ -32,8 +32,57 @@ namespace UniversityExamCreator.Views
         private void Create_Click(object sender, RoutedEventArgs e)
         {
 
+
+            if (CheckFilled() == true)
+            {
+                PreparedContent(); // bekommt String Array wieder mit Index 0 = Content und Index 1 = Answer.
+
+                int n = 0;
+                if (n == 0)
+                {
+                    MessageBox.Show("Aufgabe wurde gespeichert.");
+                }
+                else
+                {
+                    MessageBox.Show("Aufgabe konnte nicht gespeichert werden. Bitte Angaben überprüfen.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Bitte geben Sie eine Fragestellung ein.");
+
+            }
+
+
         }
+        /// <summary>
+        /// Solle den eingegebenen Content in ein String Array packen.
+        /// </summary>
+        /// <returns></returns>
+        private string[] PreparedContent()
+        {
+            string[] content = new string[2];
 
-
+            content[0] = ContentText.Text;
+            content[1] = AnswerText.Text;
+            return content;
+        }
+        /// <summary>
+        /// Checkt ob alle Pflichfelder gefüllt worden sind.
+        /// </summary>
+        /// <returns></returns>
+        private Boolean CheckFilled()
+        {
+            if (ContentText.Text !=  "")
+            {
+                return true;
+            }
+            else
+            {
+                ContentText.BorderBrush = Brushes.Red;
+                ContentText.BorderThickness = new Thickness(2);
+                return false;
+            }
+        }
     }
 }

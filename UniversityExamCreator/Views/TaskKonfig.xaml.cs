@@ -221,12 +221,12 @@ namespace UniversityExamCreator.Views
 
             //Text();
         }
-
-        private Boolean CheckFilled()
+        /// <summary>
+        /// Checkt, ob alle Pflichfelder befüllt wurden und markiert alle rot, die nicht befüllt wurden.
+        /// </summary>
+        /// <returns></returns>
+        private Boolean CheckFilled()// Kann man noch besser schreiben, sodass alle fehlenden Felder direkt markiert werden.
         {
-            //string selectedModulText = ModulDD.SelectedItem.ToString();
-            //string selectedMCCountText = MCCountDD.SelectedItem.ToString();
-            //string selectedDifficultyText = DifficultyDD.SelectedItem.ToString();
             string selectedText = MCDD.SelectedItem.ToString();
 
             if (selectedText == "Multiple Choice")

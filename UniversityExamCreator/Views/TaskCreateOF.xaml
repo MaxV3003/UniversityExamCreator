@@ -10,8 +10,15 @@
       Background="White">
 
     <Grid>
+        <TextBlock Name="Content" HorizontalAlignment="Left" Height="20" Margin="50,25,0,0" TextWrapping="Wrap" 
+                   Text="Fragestellung für die offene Frage:" VerticalAlignment="Top" Width="645"/>
+        <TextBox Name="ContentText" HorizontalAlignment="Left" Height="100" Margin="50,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="695" 
+                 AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+        <TextBlock Name="Answer" HorizontalAlignment="Left" Height="20" Margin="50,190,0,0" TextWrapping="Wrap" 
+                   Text="Musterantwort für die offene Frage:            (Keine Pflichangabe)" VerticalAlignment="Top" Width="645"/>
+        <TextBox Name="AnswerText" HorizontalAlignment="Left" Height="100" Margin="50,225,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="695" 
+                 AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
         <Button Name="Back" Content="Zurück" HorizontalAlignment="Left" Height="60" Margin="70,345,0,0" VerticalAlignment="Top" Width="130" Click="Back_Click"/>
         <Button Name="Create" Content="erstellen" HorizontalAlignment="Left" Height="60" Margin="620,345,0,0" VerticalAlignment="Top" Width="125" Click="Create_Click"/>
-
     </Grid>
 </Page>
