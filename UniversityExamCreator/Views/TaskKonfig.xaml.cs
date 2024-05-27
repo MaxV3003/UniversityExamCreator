@@ -53,8 +53,16 @@ namespace UniversityExamCreator.Views
 
         private void Next_Click(object sender, RoutedEventArgs e)
         {
-            CreateList();
-            NextPath();
+            if (CheckFilled() == true)
+            {
+                CreateList();
+                NextPath();
+            }
+            else
+            {
+                MessageBox.Show("Bitte alle Felder füllen");
+                
+            }
         }
         /// <summary>
         /// Erzeugt die Dropdown Optionen.
@@ -65,13 +73,17 @@ namespace UniversityExamCreator.Views
             ModulDD.Items.Add("Mathe 1");
             ModulDD.Items.Add("Mathe 2");
 
+            MCDD.Items.Add("Multiple Choice");
+            MCDD.Items.Add("Offene Frage");
+            MCDD.SelectedIndex = 1;
+
             MCCountDD.Items.Add("1");
             MCCountDD.Items.Add("2");
             MCCountDD.Items.Add("3");
 
-            DifficultyDD.Items.Add("Einfinf");
-            DifficultyDD.Items.Add("Einfinf");
-            DifficultyDD.Items.Add("Einfinf");
+            DifficultyDD.Items.Add("Leicht");
+            DifficultyDD.Items.Add("Mittel");
+            DifficultyDD.Items.Add("Schwer");
 
         }
 
@@ -83,8 +95,7 @@ namespace UniversityExamCreator.Views
         {
             List<StringPair> contentList = new List<StringPair>();
 
-            ComboBoxItem selectedItem = (ComboBoxItem)MCDD.SelectedItem;
-            string selectedText = selectedItem.Content.ToString();
+            string selectedText = MCDD.SelectedItem.ToString();
 
             if (selectedText == "Multiple Choice")
             {
@@ -211,6 +222,101 @@ namespace UniversityExamCreator.Views
             //Text();
         }
 
+        private Boolean CheckFilled()
+        {
+            //string selectedModulText = ModulDD.SelectedItem.ToString();
+            //string selectedMCCountText = MCCountDD.SelectedItem.ToString();
+            //string selectedDifficultyText = DifficultyDD.SelectedItem.ToString();
+            string selectedText = MCDD.SelectedItem.ToString();
+
+            if (selectedText == "Multiple Choice")
+            {
+                if (ModulDD.SelectedItem == null)
+                {
+                    ModulDD.BorderBrush = Brushes.Red;
+                    ModulDD.BorderThickness = new Thickness(2);
+                    return false;
+                }
+                else if(MCCountDD.SelectedItem == null)
+                {
+                    MCCountDD.BorderBrush = Brushes.Red;
+                    MCCountDD.BorderThickness = new Thickness(2);
+                    return false;
+                }
+                else if (DifficultyDD.SelectedItem == null)
+                {
+                    DifficultyDD.BorderBrush = Brushes.Red;
+                    DifficultyDD.BorderThickness = new Thickness(2);
+                    return false;
+                }
+                else if (ThemeText.Text =="")
+                {
+                    ThemeText.BorderBrush = Brushes.Red;
+                    ThemeText.BorderThickness = new Thickness(2);
+                    return false;
+                }
+                else if (MCRulesText.Text == "")
+                {
+                    MCRulesText.BorderBrush = Brushes.Red;
+                    MCRulesText.BorderThickness = new Thickness(2);
+                    return false;
+                }
+                else if (PointsText.Text == "")
+                {
+                    PointsText.BorderBrush = Brushes.Red;
+                    PointsText.BorderThickness = new Thickness(2);
+                    return false;
+                }
+                else if (TitleText.Text == "")
+                {
+                    TitleText.BorderBrush = Brushes.Red;
+                    TitleText.BorderThickness = new Thickness(2);
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                if (ModulDD.SelectedItem == null)
+                {
+                    ModulDD.BorderBrush = Brushes.Red;
+                    ModulDD.BorderThickness = new Thickness(2);
+                    return false;
+                }
+                else if (DifficultyDD.SelectedItem == null)
+                {
+                    DifficultyDD.BorderBrush = Brushes.Red;
+                    DifficultyDD.BorderThickness = new Thickness(2);
+                    return false;
+                }
+                else if (ThemeText.Text == "")
+                {
+                    ThemeText.BorderBrush = Brushes.Red;
+                    ThemeText.BorderThickness = new Thickness(2);
+                    return false;
+                }
+                else if (PointsText.Text == "")
+                {
+                    PointsText.BorderBrush = Brushes.Red;
+                    PointsText.BorderThickness = new Thickness(2);
+                    return false;
+                }
+                else if (TitleText.Text == "")
+                {
+                    TitleText.BorderBrush = Brushes.Red;
+                    TitleText.BorderThickness = new Thickness(2);
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
         /// <summary>
         /// Die Felder MCCCountDD und MCRulesText werden erst benutzbar gemacht, wenn Multiple Choice als Art der Klausur ausgewählt wurde.
         /// </summary>
@@ -218,8 +324,7 @@ namespace UniversityExamCreator.Views
         /// <param name="e"></param>
         private void MCDD_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComboBoxItem selectedItem = (ComboBoxItem)MCDD.SelectedItem;
-            string selectedText = selectedItem.Content.ToString();
+            string selectedText = MCDD.SelectedItem.ToString();
 
             if (selectedText == "Multiple Choice")
             {

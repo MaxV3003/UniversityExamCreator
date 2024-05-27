@@ -19,10 +19,7 @@
 
         <TextBlock Name="QuestionMC" Text="Art der Frage"  HorizontalAlignment="Left" Height="20" Margin="53,106,0,0"
                    TextWrapping="Wrap" VerticalAlignment="Top" Width="91"/>
-        <ComboBox Name="MCDD" HorizontalAlignment="Left" Margin="180,106,0,0" VerticalAlignment="Top" Width="145" Height="20" SelectionChanged="MCDD_SelectionChanged">
-            <ComboBoxItem Content="Multiple Choice" />
-            <ComboBoxItem Content="Offene Frage" />
-        </ComboBox>
+        <ComboBox Name="MCDD" HorizontalAlignment="Left" Margin="180,106,0,0" VerticalAlignment="Top" Width="145" Height="20" SelectionChanged="MCDD_SelectionChanged"/>
         <TextBlock Name="MCCount" Text="Anzahl der Multiple Choice Antworten"  HorizontalAlignment="Left" Height="17" Margin="345,105,0,0" TextWrapping="Wrap"
                    VerticalAlignment="Top" Width="215"/>
         <ComboBox Name="MCCountDD" HorizontalAlignment="Left" Margin="565,104,0,0" VerticalAlignment="Top" Width="155" Height="19" IsEnabled="False"/>
