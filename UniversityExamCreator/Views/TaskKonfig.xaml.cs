@@ -229,92 +229,53 @@ namespace UniversityExamCreator.Views
         {
             string selectedText = MCDD.SelectedItem.ToString();
 
+            if (ModulDD.SelectedItem == null)
+            {
+                ModulDD.BorderBrush = Brushes.Red;
+                ModulDD.BorderThickness = new Thickness(2);
+                return false;
+            }
+            else if (ThemeText.Text == "")
+            {
+                ThemeText.BorderBrush = Brushes.Red;
+                ThemeText.BorderThickness = new Thickness(2);
+                return false;
+            }
+            else if (DifficultyDD.SelectedItem == null)
+            {
+                DifficultyDD.BorderBrush = Brushes.Red;
+                DifficultyDD.BorderThickness = new Thickness(2);
+                return false;
+            }
+            else if (PointsText.Text == "")
+            {
+                PointsText.BorderBrush = Brushes.Red;
+                PointsText.BorderThickness = new Thickness(2);
+                return false;
+            }
+            else if (TitleText.Text == "")
+            {
+                TitleText.BorderBrush = Brushes.Red;
+                TitleText.BorderThickness = new Thickness(2);
+                return false;
+            }
+
             if (selectedText == "Multiple Choice")
             {
-                if (ModulDD.SelectedItem == null)
-                {
-                    ModulDD.BorderBrush = Brushes.Red;
-                    ModulDD.BorderThickness = new Thickness(2);
-                    return false;
-                }
-                else if(MCCountDD.SelectedItem == null)
-                {
-                    MCCountDD.BorderBrush = Brushes.Red;
-                    MCCountDD.BorderThickness = new Thickness(2);
-                    return false;
-                }
-                else if (DifficultyDD.SelectedItem == null)
-                {
-                    DifficultyDD.BorderBrush = Brushes.Red;
-                    DifficultyDD.BorderThickness = new Thickness(2);
-                    return false;
-                }
-                else if (ThemeText.Text =="")
-                {
-                    ThemeText.BorderBrush = Brushes.Red;
-                    ThemeText.BorderThickness = new Thickness(2);
-                    return false;
-                }
-                else if (MCRulesText.Text == "")
+                if (MCRules.Text == "")
                 {
                     MCRulesText.BorderBrush = Brushes.Red;
                     MCRulesText.BorderThickness = new Thickness(2);
                     return false;
                 }
-                else if (PointsText.Text == "")
+                else if (MCCountDD.SelectedItem == null)
                 {
-                    PointsText.BorderBrush = Brushes.Red;
-                    PointsText.BorderThickness = new Thickness(2);
+                    MCCountDD.BorderBrush = Brushes.Red;
+                    MCCountDD.BorderThickness = new Thickness(2);
                     return false;
-                }
-                else if (TitleText.Text == "")
-                {
-                    TitleText.BorderBrush = Brushes.Red;
-                    TitleText.BorderThickness = new Thickness(2);
-                    return false;
-                }
-                else
-                {
-                    return true;
                 }
             }
-            else
-            {
-                if (ModulDD.SelectedItem == null)
-                {
-                    ModulDD.BorderBrush = Brushes.Red;
-                    ModulDD.BorderThickness = new Thickness(2);
-                    return false;
-                }
-                else if (DifficultyDD.SelectedItem == null)
-                {
-                    DifficultyDD.BorderBrush = Brushes.Red;
-                    DifficultyDD.BorderThickness = new Thickness(2);
-                    return false;
-                }
-                else if (ThemeText.Text == "")
-                {
-                    ThemeText.BorderBrush = Brushes.Red;
-                    ThemeText.BorderThickness = new Thickness(2);
-                    return false;
-                }
-                else if (PointsText.Text == "")
-                {
-                    PointsText.BorderBrush = Brushes.Red;
-                    PointsText.BorderThickness = new Thickness(2);
-                    return false;
-                }
-                else if (TitleText.Text == "")
-                {
-                    TitleText.BorderBrush = Brushes.Red;
-                    TitleText.BorderThickness = new Thickness(2);
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
+            return true;
         }
 
         /// <summary>
