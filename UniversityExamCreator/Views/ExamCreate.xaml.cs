@@ -131,23 +131,9 @@ namespace UniversityExamCreator.Views
         {
             // Apply theme filter
             var filteredByTheme = Items.Where(i => SelectedTheme == null || SelectedTheme == "Alle Themen" || i.Theme == SelectedTheme);
-            SelectedItems.Clear();
-            foreach (var item in Items.Where(i => i.IsSelected))
-            {
-                SelectedItems.Add(item);
-            }
-
-            UpdateSelectedItemsPoints();
 
             // Apply points filter
             var filteredByPoints = SelectedPoints == 0 ? filteredByTheme : filteredByTheme.Where(i => i.Points == SelectedPoints);
-
-            // Update FilteredItems
-            FilteredItems.Clear();
-            foreach (var item in filteredByPoints)
-            {
-                FilteredItems.Add(item);
-            }
 
             // Apply difficulty filter
             var filteredByDifficulty = SelectedDifficulty == null || SelectedDifficulty == "Alle Schwierigkeiten"
@@ -179,8 +165,6 @@ namespace UniversityExamCreator.Views
             }
             UpdateSelectedItemsPoints();
 
-            // Refresh the ItemListView to reflect changes
-            ItemListView.Items.Refresh();
         }
 
         /// <summary>
@@ -195,8 +179,7 @@ namespace UniversityExamCreator.Views
             }
             UpdateSelectedItemsPoints();
 
-            // Refresh the ItemListView to reflect changes
-            ItemListView.Items.Refresh();
+            
         }
 
         /// <summary>
