@@ -148,7 +148,6 @@ namespace UniversityExamCreator.Views
             }
         }
 
-
         /// <summary>
         /// Button to add the Items that should be in the Exam.
         /// </summary>
