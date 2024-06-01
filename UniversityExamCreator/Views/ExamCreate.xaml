@@ -10,31 +10,53 @@
       Background="White">
 
     <Grid>
-        <Button Content="Weiter" HorizontalAlignment="Left" Margin="624,383,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <Button Content="Zurück" HorizontalAlignment="Left" Margin="104,383,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
         <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="KlausurErstellen" VerticalAlignment="Top" FontSize="25"/>
-        
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="50" Margin="0,63,0,0" VerticalAlignment="Top" Width="700"/>
-        <ComboBox HorizontalAlignment="Left" Margin="64,77,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox HorizontalAlignment="Left" Margin="212,77,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Margin="352,79,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="689,79,0,0" VerticalAlignment="Top"/>
-        
+
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="65" Margin="0,57,0,0" VerticalAlignment="Top" Width="700">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock TextWrapping="Wrap" Text="Themen" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="52,5,0,0"/>
+                <TextBlock TextWrapping="Wrap" Text="Schwierigkeit" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                <TextBlock TextWrapping="Wrap" Text="Punkte" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="139,5,0,0"/>
+            </Grid>
+        </Border>
+
+        <!-- ComboBox for filtering by theme -->
+        <ComboBox HorizontalAlignment="Left" Margin="64,83,0,0" VerticalAlignment="Top" Width="120" 
+          ItemsSource="{Binding Themes}" 
+          SelectedItem="{Binding SelectedTheme, Mode=TwoWay}"
+          SelectionChanged="ComboBox_SelectionChanged"/>
+
+        <ComboBox HorizontalAlignment="Left" Margin="340,83,0,0" VerticalAlignment="Top" Width="120" 
+          ItemsSource="{Binding Difficulties}" 
+          SelectedItem="{Binding SelectedDifficulty, Mode=TwoWay}"
+          SelectionChanged="ComboBox_SelectionChanged"/>
+
+        <ComboBox HorizontalAlignment="Left" Margin="612,83,0,0" VerticalAlignment="Top" Width="120" 
+          ItemsSource="{Binding Points}" 
+          SelectedItem="{Binding SelectedPoints, Mode=TwoWay}"
+          SelectionChanged="ComboBox_SelectionChanged"/>
+
+
         <StackPanel HorizontalAlignment="Left" Height="200" Margin="50,145,0,0" VerticalAlignment="Top" Width="300" Background="Gray" >
             <!-- ListView with CheckBoxes and Info Buttons -->
             <ListView x:Name="ItemListView" Width="300" Height="200" ScrollViewer.VerticalScrollBarVisibility="Auto"
-                  ItemsSource="{Binding Items}">
+                  ItemsSource="{Binding FilteredItems}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
-                                <!-- Adjust as necessary -->
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <CheckBox Grid.Column="0" IsChecked="{Binding IsSelected}" Content="{Binding Name}" Width="200" />
-                            <Button Grid.Column="2" Content="Info" Click="InfoButton_Click"
+                            <CheckBox Grid.Column="0" IsChecked="{Binding IsSelected, Mode=TwoWay}" Content="{Binding Name}" Width="200" />
+                            <Button Grid.Column="1" Content="Info" Click="InfoButton_Click"
                                 Tag="{Binding}" Margin="10,0,0,0" />
                         </Grid>
                     </DataTemplate>
@@ -42,7 +64,34 @@
             </ListView>
         </StackPanel>
 
-        <StackPanel HorizontalAlignment="Left" Height="200" Margin="450,145,0,0" VerticalAlignment="Top" Width="300" Background="Gray"/>
+        <Button Content="Add Selected Items" HorizontalAlignment="Left" Margin="147,345,0,0" VerticalAlignment="Top" Click="AddSelectedItemsButton_Click"/>
+
+        <!-- StackPanel for Selected Items -->
+        <StackPanel HorizontalAlignment="Left" Height="200" Margin="450,145,0,0" VerticalAlignment="Top" Width="300" Background="Gray">
+            <ListView x:Name="SelectedItemListView" Width="300" Height="200" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ItemsSource="{Binding SelectedItems}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox Grid.Column="0" IsChecked="{Binding IsSelectedForDeletion, Mode=TwoWay}" Content="{Binding Name}" Width="200" />
+                            <Button Grid.Column="1" Content="Info" Click="InfoButton_Click"
+                                Tag="{Binding}" Margin="10,0,0,0" />
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+
+        <Button Content="Delete Selected Items" HorizontalAlignment="Left" Margin="541,345,0,0" VerticalAlignment="Top" Click="DeleteSelectedItemsButton_Click"/>
+
+        <Button Content="Weiter" HorizontalAlignment="Left" Margin="624,383,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="Zurück" HorizontalAlignment="Left" Margin="104,383,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
 
     </Grid>
 </Page>
