@@ -18,7 +18,7 @@ namespace UniversityExamCreator.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            // Handle the "Zurück" button click event
+            NavigationService.Navigate(new ExamCreate());
         }
 
         private void GeneratePDFButton_Click(object sender, RoutedEventArgs e)
@@ -48,15 +48,14 @@ namespace UniversityExamCreator.Views
             // Open the temporary file with the default PDF viewer
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(tempFilename) { UseShellExecute = true });
 
-            // Optionally, show a message box to inform the user
-            MessageBox.Show($"PDF document has been generated and opened in a viewer.", "PDF Generated", MessageBoxButton.OK, MessageBoxImage.Information);
+            
         }
 
         private void SavePDF(string tempFilename)
         {
             // Create a SaveFileDialog to ask the user where to save the PDF
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = "KlausurVorschau"; // Default file name
+            dlg.FileName = "Neue_Klausur"; // Default file name
             dlg.DefaultExt = ".pdf"; // Default file extension
             dlg.Filter = "PDF documents (.pdf)|*.pdf"; // Filter files by extension
 
@@ -70,6 +69,9 @@ namespace UniversityExamCreator.Views
                 string filename = dlg.FileName;
                 System.IO.File.Copy(tempFilename, filename, true);
                 MessageBox.Show($"PDF document has been saved as '{filename}'.", "PDF Saved", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                // Navigate back to the home page
+                NavigationService.Navigate(new ToolsPage());
             }
         }
 
