@@ -197,9 +197,11 @@ namespace UniversityExamCreator.Views
 
             // Refresh the ItemListView to reflect changes
             ItemListView.Items.Refresh();
-
         }
 
+        /// <summary>
+        /// Methode to Update the Pointscounter under the selected Item-Box.
+        /// </summary>
         private void UpdateSelectedItemsPoints()
         {
             int totalPoints = SelectedItems.Sum(item => item.Points);
