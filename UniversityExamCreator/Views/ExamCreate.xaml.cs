@@ -137,6 +137,8 @@ namespace UniversityExamCreator.Views
                 SelectedItems.Add(item);
             }
 
+            UpdateSelectedItemsPoints();
+
             // Apply points filter
             var filteredByPoints = SelectedPoints == 0 ? filteredByTheme : filteredByTheme.Where(i => i.Points == SelectedPoints);
 
@@ -166,11 +168,19 @@ namespace UniversityExamCreator.Views
         /// </summary>
         private void AddSelectedItemsButton_Click(object sender, RoutedEventArgs e)
         {
-            SelectedItems.Clear();
-            foreach (var item in Items.Where(i => i.IsSelected))
+            var itemsToAdd = Items.Where(i => i.IsSelected).ToList();
+            foreach (var item in itemsToAdd)
             {
-                SelectedItems.Add(item);
+                if (!SelectedItems.Contains(item))
+                {
+                    SelectedItems.Add(item);
+                }
+                item.IsSelected = false; // Reset the IsSelected property
             }
+            UpdateSelectedItemsPoints();
+
+            // Refresh the ItemListView to reflect changes
+            ItemListView.Items.Refresh();
         }
 
         /// <summary>
@@ -183,7 +193,19 @@ namespace UniversityExamCreator.Views
             {
                 SelectedItems.Remove(item);
             }
+            UpdateSelectedItemsPoints();
+
+            // Refresh the ItemListView to reflect changes
+            ItemListView.Items.Refresh();
+
         }
+
+        private void UpdateSelectedItemsPoints()
+        {
+            int totalPoints = SelectedItems.Sum(item => item.Points);
+            TotalPointsTextBlock.Text = $"Total Points: {totalPoints}";
+        }
+
 
         // Item class
         public class Item

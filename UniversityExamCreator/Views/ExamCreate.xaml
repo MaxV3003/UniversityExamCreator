@@ -10,6 +10,10 @@
       Background="White">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="217*"/>
+            <RowDefinition Height="233*"/>
+        </Grid.RowDefinitions>
         <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="KlausurErstellen" VerticalAlignment="Top" FontSize="25"/>
 
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="65" Margin="0,57,0,0" VerticalAlignment="Top" Width="700">
@@ -32,7 +36,7 @@
           SelectedItem="{Binding SelectedTheme, Mode=TwoWay}"
           SelectionChanged="ComboBox_SelectionChanged"/>
 
-        <ComboBox HorizontalAlignment="Left" Margin="340,83,0,0" VerticalAlignment="Top" Width="120" 
+        <ComboBox HorizontalAlignment="Center" Margin="0,83,0,0" VerticalAlignment="Top" Width="120" 
           ItemsSource="{Binding Difficulties}" 
           SelectedItem="{Binding SelectedDifficulty, Mode=TwoWay}"
           SelectionChanged="ComboBox_SelectionChanged"/>
@@ -43,7 +47,7 @@
           SelectionChanged="ComboBox_SelectionChanged"/>
 
 
-        <StackPanel HorizontalAlignment="Left" Height="200" Margin="50,145,0,0" VerticalAlignment="Top" Width="300" Background="Gray" >
+        <StackPanel HorizontalAlignment="Left" Height="200" Margin="50,145,0,0" VerticalAlignment="Top" Width="300" Background="Gray" Grid.RowSpan="2" >
             <!-- ListView with CheckBoxes and Info Buttons -->
             <ListView x:Name="ItemListView" Width="300" Height="200" ScrollViewer.VerticalScrollBarVisibility="Auto"
                   ItemsSource="{Binding FilteredItems}">
@@ -64,10 +68,10 @@
             </ListView>
         </StackPanel>
 
-        <Button Content="Add Selected Items" HorizontalAlignment="Left" Margin="147,345,0,0" VerticalAlignment="Top" Click="AddSelectedItemsButton_Click"/>
+        <Button Content="Add Selected Items" HorizontalAlignment="Left" Margin="147,128,0,0" VerticalAlignment="Top" Click="AddSelectedItemsButton_Click" Grid.Row="1"/>
 
         <!-- StackPanel for Selected Items -->
-        <StackPanel HorizontalAlignment="Left" Height="200" Margin="450,145,0,0" VerticalAlignment="Top" Width="300" Background="Gray">
+        <StackPanel HorizontalAlignment="Left" Height="200" Margin="450,145,0,0" VerticalAlignment="Top" Width="300" Background="Gray" Grid.RowSpan="2">
             <ListView x:Name="SelectedItemListView" Width="300" Height="200" ScrollViewer.VerticalScrollBarVisibility="Auto"
                   ItemsSource="{Binding SelectedItems}">
                 <ListView.ItemTemplate>
@@ -88,10 +92,11 @@
             </ListView>
         </StackPanel>
 
-        <Button Content="Delete Selected Items" HorizontalAlignment="Left" Margin="541,345,0,0" VerticalAlignment="Top" Click="DeleteSelectedItemsButton_Click"/>
+        <TextBlock x:Name="TotalPointsTextBlock" Text="Total Points: 0" HorizontalAlignment="Left" Margin="672,128,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+        <Button Content="Delete Selected Items" HorizontalAlignment="Left" Margin="541,128,0,0" VerticalAlignment="Top" Click="DeleteSelectedItemsButton_Click" Grid.Row="1"/>
 
-        <Button Content="Weiter" HorizontalAlignment="Left" Margin="624,383,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <Button Content="Zurück" HorizontalAlignment="Left" Margin="104,383,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+        <Button Content="Weiter" HorizontalAlignment="Left" Margin="624,166,0,0" VerticalAlignment="Top" Click="Button_Click" Grid.Row="1"/>
+        <Button Content="Zurück" HorizontalAlignment="Left" Margin="104,166,0,0" VerticalAlignment="Top" Click="Button_Click_1" Grid.Row="1"/>
 
     </Grid>
 </Page>
