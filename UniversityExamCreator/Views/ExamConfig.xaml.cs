@@ -16,6 +16,10 @@ namespace UniversityExamCreator.Views
         //The Item which was selected from ExamType.
         private RadioButton SelectedRadioButton;
 
+        // Variables to store text field values
+        private string numTasks = string.Empty;
+        private string numPoints = string.Empty;
+        private string examTitle = string.Empty;
 
         public ExamConfig()
         {
@@ -24,14 +28,14 @@ namespace UniversityExamCreator.Views
             //ComboBox-Content
             Module.Items.Add("EinfInf");
             Module.Items.Add("Mathe3");
-            Module.Items.Add("AuD");
+            Module.Items.Add("AuD");       
             /*
              * Implement the Function to get the Items from the list
              * List<string> Items = getDropDownItems();
              */
 
             //Checkboxen
-            
+
         }
 
         /// <summary>
@@ -40,6 +44,11 @@ namespace UniversityExamCreator.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //hier muss noch das ConfigItem erstellt werden. 
+            
+            // Save the values from text fields
+            numTasks = NumTasks.Text;
+            numPoints = NumPoints.Text;
+            examTitle = ExamTitle.Text;
 
             NavigationService.Navigate(new ExamCreate());
         }
@@ -58,17 +67,8 @@ namespace UniversityExamCreator.Views
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectedItem= Module.SelectedItem.ToString();
-            //ProcessSelectedItem();
+           
         }
-
-        /// <summary>
-        /// Testfunktion, ob das richtige Item ausgegeben und gespeichert wird. 
-        /// </summary>
-        /*private void ProcessSelectedItem()
-        {
-            MessageBox.Show("Ausgewähltes Item für interne Speicherung: " + SelectedItem);
-        }
-        */
 
         /// <summary>
         /// 3 Radiobuttons to check which Type of Exam it should be. 
@@ -82,18 +82,6 @@ namespace UniversityExamCreator.Views
             }
             //ProcessSelectedRadioButton();
         }
-
-        /// <summary>
-        /// Testfunktion, ob der richtige Radiobutton übergeben wird.
-        /// </summary>
-        /*private void ProcessSelectedRadioButton()
-        {
-            MessageBox.Show("Ausgewählter RadioButton: " + SelectedRadioButton.Content.ToString());
-        }
-        */
-
-
-
 
         /// <summary>
         /// List for DropDown-Items for the ModuleDropDown. 
