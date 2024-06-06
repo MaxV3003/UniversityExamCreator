@@ -50,6 +50,8 @@ namespace UniversityExamCreator.Views
             numPoints = NumPoints.Text;
             examTitle = ExamTitle.Text;
 
+            CheckForRadioButton();
+
             NavigationService.Navigate(new ExamCreate());
         }
 
@@ -77,10 +79,14 @@ namespace UniversityExamCreator.Views
         {
             if (sender is RadioButton checkedRadioButton)
             {
-                // Den neuen ausgewählten RadioButton speichern
                 SelectedRadioButton = checkedRadioButton;
             }
-            //ProcessSelectedRadioButton();
+        }
+
+        private void CheckForRadioButton() 
+        {
+            MessageBox.Show("This is the Radiobutton: " + SelectedRadioButton.Name );
+            MessageBox.Show("This are the Answers in the Testfields: " + numTasks + ", " + numPoints + ", " + examTitle);
         }
 
         /// <summary>
