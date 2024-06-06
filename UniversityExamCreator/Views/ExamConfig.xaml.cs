@@ -85,6 +85,7 @@ namespace UniversityExamCreator.Views
 
         private void CheckForRadioButton() 
         {
+            //TODO: Error falls nichts ausgewählt wurde von den drei Buttons.
             MessageBox.Show("This is the Radiobutton: " + SelectedRadioButton.Name );
             MessageBox.Show("This are the Answers in the Testfields: " + numTasks + ", " + numPoints + ", " + examTitle);
         }

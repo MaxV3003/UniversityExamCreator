@@ -177,7 +177,6 @@ namespace UniversityExamCreator.Views
                 SelectedItems.Remove(item);
             }
             UpdateSelectedItemsPoints();
-
             
         }
 
