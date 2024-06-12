@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using UniversityExamCreator.Models;
 
 namespace UniversityExamCreator.Views
 {
@@ -10,6 +11,9 @@ namespace UniversityExamCreator.Views
     /// </summary>
     public partial class ExamConfig : Page
     {
+        //Item muss noch erstellt und befüllt werden!
+        Examconfig Examconfig = new Examconfig();
+
         //The Item which was selected in the Module-DD.
         string SelectedItem=string.Empty;
 
@@ -98,6 +102,8 @@ namespace UniversityExamCreator.Views
         {
             //add DB-Funcion heare. 
         }*/
+
+
     }
 
     //ToDo: Freitextfelder implementieren und Werte speichern

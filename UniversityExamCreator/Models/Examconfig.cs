@@ -44,6 +44,19 @@ namespace UniversityExamCreator.Models
         public List<Taskgroupe> TaskGroups { get; set; }
 
         /// <summary>
+        /// Empty Constructor for an Examconfig-Element.
+        /// </summary>
+        public Examconfig() 
+        {
+            ConfigName = string.Empty;
+            ExamName = string.Empty;
+            ModuleID = string.Empty;
+            ExamType = string.Empty;
+            TaskAmount = 0;
+            PointAmount = 0;
+            TaskGroups = new List<Taskgroupe>();
+        }
+        /// <summary>
         /// Constructor for an Examconfig-Element.
         /// </summary>
         public Examconfig(string configName, string examName, string moduleID, string examTyp) 
