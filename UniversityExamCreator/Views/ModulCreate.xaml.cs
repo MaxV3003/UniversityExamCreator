@@ -34,11 +34,11 @@ namespace UniversityExamCreator.Views
         {
             if (CheckID(ModulIDText)==true)
             {
-                MessagegeBox.write("Modul erstellt");
+                MessageBox.write("Modul erstellt");
             }
             else
             {
-                MessagegeBox.write("Modul breits vorhanden");
+                MessageBox.write("Modul breits vorhanden");
             }
 
             //Datenbankeintrag erstellen mit der Madul ID und dem Modulnamen
@@ -46,7 +46,7 @@ namespace UniversityExamCreator.Views
             NavigationService.Navigate(new ToolsPage());
         }
 
-        private boolean CheckID(int ID)
+        private bool CheckID(int ID)
         {
             if ("Datenbankabfrage zur ID ==ID")
             {

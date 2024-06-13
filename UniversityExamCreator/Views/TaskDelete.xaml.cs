@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -179,11 +180,11 @@ namespace UniversityExamCreator.Views
             //Selected Items aus der Datenbank löschen
             if (/*Check if deleted) == true*/0==0)
             {
-                MessagegeBox.write("Aufgabe aus der Datenbank gelöscht");
+                MessageBox.write("Aufgabe aus der Datenbank gelöscht");
             }
             else
             {
-                MessagegeBox.write("Löschung konnte nicht ausgeführt werden");
+                MessageBox.write("Löschung konnte nicht ausgeführt werden");
             }
 
             NavigationService.Navigate(new ToolsPage());
