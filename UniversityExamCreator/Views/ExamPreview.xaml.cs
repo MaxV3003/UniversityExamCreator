@@ -4,21 +4,24 @@ using System.Windows.Controls;
 using PdfSharp.Pdf;
 using PdfSharp.Drawing;
 using System.Windows.Documents;
+using UniversityExamCreator.Models;
 
 namespace UniversityExamCreator.Views
 {
     public partial class ExamPreview : Page
     {
         private string tempFilename;
+        Examconfig Examconfig { get; set; }
 
-        public ExamPreview()
+        internal ExamPreview(Examconfig examconfig)
         {
+            Examconfig = examconfig;
             InitializeComponent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new ExamCreate());
+            NavigationService.Navigate(new ExamCreate(Examconfig));
         }
 
         private void GeneratePDFButton_Click(object sender, RoutedEventArgs e)
