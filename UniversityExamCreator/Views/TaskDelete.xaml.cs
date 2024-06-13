@@ -139,7 +139,7 @@ namespace UniversityExamCreator.Views
                 }
                 item.IsSelected = false; // Reset the IsSelected property
             }
-            UpdateSelectedItemsPoints();
+            //UpdateSelectedItemsPoints();
 
         }
 
@@ -153,7 +153,7 @@ namespace UniversityExamCreator.Views
             {
                 SelectedItems.Remove(item);
             }
-            UpdateSelectedItemsPoints();
+            //UpdateSelectedItemsPoints();
 
         }
 
@@ -180,11 +180,11 @@ namespace UniversityExamCreator.Views
             //Selected Items aus der Datenbank löschen
             if (/*Check if deleted) == true*/0==0)
             {
-                MessageBox.write("Aufgabe aus der Datenbank gelöscht");
+                MessageBox.Show("Aufgabe aus der Datenbank gelöscht");
             }
             else
             {
-                MessageBox.write("Löschung konnte nicht ausgeführt werden");
+                MessageBox.Show("Löschung konnte nicht ausgeführt werden");
             }
 
             NavigationService.Navigate(new ToolsPage());
