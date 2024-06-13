@@ -40,9 +40,9 @@ namespace UniversityExamCreator.Views
             XFont font = new XFont("Verdana", 20);
 
             // Draw the text
-            gfx.DrawString("Klausur Vorschau", font, XBrushes.Black,
-                new XRect(0, 0, page.Width, page.Height),
-                XStringFormats.Center);
+            gfx.DrawString(Examconfig.ExamName, font, XBrushes.Black,
+                new XRect(0, 80, page.Width, page.Height),
+                XStringFormats.TopCenter);
 
             // Save the document to a temporary file
             tempFilename = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "KlausurVorschau.pdf");

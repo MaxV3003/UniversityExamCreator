@@ -11,7 +11,6 @@ namespace UniversityExamCreator.Views
     /// </summary>
     public partial class ExamConfig : Page
     {
-        //Item muss noch erstellt und befüllt werden!
         Examconfig Examconfig { get; set; }
 
         internal ExamConfig(Examconfig examconfig)
@@ -30,8 +29,6 @@ namespace UniversityExamCreator.Views
              * List<string> Items = getDropDownItems();
              */
 
-            //Checkboxen
-
         }
 
         /// <summary>
@@ -39,6 +36,12 @@ namespace UniversityExamCreator.Views
         /// </summary>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(Examconfig.ExamType))
+            {
+                MessageBox.Show("Bitte wählen Sie eine Prüfungsart aus.");
+                return;
+            }
+
             if (int.TryParse(NumTasks.Text, out int taskAmount))
             {
                 Examconfig.TaskAmount = taskAmount;
@@ -55,8 +58,11 @@ namespace UniversityExamCreator.Views
             }
             else
             {
-                MessageBox.Show("Bitte geben Sie eine gültige Zahl für die Punktanzahl ein.");
-                return;
+                var result = MessageBox.Show("Wollen Sie wirklich keine Punktzahl festlegen?", "Ungültige Eingabe", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (result == MessageBoxResult.No)
+                {
+                    return;
+                }
             }
 
             Examconfig.ExamName = ExamTitle.Text;
@@ -78,7 +84,6 @@ namespace UniversityExamCreator.Views
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
            Examconfig.ModuleID = Module.SelectedItem.ToString();
-           
         }
 
         /// <summary>
@@ -88,22 +93,24 @@ namespace UniversityExamCreator.Views
         {
             if (sender is RadioButton checkedRadioButton)
             {
-                //SelectedRadioButton = checkedRadioButton;
                 Examconfig.ExamType = checkedRadioButton.Name.ToString();
             }
         }
 
+        /// <summary>
+        /// Loader for the Examconfig-Item. Especially if u switch the Pages. 
+        /// </summary>
+        /// <param name="examconfig"></param>
         internal void ConfigLoader(Examconfig examconfig)
         {
             if (!examconfig.isEmpty())
             {
-                // Modul laden
+
                 if (!string.IsNullOrEmpty(examconfig.ModuleID))
                 {
                     Module.SelectedItem = examconfig.ModuleID;
                 }
 
-                // Prüfungsart laden
                 switch (examconfig.ExamType)
                 {
                     case "MC":
@@ -117,13 +124,8 @@ namespace UniversityExamCreator.Views
                         break;
                 }
 
-                // Aufgabenanzahl laden
                 NumTasks.Text = examconfig.TaskAmount.ToString();
-
-                // Punktanzahl laden
                 NumPoints.Text = examconfig.PointAmount.ToString();
-
-                // Klausurüberschrift laden
                 ExamTitle.Text = examconfig.ExamName;
             }
         }
