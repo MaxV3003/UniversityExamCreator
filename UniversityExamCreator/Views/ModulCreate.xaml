@@ -9,15 +9,15 @@
       Title="ModulCreate"
       Background="White">
 
-    <Grid>
+    <Grid Background="#FF6A796D">
         <TextBlock Name="ModulID" Text="ModulID"  HorizontalAlignment="Left" Height="20" Margin="53,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"/>
         <TextBox Name="ModulIDText" HorizontalAlignment="Left" Height="25" Margin="180,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="540"/>
 
         <TextBlock Name="ModulName" Text="ModulName"  HorizontalAlignment="Left" Height="20" Margin="60,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"/>
         <TextBox Name="ModulNameText" HorizontalAlignment="Left" Height="25" Margin="190,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="540"/>
 
-        <Button Name="Back" Content="Zurück" HorizontalAlignment="Left" Height="45" Margin="50,370,0,0" VerticalAlignment="Top" Width="120" Click="Back_Click"/>
-        <Button Name="Create" Content="Erstellen" HorizontalAlignment="Left" Height="45" Margin="620,370,0,0" VerticalAlignment="Top" Width="105" Click="Create_Click"/>
+        <Button Name="Back" Content="Zurück" HorizontalAlignment="Left" Height="26" Margin="64,375,0,0" VerticalAlignment="Top" Width="71" Click="Back_Click"/>
+        <Button Name="Create" Content="Erstellen" HorizontalAlignment="Left" Height="26" Margin="620,375,0,0" VerticalAlignment="Top" Width="71" Click="Create_Click"/>
 
     </Grid>
 </Page>

@@ -189,5 +189,10 @@ namespace UniversityExamCreator.Views
 
             NavigationService.Navigate(new ToolsPage());
         }
+
+        private void ItemListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

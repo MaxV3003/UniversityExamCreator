@@ -206,5 +206,10 @@ namespace UniversityExamCreator.Views
             public string Theme { get; set; }
             public string Difficulty { get; set; }
         }
+
+        private void ItemListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

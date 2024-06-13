@@ -9,7 +9,7 @@
       Title="TaskDelete"
       Background="White">
 
-    <Grid>
+    <Grid Background="#FF617C67">
         <Grid.RowDefinitions>
             <RowDefinition Height="217*"/>
             <RowDefinition Height="233*"/>
@@ -34,23 +34,44 @@
         <ComboBox HorizontalAlignment="Left" Margin="64,83,0,0" VerticalAlignment="Top" Width="120" 
   ItemsSource="{Binding Themes}" 
   SelectedItem="{Binding SelectedTheme, Mode=TwoWay}"
-  SelectionChanged="ComboBox_SelectionChanged"/>
+  SelectionChanged="ComboBox_SelectionChanged">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="#FFF0F0F0"/>
+                    <GradientStop Color="#FFF0EEEE" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+        </ComboBox>
 
         <ComboBox HorizontalAlignment="Center" Margin="0,83,0,0" VerticalAlignment="Top" Width="120" 
   ItemsSource="{Binding Difficulties}" 
   SelectedItem="{Binding SelectedDifficulty, Mode=TwoWay}"
-  SelectionChanged="ComboBox_SelectionChanged"/>
+  SelectionChanged="ComboBox_SelectionChanged">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="#FFF0F0F0"/>
+                    <GradientStop Color="#FFF0EEEE" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+        </ComboBox>
 
         <ComboBox HorizontalAlignment="Left" Margin="612,83,0,0" VerticalAlignment="Top" Width="120" 
   ItemsSource="{Binding Points}" 
   SelectedItem="{Binding SelectedPoints, Mode=TwoWay}"
-  SelectionChanged="ComboBox_SelectionChanged"/>
+  SelectionChanged="ComboBox_SelectionChanged">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="#FFF0F0F0"/>
+                    <GradientStop Color="#FFF0EEEE" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+        </ComboBox>
 
 
         <StackPanel HorizontalAlignment="Left" Height="200" Margin="50,145,0,0" VerticalAlignment="Top" Width="300" Background="Gray" Grid.RowSpan="2" >
             <!-- ListView with CheckBoxes and Info Buttons -->
             <ListView x:Name="ItemListView" Width="300" Height="200" ScrollViewer.VerticalScrollBarVisibility="Auto"
-          ItemsSource="{Binding FilteredItems}">
+          ItemsSource="{Binding FilteredItems}" Background="#FFD0CDCD" SelectionChanged="ItemListView_SelectionChanged">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -68,12 +89,12 @@
             </ListView>
         </StackPanel>
 
-        <Button Content="Add Selected Items" HorizontalAlignment="Left" Margin="147,128,0,0" VerticalAlignment="Top" Click="AddSelectedItemsButton_Click" Grid.Row="1"/>
+        <Button Content="Add Selected Items" HorizontalAlignment="Left" Margin="141,140,0,0" VerticalAlignment="Top" Click="AddSelectedItemsButton_Click" Grid.Row="1" Width="108"/>
 
         <!-- StackPanel for Selected Items -->
         <StackPanel HorizontalAlignment="Left" Height="200" Margin="450,145,0,0" VerticalAlignment="Top" Width="300" Background="Gray" Grid.RowSpan="2">
             <ListView x:Name="SelectedItemListView" Width="300" Height="200" ScrollViewer.VerticalScrollBarVisibility="Auto"
-          ItemsSource="{Binding SelectedItems}">
+          ItemsSource="{Binding SelectedItems}" Background="#FFD0CDCD">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -92,7 +113,7 @@
             </ListView>
         </StackPanel>
         
-        <Button Content="Delete Selected Items" HorizontalAlignment="Left" Margin="541,128,0,0" VerticalAlignment="Top" Click="DeleteSelectedItemsButton_Click" Grid.Row="1"/>
+        <Button Content="Delete Selected Items" HorizontalAlignment="Left" Margin="539,140,0,0" VerticalAlignment="Top" Click="DeleteSelectedItemsButton_Click" Grid.Row="1"/>
 
         <Button Name="Back" Content="Zurück" HorizontalAlignment="Left" Height="45" Margin="50,375,0,0" VerticalAlignment="Top" Width="120" Click="Back_Click"/>
         <Button Name="Delete" Content="löschen" HorizontalAlignment="Left" Height="60" Margin="630,360,0,0" VerticalAlignment="Top" Width="120" Click="Delete_Click"/>

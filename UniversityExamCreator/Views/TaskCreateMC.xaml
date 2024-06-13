@@ -9,10 +9,10 @@
       Title="TaskCreateMC"
       Background="White">
 
-    <Grid>
-        <Button Name="Back" Content="Zurück" HorizontalAlignment="Left" Height="45" Margin="45,365,0,0" VerticalAlignment="Top" Width="135" Click="Back_Click"/>
-        <Button Name="Create" Content="erstellen" HorizontalAlignment="Left" Height="45" Margin="600,365,0,0" VerticalAlignment="Top" Width="120" Click="Create_Click"/>
-        <TextBlock Name="Titel" Text="MC" FontSize="50"  HorizontalAlignment="Left" Height="98" Margin="275,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="215"/>
+    <Grid Background="#FF617C67">
+        <Button Name="Back" Content="Zurück" HorizontalAlignment="Left" Height="24" Margin="79,373,0,0" VerticalAlignment="Top" Width="71" Click="Back_Click"/>
+        <Button Name="Create" Content="erstellen" HorizontalAlignment="Left" Height="24" Margin="638,373,0,0" VerticalAlignment="Top" Width="71" Click="Create_Click"/>
+        <TextBlock Name="Titel" Text="MC" FontSize="50"  HorizontalAlignment="Left" Height="98" Margin="352,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="216"/>
 
     </Grid>
 </Page>

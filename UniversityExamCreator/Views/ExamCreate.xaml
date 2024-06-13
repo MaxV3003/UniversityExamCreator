@@ -9,7 +9,7 @@
       Title="ExamCreate"
       Background="White">
 
-    <Grid Background="#FF607056">
+    <Grid Background="#FF617C67">
         <Grid.RowDefinitions>
             <RowDefinition Height="217*"/>
             <RowDefinition Height="233*"/>
@@ -50,7 +50,7 @@
         <StackPanel HorizontalAlignment="Left" Height="200" Margin="50,145,0,0" VerticalAlignment="Top" Width="300" Background="Gray" Grid.RowSpan="2" >
             <!-- ListView with CheckBoxes and Info Buttons -->
             <ListView x:Name="ItemListView" Width="300" Height="200" ScrollViewer.VerticalScrollBarVisibility="Auto"
-                  ItemsSource="{Binding FilteredItems}">
+                  ItemsSource="{Binding FilteredItems}" Background="#FFF0EEEE" SelectionChanged="ItemListView_SelectionChanged">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -68,12 +68,12 @@
             </ListView>
         </StackPanel>
 
-        <Button Content="Add Selected Items" HorizontalAlignment="Left" Margin="147,128,0,0" VerticalAlignment="Top" Click="AddSelectedItemsButton_Click" Grid.Row="1"/>
+        <Button Content="Add Selected Items" HorizontalAlignment="Left" Margin="133,136,0,0" VerticalAlignment="Top" Click="AddSelectedItemsButton_Click" Grid.Row="1" Width="108"/>
 
         <!-- StackPanel for Selected Items -->
         <StackPanel HorizontalAlignment="Left" Height="200" Margin="450,145,0,0" VerticalAlignment="Top" Width="300" Background="Gray" Grid.RowSpan="2">
             <ListView x:Name="SelectedItemListView" Width="300" Height="200" ScrollViewer.VerticalScrollBarVisibility="Auto"
-                  ItemsSource="{Binding SelectedItems}">
+                  ItemsSource="{Binding SelectedItems}" Background="#FFF0EEEE">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -92,11 +92,11 @@
             </ListView>
         </StackPanel>
 
-        <TextBlock x:Name="TotalPointsTextBlock" Text="Total Points: 0" HorizontalAlignment="Left" Margin="672,128,0,0" VerticalAlignment="Top" Grid.Row="1"/>
-        <Button Content="Delete Selected Items" HorizontalAlignment="Left" Margin="541,128,0,0" VerticalAlignment="Top" Click="DeleteSelectedItemsButton_Click" Grid.Row="1"/>
+        <TextBlock x:Name="TotalPointsTextBlock" Text="Total Points: 0" HorizontalAlignment="Left" Margin="672,136,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+        <Button Content="Delete Selected Items" HorizontalAlignment="Left" Margin="541,136,0,0" VerticalAlignment="Top" Click="DeleteSelectedItemsButton_Click" Grid.Row="1" Width="120"/>
 
-        <Button Content="Weiter" HorizontalAlignment="Left" Margin="624,166,0,0" VerticalAlignment="Top" Click="Button_Click" Grid.Row="1"/>
-        <Button Content="Zurück" HorizontalAlignment="Left" Margin="104,166,0,0" VerticalAlignment="Top" Click="Button_Click_1" Grid.Row="1"/>
+        <Button Content="Weiter" HorizontalAlignment="Left" Margin="634,160,0,0" VerticalAlignment="Top" Click="Button_Click" Grid.Row="1" Width="71" Height="24"/>
+        <Button Content="Zurück" HorizontalAlignment="Left" Margin="80,160,0,0" VerticalAlignment="Top" Click="Button_Click_1" Grid.Row="1" Width="71" Height="24"/>
 
     </Grid>
 </Page>

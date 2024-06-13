@@ -9,7 +9,7 @@
       Title="ToolsPage"
       Background="White">
 
-    <Grid>
+    <Grid Background="#FF617C67">
         <Button Name="KlausurErstellen" Content="Klausur erstellen" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="165" Click="KlausurErstellen_Click"/>
         <Button Name="AufgabeErstellen" Content="Aufgabe erstellen" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="165" Click="AufgabeErstellen_Click"/>
         <Button Name="AufgabeLöschen" Content="Aufgabe löschen" HorizontalAlignment="Right" Height="100" VerticalAlignment="Top" Width="165" Click="AufgabeLöschen_Click"/>
