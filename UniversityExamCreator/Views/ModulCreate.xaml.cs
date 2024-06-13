@@ -32,7 +32,30 @@ namespace UniversityExamCreator.Views
 
         private void Create_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (CheckID(ModulIDText)==true)
+            {
+                MessagegeBox.write("Modul erstellt");
+            }
+            else
+            {
+                MessagegeBox.write("Modul breits vorhanden");
+            }
+
+            //Datenbankeintrag erstellen mit der Madul ID und dem Modulnamen
+
+            NavigationService.Navigate(new ToolsPage());
+        }
+
+        private boolean CheckID(int ID)
+        {
+            if ("Datenbankabfrage zur ID ==ID")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }
