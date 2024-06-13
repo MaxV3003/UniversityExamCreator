@@ -9,7 +9,7 @@
       Title="ExamCreate"
       Background="White">
 
-    <Grid>
+    <Grid Background="#FF607056">
         <Grid.RowDefinitions>
             <RowDefinition Height="217*"/>
             <RowDefinition Height="233*"/>
