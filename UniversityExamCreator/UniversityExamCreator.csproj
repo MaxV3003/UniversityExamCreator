@@ -136,9 +136,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\Datenbanken.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Models\Datenbanken.cs" />
     <Compile Include="Models\Examconfig.cs" />
     <Compile Include="Models\MCAnswer.cs" />
     <Compile Include="Models\Module.cs" />
