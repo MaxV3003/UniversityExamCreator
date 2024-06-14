@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using UniversityExamCreator.Models;
 
 namespace UniversityExamCreator.Views
 {
@@ -25,9 +26,11 @@ namespace UniversityExamCreator.Views
         public int SelectedPoints { get; set; }
         public string SelectedDifficulty { get; set; }
 
+        Examconfig Examconfig { get; set; }
 
-        public ExamCreate()
+        internal ExamCreate(Examconfig examconfig)
         {
+            Examconfig = examconfig;
             InitializeComponent();
 
             // Initialize the ObservableCollection and add items
@@ -91,7 +94,7 @@ namespace UniversityExamCreator.Views
         /// </summary>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new ExamPreview());
+            NavigationService.Navigate(new ExamPreview(Examconfig));
         }
 
         /// <summary>
@@ -99,7 +102,9 @@ namespace UniversityExamCreator.Views
         /// </summary>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new ExamConfig());
+            NavigationService.Navigate(new ExamConfig(Examconfig));
+            // Aktivieren des ConfigLoaders
+            (NavigationService.Content as ExamConfig)?.ConfigLoader(Examconfig);
         }
 
         /// <summary>
@@ -200,6 +205,11 @@ namespace UniversityExamCreator.Views
             public int Points { get; set; }
             public string Theme { get; set; }
             public string Difficulty { get; set; }
+        }
+
+        private void ItemListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

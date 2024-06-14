@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using UniversityExamCreator.Models;
 
 namespace UniversityExamCreator.Views
 {
@@ -27,7 +17,8 @@ namespace UniversityExamCreator.Views
 
         private void KlausurErstellen_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new ExamConfig());
+            Examconfig examconfig = new Examconfig();
+            NavigationService.Navigate(new ExamConfig(examconfig));
         }
 
         private void AufgabeErstellen_Click(object sender, RoutedEventArgs e)

@@ -4,21 +4,24 @@ using System.Windows.Controls;
 using PdfSharp.Pdf;
 using PdfSharp.Drawing;
 using System.Windows.Documents;
+using UniversityExamCreator.Models;
 
 namespace UniversityExamCreator.Views
 {
     public partial class ExamPreview : Page
     {
         private string tempFilename;
+        Examconfig Examconfig { get; set; }
 
-        public ExamPreview()
+        internal ExamPreview(Examconfig examconfig)
         {
+            Examconfig = examconfig;
             InitializeComponent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new ExamCreate());
+            NavigationService.Navigate(new ExamCreate(Examconfig));
         }
 
         private void GeneratePDFButton_Click(object sender, RoutedEventArgs e)
@@ -37,9 +40,9 @@ namespace UniversityExamCreator.Views
             XFont font = new XFont("Verdana", 20);
 
             // Draw the text
-            gfx.DrawString("Klausur Vorschau", font, XBrushes.Black,
-                new XRect(0, 0, page.Width, page.Height),
-                XStringFormats.Center);
+            gfx.DrawString(Examconfig.ExamName, font, XBrushes.Black,
+                new XRect(0, 80, page.Width, page.Height),
+                XStringFormats.TopCenter);
 
             // Save the document to a temporary file
             tempFilename = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "KlausurVorschau.pdf");

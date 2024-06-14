@@ -36,13 +36,26 @@ namespace UniversityExamCreator.Models
         /// <summary>
         /// Amount of Points the Exam contains. 
         /// </summary>
-        public float PointAmount {  get; set; }
+        public double PointAmount {  get; set; }
 
         /// <summary>
         /// List of Taskgroups the Exam contains. 
         /// </summary>
         public List<Taskgroupe> TaskGroups { get; set; }
 
+        /// <summary>
+        /// Empty Constructor for an Examconfig-Element.
+        /// </summary>
+        public Examconfig() 
+        {
+            ConfigName = string.Empty;
+            ExamName = string.Empty;
+            ModuleID = string.Empty;
+            ExamType = string.Empty;
+            TaskAmount = 0;
+            PointAmount = 0.0;
+            TaskGroups = new List<Taskgroupe>();
+        }
         /// <summary>
         /// Constructor for an Examconfig-Element.
         /// </summary>
@@ -79,6 +92,29 @@ namespace UniversityExamCreator.Models
         public void addTaskGroupe(Taskgroupe taskGroupe) 
         {
             TaskGroups.Add(taskGroupe);
+        }
+
+        public void toString() 
+        {
+            Console.WriteLine("ConfigName: " + ConfigName + "\n" + 
+                "ExamName: " + ExamName + "\n" +
+                "ModuleID: " + ModuleID + "\n" +
+                "ExamType: " + ExamType + "\n" +
+                "TaskAmount: " + TaskAmount + "\n" + 
+                "PointAmount: " + PointAmount + "\n" +
+                "TaskGroups: " + TaskGroups.ToString());
+        }
+
+        public bool isEmpty() 
+        {
+            if(ConfigName.Equals(string.Empty) && ExamName.Equals(string.Empty) && ModuleID.Equals(string.Empty) && ExamType.Equals(string.Empty) && (TaskAmount==0) && (!((PointAmount > 0) && (PointAmount < 0))))
+            {
+                return true;
+            }
+            else 
+            { 
+                return false; 
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using UniversityExamCreator.Models;
 
 namespace UniversityExamCreator.Views
 {
@@ -10,31 +11,23 @@ namespace UniversityExamCreator.Views
     /// </summary>
     public partial class ExamConfig : Page
     {
-        //The Item which was selected in the Module-DD.
-        string SelectedItem=string.Empty;
+        Examconfig Examconfig { get; set; }
 
-        //The Item which was selected from ExamType.
-        private RadioButton SelectedRadioButton;
-
-        // Variables to store text field values
-        private string numTasks = string.Empty;
-        private string numPoints = string.Empty;
-        private string examTitle = string.Empty;
-
-        public ExamConfig()
+        internal ExamConfig(Examconfig examconfig)
         {
+            Examconfig = examconfig;
             InitializeComponent();
 
             //ComboBox-Content
             Module.Items.Add("EinfInf");
             Module.Items.Add("Mathe3");
-            Module.Items.Add("AuD");       
+            Module.Items.Add("AuD");
+
+            ConfigLoader(examconfig);
             /*
              * Implement the Function to get the Items from the list
              * List<string> Items = getDropDownItems();
              */
-
-            //Checkboxen
 
         }
 
@@ -43,16 +36,38 @@ namespace UniversityExamCreator.Views
         /// </summary>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //hier muss noch das ConfigItem erstellt werden. 
-            
-            // Save the values from text fields
-            numTasks = NumTasks.Text;
-            numPoints = NumPoints.Text;
-            examTitle = ExamTitle.Text;
+            if (string.IsNullOrEmpty(Examconfig.ExamType))
+            {
+                MessageBox.Show("Bitte wählen Sie eine Prüfungsart aus.");
+                return;
+            }
 
-            CheckForRadioButton();
+            if (int.TryParse(NumTasks.Text, out int taskAmount))
+            {
+                Examconfig.TaskAmount = taskAmount;
+            }
+            else
+            {
+                MessageBox.Show("Bitte geben Sie eine gültige Zahl für die Anzahl der Aufgaben ein.");
+                return;
+            }
 
-            NavigationService.Navigate(new ExamCreate());
+            if (double.TryParse(NumPoints.Text, out double pointAmount))
+            {
+                Examconfig.PointAmount = pointAmount;
+            }
+            else
+            {
+                var result = MessageBox.Show("Wollen Sie wirklich keine Punktzahl festlegen?", "Ungültige Eingabe", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (result == MessageBoxResult.No)
+                {
+                    return;
+                }
+            }
+
+            Examconfig.ExamName = ExamTitle.Text;
+            Examconfig.toString();
+            NavigationService.Navigate(new ExamCreate(Examconfig));
         }
 
         /// <summary>
@@ -68,8 +83,7 @@ namespace UniversityExamCreator.Views
         /// </summary>
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SelectedItem= Module.SelectedItem.ToString();
-           
+           Examconfig.ModuleID = Module.SelectedItem.ToString();
         }
 
         /// <summary>
@@ -79,26 +93,41 @@ namespace UniversityExamCreator.Views
         {
             if (sender is RadioButton checkedRadioButton)
             {
-                SelectedRadioButton = checkedRadioButton;
+                Examconfig.ExamType = checkedRadioButton.Name.ToString();
             }
         }
 
-        private void CheckForRadioButton() 
-        {
-            //TODO: Error falls nichts ausgewählt wurde von den drei Buttons.
-            MessageBox.Show("This is the Radiobutton: " + SelectedRadioButton.Name );
-            MessageBox.Show("This are the Answers in the Testfields: " + numTasks + ", " + numPoints + ", " + examTitle);
-        }
-
         /// <summary>
-        /// List for DropDown-Items for the ModuleDropDown. 
+        /// Loader for the Examconfig-Item. Especially if u switch the Pages. 
         /// </summary>
-        /// <returns></returns>
-        /*private List<string> getDropDownItems()
+        /// <param name="examconfig"></param>
+        internal void ConfigLoader(Examconfig examconfig)
         {
-            //add DB-Funcion heare. 
-        }*/
-    }
+            if (!examconfig.isEmpty())
+            {
 
-    //ToDo: Freitextfelder implementieren und Werte speichern
+                if (!string.IsNullOrEmpty(examconfig.ModuleID))
+                {
+                    Module.SelectedItem = examconfig.ModuleID;
+                }
+
+                switch (examconfig.ExamType)
+                {
+                    case "MC":
+                        MC.IsChecked = true;
+                        break;
+                    case "OffeneFragen":
+                        OffeneFragen.IsChecked = true;
+                        break;
+                    case "Mischform":
+                        Mischform.IsChecked = true;
+                        break;
+                }
+
+                NumTasks.Text = examconfig.TaskAmount.ToString();
+                NumPoints.Text = examconfig.PointAmount.ToString();
+                ExamTitle.Text = examconfig.ExamName;
+            }
+        }
+    }
 }
