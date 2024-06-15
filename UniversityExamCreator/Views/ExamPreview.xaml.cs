@@ -37,7 +37,6 @@ namespace UniversityExamCreator.Views
 
             // Get an XGraphics object for drawing
             XGraphics gfx = XGraphics.FromPdfPage(page);
-            XTextFormatter tf = new XTextFormatter(gfx);
 
             // Create fonts
             XFont titleFont = new XFont("Verdana", 20);
@@ -49,7 +48,7 @@ namespace UniversityExamCreator.Views
             const double pageWidth = 595;  // Width of an A4 page in points
             const double margin = 40; // Margin from the top/bottom of the page
             const double innerWidth = pageWidth - 2 * margin;
-            const double spacing = 20; // Spacing between task frames
+            const double spacing = 30; // Spacing between task frames
 
             // Draw the exam name
             gfx.DrawString(Examconfig.ExamName, titleFont, XBrushes.Black,
@@ -61,26 +60,26 @@ namespace UniversityExamCreator.Views
 
             // Example list of tasks (replace with your actual tasks)
             var tasks = new List<TaskFrame>
-            {
-                new TaskFrame { Title = "Task 1", Description = "This is the first task description. This task is very long and should wrap to the next line if it exceeds the width of the page. The text should continue to wrap properly and adjust itself dynamically based on the content provided." },
-                new TaskFrame { Title = "Task 2", Description = "This is the second task description." },
-                // Add more tasks as needed
-            };
+    {
+        new TaskFrame { Title = "Task 1", Description = "This is the first task description. This description is quite long and should wrap to the next line when it exceeds the width of the page. Let's see how it looks.This is the first task description. This description is quite long and should wrap to the next line when it exceeds the width of the page. Let's see how it looks.This is the first task description. This description is quite long and should wrap to the next line when it exceeds the width of the page. Let's see how it looks.This is the first task description. This description is quite long and should wrap to the next line when it exceeds the width of the page. Let's see how it looks." },
+        new TaskFrame { Title = "Task 2", Description = "This is the second task description." },
+        new TaskFrame { Title = "Task 3", Description = "This is the third task description." }
+        // Add more tasks as needed
+    };
 
             // Loop through the tasks and draw them on the PDF
             foreach (var task in tasks)
             {
-                // Calculate the space needed for the title and description
-                double requiredSpaceForTitle = GetTextHeight(task.Title, titleFont, innerWidth);
-                double requiredSpaceForDescription = GetTextHeight(task.Description, taskFont, innerWidth);
-                double requiredSpace = requiredSpaceForTitle + requiredSpaceForDescription + spacing;
+                // Check if there is enough space for the next task frame
+                double titleHeight = GetTextHeight(task.Title, titleFont, innerWidth);
+                double descriptionHeight = GetTextHeight(task.Description, taskFont, innerWidth);
+                double requiredSpace = titleHeight + descriptionHeight + spacing;
 
                 if (yPoint + requiredSpace > pageHeight - margin)
                 {
                     // Add a new page and reset yPoint
                     page = document.AddPage();
                     gfx = XGraphics.FromPdfPage(page);
-                    tf = new XTextFormatter(gfx);
                     yPoint = margin; // Reset to top margin of the new page
                 }
 
@@ -90,19 +89,20 @@ namespace UniversityExamCreator.Views
                     XStringFormats.TopLeft);
 
                 // Increment vertical position
-                yPoint += requiredSpaceForTitle + spacing / 2;
+                yPoint += titleHeight;
 
-                // Draw the task description
-                tf.DrawString(task.Description, taskFont, XBrushes.Black,
-                    new XRect(margin, yPoint, innerWidth, page.Height),
-                    XStringFormats.TopLeft);
+                // Draw the task description using XTextFormatter
+                var tf = new XTextFormatter(gfx);
+                var rect = new XRect(margin, yPoint, innerWidth, page.Height - yPoint - margin);
+                tf.DrawString(task.Description, taskFont, XBrushes.Black, rect, XStringFormats.TopLeft);
 
-                // Increment vertical position for next task
-                yPoint += requiredSpaceForDescription + spacing / 2;
+                // Update the yPoint based on the height of the drawn text
+                descriptionHeight = GetTextHeightUsingFormatter(task.Description, taskFont, innerWidth);
+                yPoint += descriptionHeight + spacing;
             }
 
             // Save the document to a temporary file
-            tempFilename = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "KlausurVorschau.pdf");
+            string tempFilename = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "KlausurVorschau.pdf");
             document.Save(tempFilename);
 
             // Open the temporary file with the default PDF viewer
@@ -119,6 +119,25 @@ namespace UniversityExamCreator.Views
                     var tf = new XTextFormatter(tempGfx);
                     var rect = new XRect(0, 0, width, double.MaxValue);
                     tf.DrawString(text, font, XBrushes.Black, rect, XStringFormats.TopLeft);
+
+                    // Measure the height of the drawn text
+                    var size = tempGfx.MeasureString(text, font);
+                    return size.Height;
+                }
+            }
+        }
+
+        private double GetTextHeightUsingFormatter(string text, XFont font, double width)
+        {
+            using (var tempDocument = new PdfDocument())
+            {
+                var tempPage = tempDocument.AddPage();
+                using (var tempGfx = XGraphics.FromPdfPage(tempPage))
+                {
+                    var tf = new XTextFormatter(tempGfx);
+                    var rect = new XRect(0, 0, width, double.MaxValue);
+                    tf.DrawString(text, font, XBrushes.Black, rect, XStringFormats.TopLeft);
+
                     // Measure the height of the drawn text
                     var size = tempGfx.MeasureString(text, font);
                     return size.Height;
@@ -132,6 +151,7 @@ namespace UniversityExamCreator.Views
             public string Title { get; set; }
             public string Description { get; set; }
         }
+
 
         private void SavePDF(string tempFilename)
         {
