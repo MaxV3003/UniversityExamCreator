@@ -161,8 +161,6 @@ namespace UniversityExamCreator.Views
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(tempFilename) { UseShellExecute = true });
         }
 
-        // MeasureTextHeight and SplitTextIntoLines methods remain unchanged
-
 
         private double MeasureTextHeight(string text, XFont font, double width)
         {

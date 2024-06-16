@@ -54,6 +54,16 @@ namespace UniversityExamCreator.Models
         public List<MCAnswer> MCAnswers { get; set; }
 
         /// <summary>
+        /// Property indicating if the task is selected.
+        /// </summary>
+        public bool IsSelected { get; set; }
+
+        /// <summary>
+        /// Property indicating if the task is selected for deletion.
+        /// </summary>
+        public bool IsSelectedForDeletion { get; set; }
+
+        /// <summary>
         /// Constructor for a TaskItem.
         /// </summary>
         public Task (string module, string topic, string taskType, string difficulty, int points, string taskName)
@@ -67,6 +77,8 @@ namespace UniversityExamCreator.Models
             TaskContent = string.Empty;
             TaskAnswer = new Answer(taskName, string.Empty);
             MCAnswers = new List<MCAnswer>();
+            IsSelected = false;
+            IsSelectedForDeletion = false;
         }
                 
         /// <summary>
