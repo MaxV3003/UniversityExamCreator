@@ -74,6 +74,12 @@ namespace UniversityExamCreator.Views
             {
                 new MCAnswer("Task2", "Option 1", 1, 0),
                 new MCAnswer("Task2", "Option 2", 2, 1),
+                new MCAnswer("Task2", "Option 3", 3, 0),
+                new MCAnswer("Task2", "Option 1", 1, 0),
+                new MCAnswer("Task2", "Option 2", 2, 1),
+                new MCAnswer("Task2", "Option 3", 3, 0),
+                new MCAnswer("Task2", "Option 1", 1, 0),
+                new MCAnswer("Task2", "Option 2", 2, 1),
                 new MCAnswer("Task2", "Option 3", 3, 0)
             }
         },
