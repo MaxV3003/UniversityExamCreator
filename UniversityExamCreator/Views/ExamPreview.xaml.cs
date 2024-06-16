@@ -41,7 +41,7 @@ namespace UniversityExamCreator.Views
 
             // Fonts
             XFont titleFont = new XFont("Verdana", 20);
-            XFont taskFont = new XFont("Verdana", 12);
+            XFont taskFont = new XFont("Verdana", 9);
 
             // Page settings
             //double yPoint = 80;
