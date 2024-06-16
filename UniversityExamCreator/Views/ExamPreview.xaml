@@ -52,7 +52,7 @@
         </ComboBox>
 
         <Button Content="Zurück" HorizontalAlignment="Left" Margin="80,377,0,0" VerticalAlignment="Top" Click="Button_Click" Width="71" Height="24"/>
-        <Button Content="Generate PDF" HorizontalAlignment="Center" Margin="0,377,0,0" VerticalAlignment="Top" Click="GeneratePDFButton_Click" Width="72" Height="24"/>
+        <Button Content="Generate PDF" HorizontalAlignment="Center" Margin="0,377,0,0" VerticalAlignment="Top" Click="GeneratePDFButton_Click" Width="111" Height="24"/>
         <Button Content="Save PDF" HorizontalAlignment="Left" Margin="638,377,0,0" VerticalAlignment="Top" Click="SavePDFButton_Click" Width="71" Height="24"/>
     </Grid>
 </Page>
