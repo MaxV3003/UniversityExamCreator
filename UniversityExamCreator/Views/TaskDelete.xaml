@@ -6,10 +6,10 @@
       xmlns:local="clr-namespace:UniversityExamCreator.Views"
       mc:Ignorable="d"
       Title="TaskDelete"
-      Background="White" Width="699" Height="443">
+      Background="#FF617C67" Width="699" Height="443">
 
     <Viewbox>
-        <Grid Background="#FF617C67" Height="466" Width="772">
+        <Grid Background="#FF617C67" Height="492" Width="774">
             <Grid.RowDefinitions>
                 <RowDefinition Height="217*"/>
                 <RowDefinition Height="233*"/>
