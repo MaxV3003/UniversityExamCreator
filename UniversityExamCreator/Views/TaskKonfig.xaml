@@ -8,9 +8,10 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TaskKonfig"
       Background="White">
-
-    <Grid Background="#FF617C67">
-        <TextBlock Name="Modul" Text="Modul"  HorizontalAlignment="Left" Height="12" Margin="61,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"/>
+    
+        <Grid Background="#FF617C67">
+        
+            <TextBlock Name="Modul" Text="Modul"  HorizontalAlignment="Left" Height="12" Margin="61,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"/>
         <ComboBox Name="ModulDD" HorizontalAlignment="Left" Height="20" Margin="180,30,0,0" VerticalAlignment="Top" Width="540">
             <ComboBox.Background>
                 <LinearGradientBrush EndPoint="0,1">
@@ -72,6 +73,13 @@
 
         <Button Name="Back" Content="zurück" HorizontalAlignment="Left" Height="24" Margin="80,373,0,0" VerticalAlignment="Top" Width="71" Click="Back_Click"/>
         <Button Name="Next" Content="Weiter" HorizontalAlignment="Left" Height="24" Margin="639,374,0,0" VerticalAlignment="Top" Width="71" Click="Next_Click"/>
-
+        
     </Grid>
+    
+
+
+
+
+
+
 </Page>
