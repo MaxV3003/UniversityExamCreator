@@ -11,15 +11,15 @@
     <Viewbox>
         <Grid Background="#FF617C67" Width="800" Height="450">
         <TextBlock Name="Content" HorizontalAlignment="Left" Height="20" Margin="50,25,0,0" TextWrapping="Wrap" 
-                   Text="Fragestellung für die offene Frage:" VerticalAlignment="Top" Width="645"/>
+                   Text="Fragestellung für die offene Frage:" VerticalAlignment="Top" Width="645" FontFamily="Verdana"/>
         <TextBox Name="ContentText" HorizontalAlignment="Left" Height="100" Margin="50,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="695" 
-                 AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Background="#FFF0EEEE"/>
+                 AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Background="#FFF0EEEE" FlowDirection="RightToLeft"/>
         <TextBlock Name="Answer" HorizontalAlignment="Left" Height="20" Margin="50,190,0,0" TextWrapping="Wrap" 
-                   Text="Musterantwort für die offene Frage:            (Keine Pflichangabe)" VerticalAlignment="Top" Width="645"/>
+                   Text="Musterantwort für die offene Frage:            (Keine Pflichangabe)" VerticalAlignment="Top" Width="645" FontFamily="Verdana"/>
         <TextBox Name="AnswerText" HorizontalAlignment="Left" Height="100" Margin="50,225,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="695" 
                  AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Background="#FFF0EEEE"/>
-        <Button Name="Back" Content="Zurück" HorizontalAlignment="Left" Height="24" Margin="78,373,0,0" VerticalAlignment="Top" Width="71" Click="Back_Click"/>
-        <Button Name="Create" Content="erstellen" HorizontalAlignment="Left" Height="24" Margin="638,375,0,0" VerticalAlignment="Top" Width="71" Click="Create_Click"/>
+        <Button Name="Back" Content="Zurück" HorizontalAlignment="Left" Height="24" Margin="78,373,0,0" VerticalAlignment="Top" Width="71" Click="Back_Click" FontFamily="Verdana"/>
+        <Button Name="Create" Content="erstellen" HorizontalAlignment="Left" Height="24" Margin="638,375,0,0" VerticalAlignment="Top" Width="71" Click="Create_Click" FontFamily="Verdana"/>
     </Grid>
     </Viewbox>
 </Page>

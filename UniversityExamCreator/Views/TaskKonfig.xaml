@@ -11,8 +11,8 @@
     <Viewbox>
         <Grid Background="#FF617C67" Width="800" Height="450">
 
-            <TextBlock Name="Modul" Text="Modul"  HorizontalAlignment="Left" Height="17" Margin="61,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"/>
-            <ComboBox Name="ModulDD" HorizontalAlignment="Left" Height="21" Margin="180,29,0,0" VerticalAlignment="Top" Width="520">
+            <TextBlock x:Name="Modul"  HorizontalAlignment="Left" Height="17" Margin="103,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" FontFamily="Verdana"><Run Text="Modul"/><Run Language="de-de" Text="*"/></TextBlock>
+            <ComboBox Name="ModulDD" HorizontalAlignment="Left" Height="21" Margin="241,61,0,0" VerticalAlignment="Top" Width="399">
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>
@@ -21,13 +21,13 @@
                 </ComboBox.Background>
             </ComboBox>
 
-            <TextBlock Name="Theme" Text="Thema"  HorizontalAlignment="Left" Height="20" Margin="61,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"/>
-            <TextBox Name="ThemeText" HorizontalAlignment="Left" Height="21" Margin="180,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="520" MaxLength="100"
+            <TextBlock x:Name="Theme"  HorizontalAlignment="Left" Height="20" Margin="103,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" FontFamily="Verdana"><Run Text="Them"/><Run Text="a"/><Run Language="de-de" Text="*"/></TextBlock>
+            <TextBox Name="ThemeText" HorizontalAlignment="Left" Height="21" Margin="241,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="397" MaxLength="100"
                  AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Background="#FFF0EEEE"/>
 
-            <TextBlock Name="QuestionMC" Text="Art der Frage"  HorizontalAlignment="Left" Height="20" Margin="53,106,0,0"
-                   TextWrapping="Wrap" VerticalAlignment="Top" Width="91"/>
-            <ComboBox Name="MCDD" HorizontalAlignment="Left" Margin="180,106,0,0" VerticalAlignment="Top" Width="138" Height="20" SelectionChanged="MCDD_SelectionChanged">
+            <TextBlock x:Name="QuestionMC"  HorizontalAlignment="Left" Height="20" Margin="103,158,0,0"
+                   TextWrapping="Wrap" VerticalAlignment="Top" Width="91" FontFamily="Verdana"><Run Text="Art der Frage"/><Run Language="de-de" Text="*"/></TextBlock>
+            <ComboBox Name="MCDD" HorizontalAlignment="Left" Margin="240,154,0,0" VerticalAlignment="Top" Width="92" Height="21" SelectionChanged="MCDD_SelectionChanged">
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>
@@ -35,9 +35,9 @@
                     </LinearGradientBrush>
                 </ComboBox.Background>
             </ComboBox>
-            <TextBlock Name="MCCount" Text="Anzahl der Multiple Choice Antworten"  HorizontalAlignment="Left" Height="17" Margin="345,105,0,0" TextWrapping="Wrap"
-                   VerticalAlignment="Top" Width="215"/>
-            <ComboBox Name="MCCountDD" HorizontalAlignment="Left" Margin="565,105,0,0" VerticalAlignment="Top" Width="135" Height="21" IsEnabled="False">
+            <TextBlock Name="MCCount" Text="Anzahl der Multiple Choice Antworten"  HorizontalAlignment="Left" Height="17" Margin="363,155,0,0" TextWrapping="Wrap"
+                   VerticalAlignment="Top" Width="215" FontFamily="Verdana"/>
+            <ComboBox Name="MCCountDD" HorizontalAlignment="Left" Margin="544,152,0,0" VerticalAlignment="Top" Width="92" Height="21" IsEnabled="False">
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>
@@ -47,14 +47,14 @@
             </ComboBox>
 
             <TextBlock Name="MCRules" Text="Text der den Studenten angibt welche Regeln für die Multiple Choice Fragen gelten"  HorizontalAlignment="Left"
-                   Height="32" Margin="61,147,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244"/>
-            <TextBox Name="MCRulesText" HorizontalAlignment="Left" Height="21" Margin="320,161,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="374" MaxLength="100"
+                   Height="32" Margin="104,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" FontFamily="Verdana"/>
+            <TextBox Name="MCRulesText" HorizontalAlignment="Left" Height="21" Margin="348,211,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="292" MaxLength="100"
                  AcceptsReturn="True" VerticalScrollBarVisibility="Auto" IsEnabled="False" Background="#FFF0EEEE"/>
 
-            <Button Name="Test" Content="Test" HorizontalAlignment="Left" Height="24" Margin="149,396,0,0" VerticalAlignment="Top" Width="71" Click="Test_Click"/>
+            <Button Name="Test" Content="Test" HorizontalAlignment="Left" Height="24" Margin="159,398,0,0" VerticalAlignment="Top" Width="71" Click="Test_Click"/>
 
-            <TextBlock Name="Difficulty" Text="Schwierigkeit"  HorizontalAlignment="Left" Height="20" Margin="61,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"/>
-            <ComboBox Name="DifficultyDD" HorizontalAlignment="Left" Height="21" Margin="180,191,0,0" VerticalAlignment="Top" Width="520">
+            <TextBlock x:Name="Difficulty"  HorizontalAlignment="Left" Height="20" Margin="103,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92" FontFamily="Verdana"><Run Text="Schwierigkeit"/><Run Language="de-de" Text="*"/></TextBlock>
+            <ComboBox Name="DifficultyDD" HorizontalAlignment="Left" Height="21" Margin="240,259,0,0" VerticalAlignment="Top" Width="400">
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>
@@ -63,12 +63,12 @@
                 </ComboBox.Background>
             </ComboBox>
 
-            <TextBlock Name="Points" Text="Punkte"  HorizontalAlignment="Left" Height="20" Margin="61,252,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82"/>
-            <TextBox Name="PointsText" HorizontalAlignment="Left" Height="21" Margin="178,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="520" MaxLength="100"
+            <TextBlock x:Name="Points"  HorizontalAlignment="Left" Height="20" Margin="103,311,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" FontFamily="Verdana"><Run Text="Punkte"/><Run Language="de-de" Text="*"/></TextBlock>
+            <TextBox Name="PointsText" HorizontalAlignment="Left" Height="21" Margin="241,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="396" MaxLength="100"
                  AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Background="#FFF0EEEE"/>
 
-            <TextBlock Name="Title" Text="Titel der Aufgabe"  HorizontalAlignment="Left" Height="20" Margin="61,303,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="107"/>
-            <TextBox Name="TitleText" HorizontalAlignment="Left" Height="21" Margin="180,295,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="520" MaxLength="100"
+            <TextBlock Name="Title" Text="Titel der Aufgabe"  HorizontalAlignment="Left" Height="20" Margin="97,347,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="107" FontFamily="Verdana"/>
+            <TextBox Name="TitleText" HorizontalAlignment="Left" Height="21" Margin="240,346,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="395" MaxLength="100"
                  AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Background="#FFF0EEEE"/>
 
             <Button Name="Back" Content="zurück" HorizontalAlignment="Left" Height="24" Margin="78,397,0,0" VerticalAlignment="Top" Width="71" Click="Back_Click"/>

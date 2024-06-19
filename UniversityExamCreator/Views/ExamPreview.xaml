@@ -11,12 +11,12 @@
     <Viewbox>
         <Grid Background="#FF617C67" Height="450" Width="800">
 
-            <TextBlock HorizontalAlignment="Left" Margin="295,24,0,0" TextWrapping="Wrap" Text="KlausurVorschau" VerticalAlignment="Top" FontSize="20"/>
+            <TextBlock HorizontalAlignment="Left" Margin="295,34,0,0" TextWrapping="Wrap" Text="KlausurVorschau" VerticalAlignment="Top" FontSize="23" FontFamily="Verdana" FontWeight="Bold"/>
 
-            <TextBlock HorizontalAlignment="Left" Margin="104,124,0,0" TextWrapping="Wrap" Text="Schriftgröße Titel" VerticalAlignment="Top"/>
-            <TextBlock HorizontalAlignment="Left" Margin="104,156,0,0" TextWrapping="Wrap" Text="Schriftgröße Aufgabenüberschirft" VerticalAlignment="Top"/>
-            <TextBlock HorizontalAlignment="Left" Margin="105,192,0,0" TextWrapping="Wrap" Text="Schriftgröße Text" VerticalAlignment="Top"/>
-            <TextBlock HorizontalAlignment="Left" Margin="105,225,0,0" TextWrapping="Wrap" Text="Schriftart" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="104,124,0,0" TextWrapping="Wrap" Text="Schriftgröße Titel" VerticalAlignment="Top" FontFamily="Verdana"/>
+            <TextBlock HorizontalAlignment="Left" Margin="104,156,0,0" TextWrapping="Wrap" Text="Schriftgröße Aufgabenüberschirft" VerticalAlignment="Top" FontFamily="Verdana"/>
+            <TextBlock HorizontalAlignment="Left" Margin="105,192,0,0" TextWrapping="Wrap" Text="Schriftgröße Text" VerticalAlignment="Top" FontFamily="Verdana"/>
+            <TextBlock HorizontalAlignment="Left" Margin="105,225,0,0" TextWrapping="Wrap" Text="Schriftart" VerticalAlignment="Top" FontFamily="Verdana"/>
 
             <ComboBox HorizontalAlignment="Left" Margin="432,121,0,0" VerticalAlignment="Top" Width="120">
                 <ComboBox.Background>
@@ -51,9 +51,9 @@
                 </ComboBox.Background>
             </ComboBox>
 
-            <Button Content="Zurück" Margin="82,397,646,0" VerticalAlignment="Top" Click="Button_Click" Width="71" Height="24"/>
-            <Button Content="Generate PDF" HorizontalAlignment="Left" Margin="346,397,0,0" VerticalAlignment="Top" Click="GeneratePDFButton_Click" Width="112" Height="24"/>
-            <Button Content="Save PDF" Margin="648,400,81,0" VerticalAlignment="Top" Click="SavePDFButton_Click" Width="71" Height="24"/>
+            <Button Content="Zurück" Margin="78,403,650,0" VerticalAlignment="Top" Click="Button_Click" Width="71" Height="24" FontFamily="Verdana"/>
+            <Button Content="Generate PDF" HorizontalAlignment="Left" Margin="346,397,0,0" VerticalAlignment="Top" Click="GeneratePDFButton_Click" Width="112" Height="24" FontFamily="Verdana"/>
+            <Button Content="Save PDF" Margin="640,400,89,0" VerticalAlignment="Top" Click="SavePDFButton_Click" Width="71" Height="24" FontFamily="Verdana"/>
         </Grid>
     </Viewbox>
 </Page>

@@ -129,5 +129,10 @@ namespace UniversityExamCreator.Views
                 ExamTitle.Text = examconfig.ExamName;
             }
         }
+
+        private void NumTasks_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

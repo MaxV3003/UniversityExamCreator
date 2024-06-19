@@ -7,15 +7,16 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ToolsPage"
-      Background="White">
+      Background="#FF617C67">
+    <Viewbox>
+        <Grid Background="#FF617C67">
+            <Button Name="KlausurErstellen" Content="Klausur erstellen" HorizontalAlignment="Left" Height="96" VerticalAlignment="Top" Width="144" Click="KlausurErstellen_Click" Margin="351,57,0,0" FontFamily="Verdana"/>
+            <Button Name="AufgabeErstellen" Content="Aufgabe erstellen" HorizontalAlignment="Left" Height="96" VerticalAlignment="Top" Width="144" Click="AufgabeErstellen_Click" Margin="187,57,0,0" FontFamily="Verdana"/>
+            <Button Name="AufgabeLöschen" Content="Aufgabe löschen" HorizontalAlignment="Right" Height="96" VerticalAlignment="Top" Width="144" Click="AufgabeLöschen_Click" Margin="0,54,327,0" FontFamily="Verdana"/>
+            <Button Name="ModulErstellen" Content="Modul erstellen" HorizontalAlignment="Left" Height="96" VerticalAlignment="Bottom" Width="144" Click="ModulErstellen_Click" Margin="22,0,0,70" FontFamily="Verdana"/>
+            <Button Name="CommingSoon" Content="Comming soon" HorizontalAlignment="Left" Height="96" VerticalAlignment="Top" Width="144" Margin="349,254,0,0" FontFamily="Verdana"/>
+            <Button Name="CommingSoon2" Content="Comming soon" HorizontalAlignment="Right" Height="96" VerticalAlignment="Bottom" Width="144" Margin="0,0,162,71" FontFamily="Verdana"/>
 
-    <Grid Background="#FF617C67">
-        <Button Name="KlausurErstellen" Content="Klausur erstellen" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="165" Click="KlausurErstellen_Click"/>
-        <Button Name="AufgabeErstellen" Content="Aufgabe erstellen" HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="165" Click="AufgabeErstellen_Click"/>
-        <Button Name="AufgabeLöschen" Content="Aufgabe löschen" HorizontalAlignment="Right" Height="100" VerticalAlignment="Top" Width="165" Click="AufgabeLöschen_Click"/>
-        <Button Name="ModulErstellen" Content="Modul erstellen" HorizontalAlignment="Left" Height="100" VerticalAlignment="Bottom" Width="165" Click="ModulErstellen_Click"/>
-        <Button Name="CommingSoon" Content="Comming soon" HorizontalAlignment="Center" Height="100" VerticalAlignment="Bottom" Width="165"/>
-        <Button Name="CommingSoon2" Content="Comming soon" HorizontalAlignment="Right" Height="100" VerticalAlignment="Bottom" Width="165"/>
-        
-    </Grid>
+        </Grid>
+    </Viewbox>
 </Page>

@@ -10,33 +10,33 @@
       Background="#FF617C67">
     <Viewbox>
         <Grid Background="#FF617C67" Width="800" Height="450">
-        <TextBlock HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="KlausurConfig" VerticalAlignment="Top" FontSize="25"/>
+            <TextBlock HorizontalAlignment="Center" Margin="0,23,0,0" TextWrapping="Wrap" Text="KlausurConfig" VerticalAlignment="Top" FontSize="23" FontFamily="Verdana" FontWeight="Bold"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="79,113,0,0" TextWrapping="Wrap" Text="Modul auswählen" VerticalAlignment="Top" Background="#FFF0EEEE" Height="21" Width="108" />
-        <ComboBox x:Name="Module" HorizontalAlignment="Left" Margin="318,111,0,0" VerticalAlignment="Top" Width="108" SelectionChanged="ComboBox_SelectionChanged" Height="21">
-            <ComboBox.Background>
-                <LinearGradientBrush EndPoint="0,1">
-                    <GradientStop Color="#FFF0F0F0"/>
-                    <GradientStop Color="#FFF0EEEE" Offset="1"/>
-                </LinearGradientBrush>
-            </ComboBox.Background>
-        </ComboBox>
+            <TextBlock HorizontalAlignment="Left" Margin="79,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FFF0EEEE" Height="21" Width="127" FontFamily="Verdana" ><Run Text="Modul auswählen"/><Run Language="de-de" Text="*"/></TextBlock>
+            <ComboBox x:Name="Module" HorizontalAlignment="Left" Margin="318,111,0,0" VerticalAlignment="Top" Width="108" SelectionChanged="ComboBox_SelectionChanged" Height="21">
+                <ComboBox.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#FFF0F0F0"/>
+                        <GradientStop Color="#FFF0EEEE" Offset="1"/>
+                    </LinearGradientBrush>
+                </ComboBox.Background>
+            </ComboBox>
 
-        <TextBlock HorizontalAlignment="Left" Margin="80,158,0,0" TextWrapping="Wrap" Text="Prüfungsart wählen" VerticalAlignment="Top" Background="#FFF0EEEE" Height="21" Width="108"/>
-        <RadioButton x:Name="MC" Content="MC" GroupName="Prüfungsform" HorizontalAlignment="Left" Margin="320,162,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked"/>
-        <RadioButton x:Name="OffeneFragen" GroupName="Prüfungsform" Content="Offene Fragen" HorizontalAlignment="Left" Margin="421,162,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked"/>
-        <RadioButton x:Name="Mischform" GroupName="Prüfungsform" Content="Mischform" HorizontalAlignment="Left" Margin="584,162,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked"/>
+            <TextBlock HorizontalAlignment="Left" Margin="80,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FFF0EEEE" Height="21" Width="127" FontFamily="Verdana"><Run Text="Prüfungsart wählen"/><Run Language="de-de" Text="*"/></TextBlock>
+            <RadioButton x:Name="MC" Content="MC" GroupName="Prüfungsform" HorizontalAlignment="Left" Margin="320,162,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked" FontFamily="Verdana"/>
+            <RadioButton x:Name="OffeneFragen" GroupName="Prüfungsform" Content="Offene Fragen" HorizontalAlignment="Left" Margin="421,162,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked" FontFamily="Verdana"/>
+            <RadioButton x:Name="Mischform" GroupName="Prüfungsform" Content="Mischform" HorizontalAlignment="Left" Margin="584,162,0,0" VerticalAlignment="Top" Checked="RadioButton_Checked" FontFamily="Verdana"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="80,203,0,0" TextWrapping="Wrap" Text="Klausurenumfang" VerticalAlignment="Top" Background="#FFF0EEEE" Height="21" Width="108"/>
-        <TextBox x:Name="NumTasks" HorizontalAlignment="Left" Margin="318,203,0,0" TextWrapping="Wrap" Text="Anzahl Aufgaben" VerticalAlignment="Top" Width="108" Background="#FFF0EEEE" Height="21"/>
-        <TextBox x:Name="NumPoints" HorizontalAlignment="Left" Margin="485,203,0,0" TextWrapping="Wrap" Text="Anzahl Punkte" VerticalAlignment="Top" Width="108" Background="#FFF0EEEE" Height="21"/>
+            <TextBlock HorizontalAlignment="Left" Margin="80,203,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FFF0EEEE" Height="21" Width="127" FontFamily="Verdana"><Run Text="Klausurenumfang"/><Run Language="de-de" Text="*"/></TextBlock>
+            <TextBox x:Name="NumTasks" HorizontalAlignment="Left" Margin="318,203,0,0" TextWrapping="Wrap" Text="Anzahl Aufgaben" VerticalAlignment="Top" Width="108" Background="#FFF0EEEE" Height="21" TextChanged="NumTasks_TextChanged" FontFamily="Verdana"/>
+            <TextBox x:Name="NumPoints" HorizontalAlignment="Left" Margin="485,203,0,0" TextWrapping="Wrap" Text="Anzahl Punkte" VerticalAlignment="Top" Width="108" Background="#FFF0EEEE" Height="21" FontFamily="Verdana"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="80,249,0,0" TextWrapping="Wrap" Text="Klausurüberschrift" VerticalAlignment="Top" Background="#FFF0EEEE" Height="21" Width="108"/>
-        <TextBox x:Name="ExamTitle" HorizontalAlignment="Left" Margin="320,248,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="108" Background="#FFF0EEEE" Height="21"/>
+            <TextBlock HorizontalAlignment="Left" Margin="80,249,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FFF0EEEE" Height="21" Width="127" FontFamily="Verdana"><Run Text="Klausurüberschrift"/><Run Language="de-de" Text="*"/></TextBlock>
+            <TextBox x:Name="ExamTitle" HorizontalAlignment="Left" Margin="320,248,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="108" Background="#FFF0EEEE" Height="21"/>
 
-        <Button Content="Weiter" HorizontalAlignment="Left" Margin="639,354,0,0" VerticalAlignment="Top" Click="Button_Click" Width="71" Height="24"/>
-        <Button Content="Zurück" HorizontalAlignment="Left" Margin="80,351,0,0" VerticalAlignment="Top" Click="Button_Click_1" Width="71" Height="24"/>
+            <Button Content="Weiter" HorizontalAlignment="Left" Margin="639,354,0,0" VerticalAlignment="Top" Click="Button_Click" Width="71" Height="24" FontFamily="Verdana"/>
+            <Button Content="Zurück" HorizontalAlignment="Left" Margin="80,351,0,0" VerticalAlignment="Top" Click="Button_Click_1" Width="71" Height="24" FontFamily="Verdana"/>
 
-    </Grid>
+        </Grid>
     </Viewbox>
 </Page>
