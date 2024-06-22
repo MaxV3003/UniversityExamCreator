@@ -14,7 +14,7 @@
                 <RowDefinition Height="217*"/>
                 <RowDefinition Height="233*"/>
             </Grid.RowDefinitions>
-            <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="KlausurErstellen" VerticalAlignment="Top" FontSize="25" FontFamily="Verdana" FontWeight="Bold"/>
+            <TextBlock HorizontalAlignment="Center" Margin="0,24,0,0" TextWrapping="Wrap" Text="KlausurErstellen" VerticalAlignment="Top" FontSize="25" FontFamily="Verdana" FontWeight="Bold"/>
 
             <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="69" Margin="57,66,0,0" VerticalAlignment="Top" Width="692">
                 <Grid Margin="-50,13,0,0">
@@ -89,7 +89,7 @@
                 </ListView>
             </StackPanel>
 
-            <Button Content="Add Selected Items" HorizontalAlignment="Left" Margin="120,144,0,0" VerticalAlignment="Top" Click="AddSelectedItemsButton_Click" Grid.Row="1" Width="108" FontFamily="Verdana"/>
+            <Button Content="Add Selected Items" HorizontalAlignment="Left" Margin="102,144,0,0" VerticalAlignment="Top" Click="AddSelectedItemsButton_Click" Grid.Row="1" Width="155" FontFamily="Verdana" Height="28"/>
 
             <!-- StackPanel for Selected Items -->
             <StackPanel HorizontalAlignment="Left" Height="194" Margin="512,145,0,0" VerticalAlignment="Top" Width="238" Background="Gray" Grid.RowSpan="2">
@@ -113,7 +113,7 @@
                 </ListView>
             </StackPanel>
 
-            <Button Content="Delete Selected Items" HorizontalAlignment="Left" Margin="577,140,0,0" VerticalAlignment="Top" Click="DeleteSelectedItemsButton_Click" Grid.Row="1" FontFamily="Verdana"/>
+            <Button Content="Delete Selected Items" HorizontalAlignment="Left" Margin="573,146,0,0" VerticalAlignment="Top" Click="DeleteSelectedItemsButton_Click" Grid.Row="1" FontFamily="Verdana" Height="28" Width="155"/>
 
             <Button Name="Back" Content="Zurück" HorizontalAlignment="Left" Height="45" Margin="50,375,0,0" VerticalAlignment="Top" Width="120" Click="Back_Click"/>
             <Button Name="Delete" Content="löschen" HorizontalAlignment="Left" Height="60" Margin="630,360,0,0" VerticalAlignment="Top" Width="120" Click="Delete_Click"/>

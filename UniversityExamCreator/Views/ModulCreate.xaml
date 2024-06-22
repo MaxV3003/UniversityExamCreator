@@ -14,8 +14,8 @@
             <TextBox Name="ModulIDText" HorizontalAlignment="Left" Height="25" Margin="180,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="540"/>
         <TextBox Name="ModulNameText" HorizontalAlignment="Left" Height="25" Margin="190,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="540"/>
 
-        <Button Name="Back" Content="Zurück" HorizontalAlignment="Left" Height="26" Margin="82,401,0,0" VerticalAlignment="Top" Width="71" Click="Back_Click" FontFamily="Verdana"/>
-        <Button Name="Create" Content="Erstellen" HorizontalAlignment="Left" Height="26" Margin="638,399,0,0" VerticalAlignment="Top" Width="71" Click="Create_Click" FontFamily="Verdana"/>
+        <Button Name="Back" Content="Zurück" HorizontalAlignment="Left" Height="26" Margin="82,371,0,0" VerticalAlignment="Top" Width="71" Click="Back_Click" FontFamily="Verdana"/>
+        <Button Name="Create" Content="Erstellen" HorizontalAlignment="Left" Height="26" Margin="638,379,0,0" VerticalAlignment="Top" Width="71" Click="Create_Click" FontFamily="Verdana"/>
 
     </Grid>
     </Viewbox>

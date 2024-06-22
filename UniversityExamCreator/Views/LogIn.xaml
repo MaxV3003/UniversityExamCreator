@@ -10,9 +10,9 @@
       Background="#FF617C67">
     <Viewbox>
         <Grid Height="450" Width="800" Background="#FF617C67">
-            <TextBlock Text="Exam Creator" FontSize="53" FontWeight="UltraBold" HorizontalAlignment="Left" VerticalAlignment="Center" Width="416" Height="82" Margin="198,0,0,0" FontFamily="Verdana"/>
+            <TextBlock Text="Exam Creator" FontSize="53" FontWeight="UltraBold" HorizontalAlignment="Left" VerticalAlignment="Top" Width="416" Height="82" Margin="198,158,0,0" FontFamily="Verdana"/>
 
-            <Button Content="Weiter" HorizontalAlignment="Left" Height="24" Margin="639,399,0,0" VerticalAlignment="Top" Width="71" Click="Button_Click" FontFamily="Verdana"/>
+            <Button Content="Weiter" HorizontalAlignment="Left" Height="24" Margin="639,369,0,0" VerticalAlignment="Top" Width="71" Click="Button_Click" FontFamily="Verdana"/>
 
 
         </Grid>

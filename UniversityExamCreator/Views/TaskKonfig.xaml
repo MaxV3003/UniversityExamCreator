@@ -51,7 +51,7 @@
             <TextBox Name="MCRulesText" HorizontalAlignment="Left" Height="21" Margin="348,211,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="292" MaxLength="100"
                  AcceptsReturn="True" VerticalScrollBarVisibility="Auto" IsEnabled="False" Background="#FFF0EEEE"/>
 
-            <Button Name="Test" Content="Test" HorizontalAlignment="Left" Height="24" Margin="159,398,0,0" VerticalAlignment="Top" Width="71" Click="Test_Click"/>
+            <Button Name="Test" Content="Test" HorizontalAlignment="Left" Height="24" Margin="159,380,0,0" VerticalAlignment="Top" Width="71" Click="Test_Click"/>
 
             <TextBlock x:Name="Difficulty"  HorizontalAlignment="Left" Height="20" Margin="103,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92" FontFamily="Verdana"><Run Text="Schwierigkeit"/><Run Language="de-de" Text="*"/></TextBlock>
             <ComboBox Name="DifficultyDD" HorizontalAlignment="Left" Height="21" Margin="240,259,0,0" VerticalAlignment="Top" Width="400">
@@ -71,8 +71,8 @@
             <TextBox Name="TitleText" HorizontalAlignment="Left" Height="21" Margin="240,346,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="395" MaxLength="100"
                  AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Background="#FFF0EEEE"/>
 
-            <Button Name="Back" Content="zurück" HorizontalAlignment="Left" Height="24" Margin="78,397,0,0" VerticalAlignment="Top" Width="71" Click="Back_Click"/>
-            <Button Name="Next" Content="Weiter" HorizontalAlignment="Left" Height="24" Margin="639,400,0,0" VerticalAlignment="Top" Width="71" Click="Next_Click"/>
+            <Button Name="Back" Content="zurück" HorizontalAlignment="Left" Height="24" Margin="78,379,0,0" VerticalAlignment="Top" Width="71" Click="Back_Click"/>
+            <Button Name="Next" Content="Weiter" HorizontalAlignment="Left" Height="24" Margin="647,382,0,0" VerticalAlignment="Top" Width="71" Click="Next_Click"/>
 
         </Grid>
     </Viewbox>

@@ -19,7 +19,7 @@
         <TextBox Name="AnswerText" HorizontalAlignment="Left" Height="100" Margin="50,225,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="695" 
                  AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Background="#FFF0EEEE"/>
         <Button Name="Back" Content="Zurück" HorizontalAlignment="Left" Height="24" Margin="78,373,0,0" VerticalAlignment="Top" Width="71" Click="Back_Click" FontFamily="Verdana"/>
-        <Button Name="Create" Content="erstellen" HorizontalAlignment="Left" Height="24" Margin="638,375,0,0" VerticalAlignment="Top" Width="71" Click="Create_Click" FontFamily="Verdana"/>
+        <Button Name="Create" Content="erstellen" HorizontalAlignment="Left" Height="24" Margin="644,375,0,0" VerticalAlignment="Top" Width="71" Click="Create_Click" FontFamily="Verdana"/>
     </Grid>
     </Viewbox>
 </Page>
