@@ -7,16 +7,16 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ModulCreate"
-      Background="#FF617C67">
+      Background="#FFF9FCFD">
     <Viewbox>
-        <Grid Background="#FF617C67" Width="800" Height="450">
-            <TextBlock x:Name="ModulID"  HorizontalAlignment="Left" Height="20" Margin="53,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" FontFamily="Verdana"><Run Text="ModulID"/><Run Language="de-de" Text="*"/></TextBlock>
+        <Grid Background="#FFF9FCFD" Width="800" Height="450">
+            <TextBlock x:Name="ModulID"  HorizontalAlignment="Left" Height="20" Margin="53,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" FontFamily="Verdana" Foreground="#FF0068B4"><Run Text="ModulID"/><Run Language="de-de" Text="*"/></TextBlock>
             <TextBox Name="ModulIDText" HorizontalAlignment="Left" Height="25" Margin="180,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="540"/>
-        <TextBox Name="ModulNameText" HorizontalAlignment="Left" Height="25" Margin="190,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="540"/>
+            <TextBox Name="ModulNameText" HorizontalAlignment="Left" Height="25" Margin="179,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="551" BorderBrush="#FFAACEE9" Background="#FFF5FBFB"/>
 
-        <Button Name="Back" Content="Zurück" HorizontalAlignment="Left" Height="26" Margin="82,371,0,0" VerticalAlignment="Top" Width="71" Click="Back_Click" FontFamily="Verdana"/>
-        <Button Name="Create" Content="Erstellen" HorizontalAlignment="Left" Height="26" Margin="638,379,0,0" VerticalAlignment="Top" Width="71" Click="Create_Click" FontFamily="Verdana"/>
+            <Button Name="Back" Content="Zurück" HorizontalAlignment="Left" Height="26" Margin="82,371,0,0" VerticalAlignment="Top" Width="71" Click="Back_Click" FontFamily="Verdana" Foreground="#FF0068B4" BorderBrush="#FFAACEE9" Background="#FFF5FBFB"/>
+            <Button Name="Create" Content="Erstellen" HorizontalAlignment="Left" Height="26" Margin="638,379,0,0" VerticalAlignment="Top" Width="71" Click="Create_Click" FontFamily="Verdana" Foreground="#FF0068B4" BorderBrush="#FFAACEE9" Background="#FFF5FBFB"/>
 
-    </Grid>
+        </Grid>
     </Viewbox>
 </Page>

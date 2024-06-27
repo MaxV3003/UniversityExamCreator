@@ -7,53 +7,53 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ExamPreview"
-      Background="#FF617C67">
+      Background="#FFF9FCFD">
     <Viewbox>
-        <Grid Background="#FF617C67" Height="450" Width="800">
+        <Grid Background="#FFF9FCFD" Height="450" Width="800">
 
-            <TextBlock HorizontalAlignment="Left" Margin="295,34,0,0" TextWrapping="Wrap" Text="KlausurVorschau" VerticalAlignment="Top" FontSize="23" FontFamily="Verdana" FontWeight="Bold"/>
+            <TextBlock HorizontalAlignment="Left" Margin="295,34,0,0" TextWrapping="Wrap" Text="KlausurVorschau" VerticalAlignment="Top" FontSize="23" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF0068B4"/>
 
-            <TextBlock HorizontalAlignment="Left" Margin="104,124,0,0" TextWrapping="Wrap" Text="Schriftgröße Titel" VerticalAlignment="Top" FontFamily="Verdana"/>
-            <TextBlock HorizontalAlignment="Left" Margin="104,156,0,0" TextWrapping="Wrap" Text="Schriftgröße Aufgabenüberschirft" VerticalAlignment="Top" FontFamily="Verdana"/>
-            <TextBlock HorizontalAlignment="Left" Margin="105,192,0,0" TextWrapping="Wrap" Text="Schriftgröße Text" VerticalAlignment="Top" FontFamily="Verdana"/>
-            <TextBlock HorizontalAlignment="Left" Margin="105,225,0,0" TextWrapping="Wrap" Text="Schriftart" VerticalAlignment="Top" FontFamily="Verdana"/>
+            <TextBlock HorizontalAlignment="Left" Margin="104,124,0,0" TextWrapping="Wrap" Text="Schriftgröße Titel" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
+            <TextBlock HorizontalAlignment="Left" Margin="104,156,0,0" TextWrapping="Wrap" Text="Schriftgröße Aufgabenüberschirft" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
+            <TextBlock HorizontalAlignment="Left" Margin="105,192,0,0" TextWrapping="Wrap" Text="Schriftgröße Text" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
+            <TextBlock HorizontalAlignment="Left" Margin="105,225,0,0" TextWrapping="Wrap" Text="Schriftart" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
 
-            <ComboBox HorizontalAlignment="Left" Margin="432,121,0,0" VerticalAlignment="Top" Width="120">
+            <ComboBox HorizontalAlignment="Left" Margin="432,121,0,0" VerticalAlignment="Top" Width="120" BorderBrush="#FFAACEE9">
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>
-                        <GradientStop Color="#FFF0EEEE" Offset="1"/>
+                        <GradientStop Color="#FFF5FBFB" Offset="1"/>
                     </LinearGradientBrush>
                 </ComboBox.Background>
             </ComboBox>
-            <ComboBox HorizontalAlignment="Left" Margin="432,153,0,0" VerticalAlignment="Top" Width="120">
+            <ComboBox HorizontalAlignment="Left" Margin="432,153,0,0" VerticalAlignment="Top" Width="120" BorderBrush="#FFAACEE9">
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>
-                        <GradientStop Color="#FFF0EEEE" Offset="1"/>
+                        <GradientStop Color="#FFF5FBFB" Offset="1"/>
                     </LinearGradientBrush>
                 </ComboBox.Background>
             </ComboBox>
-            <ComboBox HorizontalAlignment="Left" Margin="432,189,0,0" VerticalAlignment="Top" Width="120">
+            <ComboBox HorizontalAlignment="Left" Margin="432,189,0,0" VerticalAlignment="Top" Width="120" BorderBrush="#FFAACEE9">
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>
-                        <GradientStop Color="#FFF0EEEE" Offset="1"/>
+                        <GradientStop Color="#FFF5FBFB" Offset="1"/>
                     </LinearGradientBrush>
                 </ComboBox.Background>
             </ComboBox>
-            <ComboBox HorizontalAlignment="Left" Margin="432,222,0,0" VerticalAlignment="Top" Width="120">
+            <ComboBox HorizontalAlignment="Left" Margin="432,222,0,0" VerticalAlignment="Top" Width="120" BorderBrush="#FFAACEE9">
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>
-                        <GradientStop Color="#FFF0EEEE" Offset="1"/>
+                        <GradientStop Color="#FFF5FBFB" Offset="1"/>
                     </LinearGradientBrush>
                 </ComboBox.Background>
             </ComboBox>
 
-            <Button Content="Zurück" Margin="78,373,650,0" VerticalAlignment="Top" Click="Button_Click" Width="71" Height="24" FontFamily="Verdana"/>
-            <Button Content="Generate PDF" HorizontalAlignment="Left" Margin="346,397,0,0" VerticalAlignment="Top" Click="GeneratePDFButton_Click" Width="112" Height="24" FontFamily="Verdana"/>
-            <Button Content="Save PDF" Margin="640,376,89,0" VerticalAlignment="Top" Click="SavePDFButton_Click" Width="71" Height="24" FontFamily="Verdana"/>
+            <Button Content="Zurück" Margin="78,373,650,0" VerticalAlignment="Top" Click="Button_Click" Width="71" Height="24" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB"/>
+            <Button Content="Generate PDF" HorizontalAlignment="Left" Margin="346,373,0,0" VerticalAlignment="Top" Click="GeneratePDFButton_Click" Width="112" Height="24" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB"/>
+            <Button Content="Save PDF" Margin="640,376,89,0" VerticalAlignment="Top" Click="SavePDFButton_Click" Width="71" Height="24" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB"/>
         </Grid>
     </Viewbox>
 </Page>

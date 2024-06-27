@@ -9,11 +9,11 @@
       Title="TaskCreateMC"
       Background="White">
     <Viewbox>
-        <Grid Background="#FF617C67" Width="800" Height="450">
+        <Grid Background="#FFF9FCFD" Width="800" Height="450">
             
-            <Button Name="Back" Content="Zurück" HorizontalAlignment="Left" Height="24" Margin="79,372,0,0" VerticalAlignment="Top" Width="71" Click="Back_Click" FontFamily="Verdana" />
-            <Button Name="Create" Content="erstellen" HorizontalAlignment="Left" Height="24" Margin="645,370,0,0" VerticalAlignment="Top" Width="71" Click="Create_Click" FontFamily="Verdana"/>
-            <TextBlock Name="Titel" Text="MC" FontSize="23"  HorizontalAlignment="Center" Height="37" Margin="0,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" FontFamily="Verdana" FontWeight="Bold"/>
+            <Button Name="Back" Content="Zurück" HorizontalAlignment="Left" Height="24" Margin="79,372,0,0" VerticalAlignment="Top" Width="71" Click="Back_Click" FontFamily="Verdana" Foreground="#FF0068B4" Background="#FFF5FBFB" BorderBrush="#FFAACEE9" />
+            <Button Name="Create" Content="erstellen" HorizontalAlignment="Left" Height="24" Margin="645,370,0,0" VerticalAlignment="Top" Width="71" Click="Create_Click" FontFamily="Verdana" Foreground="#FF0068B4" Background="#FFF5FBFB" BorderBrush="#FFAACEE9"/>
+            <TextBlock Name="Titel" Text="MC" FontSize="23"  HorizontalAlignment="Center" Height="37" Margin="0,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF0068B4"/>
             
         </Grid>
     </Viewbox>

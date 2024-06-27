@@ -6,17 +6,17 @@
       xmlns:local="clr-namespace:UniversityExamCreator.Views"
       mc:Ignorable="d"
       Title="TaskDelete"
-      Background="#FF617C67">
+      Background="#FFF9FCFD">
 
     <Viewbox>
-        <Grid Background="#FF617C67" Height="450" Width="800">
+        <Grid Background="#FFF9FCFD" Height="450" Width="800">
             <Grid.RowDefinitions>
                 <RowDefinition Height="217*"/>
                 <RowDefinition Height="233*"/>
             </Grid.RowDefinitions>
-            <TextBlock HorizontalAlignment="Center" Margin="0,24,0,0" TextWrapping="Wrap" Text="KlausurErstellen" VerticalAlignment="Top" FontSize="25" FontFamily="Verdana" FontWeight="Bold"/>
+            <TextBlock HorizontalAlignment="Center" Margin="0,24,0,0" TextWrapping="Wrap" Text="KlausurErstellen" VerticalAlignment="Top" FontSize="25" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF0068B4"/>
 
-            <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="69" Margin="57,66,0,0" VerticalAlignment="Top" Width="692">
+            <Border BorderBrush="#FFAACEE9" BorderThickness="1" HorizontalAlignment="Left" Height="69" Margin="57,66,0,0" VerticalAlignment="Top" Width="692">
                 <Grid Margin="-50,13,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -24,9 +24,9 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock TextWrapping="Wrap" Text="Themen*" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="115,1,0,0" FontFamily="Verdana"/>
-                    <TextBlock TextWrapping="Wrap" Text="Schwierigkeit" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="96,-1,0,0" FontFamily="Verdana"/>
-                    <TextBlock TextWrapping="Wrap" Text="Punkte*" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="127,3,0,0" FontFamily="Verdana"/>
+                    <TextBlock TextWrapping="Wrap" Text="Themen*" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="115,1,0,0" FontFamily="Verdana" Foreground="#FF0068B4"/>
+                    <TextBlock TextWrapping="Wrap" Text="Schwierigkeit" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="96,-1,0,0" FontFamily="Verdana" Foreground="#FF0068B4"/>
+                    <TextBlock TextWrapping="Wrap" Text="Punkte*" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="127,3,0,0" FontFamily="Verdana" Foreground="#FF0068B4"/>
                 </Grid>
             </Border>
 
@@ -34,11 +34,11 @@
             <ComboBox HorizontalAlignment="Left" Margin="88,100,0,0" VerticalAlignment="Top" Width="120" 
   ItemsSource="{Binding Themes}" 
   SelectedItem="{Binding SelectedTheme, Mode=TwoWay}"
-  SelectionChanged="ComboBox_SelectionChanged">
+  SelectionChanged="ComboBox_SelectionChanged" BorderBrush="#FFAACEE9">
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>
-                        <GradientStop Color="#FFF0EEEE" Offset="1"/>
+                        <GradientStop Color="#FFAACEE9" Offset="1"/>
                     </LinearGradientBrush>
                 </ComboBox.Background>
             </ComboBox>
@@ -46,11 +46,11 @@
             <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" 
   ItemsSource="{Binding Difficulties}" 
   SelectedItem="{Binding SelectedDifficulty, Mode=TwoWay}"
-  SelectionChanged="ComboBox_SelectionChanged" Margin="330,96,0,0">
+  SelectionChanged="ComboBox_SelectionChanged" Margin="330,96,0,0" BorderBrush="#FFAACEE9">
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>
-                        <GradientStop Color="#FFF0EEEE" Offset="1"/>
+                        <GradientStop Color="#FFF5FBFB" Offset="1"/>
                     </LinearGradientBrush>
                 </ComboBox.Background>
             </ComboBox>
@@ -58,11 +58,11 @@
             <ComboBox HorizontalAlignment="Left" Margin="581,100,0,0" VerticalAlignment="Top" Width="120" 
   ItemsSource="{Binding Points}" 
   SelectedItem="{Binding SelectedPoints, Mode=TwoWay}"
-  SelectionChanged="ComboBox_SelectionChanged">
+  SelectionChanged="ComboBox_SelectionChanged" BorderBrush="#FFAACEE9">
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>
-                        <GradientStop Color="#FFF0EEEE" Offset="1"/>
+                        <GradientStop Color="#FFF5FBFB" Offset="1"/>
                     </LinearGradientBrush>
                 </ComboBox.Background>
             </ComboBox>
@@ -70,8 +70,8 @@
 
             <StackPanel HorizontalAlignment="Left" Height="197" Margin="50,145,0,0" VerticalAlignment="Top" Width="262" Background="Gray" Grid.RowSpan="2" >
                 <!-- ListView with CheckBoxes and Info Buttons -->
-                <ListView x:Name="ItemListView" Width="254" Height="194" ScrollViewer.VerticalScrollBarVisibility="Auto"
-          ItemsSource="{Binding FilteredItems}" Background="#FFD0CDCD" SelectionChanged="ItemListView_SelectionChanged" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <ListView x:Name="ItemListView" Width="261" Height="198" ScrollViewer.VerticalScrollBarVisibility="Auto"
+          ItemsSource="{Binding FilteredItems}" Background="#FFF5FBFB" SelectionChanged="ItemListView_SelectionChanged" HorizontalAlignment="Right" BorderBrush="#FFAACEE9">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -89,12 +89,12 @@
                 </ListView>
             </StackPanel>
 
-            <Button Content="Add Selected Items" HorizontalAlignment="Left" Margin="102,144,0,0" VerticalAlignment="Top" Click="AddSelectedItemsButton_Click" Grid.Row="1" Width="155" FontFamily="Verdana" Height="28"/>
+            <Button Content="Add Selected Items" HorizontalAlignment="Left" Margin="102,144,0,0" VerticalAlignment="Top" Click="AddSelectedItemsButton_Click" Grid.Row="1" Width="155" FontFamily="Verdana" Height="28" Foreground="#FF0068B4" BorderBrush="#FFAACEE9" Background="#FFF5FBFB"/>
 
             <!-- StackPanel for Selected Items -->
             <StackPanel HorizontalAlignment="Left" Height="194" Margin="512,145,0,0" VerticalAlignment="Top" Width="238" Background="Gray" Grid.RowSpan="2">
                 <ListView x:Name="SelectedItemListView" Width="253" Height="193" ScrollViewer.VerticalScrollBarVisibility="Auto"
-          ItemsSource="{Binding SelectedItems}" Background="#FFD0CDCD">
+          ItemsSource="{Binding SelectedItems}" Background="#FFF5FBFB" BorderBrush="#FFAACEE9">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -113,7 +113,7 @@
                 </ListView>
             </StackPanel>
 
-            <Button Content="Delete Selected Items" HorizontalAlignment="Left" Margin="573,146,0,0" VerticalAlignment="Top" Click="DeleteSelectedItemsButton_Click" Grid.Row="1" FontFamily="Verdana" Height="28" Width="155"/>
+            <Button Content="Delete Selected Items" HorizontalAlignment="Left" Margin="573,146,0,0" VerticalAlignment="Top" Click="DeleteSelectedItemsButton_Click" Grid.Row="1" FontFamily="Verdana" Height="28" Width="155" Foreground="#FF0068B4" BorderBrush="#FFAACEE9" Background="#FFF5FBFB"/>
 
             <Button Name="Back" Content="Zurück" HorizontalAlignment="Left" Height="45" Margin="50,375,0,0" VerticalAlignment="Top" Width="120" Click="Back_Click"/>
             <Button Name="Delete" Content="löschen" HorizontalAlignment="Left" Height="60" Margin="630,360,0,0" VerticalAlignment="Top" Width="120" Click="Delete_Click"/>

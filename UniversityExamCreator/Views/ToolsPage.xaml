@@ -7,15 +7,15 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ToolsPage"
-      Background="#FF617C67">
-    <Viewbox>
-        <Grid Background="#FF617C67">
-            <Button Name="KlausurErstellen" Content="Klausur erstellen" HorizontalAlignment="Left" Height="90" VerticalAlignment="Top" Width="130" Click="KlausurErstellen_Click" Margin="327,81,0,0" FontFamily="Verdana"/>
-            <Button Name="AufgabeErstellen" Content="Aufgabe erstellen" HorizontalAlignment="Left" Height="90" VerticalAlignment="Top" Width="130" Click="AufgabeErstellen_Click" Margin="181,81,0,0" FontFamily="Verdana"/>
-            <Button Name="AufgabeLöschen" Content="Aufgabe löschen" HorizontalAlignment="Right" Height="90" VerticalAlignment="Top" Width="130" Click="AufgabeLöschen_Click" Margin="0,82,315,0" FontFamily="Verdana"/>
-            <Button Name="ModulErstellen" Content="Modul erstellen" HorizontalAlignment="Left" Height="90" VerticalAlignment="Bottom" Width="130" Click="ModulErstellen_Click" Margin="36,0,0,70" FontFamily="Verdana"/>
-            <Button Name="CommingSoon" Content="Comming soon" HorizontalAlignment="Left" Height="90" VerticalAlignment="Top" Width="130" Margin="354,260,0,0" FontFamily="Verdana"/>
-            <Button Name="CommingSoon2" Content="Comming soon" HorizontalAlignment="Right" Height="90" VerticalAlignment="Bottom" Width="130" Margin="0,0,172,69" FontFamily="Verdana"/>
+     Background="#FFF9FCFD">
+    <Viewbox OpacityMask="#FFF9FCFD">
+        <Grid Background="#FFF9FCFD">
+            <Button Name="KlausurErstellen" Content="Klausur erstellen" HorizontalAlignment="Left" Height="90" VerticalAlignment="Top" Width="130" Click="KlausurErstellen_Click" Margin="327,81,0,0" FontFamily="Verdana" Background="#FFF5FBFB" BorderBrush="#FFAACEE9" Foreground="#FF0068B4"/>
+            <Button Name="AufgabeErstellen" Content="Aufgabe erstellen" HorizontalAlignment="Left" Height="90" VerticalAlignment="Top" Width="130" Click="AufgabeErstellen_Click" Margin="181,81,0,0" FontFamily="Verdana" Background="#FFF5FBFB" BorderBrush="#FFAACEE9" Foreground="#FF0068B4"/>
+            <Button Name="AufgabeLöschen" Content="Aufgabe löschen" HorizontalAlignment="Right" Height="90" VerticalAlignment="Top" Width="130" Click="AufgabeLöschen_Click" Margin="0,82,315,0" FontFamily="Verdana" Foreground="#FF0068B4" BorderBrush="#FFAACEE9" Background="#FFF5FBFB"/>
+            <Button Name="ModulErstellen" Content="Modul erstellen" HorizontalAlignment="Left" Height="90" VerticalAlignment="Bottom" Width="130" Click="ModulErstellen_Click" Margin="36,0,0,70" FontFamily="Verdana" Background="#FFF5FBFB" BorderBrush="#FFAACEE9" Foreground="#FF0068B4"/>
+            <Button Name="CommingSoon" Content="Comming soon" HorizontalAlignment="Left" Height="90" VerticalAlignment="Top" Width="130" Margin="354,260,0,0" FontFamily="Verdana" Background="#FFF5FBFB" BorderBrush="#FFAACEE9" Foreground="#FF0068B4"/>
+            <Button Name="CommingSoon2" Content="Comming soon" HorizontalAlignment="Right" Height="90" VerticalAlignment="Bottom" Width="130" Margin="0,0,172,69" FontFamily="Verdana" Background="#FFF5FBFB" BorderBrush="#FFAACEE9" Foreground="#FF0068B4"/>
 
         </Grid>
     </Viewbox>
