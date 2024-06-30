@@ -13,12 +13,12 @@ namespace UniversityExamCreator.Views
     /// </summary>
     public partial class ExamCreate : Page
     {
-        // ObservableCollection to hold the items
-        public ObservableCollection<Item> Items { get; set; }
-        public ObservableCollection<Item> SelectedItems { get; set; }
-        public ObservableCollection<Item> FilteredItems { get; set; }
+        // ObservableCollection to hold the tasks
+        public ObservableCollection<Task> Tasks { get; set; }
+        public ObservableCollection<Task> SelectedTasks { get; set; }
+        public ObservableCollection<Task> FilteredTasks { get; set; }
 
-        //Lists to save the the Filteropotion-Items 
+        // Lists to save the filter options
         public List<string> Themes { get; set; }
         public List<int> Points { get; set; }
         public List<string> Difficulties { get; set; }
@@ -33,51 +33,35 @@ namespace UniversityExamCreator.Views
             Examconfig = examconfig;
             InitializeComponent();
 
-            // Initialize the ObservableCollection and add items
-            Items = new ObservableCollection<Item>
+            Task task1 = new Task("Module1", "Test", "Typ1", "leicht", 2, "Task 1");
+            task1.setTaskContent("Test for Button");
+
+            // Initialize the ObservableCollection and add tasks
+            Tasks = new ObservableCollection<Task>
             {
-                new Item { Name = "Item is cool but does it have much place to exist1", IsSelected = false, Info = "Information about Item 1", Points=2, Theme ="Test", Difficulty="leicht"},
-                new Item { Name = "Item 2", IsSelected = false, Info = "Information about Item 2", Points = 2, Theme="Datenbanken", Difficulty="leicht"},
-                new Item { Name = "Item 3", IsSelected = false, Info = "Information about Item 3", Points = 3, Theme="Datenbanken", Difficulty="schwer"},
-                new Item { Name = "Item 1", IsSelected = false, Info = "Information about Item 1", Points = 3, Theme="Programmieren", Difficulty="normal"},
-                new Item { Name = "Item 2", IsSelected = false, Info = "Information about Item 2", Points = 1, Theme="Programmieren", Difficulty="schwer"},
-                new Item { Name = "Item 3", IsSelected = false, Info = "Information about Item 3", Points = 1, Theme="Lineare Algebra", Difficulty="schwer"},
-                new Item { Name = "Item 1", IsSelected = false, Info = "Information about Item 1", Points = 3, Theme="Lineare Algebra", Difficulty="normal"},
-                new Item { Name = "Item 2", IsSelected = false, Info = "Information about Item 2", Points = 2, Theme="Datenbanken", Difficulty="leicht"},
-                new Item { Name = "Item 3", IsSelected = false, Info = "Information about Item 3", Points = 2, Theme="Programmieren", Difficulty="leicht"},
-                new Item { Name = "Item 1", IsSelected = false, Info = "Information about Item 1", Points = 3, Theme="Lineare Algebra", Difficulty="leicht"},
-                new Item { Name = "Item 2", IsSelected = false, Info = "Information about Item 2", Points = 2, Theme="Datenbanken", Difficulty="normal"},
-                new Item { Name = "Item 3", IsSelected = false, Info = "Information about Item 3", Points = 2, Theme="Datenbanken", Difficulty="normal"},
-                new Item { Name = "Item 1", IsSelected = false, Info = "Information about Item 1", Points = 1, Theme="Datenbanken", Difficulty="normal"},
-                new Item { Name = "Item 2", IsSelected = false, Info = "Information about Item 2", Points = 1, Theme="Datenbanken", Difficulty="schwer"},
-                new Item { Name = "Item 3", IsSelected = false, Info = "Information about Item 3", Points = 1, Theme="Datenbanken", Difficulty="leicht"},
-                new Item { Name = "Item 1", IsSelected = false, Info = "Information about Item 1", Points = 2, Theme="Datenbanken", Difficulty="leicht"},
-                new Item { Name = "Item 2", IsSelected = false, Info = "Information about Item 2", Points = 2, Theme="Datenbanken", Difficulty="leicht"},
-                new Item { Name = "Item 3", IsSelected = false, Info = "Information about Item 3", Points = 3, Theme="Datenbanken", Difficulty="leicht"},
-                new Item { Name = "Item 1", IsSelected = false, Info = "Information about Item 1", Points = 2, Theme="Datenbanken", Difficulty="leicht"},
-                new Item { Name = "Item 2", IsSelected = false, Info = "Information about Item 2", Points = 2, Theme="Datenbanken", Difficulty="leicht"},
-                new Item { Name = "Item 3", IsSelected = false, Info = "Information about Item 3", Points = 1, Theme="Datenbanken", Difficulty="leicht"},
+                task1,
+                new Task("Module1", "Datenbanken", "Typ2", "leicht", 2, "Task 2"),
+                new Task("Module2", "Datenbanken", "Typ3", "schwer", 3, "Task 3"),
+                new Task("Module3", "Programmieren", "Typ4", "normal", 3, "Task 4"),
+                new Task("Module4", "Programmieren", "Typ5", "schwer", 1, "Task 5"),
+                // Add more tasks as needed
             };
 
-            // Initialize the filtered items collection
-            FilteredItems = new ObservableCollection<Item>();
-            SelectedItems = new ObservableCollection<Item>();
+            // Initialize the filtered tasks collection
+            FilteredTasks = new ObservableCollection<Task>();
+            SelectedTasks = new ObservableCollection<Task>();
 
             // Initialize the themes list and populate it with distinct themes
-            Themes = Items.Select(i => i.Theme).Distinct().ToList();
-            // Add default option to Themes
+            Themes = Tasks.Select(t => t.Topic).Distinct().ToList();
             Themes.Insert(0, "Alle Themen");
-            // Set default selected theme
             SelectedTheme = Themes[0];
 
             // Initialize the points list and populate it with distinct points
-            Points = Items.Select(i => i.Points).Distinct().ToList();
-            // Add default option to Points
+            Points = Tasks.Select(t => t.Points).Distinct().ToList();
             Points.Insert(0, 0);
-            // Set default selected points
             SelectedPoints = Points[0];
 
-            Difficulties = Items.Select(i => i.Difficulty).Distinct().ToList();
+            Difficulties = Tasks.Select(t => t.Difficulty).Distinct().ToList();
             Difficulties.Insert(0, "Alle Schwierigkeiten");
             SelectedDifficulty = Difficulties[0];
 
@@ -86,7 +70,6 @@ namespace UniversityExamCreator.Views
 
             // Apply initial filters
             ApplyFilters();
-
         }
 
         /// <summary>
@@ -103,108 +86,91 @@ namespace UniversityExamCreator.Views
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new ExamConfig(Examconfig));
-            // Aktivieren des ConfigLoaders
             (NavigationService.Content as ExamConfig)?.ConfigLoader(Examconfig);
         }
 
         /// <summary>
-        /// Button to get the Info of an Item.
+        /// Button to get the Info of a Task.
         /// </summary>
         private void InfoButton_Click(object sender, RoutedEventArgs e)
         {
-            // Get the item from the Tag property
             var button = sender as Button;
-            if (button != null && button.Tag is Item item)
+            if (button != null && button.Tag is Task task)
             {
-                MessageBox.Show(item.Info, "Item Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(task.TaskContent, "Task Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
         /// <summary>
-        /// Dropdown-Changes will be initialized after selecting a new Filteroption. 
+        /// Dropdown-Changes will be initialized after selecting a new filter option. 
         /// </summary>
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Filter the items based on the selected theme and points
+            // Filter the tasks based on the selected theme, points, and difficulty
             ApplyFilters();
         }
 
         /// <summary>
-        /// Methode to swap the Items in the left Box.
+        /// Methode to swap the Tasks in the left Box.
         /// </summary>
         private void ApplyFilters()
         {
             // Apply theme filter
-            var filteredByTheme = Items.Where(i => SelectedTheme == null || SelectedTheme == "Alle Themen" || i.Theme == SelectedTheme);
+            var filteredByTheme = Tasks.Where(t => SelectedTheme == null || SelectedTheme == "Alle Themen" || t.Topic == SelectedTheme);
 
             // Apply points filter
-            var filteredByPoints = SelectedPoints == 0 ? filteredByTheme : filteredByTheme.Where(i => i.Points == SelectedPoints);
+            var filteredByPoints = SelectedPoints == 0 ? filteredByTheme : filteredByTheme.Where(t => t.Points == SelectedPoints);
 
             // Apply difficulty filter
             var filteredByDifficulty = SelectedDifficulty == null || SelectedDifficulty == "Alle Schwierigkeiten"
                 ? filteredByPoints
-                : filteredByPoints.Where(i => i.Difficulty == SelectedDifficulty);
+                : filteredByPoints.Where(t => t.Difficulty == SelectedDifficulty);
 
-            // Update FilteredItems
-            FilteredItems.Clear();
-            foreach (var item in filteredByDifficulty)
+            // Update FilteredTasks
+            FilteredTasks.Clear();
+            foreach (var task in filteredByDifficulty)
             {
-                FilteredItems.Add(item);
+                FilteredTasks.Add(task);
             }
         }
 
         /// <summary>
-        /// Button to add the Items that should be in the Exam.
+        /// Button to add the Tasks that should be in the Exam.
         /// </summary>
-        private void AddSelectedItemsButton_Click(object sender, RoutedEventArgs e)
+        private void AddSelectedTasksButton_Click(object sender, RoutedEventArgs e)
         {
-            var itemsToAdd = Items.Where(i => i.IsSelected).ToList();
-            foreach (var item in itemsToAdd)
+            var tasksToAdd = Tasks.Where(t => t.IsSelected).ToList();
+            foreach (var task in tasksToAdd)
             {
-                if (!SelectedItems.Contains(item))
+                if (!SelectedTasks.Contains(task))
                 {
-                    SelectedItems.Add(item);
+                    SelectedTasks.Add(task);
                 }
-                item.IsSelected = false; // Reset the IsSelected property
+                task.IsSelected = false; // Reset the IsSelected property
             }
-            UpdateSelectedItemsPoints();
-
+            UpdateSelectedTasksPoints();
         }
 
         /// <summary>
-        /// Button to delete the Items from the List of the Items which sould be in the Exam.
+        /// Button to delete the Tasks from the List of the Tasks which should be in the Exam.
         /// </summary>
-        private void DeleteSelectedItemsButton_Click(object sender, RoutedEventArgs e)
+        private void DeleteSelectedTasksButton_Click(object sender, RoutedEventArgs e)
         {
-            var itemsToRemove = SelectedItems.Where(i => i.IsSelectedForDeletion).ToList();
-            foreach (var item in itemsToRemove)
+            var tasksToRemove = SelectedTasks.Where(t => t.IsSelectedForDeletion).ToList();
+            foreach (var task in tasksToRemove)
             {
-                SelectedItems.Remove(item);
+                SelectedTasks.Remove(task);
             }
-            UpdateSelectedItemsPoints();
-            
+            UpdateSelectedTasksPoints();
         }
 
         /// <summary>
-        /// Methode to Update the Pointscounter under the selected Item-Box.
+        /// Methode to Update the Pointscounter under the selected Task-Box.
         /// </summary>
-        private void UpdateSelectedItemsPoints()
+        private void UpdateSelectedTasksPoints()
         {
-            int totalPoints = SelectedItems.Sum(item => item.Points);
+            int totalPoints = SelectedTasks.Sum(task => task.Points);
             TotalPointsTextBlock.Text = $"Total Points: {totalPoints}";
-        }
-
-
-        // Item class
-        public class Item
-        {
-            public string Name { get; set; }
-            public bool IsSelected { get; set; }
-            public bool IsSelectedForDeletion { get; set; }
-            public string Info { get; set; }
-            public int Points { get; set; }
-            public string Theme { get; set; }
-            public string Difficulty { get; set; }
         }
 
         private void ItemListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -213,3 +179,4 @@ namespace UniversityExamCreator.Views
         }
     }
 }
+

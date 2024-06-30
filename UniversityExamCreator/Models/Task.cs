@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UniversityExamCreator.Models
 {
-    internal class Task
+    public class Task
     {
         /// <summary>
         /// Name of a Task. Its the Identifire for it.

@@ -7,7 +7,7 @@ using UniversityExamCreator.Models;
 
 namespace UniversityExamCreator.Models
 {
-    internal class Answer
+    public class Answer
     {
         public string Name { get; set; }
         public string Content { get; set; }

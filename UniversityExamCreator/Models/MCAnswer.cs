@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UniversityExamCreator.Models
 {
-    internal class MCAnswer
+    public class MCAnswer
     {
         /// <summary>
         /// Name of the Task it belongs to.
