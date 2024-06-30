@@ -79,7 +79,9 @@ namespace UniversityExamCreator.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             List <Task> tasks = new List<Task>();
-            foreach (var task in SelectedTasks) { 
+
+            //muss hier noch in die ExamConfig geschrieben werden
+            foreach (var task in SelectedTasks) {
                 tasks.Add(task);
             }
             NavigationService.Navigate(new ExamPreview(Examconfig, tasks));
