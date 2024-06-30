@@ -15,11 +15,13 @@ namespace UniversityExamCreator.Views
     {
         private string tempFilename;
         Examconfig Examconfig { get; set; }
+        public List<Task> Tasks { get; set; }
         double yPoint = 80;
 
-        internal ExamPreview(Examconfig examconfig)
+        internal ExamPreview(Examconfig examconfig, List<Task> tasks)
         {
             Examconfig = examconfig;
+            Tasks = tasks;
             InitializeComponent();
         }
 
@@ -100,6 +102,11 @@ namespace UniversityExamCreator.Views
             }
         }
     };
+            //hier werden die Tasks aus der ExamCreate überführt 
+            foreach (var task in Tasks) 
+            {
+                tasks.Add(task);
+            }
 
             foreach (var task in tasks)
             {

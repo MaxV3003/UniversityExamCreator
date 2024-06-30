@@ -26,8 +26,9 @@ namespace UniversityExamCreator.Views
         public int SelectedPoints { get; set; }
         public string SelectedDifficulty { get; set; }
 
+        //Examconfig
         Examconfig Examconfig { get; set; }
-
+        
         internal ExamCreate(Examconfig examconfig)
         {
             Examconfig = examconfig;
@@ -77,7 +78,11 @@ namespace UniversityExamCreator.Views
         /// </summary>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new ExamPreview(Examconfig));
+            List <Task> tasks = new List<Task>();
+            foreach (var task in SelectedTasks) { 
+                tasks.Add(task);
+            }
+            NavigationService.Navigate(new ExamPreview(Examconfig, tasks));
         }
 
         /// <summary>
