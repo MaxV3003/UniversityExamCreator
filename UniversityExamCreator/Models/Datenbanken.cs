@@ -72,6 +72,12 @@ public class DatabaseManager
                     FOREIGN KEY (antwort_id) REFERENCES antwort(id),
                     FOREIGN KEY (aufgabe_id) REFERENCES aufgabe(id)
                 );";
+            string createModulTable = @"
+                CREATE TABLE IF NOT EXISTS nutzer (
+                    id INTEGER PRIMARY KEY,
+                    name VARCHAR(50) NOT NULL,
+                    faculty VARCHAR(50) NOT NULL
+                );";
             ExecuteNonQuery(conn, createAufgabeTable);
             ExecuteNonQuery(conn, createKlausurTable);
             ExecuteNonQuery(conn, createKlausurAufgabeTable);
@@ -79,6 +85,7 @@ public class DatabaseManager
             ExecuteNonQuery(conn, createAntwortTable);
             ExecuteNonQuery(conn, createKlausurConfigTable);
             ExecuteNonQuery(conn, createAufgabeAntwortTable);
+            ExecuteNonQuery(conn, createModulTable);
         }
     }
     private void ExecuteNonQuery(SQLiteConnection conn, string sql)

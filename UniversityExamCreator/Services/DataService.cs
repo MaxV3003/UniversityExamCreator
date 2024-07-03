@@ -19,243 +19,270 @@ public class DatabaseManager
         {
             connectionString = $"Data Source={databasePath};Version=3;";
         }
+public class DatabaseOperations
+    {
+        private SQLiteConnection connection;
 
-        public void InsertAufgabe()
+        public DatabaseOperations(string connectionString)
         {
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            connection = new SQLiteConnection(connectionString);
+            connection.Open();
+        }
+
+        public void InsertAufgabe(string task_content, int points, string difficulty, string subject, DateTime date_created, string author)
+        {
+            string query = "INSERT INTO aufgabe (task_content, points, difficulty, subject, date_created, author) VALUES (@task_content, @points, @difficulty, @subject, @date_created, @author)";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
-                conn.Open();
-
-                string insertAufgabe = @"
-                INSERT INTO aufgabe (task_content, points, difficulty, subject, date_created, author) 
-                VALUES (@task_content, @points, @difficulty, @subject, @date_created, @author);";
-
-                using (SQLiteCommand cmd = new SQLiteCommand(insertAufgabe, conn))
-                {
-                    Console.Write("Enter task content: ");
-                    string taskContent = Console.ReadLine();
-                    Console.Write("Enter points: ");
-                    int points = int.Parse(Console.ReadLine());
-                    Console.Write("Enter difficulty: ");
-                    string difficulty = Console.ReadLine();
-                    Console.Write("Enter subject: ");
-                    string subject = Console.ReadLine();
-                    Console.Write("Enter author: ");
-                    string author = Console.ReadLine();
-
-                    cmd.Parameters.AddWithValue("@task_content", taskContent);
-                    cmd.Parameters.AddWithValue("@points", points);
-                    cmd.Parameters.AddWithValue("@difficulty", difficulty);
-                    cmd.Parameters.AddWithValue("@subject", subject);
-                    cmd.Parameters.AddWithValue("@date_created", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@author", author);
-
-                    cmd.ExecuteNonQuery();
-                }
+                command.Parameters.AddWithValue("@task_content", task_content);
+                command.Parameters.AddWithValue("@points", points);
+                command.Parameters.AddWithValue("@difficulty", difficulty);
+                command.Parameters.AddWithValue("@subject", subject);
+                command.Parameters.AddWithValue("@date_created", date_created);
+                command.Parameters.AddWithValue("@author", author);
+                command.ExecuteNonQuery();
             }
         }
 
-        public void DisplayAufgabe()
+        public void DeleteAufgabe(int id)
         {
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            string query = "DELETE FROM aufgabe WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
-                conn.Open();
-
-                string selectAufgabe = "SELECT * FROM aufgabe;";
-
-                using (SQLiteCommand cmd = new SQLiteCommand(selectAufgabe, conn))
-                using (SQLiteDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Console.WriteLine($"ID: {reader["id"]}, Task Content: {reader["task_content"]}, Points: {reader["points"]}, Difficulty: {reader["difficulty"]}, Subject: {reader["subject"]}, Date Created: {reader["date_created"]}, Author: {reader["author"]}");
-                    }
-                }
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+            }
+        }
+                //IfAufgabeExists liefert true wieder wenn der Eintrag enthalten ist und false wenn nicht
+        public bool IfAufgabeExists(int id)
+        {
+            string query = "SELECT COUNT(1) FROM aufgabe WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                return Convert.ToInt32(command.ExecuteScalar()) > 0;
             }
         }
 
-        public void InsertKlausur()
+        public void InsertKlausur(string course, string examiner, DateTime date)
         {
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            string query = "INSERT INTO klausur (course, examiner, date) VALUES (@course, @examiner, @date)";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
-                conn.Open();
-
-                string insertKlausur = @"
-                INSERT INTO klausur (course, examiner, date) 
-                VALUES (@course, @examiner, @date);";
-
-                using (SQLiteCommand cmd = new SQLiteCommand(insertKlausur, conn))
-                {
-                    Console.Write("Enter course: ");
-                    string course = Console.ReadLine();
-                    Console.Write("Enter examiner: ");
-                    string examiner = Console.ReadLine();
-                    Console.Write("Enter date (yyyy-mm-dd): ");
-                    DateTime date = DateTime.Parse(Console.ReadLine());
-
-                    cmd.Parameters.AddWithValue("@course", course);
-                    cmd.Parameters.AddWithValue("@examiner", examiner);
-                    cmd.Parameters.AddWithValue("@date", date);
-
-                    cmd.ExecuteNonQuery();
-                }
+                command.Parameters.AddWithValue("@course", course);
+                command.Parameters.AddWithValue("@examiner", examiner);
+                command.Parameters.AddWithValue("@date", date);
+                command.ExecuteNonQuery();
             }
         }
 
-        public void DisplayKlausur()
+        public void DeleteKlausur(int id)
         {
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            string query = "DELETE FROM klausur WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
-                conn.Open();
-
-                string selectKlausur = "SELECT * FROM klausur;";
-
-                using (SQLiteCommand cmd = new SQLiteCommand(selectKlausur, conn))
-                using (SQLiteDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Console.WriteLine($"ID: {reader["id"]}, Course: {reader["course"]}, Examiner: {reader["examiner"]}, Date: {reader["date"]}");
-                    }
-                }
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
             }
         }
 
-        public void InsertKlausurAufgabe()
+        public bool IfKlausurExists(int id)
         {
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            string query = "SELECT COUNT(1) FROM klausur WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
-                conn.Open();
-
-                string insertKlausurAufgabe = @"
-                INSERT INTO klausur_aufgabe (klausur_id, aufgabe_id) 
-                VALUES (@klausur_id, @aufgabe_id);";
-
-                using (SQLiteCommand cmd = new SQLiteCommand(insertKlausurAufgabe, conn))
-                {
-                    Console.Write("Enter klausur_id: ");
-                    int klausurId = int.Parse(Console.ReadLine());
-                    Console.Write("Enter aufgabe_id: ");
-                    int aufgabeId = int.Parse(Console.ReadLine());
-
-                    cmd.Parameters.AddWithValue("@klausur_id", klausurId);
-                    cmd.Parameters.AddWithValue("@aufgabe_id", aufgabeId);
-
-                    cmd.ExecuteNonQuery();
-                }
+                command.Parameters.AddWithValue("@id", id);
+                return Convert.ToInt32(command.ExecuteScalar()) > 0;
             }
         }
 
-        public void DisplayKlausurAufgabe()
+        public void InsertKlausurAufgabe(int klausur_id, int aufgabe_id)
         {
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            string query = "INSERT INTO klausur_aufgabe (klausur_id, aufgabe_id) VALUES (@klausur_id, @aufgabe_id)";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
-                conn.Open();
-
-                string selectKlausurAufgabe = "SELECT * FROM klausur_aufgabe;";
-
-                using (SQLiteCommand cmd = new SQLiteCommand(selectKlausurAufgabe, conn))
-                using (SQLiteDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Console.WriteLine($"ID: {reader["id"]}, Klausur ID: {reader["klausur_id"]}, Aufgabe ID: {reader["aufgabe_id"]}");
-                    }
-                }
+                command.Parameters.AddWithValue("@klausur_id", klausur_id);
+                command.Parameters.AddWithValue("@aufgabe_id", aufgabe_id);
+                command.ExecuteNonQuery();
             }
         }
 
-        public void InsertNutzer()
+        public void DeleteKlausurAufgabe(int id)
         {
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            string query = "DELETE FROM klausur_aufgabe WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
-                conn.Open();
-
-                string insertNutzer = @"
-                INSERT INTO nutzer (username, password) 
-                VALUES (@username, @password);";
-
-                using (SQLiteCommand cmd = new SQLiteCommand(insertNutzer, conn))
-                {
-                    Console.Write("Enter username: ");
-                    string username = Console.ReadLine();
-                    Console.Write("Enter password: ");
-                    string password = Console.ReadLine();
-
-                    cmd.Parameters.AddWithValue("@username", username);
-                    cmd.Parameters.AddWithValue("@password", password);
-
-                    cmd.ExecuteNonQuery();
-                }
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
             }
         }
 
-        public void DisplayNutzer()
+        public bool IfKlausurAufgabeExists(int id)
         {
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            string query = "SELECT COUNT(1) FROM klausur_aufgabe WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
-                conn.Open();
-
-                string selectNutzer = "SELECT * FROM nutzer;";
-
-                using (SQLiteCommand cmd = new SQLiteCommand(selectNutzer, conn))
-                using (SQLiteDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Console.WriteLine($"ID: {reader["id"]}, Username: {reader["username"]}, Password: {reader["password"]}");
-                    }
-                }
+                command.Parameters.AddWithValue("@id", id);
+                return Convert.ToInt32(command.ExecuteScalar()) > 0;
             }
         }
 
-        public void InsertAntwort()
+        public void InsertNutzer(string username, string password)
         {
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            string query = "INSERT INTO nutzer (username, password) VALUES (@username, @password)";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
-                conn.Open();
-
-                string insertAntwort = @"
-                INSERT INTO antwort (aufgabe_id, answer_content, username) 
-                VALUES (@aufgabe_id, @answer_content, @username);";
-
-                using (SQLiteCommand cmd = new SQLiteCommand(insertAntwort, conn))
-                {
-                    Console.Write("Enter aufgabe_id: ");
-                    int aufgabeId = int.Parse(Console.ReadLine());
-                    Console.Write("Enter answer content: ");
-                    string answerContent = Console.ReadLine();
-                    Console.Write("Enter username: ");
-                    string username = Console.ReadLine();
-
-                    cmd.Parameters.AddWithValue("@aufgabe_id", aufgabeId);
-                    cmd.Parameters.AddWithValue("@answer_content", answerContent);
-                    cmd.Parameters.AddWithValue("@username", username);
-
-                    cmd.ExecuteNonQuery();
-                }
+                command.Parameters.AddWithValue("@username", username);
+                command.Parameters.AddWithValue("@password", password);
+                command.ExecuteNonQuery();
             }
         }
 
-        public void DisplayAntwort()
+        public void DeleteNutzer(int id)
         {
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            string query = "DELETE FROM nutzer WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
-                conn.Open();
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+            }
+        }
 
-                string selectAntwort = "SELECT * FROM antwort;";
+        public bool IfNutzerExists(int id)
+        {
+            string query = "SELECT COUNT(1) FROM nutzer WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                return Convert.ToInt32(command.ExecuteScalar()) > 0;
+            }
+        }
 
-                using (SQLiteCommand cmd = new SQLiteCommand(selectAntwort, conn))
-                using (SQLiteDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Console.WriteLine($"ID: {reader["id"]}, Aufgabe ID: {reader["aufgabe_id"]}, Answer Content: {reader["answer_content"]}, Username: {reader["username"]}");
-                    }
-                }
+        public void InsertAntwort(int aufgabe_id, string answer_content, string username)
+        {
+            string query = "INSERT INTO antwort (aufgabe_id, answer_content, username) VALUES (@aufgabe_id, @answer_content, @username)";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@aufgabe_id", aufgabe_id);
+                command.Parameters.AddWithValue("@answer_content", answer_content);
+                command.Parameters.AddWithValue("@username", username);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteAntwort(int id)
+        {
+            string query = "DELETE FROM antwort WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public bool IfAntwortExists(int id)
+        {
+            string query = "SELECT COUNT(1) FROM antwort WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                return Convert.ToInt32(command.ExecuteScalar()) > 0;
+            }
+        }
+
+        public void InsertKlausurConfig(int klausur_id, int nutzer_id)
+        {
+            string query = "INSERT INTO klausur_config (klausur_id, nutzer_id) VALUES (@klausur_id, @nutzer_id)";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@klausur_id", klausur_id);
+                command.Parameters.AddWithValue("@nutzer_id", nutzer_id);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteKlausurConfig(int id)
+        {
+            string query = "DELETE FROM klausur_config WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public bool IfKlausurConfigExists(int id)
+        {
+            string query = "SELECT COUNT(1) FROM klausur_config WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                return Convert.ToInt32(command.ExecuteScalar()) > 0;
+            }
+        }
+
+        public void InsertAufgabeAntwort(int antwort_id, int aufgabe_id)
+        {
+            string query = "INSERT INTO aufgabe_antwort (antwort_id, aufgabe_id) VALUES (@antwort_id, @aufgabe_id)";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@antwort_id", antwort_id);
+                command.Parameters.AddWithValue("@aufgabe_id", aufgabe_id);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteAufgabeAntwort(int id)
+        {
+            string query = "DELETE FROM aufgabe_antwort WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public bool IfAufgabeAntwortExists(int id)
+        {
+            string query = "SELECT COUNT(1) FROM aufgabe_antwort WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                return Convert.ToInt32(command.ExecuteScalar()) > 0;
+            }
+        }
+        public void InsertModul(int modul_id, string faculty)
+        {
+            string query = "INSERT INTO modul (modul_id, faculty) VALUES (@modul_id, @faculty)";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@modul_id", modul_id);
+                command.Parameters.AddWithValue("@faculty", faculty);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteModul(int id)
+        {
+            string query = "DELETE FROM modul WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public bool IfModulExists(int id)
+        {
+            string query = "SELECT COUNT(1) FROM modul WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                return Convert.ToInt32(command.ExecuteScalar()) > 0;
             }
         }
     }
+}
 
 }
 }
