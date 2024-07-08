@@ -14,7 +14,7 @@
                 <RowDefinition Height="217*"/>
                 <RowDefinition Height="233*"/>
             </Grid.RowDefinitions>
-            <TextBlock HorizontalAlignment="Center" Margin="0,24,0,0" TextWrapping="Wrap" Text="KlausurErstellen" VerticalAlignment="Top" FontSize="25" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF0068B4"/>
+            <TextBlock HorizontalAlignment="Center" Margin="0,24,0,0" TextWrapping="Wrap" Text="Aufgabe löschen" VerticalAlignment="Top" FontSize="25" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF0068B4"/>
 
             <Border BorderBrush="#FFAACEE9" BorderThickness="1" HorizontalAlignment="Left" Height="69" Margin="57,66,0,0" VerticalAlignment="Top" Width="692">
                 <Grid Margin="-50,13,0,0">
