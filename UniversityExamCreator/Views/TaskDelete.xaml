@@ -70,8 +70,8 @@
 
             <StackPanel HorizontalAlignment="Left" Height="197" Margin="50,145,0,0" VerticalAlignment="Top" Width="262" Background="Gray" Grid.RowSpan="2" >
                 <!-- ListView with CheckBoxes and Info Buttons -->
-                <ListView x:Name="ItemListView" Width="261" Height="198" ScrollViewer.VerticalScrollBarVisibility="Auto"
-          ItemsSource="{Binding FilteredItems}" Background="#FFF5FBFB" SelectionChanged="ItemListView_SelectionChanged" HorizontalAlignment="Right" BorderBrush="#FFAACEE9">
+                <ListView x:Name="ItemListView" Width="267" Height="198" ScrollViewer.VerticalScrollBarVisibility="Auto"
+          ItemsSource="{Binding FilteredItems}" Background="#FFF5FBFB" SelectionChanged="ItemListView_SelectionChanged" BorderBrush="#FFAACEE9" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Right">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -80,21 +80,23 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <CheckBox Grid.Column="0" IsChecked="{Binding IsSelected, Mode=TwoWay}" Content="{Binding Name}" Width="200" />
+                                <CheckBox Grid.Column="2" IsChecked="{Binding IsSelected, Mode=TwoWay}" Content="{Binding Name}" Width="180" />
                                 <Button Grid.Column="1" Content="Info" Click="InfoButton_Click"
-                        Tag="{Binding}" Margin="10,0,0,0" />
+                        Tag="{Binding}" Margin="185,-3,-79,3" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+                <!-- ListView with CheckBoxes and Info Buttons -->
+                <!-- ListView with CheckBoxes and Info Buttons -->
             </StackPanel>
 
             <Button Content="Add Selected Items" HorizontalAlignment="Left" Margin="102,144,0,0" VerticalAlignment="Top" Click="AddSelectedItemsButton_Click" Grid.Row="1" Width="155" FontFamily="Verdana" Height="28" Foreground="#FF0068B4" BorderBrush="#FFAACEE9" Background="#FFF5FBFB"/>
 
             <!-- StackPanel for Selected Items -->
-            <StackPanel HorizontalAlignment="Left" Height="194" Margin="512,145,0,0" VerticalAlignment="Top" Width="238" Background="Gray" Grid.RowSpan="2">
+            <StackPanel HorizontalAlignment="Left" Height="194" Margin="512,145,0,0" VerticalAlignment="Top" Width="257" Background="Gray" Grid.RowSpan="2">
                 <ListView x:Name="SelectedItemListView" Width="253" Height="193" ScrollViewer.VerticalScrollBarVisibility="Auto"
-          ItemsSource="{Binding SelectedItems}" Background="#FFF5FBFB" BorderBrush="#FFAACEE9">
+          ItemsSource="{Binding SelectedItems}" Background="#FFF5FBFB" BorderBrush="#FFAACEE9" d:ItemsSource="{d:SampleData ItemCount=5}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -104,9 +106,9 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <CheckBox Grid.Column="0" IsChecked="{Binding IsSelectedForDeletion, Mode=TwoWay}" Content="{Binding Name}" Width="200" />
-                                <Button Grid.Column="1" Content="Info" Click="InfoButton_Click"
-                        Tag="{Binding}" Margin="10,0,0,0" />
+                                <CheckBox Grid.Column="0" IsChecked="{Binding IsSelectedForDeletion, Mode=TwoWay}" Content="{Binding Name}" Width="260" />
+                                <Button Content="Info" Click="InfoButton_Click"
+                        Tag="{Binding}" Margin="179,0,15,2" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>

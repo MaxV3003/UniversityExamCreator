@@ -35,7 +35,14 @@
             <ComboBox HorizontalAlignment="Left" Margin="64,83,0,0" VerticalAlignment="Top" Width="120" 
           ItemsSource="{Binding Themes}" 
           SelectedItem="{Binding SelectedTheme, Mode=TwoWay}"
-          SelectionChanged="ComboBox_SelectionChanged" BorderBrush="#FFAACEE9"/>
+          SelectionChanged="ComboBox_SelectionChanged" BorderBrush="#FFAACEE9">
+                <ComboBox.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#FFF0F0F0"/>
+                        <GradientStop Color="#FFF5FBFB" Offset="1"/>
+                    </LinearGradientBrush>
+                </ComboBox.Background>
+            </ComboBox>
 
             <ComboBox HorizontalAlignment="Center" Margin="0,83,0,0" VerticalAlignment="Top" Width="120" 
           ItemsSource="{Binding Difficulties}" 

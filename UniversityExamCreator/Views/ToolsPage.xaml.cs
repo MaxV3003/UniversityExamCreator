@@ -35,5 +35,10 @@ namespace UniversityExamCreator.Views
         {
             NavigationService.Navigate(new ModulCreate());
         }
+
+        private void CommingSoon2_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
