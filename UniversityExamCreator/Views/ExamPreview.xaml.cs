@@ -63,10 +63,47 @@ namespace UniversityExamCreator.Views
             */
 
 
-            // Draw the exam name
-            gfx.DrawString(Examconfig.ExamName, examTitelFont, XBrushes.Black, new XRect(0, yPoint, page.Width, page.Height), XStringFormats.TopCenter);
-            yPoint += 40;
+            // Draw the exam name (with wrapping)
+            var examNameFormatter = new XTextFormatter(gfx);
+            var examNameRect = new XRect(margin, yPoint, innerWidth, page.Height - yPoint - margin);
+            examNameFormatter.DrawString(Examconfig.ExamName, examTitelFont, XBrushes.Black, examNameRect, XStringFormats.TopLeft);
+            double examNameHeight = MeasureTextHeight(Examconfig.ExamName, examTitelFont, innerWidth);
+            yPoint += examNameHeight + 20;
 
+            /// Tabellendefinition für die Eintragung von StudentenID, Name etc. 
+
+            // Startposition für die Tabelle
+            double x = 50;
+            double y = 50;
+            double cellHeight = 20;
+            double cellWidth = 100;
+
+            // Überschriften für die Tabelle
+            string[] headers = { "Header 1", "Header 2", "Header 3" };
+            string[,] data = {
+            { "Row 1 Col 1", "Row 1 Col 2", "Row 1 Col 3" },
+            { "Row 2 Col 1", "Row 2 Col 2", "Row 2 Col 3" },
+            { "Row 3 Col 1", "Row 3 Col 2", "Row 3 Col 3" }
+        };
+
+            // Zeichnen der Kopfzeile
+            for (int i = 0; i < headers.Length; i++)
+            {
+                gfx.DrawRectangle(XPens.Black, XBrushes.LightGray, x + i * cellWidth, y, cellWidth, cellHeight);
+                gfx.DrawString(headers[i], taskFont, XBrushes.Black, new XRect(x + i * cellWidth, y, cellWidth, cellHeight), XStringFormats.Center);
+            }
+
+            // Zeichnen der Datenzeilen
+            for (int row = 0; row < data.GetLength(0); row++)
+            {
+                for (int col = 0; col < data.GetLength(1); col++)
+                {
+                    gfx.DrawRectangle(XPens.Black, x + col * cellWidth, y + (row + 1) * cellHeight, cellWidth, cellHeight);
+                    gfx.DrawString(data[row, col], taskFont, XBrushes.Black, new XRect(x + col * cellWidth, y + (row + 1) * cellHeight, cellWidth, cellHeight), XStringFormats.Center);
+                }
+            }
+
+            ///Task-Stuff
             var tasks = new List<Task>
             {
                 new Task("Einf", "Datastruct", "OF", "Easy", 3, "Task 1")
