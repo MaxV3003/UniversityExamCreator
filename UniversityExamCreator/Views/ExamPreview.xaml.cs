@@ -51,11 +51,17 @@ namespace UniversityExamCreator.Views
             // Page settings
             const double pageHeight = 842;
             const double pageWidth = 595;
-            const double margin = 40;
+            const double margin = 60;
             const double innerWidth = pageWidth - 2 * margin;
             const double taskSpacing = 20; // Decreased spacing between tasks
             const double mcSpacing = 15; // Increased spacing between MC answers
             const double checkboxSize = 12;
+
+            /*// Logo laden und einfügen
+            XImage logo = XImage.FromFile("C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Models/OVGU-FIN_farbig.jpg"); // Geben Sie hier den Pfad zum Logo an
+            gfx.DrawImage(logo, margin, margin, 100, 50); // Logo wird bei den Rändern der Seite eingefügt, Größe anpassen nach Bedarf
+            */
+
 
             // Draw the exam name
             gfx.DrawString(Examconfig.ExamName, examTitelFont, XBrushes.Black, new XRect(0, yPoint, page.Width, page.Height), XStringFormats.TopCenter);
