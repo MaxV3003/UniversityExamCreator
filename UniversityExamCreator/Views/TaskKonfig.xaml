@@ -58,7 +58,7 @@
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>
-                        <GradientStop Color="#FFF5FBFB" Offset="1"/>
+                        <GradientStop Color="White" Offset="1"/>
                     </LinearGradientBrush>
                 </ComboBox.Background>
             </ComboBox>
