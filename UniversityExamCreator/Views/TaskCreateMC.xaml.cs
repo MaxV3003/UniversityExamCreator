@@ -32,7 +32,7 @@ namespace UniversityExamCreator.Views
 
         private void Create_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new ToolsPage());
         }
     }
 }
