@@ -13,14 +13,8 @@
             <TextBlock HorizontalAlignment="Center" Margin="0,23,0,0" TextWrapping="Wrap" Text="KlausurConfig" VerticalAlignment="Top" FontSize="23" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF0068B4"/>
 
             <TextBlock HorizontalAlignment="Left" Margin="79,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FFF5FBFB" Height="21" Width="127" FontFamily="Verdana" Foreground="#FF0068B4" ><Run Text="Modul auswählen"/><Run Language="de-de" Text="*"/></TextBlock>
-            <ComboBox x:Name="Module" HorizontalAlignment="Left" Margin="318,111,0,0" VerticalAlignment="Top" Width="108" SelectionChanged="ComboBox_SelectionChanged" Height="21" BorderBrush="#FFAACEE9">
-                <ComboBox.Background>
-                    <RadialGradientBrush>
-                        <GradientStop Color="White"/>
-                        <GradientStop Color="#FFF5FBFB" Offset="1"/>
-                        <GradientStop Color="#FFF5FBFB" Offset="0"/>
-                    </RadialGradientBrush>
-                </ComboBox.Background>
+            <ComboBox x:Name="Module" HorizontalAlignment="Left" Margin="318,111,0,0" VerticalAlignment="Top" Background="#FFF5FBFB" Width="108" SelectionChanged="ComboBox_SelectionChanged" Height="21" BorderBrush="#FFAACEE9">
+                
             </ComboBox>
 
             <TextBlock HorizontalAlignment="Left" Margin="80,158,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FFF5FBFB" Height="21" Width="127" FontFamily="Verdana" Foreground="#FF0068B4"><Run Text="Prüfungsart wählen"/><Run Language="de-de" Text="*"/></TextBlock>
