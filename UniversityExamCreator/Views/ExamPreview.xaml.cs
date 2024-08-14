@@ -62,46 +62,46 @@ namespace UniversityExamCreator.Views
             yPoint += 40;
 
             var tasks = new List<Task>
-    {
-        new Task("Einf", "Datastruct", "OF", "Easy", 3, "Task 1")
-        {
-            TaskContent = "This is the first task description. This description is quite long and should wrap to the next line when it exceeds the width of the page. Let's see how it looks. This is the first task description. This description is quite long and should wrap to the next line when it exceeds the width of the page. Let's see how it looks. This is the first task description. This description is quite long and should wrap to the next line when it exceeds the width of the page. Let's see how it looks.",
-            TaskAnswer = new Answer("Task1", "This is the answer for the first task.")
-        },
-        new Task("Alg", "Algorithms", "MC", "Medium", 5, "Task 2")
-        {
-            TaskContent = "This is the second task description. It involves understanding algorithms.",
-            TaskAnswer = new Answer("Task2", "The answer involves explaining the algorithm steps."),
-            MCAnswers = new List<MCAnswer>
             {
-                new MCAnswer("Task2", "Option 1", 1, 0),
-                new MCAnswer("Task2", "Option 2", 2, 1),
-                new MCAnswer("Task2", "Option 3", 3, 0),
-                new MCAnswer("Task2", "Option 1", 1, 0),
-                new MCAnswer("Task2", "Option 2", 2, 1),
-                new MCAnswer("Task2", "Option 3", 3, 0),
-                new MCAnswer("Task2", "Option 1", 1, 0),
-                new MCAnswer("Task2", "Option 2", 2, 1),
-                new MCAnswer("Task2", "Option 3", 3, 0)
-            }
-        },
-        new Task("DB", "Database", "OF", "Hard", 10, "Task 3")
-        {
-            TaskContent = "This is the third task description. It involves complex database queries.",
-            TaskAnswer = new Answer("Task3", "The answer includes the SQL query required to retrieve the data.")
-        },
-        new Task("SE", "Software Engineering", "MC", "Medium", 7, "Task 4")
-        {
-            TaskContent = "This is the fourth task description. It involves software engineering principles.",
-            TaskAnswer = new Answer("Task4", "The answer includes explaining the software engineering principle."),
-            MCAnswers = new List<MCAnswer>
-            {
-                new MCAnswer("Task4", "Option 1", 1, 1),
-                new MCAnswer("Task4", "Option 2", 2, 0),
-                new MCAnswer("Task4", "Option 3", 3, 0)
-            }
-        }
-    };
+                new Task("Einf", "Datastruct", "OF", "Easy", 3, "Task 1")
+                {
+                    TaskContent = "This is the first task description. This description is quite long and should wrap to the next line when it exceeds the width of the page. Let's see how it looks. This is the first task description. This description is quite long and should wrap to the next line when it exceeds the width of the page. Let's see how it looks. This is the first task description. This description is quite long and should wrap to the next line when it exceeds the width of the page. Let's see how it looks.",
+                    TaskAnswer = new Answer("Task1", "This is the answer for the first task.")
+                },
+                new Task("Alg", "Algorithms", "MC", "Medium", 5, "Task 2")
+                {
+                    TaskContent = "This is the second task description. It involves understanding algorithms.",
+                    TaskAnswer = new Answer("Task2", "The answer involves explaining the algorithm steps."),
+                    MCAnswers = new List<MCAnswer>
+                    {
+                        new MCAnswer("Task2", "Option 1", 1, 0),
+                        new MCAnswer("Task2", "Option 2", 2, 1),
+                        new MCAnswer("Task2", "Option 3", 3, 0),
+                        new MCAnswer("Task2", "Option 1", 1, 0),
+                        new MCAnswer("Task2", "Option 2", 2, 1),
+                        new MCAnswer("Task2", "Option 3", 3, 0),
+                        new MCAnswer("Task2", "Option 1", 1, 0),
+                        new MCAnswer("Task2", "Option 2", 2, 1),
+                        new MCAnswer("Task2", "Option 3", 3, 0)
+                    }
+                },
+                new Task("DB", "Database", "OF", "Hard", 10, "Task 3")
+                {
+                    TaskContent = "This is the third task description. It involves complex database queries.",
+                    TaskAnswer = new Answer("Task3", "The answer includes the SQL query required to retrieve the data.")
+                },
+                new Task("SE", "Software Engineering", "MC", "Medium", 7, "Task 4")
+                {
+                    TaskContent = "This is the fourth task description. It involves software engineering principles.",
+                    TaskAnswer = new Answer("Task4", "The answer includes explaining the software engineering principle."),
+                    MCAnswers = new List<MCAnswer>
+                    {
+                        new MCAnswer("Task4", "Option 1", 1, 1),
+                        new MCAnswer("Task4", "Option 2", 2, 0),
+                        new MCAnswer("Task4", "Option 3", 3, 0)
+                    }
+                }
+            };
             //hier werden die Tasks aus der ExamCreate überführt 
             foreach (var task in Tasks) 
             {
