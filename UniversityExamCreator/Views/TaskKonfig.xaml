@@ -27,7 +27,7 @@
 
             <TextBlock x:Name="QuestionMC"  HorizontalAlignment="Left" Height="20" Margin="103,158,0,0"
                    TextWrapping="Wrap" VerticalAlignment="Top" Width="91" FontFamily="Verdana" Foreground="#FF0068B4" Text="Art der Frage"/>
-            <ComboBox Name="MCDD" HorizontalAlignment="Left" Margin="240,154,0,0" VerticalAlignment="Top" Width="92" Height="21" SelectionChanged="MCDD_SelectionChanged">
+            <ComboBox Name="MCDD" HorizontalAlignment="Left" Margin="240,157,0,0" VerticalAlignment="Top" Width="106" Height="21" SelectionChanged="MCDD_SelectionChanged">
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>

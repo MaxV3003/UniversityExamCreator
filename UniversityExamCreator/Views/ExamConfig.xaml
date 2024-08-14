@@ -18,7 +18,8 @@
                     <RadialGradientBrush>
                         <GradientStop Color="White"/>
                         <GradientStop Color="#FFF5FBFB" Offset="1"/>
-                        <GradientStop Color="#FFF5FBFB" Offset="0"/>
+                        <GradientStop Color="White" Offset="0"/>
+
                     </RadialGradientBrush>
                 </ComboBox.Background>
             </ComboBox>
