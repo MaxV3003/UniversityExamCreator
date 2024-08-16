@@ -31,12 +31,10 @@ namespace UniversityExamCreator.Views
         }
         private void Create_Click(object sender, RoutedEventArgs e)
         {
-
+            PreparedContent(); //Der Content der Aufgabe. Bekommt String Array wieder mit Index 0 = Content und Index 1 = Answer.
 
             if (CheckFilled() == true)
             {
-                PreparedContent(); // bekommt String Array wieder mit Index 0 = Content und Index 1 = Answer.
-
                 int n = 0;
                 if (n == 0)
                 {
@@ -56,7 +54,7 @@ namespace UniversityExamCreator.Views
 
         }
         /// <summary>
-        /// Solle den eingegebenen Content in ein String Array packen.
+        /// Soll den eingegebenen Content in ein String Array packen.
         /// </summary>
         /// <returns></returns>
         private string[] PreparedContent()

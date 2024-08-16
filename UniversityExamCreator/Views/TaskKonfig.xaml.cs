@@ -289,13 +289,13 @@ namespace UniversityExamCreator.Views
 
             if (selectedText == "Multiple Choice")
             {
-                MCCountDD.IsEnabled = true;
-                MCRulesText.IsEnabled = true;
+                MCCountDD.IsVisible = true;
+                MCRulesText.IsVisible = true;
             }
             else
             {
-                MCCountDD.IsEnabled = false;
-                MCRulesText.IsEnabled = false;
+                MCCountDD.IsVisible = false;
+                MCRulesText.IsVisible = false;
             }
         }
     }
