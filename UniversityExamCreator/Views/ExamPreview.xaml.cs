@@ -51,57 +51,100 @@ namespace UniversityExamCreator.Views
             // Page settings
             const double pageHeight = 842;
             const double pageWidth = 595;
-            const double margin = 40;
+            const double margin = 60;
             const double innerWidth = pageWidth - 2 * margin;
             const double taskSpacing = 20; // Decreased spacing between tasks
             const double mcSpacing = 15; // Increased spacing between MC answers
             const double checkboxSize = 12;
 
-            // Draw the exam name
-            gfx.DrawString(Examconfig.ExamName, examTitelFont, XBrushes.Black, new XRect(0, yPoint, page.Width, page.Height), XStringFormats.TopCenter);
-            yPoint += 40;
+            /*// Logo laden und einfügen
+            XImage logo = XImage.FromFile("C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Models/OVGU-FIN_farbig.jpg"); // Geben Sie hier den Pfad zum Logo an
+            gfx.DrawImage(logo, margin, margin, 100, 50); // Logo wird bei den Rändern der Seite eingefügt, Größe anpassen nach Bedarf
+            */
 
+
+            // Draw the exam name (with wrapping)
+            var examNameFormatter = new XTextFormatter(gfx);
+            var examNameRect = new XRect(margin, yPoint, innerWidth, page.Height - yPoint - margin);
+            examNameFormatter.DrawString(Examconfig.ExamName, examTitelFont, XBrushes.Black, examNameRect, XStringFormats.TopLeft);
+            double examNameHeight = MeasureTextHeight(Examconfig.ExamName, examTitelFont, innerWidth);
+            yPoint += examNameHeight + 20;
+
+            /// Tabellendefinition für die Eintragung von StudentenID, Name etc. 
+
+            // Startposition für die Tabelle
+            double x = 50;
+            double y = 50;
+            double cellHeight = 20;
+            double cellWidth = 100;
+
+            // Überschriften für die Tabelle
+            string[] headers = { "Header 1", "Header 2", "Header 3" };
+            string[,] data = {
+            { "Row 1 Col 1", "Row 1 Col 2", "Row 1 Col 3" },
+            { "Row 2 Col 1", "Row 2 Col 2", "Row 2 Col 3" },
+            { "Row 3 Col 1", "Row 3 Col 2", "Row 3 Col 3" }
+        };
+
+            // Zeichnen der Kopfzeile
+            for (int i = 0; i < headers.Length; i++)
+            {
+                gfx.DrawRectangle(XPens.Black, XBrushes.LightGray, x + i * cellWidth, y, cellWidth, cellHeight);
+                gfx.DrawString(headers[i], taskFont, XBrushes.Black, new XRect(x + i * cellWidth, y, cellWidth, cellHeight), XStringFormats.Center);
+            }
+
+            // Zeichnen der Datenzeilen
+            for (int row = 0; row < data.GetLength(0); row++)
+            {
+                for (int col = 0; col < data.GetLength(1); col++)
+                {
+                    gfx.DrawRectangle(XPens.Black, x + col * cellWidth, y + (row + 1) * cellHeight, cellWidth, cellHeight);
+                    gfx.DrawString(data[row, col], taskFont, XBrushes.Black, new XRect(x + col * cellWidth, y + (row + 1) * cellHeight, cellWidth, cellHeight), XStringFormats.Center);
+                }
+            }
+
+            ///Task-Stuff
             var tasks = new List<Task>
-    {
-        new Task("Einf", "Datastruct", "OF", "Easy", 3, "Task 1")
-        {
-            TaskContent = "This is the first task description. This description is quite long and should wrap to the next line when it exceeds the width of the page. Let's see how it looks. This is the first task description. This description is quite long and should wrap to the next line when it exceeds the width of the page. Let's see how it looks. This is the first task description. This description is quite long and should wrap to the next line when it exceeds the width of the page. Let's see how it looks.",
-            TaskAnswer = new Answer("Task1", "This is the answer for the first task.")
-        },
-        new Task("Alg", "Algorithms", "MC", "Medium", 5, "Task 2")
-        {
-            TaskContent = "This is the second task description. It involves understanding algorithms.",
-            TaskAnswer = new Answer("Task2", "The answer involves explaining the algorithm steps."),
-            MCAnswers = new List<MCAnswer>
             {
-                new MCAnswer("Task2", "Option 1", 1, 0),
-                new MCAnswer("Task2", "Option 2", 2, 1),
-                new MCAnswer("Task2", "Option 3", 3, 0),
-                new MCAnswer("Task2", "Option 1", 1, 0),
-                new MCAnswer("Task2", "Option 2", 2, 1),
-                new MCAnswer("Task2", "Option 3", 3, 0),
-                new MCAnswer("Task2", "Option 1", 1, 0),
-                new MCAnswer("Task2", "Option 2", 2, 1),
-                new MCAnswer("Task2", "Option 3", 3, 0)
-            }
-        },
-        new Task("DB", "Database", "OF", "Hard", 10, "Task 3")
-        {
-            TaskContent = "This is the third task description. It involves complex database queries.",
-            TaskAnswer = new Answer("Task3", "The answer includes the SQL query required to retrieve the data.")
-        },
-        new Task("SE", "Software Engineering", "MC", "Medium", 7, "Task 4")
-        {
-            TaskContent = "This is the fourth task description. It involves software engineering principles.",
-            TaskAnswer = new Answer("Task4", "The answer includes explaining the software engineering principle."),
-            MCAnswers = new List<MCAnswer>
-            {
-                new MCAnswer("Task4", "Option 1", 1, 1),
-                new MCAnswer("Task4", "Option 2", 2, 0),
-                new MCAnswer("Task4", "Option 3", 3, 0)
-            }
-        }
-    };
+                new Task("Einf", "Datastruct", "OF", "Easy", 3, "Task 1")
+                {
+                    TaskContent = "This is the first task description. This description is quite long and should wrap to the next line when it exceeds the width of the page. Let's see how it looks. This is the first task description. This description is quite long and should wrap to the next line when it exceeds the width of the page. Let's see how it looks. This is the first task description. This description is quite long and should wrap to the next line when it exceeds the width of the page. Let's see how it looks.",
+                    TaskAnswer = new Answer("Task1", "This is the answer for the first task.")
+                },
+                new Task("Alg", "Algorithms", "MC", "Medium", 5, "Task 2")
+                {
+                    TaskContent = "This is the second task description. It involves understanding algorithms.",
+                    TaskAnswer = new Answer("Task2", "The answer involves explaining the algorithm steps."),
+                    MCAnswers = new List<MCAnswer>
+                    {
+                        new MCAnswer("Task2", "Option 1", 1, 0),
+                        new MCAnswer("Task2", "Option 2", 2, 1),
+                        new MCAnswer("Task2", "Option 3", 3, 0),
+                        new MCAnswer("Task2", "Option 1", 1, 0),
+                        new MCAnswer("Task2", "Option 2", 2, 1),
+                        new MCAnswer("Task2", "Option 3", 3, 0),
+                        new MCAnswer("Task2", "Option 1", 1, 0),
+                        new MCAnswer("Task2", "Option 2", 2, 1),
+                        new MCAnswer("Task2", "Option 3", 3, 0)
+                    }
+                },
+                new Task("DB", "Database", "OF", "Hard", 10, "Task 3")
+                {
+                    TaskContent = "This is the third task description. It involves complex database queries.",
+                    TaskAnswer = new Answer("Task3", "The answer includes the SQL query required to retrieve the data.")
+                },
+                new Task("SE", "Software Engineering", "MC", "Medium", 7, "Task 4")
+                {
+                    TaskContent = "This is the fourth task description. It involves software engineering principles.",
+                    TaskAnswer = new Answer("Task4", "The answer includes explaining the software engineering principle."),
+                    MCAnswers = new List<MCAnswer>
+                    {
+                        new MCAnswer("Task4", "Option 1", 1, 1),
+                        new MCAnswer("Task4", "Option 2", 2, 0),
+                        new MCAnswer("Task4", "Option 3", 3, 0)
+                    }
+                }
+            };
             //hier werden die Tasks aus der ExamCreate überführt 
             foreach (var task in Tasks) 
             {

@@ -140,6 +140,7 @@ namespace UniversityExamCreator.Views
                 item.IsSelected = false; // Reset the IsSelected property
             }
             //UpdateSelectedItemsPoints();
+            NavigationService.Navigate(new ToolsPage());
 
         }
 
@@ -154,6 +155,7 @@ namespace UniversityExamCreator.Views
                 SelectedItems.Remove(item);
             }
             //UpdateSelectedItemsPoints();
+            NavigationService.Navigate(new ToolsPage());
 
         }
 

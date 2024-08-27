@@ -7,11 +7,7 @@ using System.Threading.Tasks;
 
 namespace UniversityExamCreator.Services
 {
-    internal class DataService
-    {
-
-
-public class DatabaseManager
+    public class DatabaseManager
     {
         private string connectionString;
 
@@ -19,7 +15,8 @@ public class DatabaseManager
         {
             connectionString = $"Data Source={databasePath};Version=3;";
         }
-public class DatabaseOperations
+    }
+    public class DatabaseOperations
     {
         private SQLiteConnection connection;
 
@@ -53,7 +50,7 @@ public class DatabaseOperations
                 command.ExecuteNonQuery();
             }
         }
-                //IfAufgabeExists liefert true wieder wenn der Eintrag enthalten ist und false wenn nicht
+
         public bool IfAufgabeExists(int id)
         {
             string query = "SELECT COUNT(1) FROM aufgabe WHERE id = @id";
@@ -251,6 +248,7 @@ public class DatabaseOperations
                 return Convert.ToInt32(command.ExecuteScalar()) > 0;
             }
         }
+
         public void InsertModul(int modul_id, string faculty)
         {
             string query = "INSERT INTO modul (modul_id, faculty) VALUES (@modul_id, @faculty)";
@@ -284,6 +282,4 @@ public class DatabaseOperations
     }
 }
 
-}
-}
 
