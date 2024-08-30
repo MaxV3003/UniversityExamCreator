@@ -66,7 +66,7 @@ namespace UniversityExamCreator.Models
         /// <summary>
         /// Constructor for a TaskItem.
         /// </summary>
-        public Task (List<StringPair> module, List<StringPair> topic, List<StringPair> taskType, List<StringPair> difficulty, List<StringPair> points, List<StringPair> taskName)
+        public Task (string module, string topic, string taskType, string difficulty, int points, string taskName)
         {
             Module = module;
             Topic = topic;  

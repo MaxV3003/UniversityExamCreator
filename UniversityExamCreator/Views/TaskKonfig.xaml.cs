@@ -287,7 +287,9 @@ namespace UniversityExamCreator.Views
         {
             string selectedText = MCDD.SelectedItem.ToString();
 
-            if (selectedText == "Multiple Choice")
+            // Hier ists auskommentiert Marten!!!!
+
+            /*if (selectedText == "Multiple Choice")
             {
                 MCCountDD.IsVisible = true;
                 MCRulesText.IsVisible = true;
@@ -296,7 +298,7 @@ namespace UniversityExamCreator.Views
             {
                 MCCountDD.IsVisible = false;
                 MCRulesText.IsVisible = false;
-            }
+            }*/
         }
     }
 }
