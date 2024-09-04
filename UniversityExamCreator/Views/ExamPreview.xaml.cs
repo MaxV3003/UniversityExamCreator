@@ -62,7 +62,7 @@ namespace UniversityExamCreator.Views
             gfx = XGraphics.FromPdfPage(page);
 
             // Logo laden und einfügen
-            XImage logo = XImage.FromFile("C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Models/OVGU-FIN_farbig.jpg");
+            XImage logo = XImage.FromFile("C:/Users/maxim/source/repos/UniversityExamCreator/UniversityExamCreator/Models/OVGU-FIN_farbig.jpg");
             gfx.DrawImage(logo, 150, 0, 300, 100);
 
             // Draw the Exam Header
