@@ -38,6 +38,7 @@ namespace UniversityExamCreator.Services
                 command.Parameters.AddWithValue("@date_created", date_created);
                 command.Parameters.AddWithValue("@author", author);
                 command.ExecuteNonQuery();
+                Console.WriteLine("Aufgabe erfolgreich gespeichert.");
             }
         }
 
@@ -48,6 +49,7 @@ namespace UniversityExamCreator.Services
             {
                 command.Parameters.AddWithValue("@id", id);
                 command.ExecuteNonQuery();
+                Console.WriteLine("Aufgabe erfolgreich gelöscht.");
             }
         }
 
@@ -70,6 +72,7 @@ namespace UniversityExamCreator.Services
                 command.Parameters.AddWithValue("@examiner", examiner);
                 command.Parameters.AddWithValue("@date", date);
                 command.ExecuteNonQuery();
+                Console.WriteLine("Klausur erfolgreich gespeichert.");
             }
         }
 
@@ -80,6 +83,7 @@ namespace UniversityExamCreator.Services
             {
                 command.Parameters.AddWithValue("@id", id);
                 command.ExecuteNonQuery();
+                Console.WriteLine("Klausur erfolgreich gelöscht.");
             }
         }
 
@@ -132,6 +136,7 @@ namespace UniversityExamCreator.Services
                 command.Parameters.AddWithValue("@username", username);
                 command.Parameters.AddWithValue("@password", password);
                 command.ExecuteNonQuery();
+                Console.WriteLine("Nutzer erfolgreich gespeichert.");
             }
         }
 
@@ -141,7 +146,8 @@ namespace UniversityExamCreator.Services
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@id", id);
-                command.ExecuteNonQuery();
+                command.ExecuteNonQuery(); 
+                Console.WriteLine("Nutzer erfolgreich gelöscht.");
             }
         }
 
@@ -164,6 +170,7 @@ namespace UniversityExamCreator.Services
                 command.Parameters.AddWithValue("@answer_content", answer_content);
                 command.Parameters.AddWithValue("@username", username);
                 command.ExecuteNonQuery();
+                Console.WriteLine("Antwort erfolgreich gespeichert.");
             }
         }
 
@@ -174,6 +181,7 @@ namespace UniversityExamCreator.Services
             {
                 command.Parameters.AddWithValue("@id", id);
                 command.ExecuteNonQuery();
+                Console.WriteLine("Antwort erfolgreich gelöscht.");
             }
         }
 
@@ -195,6 +203,7 @@ namespace UniversityExamCreator.Services
                 command.Parameters.AddWithValue("@klausur_id", klausur_id);
                 command.Parameters.AddWithValue("@nutzer_id", nutzer_id);
                 command.ExecuteNonQuery();
+                Console.WriteLine("Config erfolgreich gespeichert.");
             }
         }
 
@@ -205,6 +214,7 @@ namespace UniversityExamCreator.Services
             {
                 command.Parameters.AddWithValue("@id", id);
                 command.ExecuteNonQuery();
+                Console.WriteLine("Config erfolgreich gelöscht.");
             }
         }
 
@@ -257,6 +267,7 @@ namespace UniversityExamCreator.Services
                 command.Parameters.AddWithValue("@modul_id", modul_id);
                 command.Parameters.AddWithValue("@faculty", faculty);
                 command.ExecuteNonQuery();
+                Console.WriteLine("Modul erfolgreich gespeichert.");
             }
         }
 
@@ -267,6 +278,7 @@ namespace UniversityExamCreator.Services
             {
                 command.Parameters.AddWithValue("@id", id);
                 command.ExecuteNonQuery();
+                Console.WriteLine("Modul erfolgreich gelöscht.");
             }
         }
 
