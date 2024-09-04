@@ -23,15 +23,15 @@
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
             <Viewbox>
                 <!-- Grid muss in Height angepasst werden, damit neue Elemente mit der Scrollbar sichtbar werden-->
-                <Grid Background="#FFF9FCFD" Height="1036" Width="800">
-                    <TextBlock HorizontalAlignment="Left" Margin="295,34,0,0" TextWrapping="Wrap" Text="KlausurVorschau" VerticalAlignment="Top" FontSize="23" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF0068B4"/>
+                <Grid Background="#FFF9FCFD" Height="1500" Width="800">
+                    <TextBlock HorizontalAlignment="Left" Margin="300,34,0,0" TextWrapping="Wrap" Text="KlausurVorschau" VerticalAlignment="Top" FontSize="23" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF0068B4"/>
 
-                    <TextBlock HorizontalAlignment="Left" Margin="104,124,0,0" TextWrapping="Wrap" Text="Schriftgröße Titel" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="104,156,0,0" TextWrapping="Wrap" Text="Schriftgröße Aufgabenüberschirft" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="105,192,0,0" TextWrapping="Wrap" Text="Schriftgröße Text" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="105,225,0,0" TextWrapping="Wrap" Text="Schriftart" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="105,125,0,0" TextWrapping="Wrap" Text="Schriftgröße Titel" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="105,160,0,0" TextWrapping="Wrap" Text="Schriftgröße Aufgabenüberschirft" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="105,195,0,0" TextWrapping="Wrap" Text="Schriftgröße Text" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="105,230,0,0" TextWrapping="Wrap" Text="Schriftart" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
 
-                    <ComboBox HorizontalAlignment="Left" Margin="432,121,0,0" VerticalAlignment="Top" Width="120" BorderBrush="#FFAACEE9">
+                    <ComboBox HorizontalAlignment="Left" Margin="450,125,0,0" VerticalAlignment="Top" Width="120" BorderBrush="#FFAACEE9">
                         <ComboBox.Background>
                             <LinearGradientBrush EndPoint="0,1">
                                 <GradientStop Color="#FFF0F0F0"/>
@@ -39,7 +39,7 @@
                             </LinearGradientBrush>
                         </ComboBox.Background>
                     </ComboBox>
-                    <ComboBox HorizontalAlignment="Left" Margin="432,153,0,0" VerticalAlignment="Top" Width="120" BorderBrush="#FFAACEE9">
+                    <ComboBox HorizontalAlignment="Left" Margin="450,160,0,0" VerticalAlignment="Top" Width="120" BorderBrush="#FFAACEE9">
                         <ComboBox.Background>
                             <LinearGradientBrush EndPoint="0,1">
                                 <GradientStop Color="#FFF0F0F0"/>
@@ -47,7 +47,7 @@
                             </LinearGradientBrush>
                         </ComboBox.Background>
                     </ComboBox>
-                    <ComboBox HorizontalAlignment="Left" Margin="432,189,0,0" VerticalAlignment="Top" Width="120" BorderBrush="#FFAACEE9">
+                    <ComboBox HorizontalAlignment="Left" Margin="450,195,0,0" VerticalAlignment="Top" Width="120" BorderBrush="#FFAACEE9">
                         <ComboBox.Background>
                             <LinearGradientBrush EndPoint="0,1">
                                 <GradientStop Color="#FFF0F0F0"/>
@@ -55,7 +55,7 @@
                             </LinearGradientBrush>
                         </ComboBox.Background>
                     </ComboBox>
-                    <ComboBox HorizontalAlignment="Left" Margin="432,222,0,0" VerticalAlignment="Top" Width="120" BorderBrush="#FFAACEE9">
+                    <ComboBox HorizontalAlignment="Left" Margin="450,230,0,0" VerticalAlignment="Top" Width="120" BorderBrush="#FFAACEE9">
                         <ComboBox.Background>
                             <LinearGradientBrush EndPoint="0,1">
                                 <GradientStop Color="#FFF0F0F0"/>
@@ -65,24 +65,19 @@
                         </ComboBox.Background>
                     </ComboBox>
 
-                    <TextBox HorizontalAlignment="Left" Margin="432,267,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" />
-                    <TextBlock HorizontalAlignment="Left" Margin="104,263,0,0" TextWrapping="Wrap" Text="Prüfungsdatum" VerticalAlignment="Top"/>
-                    <StackPanel>
-                        <TextBlock HorizontalAlignment="Left" Margin="104,300,0,0" TextWrapping="Wrap" Text="Zusätzliche Hinweise" VerticalAlignment="Top">
-                        </TextBlock>
-                        <ListView Margin="76,10,76,-31" Height="218">
+                    <TextBox HorizontalAlignment="Left" Margin="450,265,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" />
+                    <TextBlock HorizontalAlignment="Left" Margin="105,265,0,0" TextWrapping="Wrap" Text="Prüfungsdatum" VerticalAlignment="Top"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="105,300,0,0" TextWrapping="Wrap" Text="Zusätzliche Hinweise" VerticalAlignment="Top">
+                    </TextBlock>
+                    <ListView Margin="105,-650,105,0" Height="200">
 
-                        </ListView>
-                    </StackPanel>
-
-                    <StackPanel>
-                        <TextBlock HorizontalAlignment="Left" Margin="104,500,0,0" TextWrapping="Wrap" Text="Task-Swapper" VerticalAlignment="Top">
-                        </TextBlock>
-
-                        <ListView Margin="76,10,76,-31" Height="218">
+                    </ListView>
+                    <TextBlock HorizontalAlignment="Left" Margin="105,535,0,0" TextWrapping="Wrap" Text="Task-Swapper" VerticalAlignment="Top">
+                    </TextBlock>
+                    <ListView Margin="105,-150,105,0" Height="200">
                             
-                        </ListView>
-                    </StackPanel>
+                    </ListView>
+                    
                     
                 </Grid>
             </Viewbox>
