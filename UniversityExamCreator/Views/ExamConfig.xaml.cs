@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Navigation;
 using UniversityExamCreator.Models;
 
@@ -39,6 +40,12 @@ namespace UniversityExamCreator.Views
             if (string.IsNullOrEmpty(Examconfig.ExamType))
             {
                 MessageBox.Show("Bitte wählen Sie eine Prüfungsart aus.");
+                MC.BorderBrush = Brushes.Red;
+                MC.BorderThickness = new Thickness(2);
+                OffeneFragen.BorderBrush = Brushes.Red;
+                OffeneFragen.BorderThickness = new Thickness(2);
+                Mischform.BorderBrush = Brushes.Red;
+                Mischform.BorderThickness = new Thickness(2);
                 return;
             }
 
@@ -49,6 +56,8 @@ namespace UniversityExamCreator.Views
             else
             {
                 MessageBox.Show("Bitte geben Sie eine gültige Zahl für die Anzahl der Aufgaben ein.");
+                NumTasks.BorderBrush = Brushes.Red;
+                NumTasks.BorderThickness = new Thickness(2);
                 return;
             }
 
@@ -59,6 +68,8 @@ namespace UniversityExamCreator.Views
             else
             {
                 var result = MessageBox.Show("Wollen Sie wirklich keine Punktzahl festlegen?", "Ungültige Eingabe", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                NumPoints.BorderBrush = Brushes.Red;
+                NumPoints.BorderThickness = new Thickness(2);
                 if (result == MessageBoxResult.No)
                 {
                     return;

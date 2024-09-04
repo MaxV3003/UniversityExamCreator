@@ -289,14 +289,19 @@ namespace UniversityExamCreator.Views
 
             if (selectedText == "Multiple Choice")
             {
-                MCCountDD.IsVisible = true;
-                MCRulesText.IsVisible = true;
+                MCCountDD.Visibility = Visibility.Visible;
+                MCCount.Visibility = Visibility.Visible;
+                MCRulesText.Visibility = Visibility.Visible;
+                MCRules.Visibility = Visibility.Visible;
             }
             else
             {
-                MCCountDD.IsVisible = false;
-                MCRulesText.IsVisible = false;
+                MCCountDD.Visibility = Visibility.Hidden;
+                MCCount.Visibility = Visibility.Hidden; 
+                MCRulesText.Visibility = Visibility.Hidden;
+                MCRules.Visibility= Visibility.Hidden;  
             }
         }
     }
+    
 }
