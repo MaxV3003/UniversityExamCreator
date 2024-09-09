@@ -50,6 +50,7 @@ namespace UniversityExamCreator.Views
                 MessageBox.Show("Bitte geben Sie eine Fragestellung ein.");
 
             }
+            NavigationService.Navigate(new ToolsPage());
 
 
         }
