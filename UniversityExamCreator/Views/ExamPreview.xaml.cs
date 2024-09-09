@@ -8,9 +8,6 @@ using UniversityExamCreator.Models;
 using System.Text;
 using System;
 using System.Collections.ObjectModel;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Media;
 using System.Windows.Controls;
 
 namespace UniversityExamCreator.Views
@@ -66,13 +63,17 @@ namespace UniversityExamCreator.Views
 
 
         }
+
+        /// <summary>
+        /// Selcetionchanger if there is an other Item selected.
+        /// </summary>
         private void FontComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Zugriff auf das ausgewählte Item
             string selectedFont = FontComboBox.SelectedItem as string;
 
             if (selectedFont != null)
             {
+                //in Extraklasse machen, die auf alle Fontarten und deren Schriftgröße gleichzeitig zugreift. Wenn eine der beiden Attribute geändert wird soll auch nur ein Methodenaufruf dafür notwendig sein.
                 taskFont = new XFont(selectedFont, 9);
             }
         }
