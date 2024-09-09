@@ -7,6 +7,11 @@ using System.Windows.Navigation;
 using UniversityExamCreator.Models;
 using System.Text;
 using System;
+using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Media;
+using System.Windows.Controls;
 
 namespace UniversityExamCreator.Views
 {
@@ -20,10 +25,15 @@ namespace UniversityExamCreator.Views
         PdfSharp.Pdf.PdfDocument document;
         PdfSharp.Drawing.XGraphics gfx;
 
+        //Test-Area
+        List <String> Fonts { get; set; }
+        public ObservableCollection<String> FontNames { get; set; }
+        
+
         // Fonts
         XFont examTitelFont = new XFont("Verdana", 25);
         XFont titleFont = new XFont("Verdana", 14);
-        XFont taskFont = new XFont("Verdana", 9);
+        XFont taskFont;
         XFont mcFont = new XFont("Verdana", 9);
 
         // Page settings
@@ -41,7 +51,32 @@ namespace UniversityExamCreator.Views
             Examconfig = examconfig;
             Tasks = tasks;
             InitializeComponent();
+
+            // Initialisiere die Fonts-Liste
+            Fonts = new List<string>
+            {
+                "Verdana",
+                "Times New Roman",
+                "Arial",
+            };
+
+            // Fülle die ComboBox
+            FontComboBox.ItemsSource = Fonts;
+            
+
+
         }
+        private void FontComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Zugriff auf das ausgewählte Item
+            string selectedFont = FontComboBox.SelectedItem as string;
+
+            if (selectedFont != null)
+            {
+                taskFont = new XFont(selectedFont, 9);
+            }
+        }
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -62,7 +97,7 @@ namespace UniversityExamCreator.Views
             gfx = XGraphics.FromPdfPage(page);
 
             // Logo laden und einfügen
-            XImage logo = XImage.FromFile("C:/Users/maxim/source/repos/UniversityExamCreator/UniversityExamCreator/Models/OVGU-FIN_farbig.jpg");
+            XImage logo = XImage.FromFile("C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Models/OVGU-FIN_farbig.jpg");
             gfx.DrawImage(logo, 150, 0, 300, 100);
 
             // Draw the Exam Header
