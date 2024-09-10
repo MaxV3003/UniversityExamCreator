@@ -14,6 +14,7 @@ namespace UniversityExamCreator.Views
 {
     public partial class ExamPreview : System.Windows.Controls.Page //System.Windows.Controls. sonst entfernen
     {
+        // Configs
         private string tempFilename;
         Examconfig Examconfig { get; set; }
         public List<Task> Tasks { get; set; }
@@ -24,14 +25,17 @@ namespace UniversityExamCreator.Views
 
         //Test-Area
         List <String> Fonts { get; set; }
-        public ObservableCollection<String> FontNames { get; set; }
-        
 
-        // Fonts
-        XFont examTitelFont = new XFont("Verdana", 25);
-        XFont titleFont = new XFont("Verdana", 14);
+        // Font-Vars
+        int defaultExamTitleSize;
+        int defaultTitleSize;
+        int defaultTaskSize;
+        int defaultMCSize;
+        string defaultFont;
+        XFont examTitelFont;
+        XFont titleFont;
         XFont taskFont;
-        XFont mcFont = new XFont("Verdana", 9);
+        XFont mcFont;
 
         // Page settings
         const double pageHeight = 842;
@@ -57,10 +61,26 @@ namespace UniversityExamCreator.Views
                 "Arial",
             };
 
-            // Fülle die ComboBox
+            // Fill FontCombobox.
             FontComboBox.ItemsSource = Fonts;
-            
 
+            // Initialisiere die Schriftgrößen in der Combobox
+            for (int i = 9; i <= 72; i += 1)
+            {
+                ExamTitleFontSize.Items.Add(i);
+                TitleFontSize.Items.Add(i);
+                TextFontSize.Items.Add(i);
+            }
+
+            // Set the Default-Size-Values of the Font-Vars.
+            defaultExamTitleSize = 25;
+            defaultTitleSize = 14;
+            defaultTaskSize = 9;
+            defaultMCSize = 9;
+
+            // Set the Default-Font-Typ of the Exam.
+            defaultFont = "Verdana";
+            setFont(defaultFont);
 
         }
 
@@ -74,11 +94,85 @@ namespace UniversityExamCreator.Views
             if (selectedFont != null)
             {
                 //in Extraklasse machen, die auf alle Fontarten und deren Schriftgröße gleichzeitig zugreift. Wenn eine der beiden Attribute geändert wird soll auch nur ein Methodenaufruf dafür notwendig sein.
-                taskFont = new XFont(selectedFont, 9);
+                setFont(selectedFont);
             }
         }
 
+        /// <summary>
+        /// If ExamTitleFontCombobox-Value has changed.
+        /// </summary>
+        private void ExamTitleFontSize_SelectionChanged(object sender, SelectionChangedEventArgs e) 
+        {
+            int? selectedExamTitleFontSize = ExamTitleFontSize.SelectedItem as int?;
 
+            if (selectedExamTitleFontSize.HasValue)
+            {
+                setFontSize(selectedExamTitleFontSize.Value, "examTitelFont");
+            }
+        }
+
+        /// <summary>
+        /// If TitleFontCombobox-Value has changed.
+        /// </summary>
+        private void TitleFontSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int? selectedTitleFontSize = TitleFontSize.SelectedItem as int?;
+
+            if (selectedTitleFontSize.HasValue)
+            {
+                setFontSize(selectedTitleFontSize.Value, "titleFont");
+            }
+        }
+
+        /// <summary>
+        /// If TaskFontCombobox-Value has changed.
+        /// </summary>
+        private void TextFontSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int? selectedTextFontSize = TextFontSize.SelectedItem as int?;
+
+            if (selectedTextFontSize.HasValue)
+            {
+                setFontSize(selectedTextFontSize.Value, "taskFont");
+            }
+        }
+
+        /// <summary>
+        /// Set the Font-Typ the Exam is written in.
+        /// </summary>
+        private void setFont(string font) 
+        {
+            defaultFont = font;
+            examTitelFont = new XFont(font, 25);
+            titleFont = new XFont(font, 14);
+            taskFont = new XFont(font, 9);
+            mcFont = new XFont(font, 9);
+        }
+
+        /// <summary>
+        /// Set the selected FontSize-Value.
+        /// </summary>
+        private void setFontSize(int size, string font)
+        {
+            switch (font)
+            {
+                case "examTitelFont":
+                    examTitelFont = new XFont(defaultFont, size);
+                    break;
+                case "titleFont":
+                    titleFont = new XFont(defaultFont, size);
+                    break;
+                case "taskFont":
+                    taskFont = new XFont(defaultFont, size);
+                    mcFont = new XFont(defaultFont, size);
+                    break;
+            }
+        }
+
+        /*---------------------------------------------------------------------------------------------------*/
+        //                                  PDF-Erzeugungs-Abschnitt
+        /*---------------------------------------------------------------------------------------------------*/
+        
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new ExamCreate(Examconfig));
@@ -137,7 +231,7 @@ namespace UniversityExamCreator.Views
 
             // Measure text height to fit the rect
             var size = gfx.MeasureString(text, font, XStringFormats.TopLeft);
-            textHeight = size.Height; // Output text height for yPoint adjustment
+            textHeight = size.Height;
 
             // Draw text with wrapping
             tf.DrawString(text, font, XBrushes.Black, rect, XStringFormats.TopLeft);

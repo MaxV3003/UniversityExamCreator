@@ -31,7 +31,7 @@
                     <TextBlock HorizontalAlignment="Left" Margin="105,195,0,0" TextWrapping="Wrap" Text="Schriftgröße Text" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
                     <TextBlock HorizontalAlignment="Left" Margin="105,230,0,0" TextWrapping="Wrap" Text="Schriftart" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
 
-                    <ComboBox x:Name="TitleFontSize" HorizontalAlignment="Left" Margin="450,125,0,0" VerticalAlignment="Top" Width="120" BorderBrush="#FFAACEE9">
+                    <ComboBox x:Name="ExamTitleFontSize" HorizontalAlignment="Left" Margin="450,125,0,0" VerticalAlignment="Top" Width="120" BorderBrush="#FFAACEE9" SelectionChanged="ExamTitleFontSize_SelectionChanged">
                         <ComboBox.Background>
                             <LinearGradientBrush EndPoint="0,1">
                                 <GradientStop Color="#FFF0F0F0"/>
@@ -39,7 +39,7 @@
                             </LinearGradientBrush>
                         </ComboBox.Background>
                     </ComboBox>
-                    <ComboBox HorizontalAlignment="Left" Margin="450,160,0,0" VerticalAlignment="Top" Width="120" BorderBrush="#FFAACEE9">
+                    <ComboBox x:Name="TitleFontSize" HorizontalAlignment="Left" Margin="450,160,0,0" VerticalAlignment="Top" Width="120" BorderBrush="#FFAACEE9" SelectionChanged="TitleFontSize_SelectionChanged">
                         <ComboBox.Background>
                             <LinearGradientBrush EndPoint="0,1">
                                 <GradientStop Color="#FFF0F0F0"/>
@@ -47,7 +47,7 @@
                             </LinearGradientBrush>
                         </ComboBox.Background>
                     </ComboBox>
-                    <ComboBox HorizontalAlignment="Left" Margin="450,195,0,0" VerticalAlignment="Top" Width="120" BorderBrush="#FFAACEE9">
+                    <ComboBox x:Name="TextFontSize" HorizontalAlignment="Left" Margin="450,195,0,0" VerticalAlignment="Top" Width="120" BorderBrush="#FFAACEE9" SelectionChanged="TextFontSize_SelectionChanged">
                         <ComboBox.Background>
                             <LinearGradientBrush EndPoint="0,1">
                                 <GradientStop Color="#FFF0F0F0"/>
