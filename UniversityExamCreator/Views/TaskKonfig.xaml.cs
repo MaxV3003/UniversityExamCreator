@@ -38,12 +38,12 @@ namespace UniversityExamCreator.Views
             {
                 if(MCDD.Text == "Multiple Choice")
                 {
-                   // CreateTaskMC();
+                    CreateTaskMC();
                     NextPath();
                 }
                 else
                 {
-                   // CreateTaskOF();
+                    CreateTaskOF();
                     NextPath();
                 }           
             }
@@ -69,6 +69,13 @@ namespace UniversityExamCreator.Views
             MCCountDD.Items.Add("1");
             MCCountDD.Items.Add("2");
             MCCountDD.Items.Add("3");
+            MCCountDD.Items.Add("4");
+            MCCountDD.Items.Add("5");
+            MCCountDD.Items.Add("6");
+            MCCountDD.Items.Add("7"); 
+            MCCountDD.Items.Add("8");
+            MCCountDD.Items.Add("9");
+            MCCountDD.Items.Add("10");
 
             DifficultyDD.Items.Add("Leicht");
             DifficultyDD.Items.Add("Mittel");
@@ -76,14 +83,20 @@ namespace UniversityExamCreator.Views
 
         }
 
-        /*private Task CreateTaskMC()
+        private Models.Task CreateTaskMC()
         {
-            return Task task = new Task(ModulDD, Theme, Type, Difficulty, Points, Name);
+            int points;
+            int.TryParse(PointsText.Text, out points);
+            Models.Task taskMC = new Models.Task(ModulDD.SelectedItem.ToString(), ThemeText.Text, MCDD.SelectedItem.ToString(), DifficultyDD.SelectedItem.ToString(), points, TitleText.Text);
+            return taskMC;
         }
-        private Task CreateTaskOF()
+        private Models.Task CreateTaskOF()
         {
-            return Task task = new Task(ModulDD, Theme, Type, Difficulty, Points, Name);
-        }*/
+            int points;
+            int.TryParse(PointsText.Text, out points);
+            Models.Task taskOF = new Models.Task(ModulDD.SelectedItem.ToString(), ThemeText.Text, MCDD.SelectedItem.ToString(), DifficultyDD.SelectedItem.ToString(), points, TitleText.Text);
+            return taskOF;
+        }
 
         /// <summary>
         /// NextPath entscheidet auf welche WPF-Seite der User als nächstes kommt, basierend auf den Eingaben auf der aktuellen Seite.

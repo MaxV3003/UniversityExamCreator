@@ -58,13 +58,9 @@ namespace UniversityExamCreator.Views
         /// Soll den eingegebenen Content in ein String Array packen.
         /// </summary>
         /// <returns></returns>
-        private string[] PreparedContent()
+        private void PreparedContent()
         {
-            string[] content = new string[2];
-
-            content[0] = ContentText.Text;
-            content[1] = AnswerText.Text;
-            return content;
+                        
         }
         /// <summary>
         /// Checkt ob alle Pflichfelder gefüllt worden sind.
