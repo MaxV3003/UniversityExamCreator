@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UniversityExamCreator.Services
+/*namespace UniversityExamCreator.Services
 {
     public class DatabaseManager
     {
@@ -292,6 +292,134 @@ namespace UniversityExamCreator.Services
             }
         }
     }
+}*/
+using System;
+using System.Data.SQLite;
+
+namespace UniversityExamCreator.Services
+{
+    public class DatabaseManager
+    {
+        private string connectionString;
+
+        public DatabaseManager(string databasePath)
+        {
+            connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=MeineDatenbank;Integrated Security=True";
+        }
+
+        public string GetConnectionString()
+        {
+            return connectionString;
+        }
+    }
+
+    public class DatabaseOperations : IDisposable
+    {
+        private SQLiteConnection connection;
+
+        public DatabaseOperations(string connectionString)
+        {
+            connection = new SQLiteConnection(connectionString);
+            try
+            {
+                connection.Open();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fehler beim Öffnen der Datenbankverbindung: {ex.Message}");
+            }
+        }
+
+        public void Dispose()
+        {
+            if (connection != null && connection.State == System.Data.ConnectionState.Open)
+            {
+                connection.Close();
+            }
+        }
+
+        public void InsertAufgabe(string task_content, int points, string difficulty, string subject, DateTime date_created, string author)
+        {
+            string query = "INSERT INTO aufgabe (task_content, points, difficulty, subject, date_created, author) VALUES (@task_content, @points, @difficulty, @subject, @date_created, @author)";
+            ExecuteNonQuery(query, ("@task_content", task_content), ("@points", points), ("@difficulty", difficulty), ("@subject", subject), ("@date_created", date_created), ("@author", author));
+        }
+
+        public void DeleteAufgabe(int id)
+        {
+            string query = "DELETE FROM aufgabe WHERE id = @id";
+            ExecuteNonQuery(query, ("@id", id));
+        }
+
+        public bool IfAufgabeExists(int id)
+        {
+            string query = "SELECT COUNT(1) FROM aufgabe WHERE id = @id";
+            return ExecuteScalar(query, ("@id", id)) > 0;
+        }
+
+        public void InsertKlausur(string course, string examiner, DateTime date)
+        {
+            string query = "INSERT INTO klausur (course, examiner, date) VALUES (@course, @examiner, @date)";
+            ExecuteNonQuery(query, ("@course", course), ("@examiner", examiner), ("@date", date));
+        }
+
+        public void DeleteKlausur(int id)
+        {
+            string query = "DELETE FROM klausur WHERE id = @id";
+            ExecuteNonQuery(query, ("@id", id));
+        }
+
+        public bool IfKlausurExists(int id)
+        {
+            string query = "SELECT COUNT(1) FROM klausur WHERE id = @id";
+            return ExecuteScalar(query, ("@id", id)) > 0;
+        }
+
+        // Weitere Methoden hier (für Klausur-Aufgabe, Nutzer, Antworten, etc.)
+
+        // Hilfsmethode für Nicht-Abfrage-SQL-Befehle (Insert, Update, Delete)
+        private void ExecuteNonQuery(string query, params (string, object)[] parameters)
+        {
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                foreach (var param in parameters)
+                {
+                    command.Parameters.AddWithValue(param.Item1, param.Item2);
+                }
+
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Fehler bei der Ausführung der Abfrage: {ex.Message}");
+                }
+            }
+        }
+
+        // Hilfsmethode für Abfrage mit Rückgabe eines Werts 
+        private int ExecuteScalar(string query, params (string, object)[] parameters)
+        {
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                foreach (var param in parameters)
+                {
+                    command.Parameters.AddWithValue(param.Item1, param.Item2);
+                }
+
+                try
+                {
+                    return Convert.ToInt32(command.ExecuteScalar());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Fehler bei der Ausführung der Abfrage: {ex.Message}");
+                    return 0;
+                }
+            }
+        }
+    }
 }
+
 
 
