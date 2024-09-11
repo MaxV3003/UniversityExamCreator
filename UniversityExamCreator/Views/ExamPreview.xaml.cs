@@ -9,6 +9,7 @@ using System.Text;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
+using System.IO;
 
 namespace UniversityExamCreator.Views
 {
@@ -192,7 +193,15 @@ namespace UniversityExamCreator.Views
             gfx = XGraphics.FromPdfPage(page);
 
             // Logo laden und einfügen
-            XImage logo = XImage.FromFile("C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Models/OVGU-FIN_farbig.jpg");
+            //XImage logo = XImage.FromFile("C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Models/OVGU-FIN_farbig.jpg");
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string projectDirectory = Path.GetFullPath(Path.Combine(basePath, @"..\..\"));
+            string relativePath = @"Models\OVGU-FIN_farbig.jpg";
+            string fullPath = Path.Combine(projectDirectory, relativePath);
+
+            // Lade das Bild
+            XImage logo = XImage.FromFile(fullPath);
+
             gfx.DrawImage(logo, 150, 0, 300, 100);
 
             // Draw the Exam Header
