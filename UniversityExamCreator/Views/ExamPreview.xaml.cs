@@ -83,6 +83,12 @@ namespace UniversityExamCreator.Views
             defaultFont = "Verdana";
             setFont(defaultFont);
 
+            // Show the Default Value in the Combobox before the user is modifing them. 
+            FontComboBox.SelectedItem = defaultFont;
+            ExamTitleFontSize.SelectedItem = defaultExamTitleSize;
+            TitleFontSize.SelectedItem = defaultTitleSize;
+            TextFontSize.SelectedItem = defaultTaskSize;
+
         }
 
         /// <summary>
@@ -201,19 +207,33 @@ namespace UniversityExamCreator.Views
 
             // Lade das Bild
             XImage logo = XImage.FromFile(fullPath);
-
             gfx.DrawImage(logo, 150, 0, 300, 100);
 
             // Draw the Exam Header
             var examHeader = new XTextFormatter(gfx);
+
+            //Draw the Prof.
             string leftSideText = "Dr. ...";
-            DateTime specificDateTime = new DateTime(2024, 12, 12);
-            string rightSideText = "Magdeburg, " + specificDateTime.ToString("dd.MM.yyyy");
-            XSize rightTextSize = gfx.MeasureString(rightSideText, taskFont);
-            double xRightPosition = margin + innerWidth - rightTextSize.Width;
-            gfx.DrawString(leftSideText, taskFont, XBrushes.Black, new XPoint(margin, yPoint));
-            gfx.DrawString(rightSideText, taskFont, XBrushes.Black, new XPoint(xRightPosition, yPoint));
-            yPoint += taskSpacing;
+
+            //Draw the DateTime. 
+            DateTime? selectedDate = ExamDate.SelectedDate;
+
+            if (selectedDate.HasValue)
+            {
+                DateTime date = selectedDate.Value;
+                string rightSideText = "Magdeburg, " + date.ToString("dd.MM.yyyy");
+                XSize rightTextSize = gfx.MeasureString(rightSideText, taskFont);
+                double xRightPosition = margin + innerWidth - rightTextSize.Width;
+                gfx.DrawString(leftSideText, taskFont, XBrushes.Black, new XPoint(margin, yPoint));
+                gfx.DrawString(rightSideText, taskFont, XBrushes.Black, new XPoint(xRightPosition, yPoint));
+                yPoint += taskSpacing;
+                // Weiterverarbeitung des Datums
+            }
+            else
+            {
+                // Kein Datum ausgewählt - Aufforderungsfenster anzeigen
+                MessageBox.Show("Bitte ein Datum eingeben.", "Fehlende Datumsangabe", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
 
 
             // Draw the exam name with wrapping
