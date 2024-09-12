@@ -75,9 +75,9 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <CheckBox Grid.Column="0" IsChecked="{Binding IsSelected, Mode=TwoWay}" Content="{Binding TaskName}" Width="200" />
+                                <CheckBox Grid.Column="0" IsChecked="{Binding IsSelected, Mode=TwoWay}" Content="{Binding TaskName}" Width="180" />
                                 <Button Grid.Column="1" Content="Info" Click="InfoButton_Click" 
-                                        Tag="{Binding }" Margin="10,0,0,0" />
+                                        Tag="{Binding }" Margin="185,-3,-79,3" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -100,9 +100,9 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <CheckBox Grid.Column="0" IsChecked="{Binding IsSelectedForDeletion, Mode=TwoWay}" Content="{Binding TaskName}" Width="200" />
+                                <CheckBox Grid.Column="0" IsChecked="{Binding IsSelectedForDeletion, Mode=TwoWay}" Content="{Binding TaskName}" Width="180" />
                                 <Button Grid.Column="1" Content="Info" Click="InfoButton_Click"
-                                Tag="{Binding }" Margin="10,0,0,0" />
+                                Tag="{Binding }" Margin="185,-3,-79,3" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>

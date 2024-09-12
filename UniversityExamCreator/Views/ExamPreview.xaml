@@ -65,9 +65,9 @@
                         </ComboBox.Background>
                     </ComboBox>
 
-                    <DatePicker x:Name="ExamDate" HorizontalAlignment="Left" Margin="450,265,0,0" VerticalAlignment="Top"/> <TextBlock HorizontalAlignment="Left" Margin="105,265,0,0" TextWrapping="Wrap" Text="Prüfungsdatum" VerticalAlignment="Top"/>
+                    <DatePicker x:Name="ExamDate" HorizontalAlignment="Left" Margin="450,265,0,0" VerticalAlignment="Top" Foreground="#FF0068B4"/> <TextBlock HorizontalAlignment="Left" Margin="105,265,0,0" TextWrapping="Wrap" Text="Prüfungsdatum" VerticalAlignment="Top" Foreground="#FF0068B4"/>
                     
-                    <TextBlock HorizontalAlignment="Left" Margin="105,300,0,0" TextWrapping="Wrap" Text="Zusätzliche Hinweise" VerticalAlignment="Top">
+                    <TextBlock HorizontalAlignment="Left" Margin="105,300,0,0" TextWrapping="Wrap" Text="Zusätzliche Hinweise" VerticalAlignment="Top" Foreground="#FF0068B4">
                     </TextBlock>
                     <ListView Margin="105,-650,105,0" Height="200">
 
