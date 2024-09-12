@@ -10,7 +10,7 @@
       Background="#FFF9FCFD">
     <Viewbox>
         <Grid Background="#FFF9FCFD" Width="800" Height="450">
-            <TextBlock x:Name="ModulID"  HorizontalAlignment="Left" Height="20" Margin="53,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" FontFamily="Verdana" Foreground="#FF0068B4"><Run Text="ModulID"/><Run Language="de-de" Text="*"/></TextBlock>
+            <TextBlock x:Name="ModulID"  HorizontalAlignment="Left" Height="20" Margin="53,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" FontFamily="Verdana" Foreground="#FF0068B4" Text="ModulID"/>
             <TextBox Name="ModulIDText" HorizontalAlignment="Left" Height="25" Margin="180,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="540"/>
             <TextBox Name="ModulNameText" HorizontalAlignment="Left" Height="25" Margin="179,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="551" BorderBrush="#FFAACEE9" Background="#FFF5FBFB"/>
 
