@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UniversityExamCreator.Models;
 
 namespace UniversityExamCreator.Views
 {
@@ -20,9 +21,12 @@ namespace UniversityExamCreator.Views
     /// </summary>
     public partial class TaskCreateOF : Page
     {
-        public TaskCreateOF()
+        Models.Task task;
+        public TaskCreateOF(Models.Task task)
         {
             InitializeComponent();
+              this.task = task;
+            
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -31,12 +35,12 @@ namespace UniversityExamCreator.Views
         }
         private void Create_Click(object sender, RoutedEventArgs e)
         {
-            PreparedContent(); //Der Content der Aufgabe. Bekommt String Array wieder mit Index 0 = Content und Index 1 = Answer.
+            AddContent(task);//returnt Task muss dann noch in die DB
 
             if (CheckFilled() == true)
             {
-                int n = 0;
-                if (n == 0)
+                
+                if (0 == 0)//Für DB abfrage ob Task gespeichert
                 {
                     MessageBox.Show("Aufgabe wurde gespeichert.");
                 }
@@ -53,14 +57,15 @@ namespace UniversityExamCreator.Views
             NavigationService.Navigate(new ToolsPage());
 
 
-        }
-        /// <summary>
-        /// Soll den eingegebenen Content in ein String Array packen.
+        }/// <summary>
+        /// Fügt den COntent und die Answer zur Task hinzu. 
         /// </summary>
-        /// <returns></returns>
-        private void PreparedContent()
+        private Models.Task AddContent(Models.Task task)
         {
-                        
+            task.setTaskContent(ContentText.Text);
+            task.setTaskAnswer(AnswerText.Text);
+            return task;
+
         }
         /// <summary>
         /// Checkt ob alle Pflichfelder gefüllt worden sind.

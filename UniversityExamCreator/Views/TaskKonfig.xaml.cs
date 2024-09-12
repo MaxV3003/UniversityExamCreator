@@ -38,13 +38,13 @@ namespace UniversityExamCreator.Views
             {
                 if(MCDD.Text == "Multiple Choice")
                 {
-                    CreateTaskMC();
-                    NextPath();
+                    
+                    NextPath(CreateTaskMC());
                 }
                 else
                 {
-                    CreateTaskOF();
-                    NextPath();
+                    
+                    NextPath(CreateTaskOF());
                 }           
             }
             else
@@ -72,7 +72,7 @@ namespace UniversityExamCreator.Views
             MCCountDD.Items.Add("4");
             MCCountDD.Items.Add("5");
             MCCountDD.Items.Add("6");
-            MCCountDD.Items.Add("7"); 
+            MCCountDD.Items.Add("7");
             MCCountDD.Items.Add("8");
             MCCountDD.Items.Add("9");
             MCCountDD.Items.Add("10");
@@ -101,15 +101,15 @@ namespace UniversityExamCreator.Views
         /// <summary>
         /// NextPath entscheidet auf welche WPF-Seite der User als nächstes kommt, basierend auf den Eingaben auf der aktuellen Seite.
         /// </summary>
-        private void NextPath()
+        private void NextPath(Models.Task task)
         {
             if (MCDD.Text == "Multiple Choice")
             {
-                NavigationService.Navigate(new TaskCreateMC());
+                NavigationService.Navigate(new TaskCreateMC(task));
             }
             else
             {
-                NavigationService.Navigate(new TaskCreateOF());
+                NavigationService.Navigate(new TaskCreateOF(task));
             }
         }
 

@@ -20,9 +20,11 @@ namespace UniversityExamCreator.Views
     /// </summary>
     public partial class TaskCreateMC : Page
     {
-        public TaskCreateMC()
+        Models.Task task;
+        public TaskCreateMC(Models.Task task)
         {
             InitializeComponent();
+            this.task = task;
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)

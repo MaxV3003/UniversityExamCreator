@@ -8,7 +8,10 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TaskCreateMC"
       Background="White">
-    <Viewbox>
+
+    <!-- ScrollViewer in der ersten Zeile -->
+    <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+        <Viewbox>
         <Grid Background="#FFF9FCFD" Width="800" Height="450">
 
 
@@ -18,11 +21,13 @@
 
             <TextBlock Name="Antwort" HorizontalAlignment="Left" Height="85" Margin="100,154,0,0" TextWrapping="Wrap" Text="Antworten:" VerticalAlignment="Top" Width="180" Foreground="#FF0068B4"/>
 
+                <Grid Name="AnswerGrid">
             <RadioButton Content="Richtig" Height="50" Width="120"  HorizontalAlignment="Left" Margin="100,190,0,0" VerticalAlignment="Top" Foreground="#FF0068B4"/>
             <RadioButton Content="Falsch" Height="50" Width="120"  HorizontalAlignment="Left" Margin="160,191,0,0" VerticalAlignment="Top" Foreground="#FF0068B4"/>
             <TextBox Name="Antwort1" HorizontalAlignment="Left" Height="25" Margin="227,182,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="494" BorderBrush="#FFAACEE9"/>
+                </Grid>
 
-            <RadioButton Content="Richtig" Height="14" Width="56"  HorizontalAlignment="Left" Margin="101,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="0.482,0.769" Foreground="#FF0068B4"/>
+                <RadioButton Content="Richtig" Height="14" Width="56"  HorizontalAlignment="Left" Margin="101,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="0.482,0.769" Foreground="#FF0068B4"/>
             <RadioButton Content="Falsch" Height="18" Width="66"  HorizontalAlignment="Left" Margin="160,0,0,0" VerticalAlignment="Center" Foreground="#FF0068B4"/>
             <TextBox Name="Antwort2" HorizontalAlignment="Left" Height="25" Margin="227,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="495" BorderBrush="#FFAACEE9"/>
 
@@ -43,4 +48,5 @@
 
         </Grid>
     </Viewbox>
+    </ScrollViewer>
 </Page>
