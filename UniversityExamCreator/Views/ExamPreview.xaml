@@ -69,9 +69,21 @@
                     
                     <TextBlock HorizontalAlignment="Left" Margin="105,300,0,0" TextWrapping="Wrap" Text="Zusätzliche Hinweise" VerticalAlignment="Top" Foreground="#FF0068B4">
                     </TextBlock>
-                    <ListView Margin="105,-650,105,0" Height="200">
-
+                    <ListView x:Name="ListViewInformation" Margin="105,-650,105,0" Height="200" 
+                              ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding additionalInformation}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <!-- Checkbox für jedes Item -->
+                                    <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" Margin="0,0,10,0"/>
+                                    <!-- Textblock für den String aus additionalInformation -->
+                                    <TextBlock Text="{Binding Name}" />
+                                    <Button x:Name="AdditionalInformationInfoButton" Content="Info" Click="AdditionalInformationInfoButton" Tag="{Binding}" Margin="10,0,0,0"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
                     </ListView>
+                    
                     <TextBlock HorizontalAlignment="Left" Margin="105,535,0,0" TextWrapping="Wrap" Text="Task-Swapper" VerticalAlignment="Top">
                     </TextBlock>
                     <ListView Margin="105,-175,105,0" Height="200">

@@ -182,9 +182,6 @@ namespace UniversityExamCreator.Views
         }
 
         private void ItemListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
+        {}
     }
 }
-

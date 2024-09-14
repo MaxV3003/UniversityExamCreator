@@ -27,6 +27,8 @@ namespace UniversityExamCreator.Views
         //Test-Area
         List <String> Fonts { get; set; }
 
+        List<AdditionalInformation> additionalInformation;
+
         // Font-Vars
         int defaultExamTitleSize;
         int defaultTitleSize;
@@ -37,6 +39,7 @@ namespace UniversityExamCreator.Views
         XFont titleFont;
         XFont taskFont;
         XFont mcFont;
+        XFont specialFont; // a static Font only for the CoverSheet
 
         // Page settings
         const double pageHeight = 842;
@@ -66,7 +69,7 @@ namespace UniversityExamCreator.Views
             FontComboBox.ItemsSource = Fonts;
 
             // Initialisiere die Schriftgrößen in der Combobox
-            for (int i = 9; i <= 72; i += 1)
+            for (int i = 9; i <= 32; i += 1)
             {
                 ExamTitleFontSize.Items.Add(i);
                 TitleFontSize.Items.Add(i);
@@ -88,6 +91,11 @@ namespace UniversityExamCreator.Views
             ExamTitleFontSize.SelectedItem = defaultExamTitleSize;
             TitleFontSize.SelectedItem = defaultTitleSize;
             TextFontSize.SelectedItem = defaultTaskSize;
+
+            // Additional Content
+            additionalInformation = additionalInformationCreator();
+            ListViewInformation.ItemsSource = additionalInformation;
+            
 
         }
 
@@ -154,6 +162,7 @@ namespace UniversityExamCreator.Views
             titleFont = new XFont(font, 14);
             taskFont = new XFont(font, 9);
             mcFont = new XFont(font, 9);
+            specialFont = new XFont(font, 9);
         }
 
         /// <summary>
@@ -164,12 +173,15 @@ namespace UniversityExamCreator.Views
             switch (font)
             {
                 case "examTitelFont":
+                    defaultExamTitleSize = size;
                     examTitelFont = new XFont(defaultFont, size);
                     break;
                 case "titleFont":
+                    defaultTitleSize = size;
                     titleFont = new XFont(defaultFont, size);
                     break;
                 case "taskFont":
+                    defaultTaskSize = size;
                     taskFont = new XFont(defaultFont, size);
                     mcFont = new XFont(defaultFont, size);
                     break;
@@ -269,6 +281,7 @@ namespace UniversityExamCreator.Views
 
         private void drawCoverSheet(PdfPage page)
         {
+            //static 
             drawMetaTable();
             drawTasksTable(page);
             drawAdditionalInformation(page);
@@ -291,7 +304,7 @@ namespace UniversityExamCreator.Views
                 for (int col = 0; col < data.GetLength(1); col++)
                 {
                     gfx.DrawRectangle(XPens.Black, x + col * cellWidth, y + (row + 1) * cellHeight, cellWidth, cellHeight);
-                    gfx.DrawString(data[row, col], taskFont, XBrushes.Black, new XRect(x + col * cellWidth, y + (row + 1) * cellHeight, cellWidth, cellHeight), XStringFormats.TopLeft);
+                    gfx.DrawString(data[row, col], specialFont, XBrushes.Black, new XRect(x + col * cellWidth, y + (row + 1) * cellHeight, cellWidth, cellHeight), XStringFormats.TopLeft);
 
                 }
                 yPoint += cellHeight;
@@ -302,7 +315,9 @@ namespace UniversityExamCreator.Views
         private void drawTasksTable(PdfPage page)
         {
             double cellHeight = 20;
-            double defaultCellWidth = 60;
+            double defaultCellWidth = specialFont.Size*7;
+
+            Console.WriteLine("Default CellWidth: " + defaultCellWidth);
 
             // Erstelle die Tabelle-Daten
             string[,] data = new string[Tasks.Count + 1, 4]; // +1 für die Kopfzeile
@@ -326,17 +341,17 @@ namespace UniversityExamCreator.Views
             }
 
             // Berechne die maximale Breite der zweiten Spalte
-            double secondColumnWidth = CalculateMaxCellWidthInSecondColumn(data, taskFont, defaultCellWidth);
+            double secondColumnWidth = CalculateMaxCellWidthInSecondColumn(data, specialFont, defaultCellWidth);
 
             // Gesamte Breite der Tabelle berechnen
             double totalTableWidth = defaultCellWidth * 3 + secondColumnWidth;
 
             // Zeichnen des Hinweises
             string noticeText = "Diese Tabelle bitte nicht ausfüllen!";
-            gfx.DrawString(noticeText, taskFont, XBrushes.Black,
-                           new XRect(margin, yPoint, innerWidth, taskFont.Height),
+            gfx.DrawString(noticeText, specialFont, XBrushes.Black,
+                           new XRect(margin, yPoint, innerWidth, specialFont.Height),
                            XStringFormats.Center);
-            yPoint += taskFont.Height + 2;
+            yPoint += specialFont.Height + 2;
 
             // Zentrieren der Tabelle auf der Seite
             double x = (page.Width - totalTableWidth) / 2;
@@ -356,13 +371,13 @@ namespace UniversityExamCreator.Views
                     {
                         // Zeichne die Kopfzeile mit spezieller Formatierung
                         gfx.DrawRectangle(XPens.Black, XBrushes.LightGray, currentX, y, currentCellWidth, cellHeight);
-                        gfx.DrawString(data[row, col], taskFont, XBrushes.Black, new XRect(currentX, y, currentCellWidth, cellHeight), XStringFormats.Center);
+                        gfx.DrawString(data[row, col], specialFont, XBrushes.Black, new XRect(currentX, y, currentCellWidth, cellHeight), XStringFormats.Center);
                     }
                     else
                     {
                         // Zeichne die Datenzeilen mit Standardformatierung
                         gfx.DrawRectangle(XPens.Black, currentX, y, currentCellWidth, cellHeight);
-                        gfx.DrawString(data[row, col], taskFont, XBrushes.Black,
+                        gfx.DrawString(data[row, col], specialFont, XBrushes.Black,
                                        new XRect(currentX, y, currentCellWidth, cellHeight),
                                        XStringFormats.Center);
                     }
@@ -386,14 +401,22 @@ namespace UniversityExamCreator.Views
             gfx.DrawString("Zusätzliche Hinweise", titleFont, XBrushes.Black, new XRect(margin, yPoint, innerWidth, page.Height), XStringFormats.TopCenter);
             yPoint += titelHigth + taskSpacing / 2;
 
-            List<String> additionalInformation = additionalInformationCreator();
+            List<String> checkedInfos = new List<String>();
 
-            foreach (var info in additionalInformation)
+            foreach (var checkItem in additionalInformation) 
+            {
+                if (checkItem.IsChecked == true) 
+                {
+                    checkedInfos.Add(checkItem.Content);
+                }
+            }
+
+            foreach (var info in checkedInfos)
             {
                 string bulletPoint = "\u2022 "; // Unicode für den Punkt (•)
                 string bulletText = bulletPoint + info;
 
-                double infoHigth = MeasureTextHeight(bulletText, taskFont, innerWidth / 2);
+                double infoHigth = MeasureTextHeight(bulletText, specialFont, innerWidth / 2);
 
                 if (yPoint + infoHigth > pageHeight - margin)
                 {
@@ -412,7 +435,7 @@ namespace UniversityExamCreator.Views
                 double xPosition = (page.Width - innerWidth / 2) / 2;
                 var rect = new XRect(xPosition, yPoint, innerWidth / 2, page.Height - yPoint - margin);
 
-                tf.DrawString(bulletText, taskFont, XBrushes.Black, rect, XStringFormats.TopLeft);
+                tf.DrawString(bulletText, specialFont, XBrushes.Black, rect, XStringFormats.TopLeft);
                 yPoint += infoHigth + 2; // Etwas Platz zwischen den Stichpunkten
             }
         }
@@ -642,20 +665,21 @@ namespace UniversityExamCreator.Views
             return tasks;
         }
 
-        private List<String> additionalInformationCreator()
+        private List<AdditionalInformation> additionalInformationCreator()
         {
-            var information = new List<String>();
-
-            information.Add("Überprüfe die Klausur auf Vollständigkeit.");
-            information.Add("Fülle das Deckblatt aus!");
-            information.Add("Beschriften Sie alle Blätter mit Ihrem Namen.");
-            information.Add("Tragen Sie die Anzahl beschriebener Blätter auf dem Deckblatt ein.");
-            information.Add("Legen Sie bitte alle für die Klausur benötigten Dinge, Stifte, Verpflegung und insbesondere Lichtbildausweis auf Ihren Tisch.");
-            information.Add("Schalten Sie Ihr Mobiltelefon aus!");
-            information.Add("Erlaubte Hilfsmittel: Taschenrechner, Wörterbuch");
-            information.Add("Täuschungsversuche führen zum Nichtbestehen der Klausur!");
-            information.Add("Verwenden Sie den Ihnen zur Verfügung stehenden Platz und nutzen Sie die Zusatzblätter.");
-            information.Add("Schreiben Sie deutlich und benutzen keine Bleistifte oder Farbstifte!");
+            var information = new List<AdditionalInformation>
+            {
+                new AdditionalInformation("Vollständigkeit", false, "Überprüfe die Klausur auf Vollständigkeit"),
+                new AdditionalInformation("Ausfüllen", false, "Fülle das Deckblatt aus!"),
+                new AdditionalInformation("Beschriftung", false, "Beschriften Sie alle Blätter mit Ihrem Namen."),
+                new AdditionalInformation("Anzahl Blätter", false, "Tragen Sie die Anzahl beschriebener Blätter auf dem Deckblatt ein."),
+                new AdditionalInformation("Materialien & Ausweis", false, "Legen Sie bitte alle für die Klausur benötigten Dinge, Stifte, Verpflegung und insbesondere Lichtbildausweis auf Ihren Tisch."),
+                new AdditionalInformation("Handy", false, "Schalten Sie Ihr Mobiltelefon aus!"),
+                new AdditionalInformation("Wörterbuch", false, "Erlaubte Hilfsmittel: Taschenrechner, Wörterbuch"),
+                new AdditionalInformation("Täuschungsversuch", false, "Täuschungsversuche führen zum Nichtbestehen der Klausur!"),
+                new AdditionalInformation("Schreibfelder", false, "Verwenden Sie den Ihnen zur Verfügung stehenden Platz und nutzen Sie die Zusatzblätter."),
+                new AdditionalInformation("Schriftbild", false, "Schreiben Sie deutlich und benutzen keine Bleistifte oder Farbstifte!")
+            };
 
             return information;
         }
@@ -767,6 +791,17 @@ namespace UniversityExamCreator.Views
             else
             {
                 System.Windows.MessageBox.Show("Please generate the PDF first.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void AdditionalInformationInfoButton(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            AdditionalInformation info = button.Tag as AdditionalInformation;
+
+            if (info != null)
+            {
+                MessageBox.Show($"Beschreibung: {info.Content}");
             }
         }
     }
