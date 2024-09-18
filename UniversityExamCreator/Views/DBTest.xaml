@@ -1,0 +1,66 @@
+﻿<Page x:Class="UniversityExamCreator.Views.DBTest"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:UniversityExamCreator.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="DBTest"
+      Background="#FFF9FCFD">
+
+    <Grid>
+        <!-- Eingabefelder für Task -->
+        <Label Content="Topic:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+        <TextBox Name="txtTopic" HorizontalAlignment="Left" Height="23" Margin="120,10,0,0" VerticalAlignment="Top" Width="300"/>
+
+        <Label Content="Task Type:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,40,0,0"/>
+        <TextBox Name="txtTaskType" HorizontalAlignment="Left" Height="23" Margin="120,40,0,0" VerticalAlignment="Top" Width="300"/>
+
+        <Label Content="Difficulty:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,70,0,0"/>
+        <TextBox Name="txtDifficulty" HorizontalAlignment="Left" Height="23" Margin="120,70,0,0" VerticalAlignment="Top" Width="100"/>
+
+        <Label Content="Points:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,100,0,0"/>
+        <TextBox Name="txtPoints" HorizontalAlignment="Left" Height="23" Margin="120,100,0,0" VerticalAlignment="Top" Width="100"/>
+
+        <Label Content="Task Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,130,0,0"/>
+        <TextBox Name="txtTaskName" HorizontalAlignment="Left" Height="23" Margin="120,130,0,0" VerticalAlignment="Top" Width="300"/>
+
+        <Label Content="Task Content:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,160,0,0"/>
+        <TextBox Name="txtTaskContent" HorizontalAlignment="Left" Height="60" Margin="120,160,0,0" VerticalAlignment="Top" Width="300" TextWrapping="Wrap" AcceptsReturn="True"/>
+
+        <Label Content="Date Created:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,230,0,0"/>
+        <DatePicker Name="dpDateCreated" HorizontalAlignment="Left" Margin="120,230,0,0" VerticalAlignment="Top" Width="200"/>
+
+        <Label Content="Author:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,260,0,0"/>
+        <TextBox Name="txtAuthor" HorizontalAlignment="Left" Height="23" Margin="120,260,0,0" VerticalAlignment="Top" Width="300"/>
+
+        <!-- Hinzufügen Button -->
+        <Button Content="Hinzufügen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="150,300,0,0" Click="AddTask_Click"/>
+
+        <!-- DataGrid zur Anzeige der Aufgaben -->
+        <DataGrid Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,350,0,0" Width="760" Height="200" AutoGenerateColumns="False">
+            <!-- Spalten für die Daten -->
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Topic" Binding="{Binding Topic}" Width="150" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Task Type" Binding="{Binding TaskType}" Width="150" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Difficulty" Binding="{Binding Difficulty}" Width="100" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Points" Binding="{Binding Points}" Width="100" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Task Name" Binding="{Binding TaskName}" Width="150" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Task Content" Binding="{Binding TaskContent}" Width="300" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Date Created" Binding="{Binding DateCreated}" Width="150" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Author" Binding="{Binding Author}" Width="150" IsReadOnly="True"/>
+
+                <!-- Spalte für Löschen-Button -->
+                <DataGridTemplateColumn Header="Aktionen" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Löschen" Click="DeleteTask_Click" Tag="{Binding TaskName}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

@@ -30,6 +30,9 @@ namespace UniversityExamCreator.Views
              * List<string> Items = getDropDownItems();
              */
 
+            PathFinder pathFinder = new PathFinder("Databases", "database.db");
+            DatabaseManager databaseManager = new DatabaseManager(pathFinder.GetPath());
+            databaseManager.CreateTables("C:\\Users\\Max\\source\\repos\\UniversityExamCreator\\UniversityExamCreator\\Databases\\database.db");
         }
 
         /// <summary>

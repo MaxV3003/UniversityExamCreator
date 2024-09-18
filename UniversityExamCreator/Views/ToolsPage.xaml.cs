@@ -40,5 +40,10 @@ namespace UniversityExamCreator.Views
         {
 
         }
+
+        private void DBTest_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new DBTest("Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;"));
+        }
     }
 }
