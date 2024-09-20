@@ -14,19 +14,16 @@ namespace UniversityExamCreator.Services
         private string connection;
 
         public DataService(string connectionString)
-        {
-            string currentDirectory = Directory.GetCurrentDirectory();
-            
+        {            
             connection = $"Data Source="+connectionString+";Version=3;";
-            
-
         }
         
         public void InsertKlausurAufgabe(string topic, string taskType, string difficulty, int points, string taskName, string taskContent, DateTime dateCreated, string author)
         {
 
-            string test = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(test))
+            //string test = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            Console.WriteLine(connection);
+            using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
                 string insertQuery = @"
@@ -461,4 +458,3 @@ namespace UniversityExamCreator.Services
 
 
 
-*/

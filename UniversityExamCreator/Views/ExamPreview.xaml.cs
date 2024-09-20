@@ -95,8 +95,6 @@ namespace UniversityExamCreator.Views
             // Additional Content
             additionalInformation = additionalInformationCreator();
             ListViewInformation.ItemsSource = additionalInformation;
-            
-
         }
 
         /// <summary>

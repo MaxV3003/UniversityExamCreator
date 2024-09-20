@@ -15,7 +15,8 @@ namespace UniversityExamCreator.Models
             string relativePath = @""+dir+ "\\" + file;
             string fullPath = Path.Combine(projectDirectory, relativePath);
 
-            currentPath = ConvertBackslashesToSlashes(fullPath);
+            currentPath = fullPath;
+            //currentPath = ConvertBackslashesToSlashes(fullPath);
         }
 
         public PathFinder(string dir)
@@ -26,7 +27,8 @@ namespace UniversityExamCreator.Models
             string relativePath = @"" + dir;
             string fullPath = Path.Combine(projectDirectory, relativePath);
 
-            currentPath = ConvertBackslashesToSlashes(fullPath);
+            currentPath = fullPath;
+            //currentPath = ConvertBackslashesToSlashes(fullPath);
         }
 
         public string GetPath() 
@@ -34,9 +36,9 @@ namespace UniversityExamCreator.Models
             return currentPath;
         }
 
-        public string ConvertBackslashesToSlashes(string input)
+        /*public string ConvertBackslashesToSlashes(string input)
         {
             return input.Replace("\\", "/");
-        }
+        }*/
     }
 }
