@@ -16,218 +16,189 @@ namespace UniversityExamCreator.Services
         public DataService(string connectionString)
         {
             string currentDirectory = Directory.GetCurrentDirectory();
-            
+
             string connectionDataSource = $"Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
             connection = new SQLiteConnection(connectionDataSource);
 
         }
-        
-        public void InsertAufgabe(string task_content, int points, string difficulty, string subject, DateTime date_created, string author)
+        //----------------------------------- 
+        // Insert Section
+        //-----------------------------------
+        public void InsertTask(string content, int points, string difficulty, string topic, DateTime date_created, string author)
         {
             connection.Open();
-            string query = "INSERT INTO aufgabe (task_content, points, difficulty, subject, date_created, author) VALUES (@task_content, @points, @difficulty, @subject, @date_created, @author)";
+            string query = "INSERT INTO task (content, points, difficulty, topic, date_created, author) VALUES (@content, @points, @difficulty, @topic, @date_created, @author)";
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
-                command.Parameters.AddWithValue("@task_content", task_content);
+                command.Parameters.AddWithValue("@content", content);
                 command.Parameters.AddWithValue("@points", points);
                 command.Parameters.AddWithValue("@difficulty", difficulty);
-                command.Parameters.AddWithValue("@subject", subject);
+                command.Parameters.AddWithValue("@topic", topic);
                 command.Parameters.AddWithValue("@date_created", date_created);
                 command.Parameters.AddWithValue("@author", author);
                 command.ExecuteNonQuery();
-                Console.WriteLine("Aufgabe erfolgreich gespeichert.");
+                Console.WriteLine("Task erfolgreich gespeichert.");
             }
         }
 
-
-        //-----------------------------------
-        // Delete Aufgabe
-        //-----------------------------------
-
-        public void DeleteAufgabe(int id)
+        public void InsertExam(string course, string examiner, DateTime date)
         {
             connection.Open();
-            string query = "DELETE FROM aufgabe WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@id", id);
-                command.ExecuteNonQuery();
-                Console.WriteLine("Aufgabe erfolgreich gelöscht.");
-            }
-        }
-
-        public bool IfAufgabeExists(int id)
-        {
-            connection.Open();
-            string query = "SELECT COUNT(1) FROM aufgabe WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@id", id);
-                return Convert.ToInt32(command.ExecuteScalar()) > 0;
-            }
-        }
-
-        public void InsertKlausur(string course, string examiner, DateTime date)
-        {
-            connection.Open();
-            string query = "INSERT INTO klausur (course, examiner, date) VALUES (@course, @examiner, @date)";
+            string query = "INSERT INTO exam (course, examiner, date) VALUES (@course, @examiner, @date)";
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@course", course);
                 command.Parameters.AddWithValue("@examiner", examiner);
                 command.Parameters.AddWithValue("@date", date);
                 command.ExecuteNonQuery();
-                Console.WriteLine("Klausur erfolgreich gespeichert.");
+                Console.WriteLine("Exam erfolgreich gespeichert.");
             }
         }
 
-        public void DeleteKlausur(int id)
+        public void InsertExamTask(int exam_id, int task_id)
         {
             connection.Open();
-            string query = "DELETE FROM klausur WHERE id = @id";
+            string query = "INSERT INTO exam_task (exam_id, task_id) VALUES (@exam_id, @task_id)";
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
-                command.Parameters.AddWithValue("@id", id);
-                command.ExecuteNonQuery();
-                Console.WriteLine("Klausur erfolgreich gelöscht.");
-            }
-        }
-
-        public bool IfKlausurExists(int id)
-        {
-            connection.Open();
-            string query = "SELECT COUNT(1) FROM klausur WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@id", id);
-                return Convert.ToInt32(command.ExecuteScalar()) > 0;
-            }
-        }
-
-        public void InsertKlausurAufgabe(int klausur_id, int aufgabe_id)
-        {
-            connection.Open();
-            string query = "INSERT INTO klausur_aufgabe (klausur_id, aufgabe_id) VALUES (@klausur_id, @aufgabe_id)";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@klausur_id", klausur_id);
-                command.Parameters.AddWithValue("@aufgabe_id", aufgabe_id);
+                command.Parameters.AddWithValue("@exam_id", exam_id);
+                command.Parameters.AddWithValue("@task_id", task_id);
                 command.ExecuteNonQuery();
             }
         }
 
-        public void DeleteKlausurAufgabe(int id)
+        public void InsertUser(string username, string password)
         {
             connection.Open();
-            string query = "DELETE FROM klausur_aufgabe WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@id", id);
-                command.ExecuteNonQuery();
-            }
-        }
-
-        public bool IfKlausurAufgabeExists(int id)
-        {
-            connection.Open();
-            string query = "SELECT COUNT(1) FROM klausur_aufgabe WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@id", id);
-                return Convert.ToInt32(command.ExecuteScalar()) > 0;
-            }
-        }
-
-        public void InsertNutzer(string username, string password)
-        {
-            connection.Open();
-            string query = "INSERT INTO nutzer (username, password) VALUES (@username, @password)";
+            string query = "INSERT INTO user (username, password) VALUES (@username, @password)";
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@username", username);
                 command.Parameters.AddWithValue("@password", password);
                 command.ExecuteNonQuery();
-                Console.WriteLine("Nutzer erfolgreich gespeichert.");
+                Console.WriteLine("User erfolgreich gespeichert.");
             }
         }
 
-        public void DeleteNutzer(int id)
+        public void InsertAnswer(int task_id, string answer_content, string username)
         {
             connection.Open();
-            string query = "DELETE FROM nutzer WHERE id = @id";
+            string query = "INSERT INTO answer (task_id, answer_content, username) VALUES (@task_id, @answer_content, @username)";
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
-                command.Parameters.AddWithValue("@id", id);
-                command.ExecuteNonQuery();
-                Console.WriteLine("Nutzer erfolgreich gelöscht.");
-            }
-        }
-
-        public bool IfNutzerExists(int id)
-        {
-            connection.Open();
-            string query = "SELECT COUNT(1) FROM nutzer WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@id", id);
-                return Convert.ToInt32(command.ExecuteScalar()) > 0;
-            }
-        }
-
-        public void InsertAntwort(int aufgabe_id, string answer_content, string username)
-        {
-            connection.Open();
-            string query = "INSERT INTO antwort (aufgabe_id, answer_content, username) VALUES (@aufgabe_id, @answer_content, @username)";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@aufgabe_id", aufgabe_id);
+                command.Parameters.AddWithValue("@task_id", task_id);
                 command.Parameters.AddWithValue("@answer_content", answer_content);
                 command.Parameters.AddWithValue("@username", username);
                 command.ExecuteNonQuery();
-                Console.WriteLine("Antwort erfolgreich gespeichert.");
+                Console.WriteLine("Answer erfolgreich gespeichert.");
             }
         }
 
-        public void DeleteAntwort(int id)
+        public void InsertExamConfig(int exam_id, int user_id)
         {
             connection.Open();
-            string query = "DELETE FROM antwort WHERE id = @id";
+            string query = "INSERT INTO exam_config (exam_id, user_id) VALUES (@exam_id, @user_id)";
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
-                command.Parameters.AddWithValue("@id", id);
-                command.ExecuteNonQuery();
-                Console.WriteLine("Antwort erfolgreich gelöscht.");
-            }
-        }
-
-        public bool IfAntwortExists(int id)
-        {
-            connection.Open();
-            string query = "SELECT COUNT(1) FROM antwort WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@id", id);
-                return Convert.ToInt32(command.ExecuteScalar()) > 0;
-            }
-        }
-
-        public void InsertKlausurConfig(int klausur_id, int nutzer_id)
-        {
-            connection.Open();
-            string query = "INSERT INTO klausur_config (klausur_id, nutzer_id) VALUES (@klausur_id, @nutzer_id)";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@klausur_id", klausur_id);
-                command.Parameters.AddWithValue("@nutzer_id", nutzer_id);
+                command.Parameters.AddWithValue("@exam_id", exam_id);
+                command.Parameters.AddWithValue("@user_id", user_id);
                 command.ExecuteNonQuery();
                 Console.WriteLine("Config erfolgreich gespeichert.");
             }
         }
 
-        public void DeleteKlausurConfig(int id)
+        public void InsertTaskAnswer(int answer_id, int task_id)
         {
             connection.Open();
-            string query = "DELETE FROM klausur_config WHERE id = @id";
+            string query = "INSERT INTO task_answer (answer_id, task_id) VALUES (@answer_id, @task_id)";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@answer_id", answer_id);
+                command.Parameters.AddWithValue("@task_id", task_id);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void InsertModule(int module_id, string faculty)
+        {
+            connection.Open();
+            string query = "INSERT INTO module (module_id, faculty) VALUES (@module_id, @faculty)";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@module_id", module_id);
+                command.Parameters.AddWithValue("@faculty", faculty);
+                command.ExecuteNonQuery();
+                Console.WriteLine("Module erfolgreich gespeichert.");
+            }
+        }
+
+        //----------------------------------- 
+        // Delete Section
+        //-----------------------------------
+
+        public void DeleteTask(int id)
+        {
+            connection.Open();
+            string query = "DELETE FROM task WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+                Console.WriteLine("Task erfolgreich gelöscht.");
+            }
+        }
+
+        public void DeleteExam(int id)
+        {
+            connection.Open();
+            string query = "DELETE FROM exam WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+                Console.WriteLine("Exam erfolgreich gelöscht.");
+            }
+        }
+
+        public void DeleteExamTask(int id)
+        {
+            connection.Open();
+            string query = "DELETE FROM exam_task WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteUser(int id)
+        {
+            connection.Open();
+            string query = "DELETE FROM user WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+                Console.WriteLine("User erfolgreich gelöscht.");
+            }
+        }
+
+        public void DeleteAnswer(int id)
+        {
+            connection.Open();
+            string query = "DELETE FROM answer WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+                Console.WriteLine("Answer erfolgreich gelöscht.");
+            }
+        }
+
+        public void DeleteExamConfig(int id)
+        {
+            connection.Open();
+            string query = "DELETE FROM exam_config WHERE id = @id";
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@id", id);
@@ -236,10 +207,37 @@ namespace UniversityExamCreator.Services
             }
         }
 
-        public bool IfKlausurConfigExists(int id)
+        public void DeleteTaskAnswer(int id)
         {
             connection.Open();
-            string query = "SELECT COUNT(1) FROM klausur_config WHERE id = @id";
+            string query = "DELETE FROM task_answer WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteModule(int id)
+        {
+            connection.Open();
+            string query = "DELETE FROM module WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+                Console.WriteLine("Module erfolgreich gelöscht.");
+            }
+        }
+
+        //----------------------------------- 
+        // If-Exists Section
+        //-----------------------------------
+
+        public bool IfTaskExists(int id)
+        {
+            connection.Open();
+            string query = "SELECT COUNT(1) FROM task WHERE id = @id";
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@id", id);
@@ -247,33 +245,10 @@ namespace UniversityExamCreator.Services
             }
         }
 
-        public void InsertAufgabeAntwort(int antwort_id, int aufgabe_id)
+        public bool IfExamExists(int id)
         {
             connection.Open();
-            string query = "INSERT INTO aufgabe_antwort (antwort_id, aufgabe_id) VALUES (@antwort_id, @aufgabe_id)";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@antwort_id", antwort_id);
-                command.Parameters.AddWithValue("@aufgabe_id", aufgabe_id);
-                command.ExecuteNonQuery();
-            }
-        }
-
-        public void DeleteAufgabeAntwort(int id)
-        {
-            connection.Open();
-            string query = "DELETE FROM aufgabe_antwort WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@id", id);
-                command.ExecuteNonQuery();
-            }
-        }
-
-        public bool IfAufgabeAntwortExists(int id)
-        {
-            connection.Open();
-            string query = "SELECT COUNT(1) FROM aufgabe_antwort WHERE id = @id";
+            string query = "SELECT COUNT(1) FROM exam WHERE id = @id";
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@id", id);
@@ -281,35 +256,65 @@ namespace UniversityExamCreator.Services
             }
         }
 
-        public void InsertModul(int modul_id, string faculty)
+        public bool IfExamTaskExists(int id)
         {
             connection.Open();
-            string query = "INSERT INTO modul (modul_id, faculty) VALUES (@modul_id, @faculty)";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@modul_id", modul_id);
-                command.Parameters.AddWithValue("@faculty", faculty);
-                command.ExecuteNonQuery();
-                Console.WriteLine("Modul erfolgreich gespeichert.");
-            }
-        }
-
-        public void DeleteModul(int id)
-        {
-            connection.Open();
-            string query = "DELETE FROM modul WHERE id = @id";
+            string query = "SELECT COUNT(1) FROM exam_task WHERE id = @id";
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@id", id);
-                command.ExecuteNonQuery();
-                Console.WriteLine("Modul erfolgreich gelöscht.");
+                return Convert.ToInt32(command.ExecuteScalar()) > 0;
             }
         }
 
-        public bool IfModulExists(int id)
+        public bool IfUserExists(int id)
         {
             connection.Open();
-            string query = "SELECT COUNT(1) FROM modul WHERE id = @id";
+            string query = "SELECT COUNT(1) FROM user WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                return Convert.ToInt32(command.ExecuteScalar()) > 0;
+            }
+        }
+
+        public bool IfAnswerExists(int id)
+        {
+            connection.Open();
+            string query = "SELECT COUNT(1) FROM answer WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                return Convert.ToInt32(command.ExecuteScalar()) > 0;
+            }
+        }
+
+        public bool IfExamConfigExists(int id)
+        {
+            connection.Open();
+            string query = "SELECT COUNT(1) FROM exam_config WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                return Convert.ToInt32(command.ExecuteScalar()) > 0;
+            }
+        }
+
+        public bool IfTaskAnswerExists(int id)
+        {
+            connection.Open();
+            string query = "SELECT COUNT(1) FROM task_answer WHERE id = @id";
+            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@id", id);
+                return Convert.ToInt32(command.ExecuteScalar()) > 0;
+            }
+        }
+
+        public bool IfModuleExists(int id)
+        {
+            connection.Open();
+            string query = "SELECT COUNT(1) FROM module WHERE id = @id";
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@id", id);
@@ -317,138 +322,4 @@ namespace UniversityExamCreator.Services
             }
         }
     }
-    
 }
-
-/*
-using System;
-using System.Data.SQLite;
-
-namespace UniversityExamCreator.Services
-{
-    public class DatabaseManager
-    {
-        private string connectionString;
-
-        public DatabaseManager(string databasePath)
-        {
-            connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=MeineDatenbank;Integrated Security=True";
-        }
-
-        public string GetConnectionString()
-        {
-            return connectionString;
-        }
-    }
-
-    public class DatabaseOperations : IDisposable
-    {
-        private SQLiteConnection connection;
-
-        public DatabaseOperations(string connectionString)
-        {
-            connection = new SQLiteConnection(connectionString);
-            try
-            {
-                connection.Open();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Fehler beim Öffnen der Datenbankverbindung: {ex.Message}");
-            }
-        }
-
-        public void Dispose()
-        {
-            if (connection != null && connection.State == System.Data.ConnectionState.Open)
-            {
-                connection.Close();
-            }
-        }
-
-        public void InsertAufgabe(string task_content, int points, string difficulty, string subject, DateTime date_created, string author)
-        {
-            string query = "INSERT INTO aufgabe (task_content, points, difficulty, subject, date_created, author) VALUES (@task_content, @points, @difficulty, @subject, @date_created, @author)";
-            ExecuteNonQuery(query, ("@task_content", task_content), ("@points", points), ("@difficulty", difficulty), ("@subject", subject), ("@date_created", date_created), ("@author", author));
-        }
-
-        public void DeleteAufgabe(int id)
-        {
-            string query = "DELETE FROM aufgabe WHERE id = @id";
-            ExecuteNonQuery(query, ("@id", id));
-        }
-
-        public bool IfAufgabeExists(int id)
-        {
-            string query = "SELECT COUNT(1) FROM aufgabe WHERE id = @id";
-            return ExecuteScalar(query, ("@id", id)) > 0;
-        }
-
-        public void InsertKlausur(string course, string examiner, DateTime date)
-        {
-            string query = "INSERT INTO klausur (course, examiner, date) VALUES (@course, @examiner, @date)";
-            ExecuteNonQuery(query, ("@course", course), ("@examiner", examiner), ("@date", date));
-        }
-
-        public void DeleteKlausur(int id)
-        {
-            string query = "DELETE FROM klausur WHERE id = @id";
-            ExecuteNonQuery(query, ("@id", id));
-        }
-
-        public bool IfKlausurExists(int id)
-        {
-            string query = "SELECT COUNT(1) FROM klausur WHERE id = @id";
-            return ExecuteScalar(query, ("@id", id)) > 0;
-        }
-
-        // Weitere Methoden hier (für Klausur-Aufgabe, Nutzer, Antworten, etc.)
-
-        // Hilfsmethode für Nicht-Abfrage-SQL-Befehle (Insert, Update, Delete)
-        private void ExecuteNonQuery(string query, params (string, object)[] parameters)
-        {
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
-            {
-                foreach (var param in parameters)
-                {
-                    command.Parameters.AddWithValue(param.Item1, param.Item2);
-                }
-
-                try
-                {
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Fehler bei der Ausführung der Abfrage: {ex.Message}");
-                }
-            }
-        }
-
-        // Hilfsmethode für Abfrage mit Rückgabe eines Werts 
-        private int ExecuteScalar(string query, params (string, object)[] parameters)
-        {
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
-            {
-                foreach (var param in parameters)
-                {
-                    command.Parameters.AddWithValue(param.Item1, param.Item2);
-                }
-
-                try
-                {
-                    return Convert.ToInt32(command.ExecuteScalar());
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Fehler bei der Ausführung der Abfrage: {ex.Message}");
-                    return 0;
-                }
-            }
-        }
-    }
-}*/
-
-
-
-*/

@@ -33,7 +33,7 @@ namespace UniversityExamCreator.Views
             LoadDataFromDatabase(); // Lade die Daten beim Start der Anwendung
         }
         // Methode zum Erstellen der Datenbank und Tabelle
-        /*private void CreateDatabaseAndTable()
+        private void CreateDatabaseAndTable()
         {
             using (SQLiteConnection connection = new SQLiteConnection(dbConnectionString))
             {
@@ -47,7 +47,7 @@ namespace UniversityExamCreator.Views
                     command.ExecuteNonQuery();
                 }
             }
-        }*/
+        }
 
         // Methode zum Laden der Daten aus der Datenbank
         private void LoadDataFromDatabase()

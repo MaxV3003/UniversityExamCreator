@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SQLite;
+using UniversityExamCreator.Models;
 
 public class DatabaseManager
 {
@@ -7,100 +8,109 @@ public class DatabaseManager
 
     public DatabaseManager(string databasePath)
     {
+        // Setze die Verbindungszeichenfolge korrekt
         connectionString = databasePath;
-        
     }
 
     public void CreateTables(string connection)
     {
-        string connectionDataSource = $"Data Source=" + connection+";Version=3;";
+        string connectionDataSource = $"Data Source=C:/ Users / Max / source / repos / UniversityExamCreator / UniversityExamCreator / Databases / database.db + ;Version=3;";
         using (SQLiteConnection conn = new SQLiteConnection(connectionDataSource))
         {
             conn.Open();
 
-            string createAufgabeTable = @"
-            CREATE TABLE IF NOT EXISTS aufgabe (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                topic TEXT NOT NULL,
-                type TEXT NOT NULL,
-                difficulty VARCHAR(50) NOT NULL,
-                points INTEGER NOT NULL,
-                name TEXT NOT NULL,
-                content TEXT NOT NULL,
-                date_created DATE NOT NULL,
-                author VARCHAR(100) NOT NULL
+            string createTaskTable = @"
+            CREATE TABLE IF NOT EXISTS task (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            topic TEXT NOT NULL,
+            type TEXT NOT NULL,
+            difficulty VARCHAR(50) NOT NULL,
+            points INTEGER NOT NULL,
+            name TEXT NOT NULL,
+            content TEXT NOT NULL,
+            date_created DATE NOT NULL,
+            author VARCHAR(100) NOT NULL
             );";
 
-            string createKlausurTable = @"
-            CREATE TABLE IF NOT EXISTS klausur (
-                id INTEGER PRIMARY KEY,
-                course VARCHAR(100) NOT NULL,
-                examiner VARCHAR(100) NOT NULL,
-                date DATE NOT NULL
+            string createExamTable = @"
+            CREATE TABLE IF NOT EXISTS exam (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            course VARCHAR(100) NOT NULL,
+            examiner VARCHAR(100) NOT NULL,
+            date DATE NOT NULL
             );";
 
-            string createKlausurAufgabeTable = @"
-            CREATE TABLE IF NOT EXISTS klausur_aufgabe (
-                id INTEGER PRIMARY KEY,
-                klausur_id INTEGER NOT NULL,
-                aufgabe_id INTEGER NOT NULL,
-                FOREIGN KEY (klausur_id) REFERENCES klausur(id),
-                FOREIGN KEY (aufgabe_id) REFERENCES aufgabe(id)
+            string createExamTaskTable = @"
+            CREATE TABLE IF NOT EXISTS exam_task (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            exam_id INTEGER NOT NULL,
+            task_id INTEGER NOT NULL,
+            FOREIGN KEY (exam_id) REFERENCES exam(id),
+            FOREIGN KEY (task_id) REFERENCES task(id)
             );";
 
-            string createNutzerTable = @"
-            CREATE TABLE IF NOT EXISTS nutzer (
-                id INTEGER PRIMARY KEY,
-                username VARCHAR(50) NOT NULL,
-                password VARCHAR(20) NOT NULL
+            string createUserTable = @"
+            CREATE TABLE IF NOT EXISTS user (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username VARCHAR(50) NOT NULL,
+            password VARCHAR(20) NOT NULL
             );";
 
-            string createAntwortTable = @"
-            CREATE TABLE IF NOT EXISTS antwort (
-                id INTEGER PRIMARY KEY,
-                aufgabe_id INTEGER NOT NULL,
-                answer_content TEXT NOT NULL,
-                username VARCHAR(50) NOT NULL,
-                FOREIGN KEY (aufgabe_id) REFERENCES aufgabe(id)
+            string createAnswerTable = @"
+            CREATE TABLE IF NOT EXISTS answer (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            task_id INTEGER NOT NULL,
+            answer_content TEXT NOT NULL,
+            username VARCHAR(50) NOT NULL,
+            FOREIGN KEY (task_id) REFERENCES task(id)
             );";
-            string createKlausurConfigTable = @"
-            CREATE TABLE IF NOT EXISTS nutzer (
-                id INTEGER PRIMARY KEY,
-                FOREIGN KEY (klausur_id) REFERENCES klausur(id),
-                FOREIGN KEY (Nutzer_id) REFERENCES Nutzer(id)
+
+            string createExamConfigTable = @"
+            CREATE TABLE IF NOT EXISTS exam_config (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            exam_id INTEGER NOT NULL,
+            user_id INTEGER NOT NULL,
+            FOREIGN KEY (exam_id) REFERENCES exam(id),
+            FOREIGN KEY (user_id) REFERENCES user(id)
             );";
-            string createAufgabeAntwortTable = @"
-            CREATE TABLE IF NOT EXISTS klausur_aufgabe (
-                id INTEGER PRIMARY KEY,
-                antwort_id INTEGER NOT NULL,
-                aufgabe_id INTEGER NOT NULL,
-                FOREIGN KEY (antwort_id) REFERENCES antwort(id),
-                FOREIGN KEY (aufgabe_id) REFERENCES aufgabe(id)
+
+            string createTaskAnswerTable = @"
+            CREATE TABLE IF NOT EXISTS task_answer (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            answer_id INTEGER NOT NULL,
+            task_id INTEGER NOT NULL,
+            FOREIGN KEY (answer_id) REFERENCES answer(id),
+            FOREIGN KEY (task_id) REFERENCES task(id)
             );";
-            string createModulTable = @"
-            CREATE TABLE IF NOT EXISTS nutzer (
-                id INTEGER PRIMARY KEY,
-                name VARCHAR(50) NOT NULL,
-                faculty VARCHAR(50) NOT NULL
+
+            string createModuleTable = @"
+            CREATE TABLE IF NOT EXISTS module (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name VARCHAR(50) NOT NULL,
+            faculty VARCHAR(50) NOT NULL
             );";
-            ExecuteNonQuery(conn, createAufgabeTable);
-            ExecuteNonQuery(conn, createKlausurTable);
-            ExecuteNonQuery(conn, createKlausurAufgabeTable);
-            ExecuteNonQuery(conn, createNutzerTable);
-            ExecuteNonQuery(conn, createAntwortTable);
-            ExecuteNonQuery(conn, createKlausurConfigTable);
-            ExecuteNonQuery(conn, createAufgabeAntwortTable);
-            ExecuteNonQuery(conn, createModulTable);
+
+            ExecuteNonQuery(conn, createTaskTable);
+            ExecuteNonQuery(conn, createExamTable);
+            ExecuteNonQuery(conn, createExamTaskTable); 
+            ExecuteNonQuery(conn, createUserTable);
+            ExecuteNonQuery(conn, createAnswerTable);
+            ExecuteNonQuery(conn, createExamConfigTable);
+            ExecuteNonQuery(conn, createTaskAnswerTable);
+            ExecuteNonQuery(conn, createModuleTable);
         }
-    
-    }
-    private void ExecuteNonQuery(SQLiteConnection conn, string sql)
-    {
-        using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
+
+        void ExecuteNonQuery(SQLiteConnection conn, string sql)
         {
-            cmd.ExecuteNonQuery();
+            using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
+            {
+                cmd.ExecuteNonQuery();
+            }
         }
     }
 }
+
+
+
 
 
