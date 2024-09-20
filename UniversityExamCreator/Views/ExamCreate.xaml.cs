@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -49,6 +50,11 @@ namespace UniversityExamCreator.Views
                 // Add more tasks as needed
             };
 
+
+            // DB-Test
+            PathFinder pathFinder = new PathFinder("Database", "database.db");
+            DataService dataService = new DataService(pathFinder.GetPath());
+            
             // Initialize the filtered tasks collection
             FilteredTasks = new ObservableCollection<Task>();
             SelectedTasks = new ObservableCollection<Task>();

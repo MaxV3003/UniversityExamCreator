@@ -142,6 +142,7 @@
     <Compile Include="Models\Examconfig.cs" />
     <Compile Include="Models\MCAnswer.cs" />
     <Compile Include="Models\Module.cs" />
+    <Compile Include="Models\PathFinder.cs" />
     <Compile Include="Models\Taskgroupe.cs" />
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Services\ExamService.cs" />
@@ -149,6 +150,9 @@
     <Compile Include="ViewModels\ExamViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\TaskViewModel.cs" />
+    <Compile Include="Views\DBTest.xaml.cs">
+      <DependentUpon>DBTest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ExamConfig.xaml.cs">
       <DependentUpon>ExamConfig.xaml</DependentUpon>
     </Compile>
@@ -191,6 +195,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\DBTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ExamConfig.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -265,6 +273,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Views\162172019-fragezeichenmuster-designhintergrund-für-fragen.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
