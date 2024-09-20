@@ -16,13 +16,17 @@ namespace UniversityExamCreator.Services
         public DataService(string connectionString)
         {
             string currentDirectory = Directory.GetCurrentDirectory();
-            
-            connection = $"Data Source="+connectionString+";Version=3;";
-            
+
+            connection = $"Data Source=" + connectionString + ";Version=3;";
+
 
         }
-        
-        public void InsertKlausurAufgabe(string topic, string taskType, string difficulty, int points, string taskName, string taskContent, DateTime dateCreated, string author)
+        //-----------------------------------
+        //Insert-Section
+        //-----------------------------------
+
+        // Insert Task
+        public void InsertTask(string topic, string taskType, string difficulty, int points, string taskName, string taskContent, DateTime dateCreated, string author)
         {
 
             string test = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
@@ -30,7 +34,7 @@ namespace UniversityExamCreator.Services
             {
                 conn.Open();
                 string insertQuery = @"
-                    INSERT INTO aufgabe (topic, type, difficulty, points, name, content, date_created, author) 
+                    INSERT INTO task (topic, type, difficulty, points, name, content, date_created, author) 
                     VALUES (@topic, @type, @difficulty, @points, @name, @content, @date_created, @author)";
 
                 using (SQLiteCommand command = new SQLiteCommand(insertQuery, conn))
@@ -49,197 +53,284 @@ namespace UniversityExamCreator.Services
             }
         }
 
-
-        //-----------------------------------
-        // Delete Aufgabe
-        //-----------------------------------
-        /*
-        public void DeleteAufgabe(int id)
+        // Insert Exam
+        public void InsertExam(string course, string examiner, DateTime date)
         {
-            connection.Open();
-            string query = "INSERT INTO exam (course, examiner, date) VALUES (@course, @examiner, @date)";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@course", course);
-                command.Parameters.AddWithValue("@examiner", examiner);
-                command.Parameters.AddWithValue("@date", date);
-                command.ExecuteNonQuery();
-                Console.WriteLine("Exam erfolgreich gespeichert.");
+                conn.Open();
+                string insertquery = @"
+                    INSERT INTO exam (course, examiner, date) 
+                    VALUES (@course, @examiner, @date)";
+
+                using (SQLiteCommand command = new SQLiteCommand(insertquery, conn))
+                {
+                    command.Parameters.AddWithValue("@course", course);
+                    command.Parameters.AddWithValue("@examiner", examiner);
+                    command.Parameters.AddWithValue("@date", date);
+                    command.ExecuteNonQuery();
+                }
             }
         }
 
+        // Insert Exam Task
         public void InsertExamTask(int exam_id, int task_id)
         {
-            connection.Open();
-            string query = "INSERT INTO exam_task (exam_id, task_id) VALUES (@exam_id, @task_id)";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@exam_id", exam_id);
-                command.Parameters.AddWithValue("@task_id", task_id);
-                command.ExecuteNonQuery();
+                conn.Open();
+                string query = @"
+                    INSERT INTO exam_task (exam_id, task_id) 
+                    VALUES (@exam_id, @task_id)";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@exam_id", exam_id);
+                    command.Parameters.AddWithValue("@task_id", task_id);
+                    command.ExecuteNonQuery();
+                }
             }
         }
 
+        // Insert User
         public void InsertUser(string username, string password)
         {
-            connection.Open();
-            string query = "INSERT INTO user (username, password) VALUES (@username, @password)";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@username", username);
-                command.Parameters.AddWithValue("@password", password);
-                command.ExecuteNonQuery();
-                Console.WriteLine("User erfolgreich gespeichert.");
+                conn.Open();
+                string query = @"
+                    INSERT INTO user (username, password) 
+                    VALUES (@username, @password)";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@username", username);
+                    command.Parameters.AddWithValue("@password", password);
+                    command.ExecuteNonQuery();
+                }
             }
         }
 
+        // Insert Answer
         public void InsertAnswer(int task_id, string answer_content, string username)
         {
-            connection.Open();
-            string query = "INSERT INTO answer (task_id, answer_content, username) VALUES (@task_id, @answer_content, @username)";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@task_id", task_id);
-                command.Parameters.AddWithValue("@answer_content", answer_content);
-                command.Parameters.AddWithValue("@username", username);
-                command.ExecuteNonQuery();
-                Console.WriteLine("Answer erfolgreich gespeichert.");
+                conn.Open();
+                string query = @"
+                    INSERT INTO answer (task_id, answer_content, username) 
+                    VALUES (@task_id, @answer_content, @username)";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@task_id", task_id);
+                    command.Parameters.AddWithValue("@answer_content", answer_content);
+                    command.Parameters.AddWithValue("@username", username);
+                    command.ExecuteNonQuery();
+                }
             }
         }
 
+        // Insert Exam Config
         public void InsertExamConfig(int exam_id, int user_id)
         {
-            connection.Open();
-            string query = "INSERT INTO exam_config (exam_id, user_id) VALUES (@exam_id, @user_id)";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@exam_id", exam_id);
-                command.Parameters.AddWithValue("@user_id", user_id);
-                command.ExecuteNonQuery();
-                Console.WriteLine("Config erfolgreich gespeichert.");
+                conn.Open();
+                string query = @"
+                    INSERT INTO exam_config (exam_id, user_id) 
+                    VALUES (@exam_id, @user_id)";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@exam_id", exam_id);
+                    command.Parameters.AddWithValue("@user_id", user_id);
+                    command.ExecuteNonQuery();
+                }
             }
         }
 
+        // Insert Task Answer
         public void InsertTaskAnswer(int answer_id, int task_id)
         {
-            connection.Open();
-            string query = "INSERT INTO task_answer (answer_id, task_id) VALUES (@answer_id, @task_id)";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@answer_id", answer_id);
-                command.Parameters.AddWithValue("@task_id", task_id);
-                command.ExecuteNonQuery();
+                conn.Open();
+                string query = @"
+                    INSERT INTO task_answer (answer_id, task_id) 
+                    VALUES (@answer_id, @task_id)";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@answer_id", answer_id);
+                    command.Parameters.AddWithValue("@task_id", task_id);
+                    command.ExecuteNonQuery();
+                }
             }
         }
 
+        // Insert Module
         public void InsertModule(int module_id, string faculty)
         {
-            connection.Open();
-            string query = "INSERT INTO module (module_id, faculty) VALUES (@module_id, @faculty)";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@module_id", module_id);
-                command.Parameters.AddWithValue("@faculty", faculty);
-                command.ExecuteNonQuery();
-                Console.WriteLine("Module erfolgreich gespeichert.");
+                conn.Open();
+                string query = @"
+                    INSERT INTO module (module_id, faculty) 
+                    VALUES (@module_id, @faculty)";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@module_id", module_id);
+                    command.Parameters.AddWithValue("@faculty", faculty);
+                    command.ExecuteNonQuery();
+                }
             }
         }
+
 
         //----------------------------------- 
         // Delete Section
         //-----------------------------------
 
+        // Delete Task
         public void DeleteTask(int id)
         {
-            connection.Open();
-            string query = "DELETE FROM task WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@id", id);
-                command.ExecuteNonQuery();
-                Console.WriteLine("Task erfolgreich gelöscht.");
+                conn.Open();
+                string query = "DELETE FROM task WHERE id = @id";
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Task erfolgreich gelöscht.");
+                }
             }
         }
 
+        // Delete Exam
         public void DeleteExam(int id)
         {
-            connection.Open();
-            string query = "DELETE FROM exam WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@id", id);
-                command.ExecuteNonQuery();
-                Console.WriteLine("Exam erfolgreich gelöscht.");
+                conn.Open();
+                string query = "DELETE FROM exam WHERE id = @id";
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Exam erfolgreich gelöscht.");
+                }
             }
         }
 
+        // Delete Exam Task
         public void DeleteExamTask(int id)
         {
-            connection.Open();
-            string query = "DELETE FROM exam_task WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@id", id);
-                command.ExecuteNonQuery();
+                conn.Open();
+                string query = "DELETE FROM exam_task WHERE id = @id";
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    command.ExecuteNonQuery();
+                }
             }
         }
 
+        // Delete User
         public void DeleteUser(int id)
         {
-            connection.Open();
-            string query = "DELETE FROM user WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@id", id);
-                command.ExecuteNonQuery();
-                Console.WriteLine("User erfolgreich gelöscht.");
+                conn.Open();
+                string query = "DELETE FROM user WHERE id = @id";
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("User erfolgreich gelöscht.");
+                }
             }
         }
 
+        // Delete Answer
         public void DeleteAnswer(int id)
         {
-            connection.Open();
-            string query = "DELETE FROM answer WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@id", id);
-                command.ExecuteNonQuery();
-                Console.WriteLine("Answer erfolgreich gelöscht.");
+                conn.Open();
+                string query = "DELETE FROM answer WHERE id = @id";
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Answer erfolgreich gelöscht.");
+                }
             }
         }
 
+        // Delete Exam Config
         public void DeleteExamConfig(int id)
         {
-            connection.Open();
-            string query = "DELETE FROM exam_config WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@id", id);
-                command.ExecuteNonQuery();
-                Console.WriteLine("Config erfolgreich gelöscht.");
+                conn.Open();
+                string query = "DELETE FROM exam_config WHERE id = @id";
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Exam Config erfolgreich gelöscht.");
+                }
             }
         }
 
+        // Delete Task Answer
         public void DeleteTaskAnswer(int id)
         {
-            connection.Open();
-            string query = "DELETE FROM task_answer WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@id", id);
-                command.ExecuteNonQuery();
+                conn.Open();
+                string query = "DELETE FROM task_answer WHERE id = @id";
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    command.ExecuteNonQuery();
+                }
             }
         }
 
+        // Delete Module
         public void DeleteModule(int id)
         {
-            connection.Open();
-            string query = "DELETE FROM module WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@id", id);
-                command.ExecuteNonQuery();
-                Console.WriteLine("Module erfolgreich gelöscht.");
+                conn.Open();
+                string query = "DELETE FROM module WHERE id = @id";
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Module erfolgreich gelöscht.");
+                }
             }
         }
 
@@ -247,91 +338,131 @@ namespace UniversityExamCreator.Services
         // If-Exists Section
         //-----------------------------------
 
+        // Check if Task Exists
         public bool IfTaskExists(int id)
         {
-            connection.Open();
-            string query = "SELECT COUNT(1) FROM task WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@id", id);
-                return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                conn.Open();
+                string query = "SELECT COUNT(1) FROM task WHERE id = @id";
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                }
             }
         }
 
+        // Check if Exam Exists
         public bool IfExamExists(int id)
         {
-            connection.Open();
-            string query = "SELECT COUNT(1) FROM exam WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@id", id);
-                return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                conn.Open();
+                string query = "SELECT COUNT(1) FROM exam WHERE id = @id";
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                }
             }
         }
 
+        // Check if Exam Task Exists
         public bool IfExamTaskExists(int id)
         {
-            connection.Open();
-            string query = "SELECT COUNT(1) FROM exam_task WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@id", id);
-                return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                conn.Open();
+                string query = "SELECT COUNT(1) FROM exam_task WHERE id = @id";
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                }
             }
         }
 
+        // Check if User Exists
         public bool IfUserExists(int id)
         {
-            connection.Open();
-            string query = "SELECT COUNT(1) FROM user WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@id", id);
-                return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                conn.Open();
+                string query = "SELECT COUNT(1) FROM user WHERE id = @id";
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                }
             }
         }
 
+        // Check if Answer Exists
         public bool IfAnswerExists(int id)
         {
-            connection.Open();
-            string query = "SELECT COUNT(1) FROM answer WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@id", id);
-                return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                conn.Open();
+                string query = "SELECT COUNT(1) FROM answer WHERE id = @id";
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                }
             }
         }
 
+        // Check if Exam Config Exists
         public bool IfExamConfigExists(int id)
         {
-            connection.Open();
-            string query = "SELECT COUNT(1) FROM exam_config WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@id", id);
-                return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                conn.Open();
+                string query = "SELECT COUNT(1) FROM exam_config WHERE id = @id";
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                }
             }
         }
 
+        // Check if Task Answer Exists
         public bool IfTaskAnswerExists(int id)
         {
-            connection.Open();
-            string query = "SELECT COUNT(1) FROM task_answer WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@id", id);
-                return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                conn.Open();
+                string query = "SELECT COUNT(1) FROM task_answer WHERE id = @id";
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                }
             }
         }
 
+        // Check if Module Exists
         public bool IfModuleExists(int id)
         {
-            connection.Open();
-            string query = "SELECT COUNT(1) FROM module WHERE id = @id";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
             {
-                command.Parameters.AddWithValue("@id", id);
-                return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                conn.Open();
+                string query = "SELECT COUNT(1) FROM module WHERE id = @id";
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                }
             }
         }
     }
