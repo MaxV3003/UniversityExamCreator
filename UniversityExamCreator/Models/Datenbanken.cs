@@ -16,7 +16,7 @@ public class DatabaseManager
             conn.Open();
 
             string createAufgabeTable = @"
-                CREATE TABLE IF NOT EXISTS aufgabe (
+                CREATE TABLE IF NOT EXISTS task (
                     id INTEGER PRIMARY KEY,
                     task_content TEXT NOT NULL,
                     points INTEGER NOT NULL,

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-/*namespace UniversityExamCreator.Services
+namespace UniversityExamCreator.Services
 {
     public class DatabaseManager
     {
@@ -292,8 +292,8 @@ using System.Threading.Tasks;
             }
         }
     }
-}*/
-using System;
+}
+/*using System;
 using System.Data.SQLite;
 
 namespace UniversityExamCreator.Services
@@ -419,7 +419,7 @@ namespace UniversityExamCreator.Services
             }
         }
     }
-}
+}*/
 
 
 
