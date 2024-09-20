@@ -14,7 +14,7 @@ public class DatabaseManager
 
     public void CreateTables(string connection)
     {
-        string connectionDataSource = $"Data Source=C:/ Users / Max / source / repos / UniversityExamCreator / UniversityExamCreator / Databases / database.db + ;Version=3;";
+        string connectionDataSource = $"Data Source=" + connection + ";Version=3;";
         using (SQLiteConnection conn = new SQLiteConnection(connectionDataSource))
         {
             conn.Open();
