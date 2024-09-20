@@ -13,7 +13,7 @@ public class DatabaseManager
 
     public void CreateTables(string connection)
     {
-        string connectionDataSource = $"Data Source=" + connection+";Version=3;";
+        string connectionDataSource = $"Data Source=" + connection + ";Version=3;";
         using (SQLiteConnection conn = new SQLiteConnection(connectionDataSource))
         {
             conn.Open();

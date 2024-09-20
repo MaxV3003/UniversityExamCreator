@@ -11,31 +11,41 @@ namespace UniversityExamCreator.Services
 {
     public class DataService
     {
-        private SQLiteConnection connection;
+        private string connection;
 
         public DataService(string connectionString)
         {
             string currentDirectory = Directory.GetCurrentDirectory();
             
-            string connectionDataSource = $"Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            connection = new SQLiteConnection(connectionDataSource);
+            connection = $"Data Source="+connectionString+";Version=3;";
+            
 
         }
         
-        public void InsertAufgabe(string task_content, int points, string difficulty, string subject, DateTime date_created, string author)
+        public void InsertKlausurAufgabe(string topic, string taskType, string difficulty, int points, string taskName, string taskContent, DateTime dateCreated, string author)
         {
-            connection.Open();
-            string query = "INSERT INTO aufgabe (task_content, points, difficulty, subject, date_created, author) VALUES (@task_content, @points, @difficulty, @subject, @date_created, @author)";
-            using (SQLiteCommand command = new SQLiteCommand(query, connection))
+
+            string test = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            using (SQLiteConnection conn = new SQLiteConnection(test))
             {
-                command.Parameters.AddWithValue("@task_content", task_content);
-                command.Parameters.AddWithValue("@points", points);
-                command.Parameters.AddWithValue("@difficulty", difficulty);
-                command.Parameters.AddWithValue("@subject", subject);
-                command.Parameters.AddWithValue("@date_created", date_created);
-                command.Parameters.AddWithValue("@author", author);
-                command.ExecuteNonQuery();
-                Console.WriteLine("Aufgabe erfolgreich gespeichert.");
+                conn.Open();
+                string insertQuery = @"
+                    INSERT INTO aufgabe (topic, type, difficulty, points, name, content, date_created, author) 
+                    VALUES (@topic, @type, @difficulty, @points, @name, @content, @date_created, @author)";
+
+                using (SQLiteCommand command = new SQLiteCommand(insertQuery, conn))
+                {
+                    command.Parameters.AddWithValue("@topic", topic);
+                    command.Parameters.AddWithValue("@type", taskType);
+                    command.Parameters.AddWithValue("@difficulty", difficulty);
+                    command.Parameters.AddWithValue("@points", points);
+                    command.Parameters.AddWithValue("@name", taskName);
+                    command.Parameters.AddWithValue("@content", taskContent);
+                    command.Parameters.AddWithValue("@date_created", dateCreated);
+                    command.Parameters.AddWithValue("@author", author);
+
+                    command.ExecuteNonQuery();
+                }
             }
         }
 
@@ -43,7 +53,7 @@ namespace UniversityExamCreator.Services
         //-----------------------------------
         // Delete Aufgabe
         //-----------------------------------
-
+        /*
         public void DeleteAufgabe(int id)
         {
             connection.Open();
@@ -315,7 +325,7 @@ namespace UniversityExamCreator.Services
                 command.Parameters.AddWithValue("@id", id);
                 return Convert.ToInt32(command.ExecuteScalar()) > 0;
             }
-        }
+        }*/
     }
     
 }
