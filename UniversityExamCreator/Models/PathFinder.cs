@@ -15,10 +15,7 @@ namespace UniversityExamCreator.Models
             string relativePath = @""+dir+ "\\" + file;
             string fullPath = Path.Combine(projectDirectory, relativePath);
 
-            if (!CorrectPath(fullPath)) 
-            {
-                currentPath = fullPath;
-            }
+            currentPath = ConvertBackslashesToSlashes(fullPath);
         }
 
         public PathFinder(string dir)
@@ -29,46 +26,17 @@ namespace UniversityExamCreator.Models
             string relativePath = @"" + dir;
             string fullPath = Path.Combine(projectDirectory, relativePath);
 
-            if (CorrectDir(fullPath))
-            {
-                currentPath = fullPath;
-            }
-        }
-
-        public bool CorrectPath(string path)
-        {
-            // Überprüfen, ob der Pfad existiert
-            if (!Directory.Exists(Path.GetDirectoryName(path)))
-            {
-                Console.WriteLine("Der Verzeichnispfad existiert nicht.");
-                return false;
-            }
-
-            // Überprüfen, ob die Datei existiert
-            if (!File.Exists(path))
-            {
-                Console.WriteLine("Die Datei existiert nicht.");
-                return false;
-            }
-
-            return true;
-        }
-
-        public bool CorrectDir(string path)
-        {
-            // Überprüfen, ob der Pfad existiert
-            if (!Directory.Exists(Path.GetDirectoryName(path)))
-            {
-                Console.WriteLine("Der Verzeichnispfad existiert nicht.");
-                return false;
-            }
-
-            return true;
+            currentPath = ConvertBackslashesToSlashes(fullPath);
         }
 
         public string GetPath() 
         {
             return currentPath;
+        }
+
+        public string ConvertBackslashesToSlashes(string input)
+        {
+            return input.Replace("\\", "/");
         }
     }
 }
