@@ -37,6 +37,11 @@
 
         <!-- Hinzufügen Button -->
         <Button Content="Hinzufügen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="150,300,0,0" Click="AddTask_Click"/>
+        
+        <!-- Combo Box für Tabellen -->
+        <Label Content="Tabelle auswählen:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,300,0,0"/>
+        <ComboBox Name="comboBoxTables" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" Margin="120,300,0,0" SelectionChanged="ComboBoxTables_SelectionChanged"/>
+
 
         <!-- DataGrid zur Anzeige der Aufgaben -->
         <DataGrid Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,350,0,0" Width="760" Height="200" AutoGenerateColumns="False">

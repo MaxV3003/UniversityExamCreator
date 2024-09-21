@@ -14,8 +14,8 @@ namespace UniversityExamCreator.Services
         private string connection;
 
         public DataService(string connectionString)
-        {            
-            connection = $"Data Source="+connectionString+";Version=3;";
+        {
+            connection = $"Data Source=" + connectionString + ";Version=3;";
         }
         //-----------------------------------
         //Insert-Section
@@ -339,15 +339,23 @@ namespace UniversityExamCreator.Services
         public bool IfTaskExists(int id)
         {
             string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            try
             {
-                conn.Open();
-                string query = "SELECT COUNT(1) FROM task WHERE id = @id";
-                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@id", id);
-                    return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                    conn.Open();
+                    string query = "SELECT COUNT(1) FROM task WHERE id = @id";
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@id", id);
+                        return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fehler bei der Ausführung der Abfrage für Task: {ex.Message}");
+                return false;
             }
         }
 
@@ -355,15 +363,23 @@ namespace UniversityExamCreator.Services
         public bool IfExamExists(int id)
         {
             string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            try
             {
-                conn.Open();
-                string query = "SELECT COUNT(1) FROM exam WHERE id = @id";
-                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@id", id);
-                    return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                    conn.Open();
+                    string query = "SELECT COUNT(1) FROM exam WHERE id = @id";
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@id", id);
+                        return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fehler bei der Ausführung der Abfrage für Exam: {ex.Message}");
+                return false;
             }
         }
 
@@ -371,31 +387,47 @@ namespace UniversityExamCreator.Services
         public bool IfExamTaskExists(int id)
         {
             string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            try
             {
-                conn.Open();
-                string query = "SELECT COUNT(1) FROM exam_task WHERE id = @id";
-                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@id", id);
-                    return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                    conn.Open();
+                    string query = "SELECT COUNT(1) FROM exam_task WHERE id = @id";
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@id", id);
+                        return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fehler bei der Ausführung der Abfrage für Exam Task: {ex.Message}");
+                return false;
             }
         }
 
         // Check if User Exists
-        public bool IfUserExists(int id)
+    public bool IfUserExists(int id)
         {
             string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            try
             {
-                conn.Open();
-                string query = "SELECT COUNT(1) FROM user WHERE id = @id";
-                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@id", id);
-                    return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                    conn.Open();
+                    string query = "SELECT COUNT(1) FROM user WHERE id = @id";
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@id", id);
+                        return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fehler bei der Ausführung der Abfrage für User: {ex.Message}");
+                return false;
             }
         }
 
@@ -403,15 +435,23 @@ namespace UniversityExamCreator.Services
         public bool IfAnswerExists(int id)
         {
             string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            try
             {
-                conn.Open();
-                string query = "SELECT COUNT(1) FROM answer WHERE id = @id";
-                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@id", id);
-                    return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                    conn.Open();
+                    string query = "SELECT COUNT(1) FROM answer WHERE id = @id";
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@id", id);
+                        return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fehler bei der Ausführung der Abfrage für Answer: {ex.Message}");
+                return false;
             }
         }
 
@@ -419,15 +459,23 @@ namespace UniversityExamCreator.Services
         public bool IfExamConfigExists(int id)
         {
             string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            try
             {
-                conn.Open();
-                string query = "SELECT COUNT(1) FROM exam_config WHERE id = @id";
-                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@id", id);
-                    return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                    conn.Open();
+                    string query = "SELECT COUNT(1) FROM exam_config WHERE id = @id";
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@id", id);
+                        return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fehler bei der Ausführung der Abfrage für Exam Config: {ex.Message}");
+                return false;
             }
         }
 
@@ -435,15 +483,23 @@ namespace UniversityExamCreator.Services
         public bool IfTaskAnswerExists(int id)
         {
             string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            try
             {
-                conn.Open();
-                string query = "SELECT COUNT(1) FROM task_answer WHERE id = @id";
-                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@id", id);
-                    return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                    conn.Open();
+                    string query = "SELECT COUNT(1) FROM task_answer WHERE id = @id";
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@id", id);
+                        return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fehler bei der Ausführung der Abfrage für Task Answer: {ex.Message}");
+                return false;
             }
         }
 
@@ -451,24 +507,29 @@ namespace UniversityExamCreator.Services
         public bool IfModuleExists(int id)
         {
             string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            try
             {
-                conn.Open();
-                string query = "SELECT COUNT(1) FROM module WHERE id = @id";
-                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@id", id);
-                    return Convert.ToInt32(command.ExecuteScalar()) > 0;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Fehler bei der Ausführung der Abfrage: {ex.Message}");
-                    return 0;
+                    conn.Open();
+                    string query = "SELECT COUNT(1) FROM module WHERE id = @id";
+                    using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                    {
+                        command.Parameters.AddWithValue("@id", id);
+                        return Convert.ToInt32(command.ExecuteScalar()) > 0;
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fehler bei der Ausführung der Abfrage für Module: {ex.Message}");
+                return false;
+            }
         }
+
     }
-}*/
+}
+
 
 
 
