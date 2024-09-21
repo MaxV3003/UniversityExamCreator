@@ -14,12 +14,8 @@ namespace UniversityExamCreator.Services
         private string connection;
 
         public DataService(string connectionString)
-        {
-            string currentDirectory = Directory.GetCurrentDirectory();
-
-            connection = $"Data Source=" + connectionString + ";Version=3;";
-
-
+        {            
+            connection = $"Data Source="+connectionString+";Version=3;";
         }
         //-----------------------------------
         //Insert-Section
@@ -29,8 +25,9 @@ namespace UniversityExamCreator.Services
         public void InsertTask(string topic, string taskType, string difficulty, int points, string taskName, string taskContent, DateTime dateCreated, string author)
         {
 
-            string test = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(test))
+            //string test = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
+            Console.WriteLine(connection);
+            using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
                 string insertQuery = @"
@@ -463,7 +460,15 @@ namespace UniversityExamCreator.Services
                     command.Parameters.AddWithValue("@id", id);
                     return Convert.ToInt32(command.ExecuteScalar()) > 0;
                 }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Fehler bei der Ausführung der Abfrage: {ex.Message}");
+                    return 0;
+                }
             }
         }
     }
-}
+}*/
+
+
+

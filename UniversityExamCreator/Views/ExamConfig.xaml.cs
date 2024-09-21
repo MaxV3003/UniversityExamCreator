@@ -32,7 +32,6 @@ namespace UniversityExamCreator.Views
 
             PathFinder pathFinder = new PathFinder("Databases", "database.db");
             DatabaseManager databaseManager = new DatabaseManager(pathFinder.GetPath());
-            Console.WriteLine("Path: "+pathFinder.GetPath());
             databaseManager.CreateTables(pathFinder.GetPath());
         }
 

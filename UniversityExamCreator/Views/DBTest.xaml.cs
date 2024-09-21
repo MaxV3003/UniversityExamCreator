@@ -53,6 +53,7 @@ namespace UniversityExamCreator.Views
         private void LoadDataFromDatabase()
         {
             List<UniversityExamCreator.Models.Task> tasks = new List<UniversityExamCreator.Models.Task>();
+           
             using (SQLiteConnection connection = new SQLiteConnection(dbConnectionString))
             {
                 connection.Open();

@@ -52,7 +52,7 @@ namespace UniversityExamCreator.Views
 
 
             // DB-Test
-            PathFinder pathFinder = new PathFinder("Database", "database.db");
+            PathFinder pathFinder = new PathFinder("Databases", "database.db");
             DataService dataService = new DataService(pathFinder.GetPath());
             dataService.InsertTask("config", "config", "config",0,"config", "config", DateTime.Now,"MV");
             
