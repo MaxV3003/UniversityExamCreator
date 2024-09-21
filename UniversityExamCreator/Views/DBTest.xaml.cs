@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
@@ -31,9 +32,10 @@ namespace UniversityExamCreator.Views
             InitializeComponent();
             //CreateDatabaseAndTable();
             LoadDataFromDatabase(); // Lade die Daten beim Start der Anwendung
+            LoadTableNames();  // Lade die Tabellennamen
         }
         // Methode zum Erstellen der Datenbank und Tabelle
-        /*private void CreateDatabaseAndTable()
+        private void CreateDatabaseAndTable()
         {
             using (SQLiteConnection connection = new SQLiteConnection(dbConnectionString))
             {
@@ -47,7 +49,7 @@ namespace UniversityExamCreator.Views
                     command.ExecuteNonQuery();
                 }
             }
-        }*/
+        }
 
         // Methode zum Laden der Daten aus der Datenbank
         private void LoadDataFromDatabase()
@@ -184,5 +186,74 @@ namespace UniversityExamCreator.Views
                 }
             }
         }
+        private Dictionary<string, string> tableQueries = new Dictionary<string, string>
+    {
+        { "Task", "SELECT * FROM task" },
+        { "Exam", "SELECT * FROM exam" },
+        { "User", "SELECT * FROM user" },
+        { "Answer", "SELECT * FROM answer" },
+        { "Module", "SELECT * FROM module" },
+        { "Aufgabe", "SELECT * FROM aufgabe" }
+    };
+
+        public DBTest()
+        {
+            InitializeComponent();
+            LoadTableNames();
+        }
+
+        private void LoadTableNames()
+        {
+            // Add table names to the ComboBox
+            foreach (var tableName in tableQueries.Keys)
+            {
+                comboBoxTables.Items.Add(tableName);
+            }
+        }
+
+        private void ComboBoxTables_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (comboBoxTables.SelectedItem != null)
+            {
+                string selectedTable = comboBoxTables.SelectedItem.ToString();
+                MessageBox.Show($"Lade Daten für Tabelle: {selectedTable}");
+
+                // Lade die Daten der ausgewählten Tabelle in das DataGrid
+                LoadTableData(selectedTable);
+            }
+        }
+
+        private void LoadTableData(string tableName)
+        {
+            string query = tableQueries[tableName];
+
+            using (SQLiteConnection connection = new SQLiteConnection(dbConnectionString))
+            {
+                connection.Open();
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        var dataTable = new DataTable();
+                        dataTable.Load(reader);  // Lade die Daten in ein DataTable-Objekt
+
+                        // Überprüfe, ob Daten geladen wurden
+                        if (dataTable.Rows.Count > 0)
+                        {
+                            MessageBox.Show($"{dataTable.Rows.Count} Zeilen geladen");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Keine Daten geladen");
+                        }
+
+                        dataGrid.ItemsSource = dataTable.DefaultView;  // Weisen Sie das DataTable als Datenquelle zu
+                        dataGrid.Items.Refresh(); // Daten explizit aktualisieren
+                    }
+                }
+            }
+        }
     }
 }
+
