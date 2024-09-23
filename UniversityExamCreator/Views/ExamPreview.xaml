@@ -86,9 +86,31 @@
                     
                     <TextBlock HorizontalAlignment="Left" Margin="105,535,0,0" TextWrapping="Wrap" Text="Task-Swapper" VerticalAlignment="Top">
                     </TextBlock>
-                    <ListView Margin="105,-175,105,0" Height="200">
+                    <!-- DataGrid zur Anzeige der Aufgaben -->
+                    <DataGrid Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="105,570,105,0" Width="760" Height="200" AutoGenerateColumns="False" AllowDrop="True" 
+                  PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown" PreviewMouseMove="DataGrid_PreviewMouseMove" Drop="DataGrid_Drop">
 
-                    </ListView>
+                        <!-- Spalten für die Daten -->
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Topic" Binding="{Binding Topic}" Width="150" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Task Type" Binding="{Binding TaskType}" Width="150" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Difficulty" Binding="{Binding Difficulty}" Width="100" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Points" Binding="{Binding Points}" Width="100" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Task Name" Binding="{Binding TaskName}" Width="150" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Task Content" Binding="{Binding TaskContent}" Width="300" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Date Created" Binding="{Binding DateCreated}" Width="150" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Author" Binding="{Binding Author}" Width="150" IsReadOnly="True"/>
+
+                            <!-- Löschen Button in jeder Zeile -->
+                            <DataGridTemplateColumn Header="Aktion">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Löschen" Tag="{Binding TaskName}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </Viewbox>
         </ScrollViewer>
