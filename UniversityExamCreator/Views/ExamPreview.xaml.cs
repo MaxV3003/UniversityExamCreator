@@ -676,6 +676,11 @@ namespace UniversityExamCreator.Views
                 }
             };
 
+            foreach (UniversityExamCreator.Models.Task task in tasksSwitch) 
+            {
+                tasks.Add(task);
+            }
+
             return tasks;
         }
 
@@ -849,7 +854,8 @@ namespace UniversityExamCreator.Views
                             string author = reader.GetString(8);        // Author
 
                             // Erstelle Task-Objekt und setze die richtigen Eigenschaften
-                            tasksSwitch.Add(new UniversityExamCreator.Models.Task(topic, author, type, difficulty, points, name));
+                            // hier müssen noch die zusätzlichen Eigenschaften eingefügt werden, die angezeigt werden sollen
+                            tasksSwitch.Add(new UniversityExamCreator.Models.Task(topic, author, type, difficulty, points, name, content));
                         }
                     }
                 }

@@ -87,8 +87,8 @@
                     <TextBlock HorizontalAlignment="Left" Margin="105,535,0,0" TextWrapping="Wrap" Text="Task-Swapper" VerticalAlignment="Top">
                     </TextBlock>
                     <!-- DataGrid zur Anzeige der Aufgaben -->
-                    <DataGrid Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="105,570,105,0" Width="760" Height="200" AutoGenerateColumns="False" AllowDrop="True" 
-                  PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown" PreviewMouseMove="DataGrid_PreviewMouseMove" Drop="DataGrid_Drop">
+                    <DataGrid Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="105,570,105,0"  Height="200" AutoGenerateColumns="False" AllowDrop="True" 
+                    PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown" PreviewMouseMove="DataGrid_PreviewMouseMove" Drop="DataGrid_Drop">
 
                         <!-- Spalten für die Daten -->
                         <DataGrid.Columns>

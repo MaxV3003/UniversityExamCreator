@@ -81,6 +81,21 @@ namespace UniversityExamCreator.Models
             IsSelectedForDeletion = false;
         }
 
+        public Task(string module, string topic, string taskType, string difficulty, int points, string taskName, string content)
+        {
+            Module = module;
+            Topic = topic;
+            TaskType = taskType;
+            Difficulty = difficulty;
+            Points = points;
+            TaskName = taskName;
+            TaskContent = content;
+            TaskAnswer = new Answer(taskName, string.Empty);
+            MCAnswers = new List<MCAnswer>();
+            IsSelected = false;
+            IsSelectedForDeletion = false;
+        }
+
         public Task(string name, string content) 
         {
             Module = String.Empty;
