@@ -36,11 +36,11 @@
         <TextBox Name="txtAuthor" HorizontalAlignment="Left" Height="23" Margin="120,260,0,0" VerticalAlignment="Top" Width="300"/>
 
         <!-- Hinzufügen Button -->
-        <Button Content="Hinzufügen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="150,300,0,0" Click="AddTask_Click"/>
-        
+        <Button Content="Hinzufügen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="112" Margin="138,300,0,0" Click="AddTask_Click"/>
+
         <!-- Combo Box für Tabellen -->
-        <Label Content="Tabelle auswählen:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,300,0,0"/>
-        <ComboBox Name="comboBoxTables" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" Margin="120,300,0,0" SelectionChanged="ComboBoxTables_SelectionChanged"/>
+        <Label Content="Tabelle auswählen:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,325,0,0"/>
+        <ComboBox Name="comboBoxTables" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" Margin="123,327,0,0" SelectionChanged="ComboBoxTables_SelectionChanged"/>
 
 
         <!-- DataGrid zur Anzeige der Aufgaben -->

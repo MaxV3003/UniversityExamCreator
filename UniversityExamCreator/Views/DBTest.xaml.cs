@@ -232,8 +232,8 @@ namespace UniversityExamCreator.Views
                             MessageBox.Show("Keine Daten geladen");
                         }
 
-                        dataGrid.ItemsSource = dataTable.DefaultView;  // Weisen Sie das DataTable als Datenquelle zu
-                        dataGrid.Items.Refresh(); // Daten explizit aktualisieren
+                        dataGrid.ItemsSource = dataTable.DefaultView;  // Neue Datenquelle binden
+                        dataGrid.Items.Refresh();  // Aktualisiere die Anzeige
                     }
                 }
             }
