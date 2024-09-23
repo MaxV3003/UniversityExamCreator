@@ -24,9 +24,6 @@ namespace UniversityExamCreator.Services
         // Insert Task
         public void InsertTask(string topic, string taskType, string difficulty, int points, string taskName, string taskContent, DateTime dateCreated, string author)
         {
-
-            //string test = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            Console.WriteLine(connection);
             using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
@@ -53,8 +50,7 @@ namespace UniversityExamCreator.Services
         // Insert Exam
         public void InsertExam(string course, string examiner, DateTime date)
         {
-            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
                 string insertquery = @"
@@ -74,8 +70,7 @@ namespace UniversityExamCreator.Services
         // Insert Exam Task
         public void InsertExamTask(int exam_id, int task_id)
         {
-            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
                 string query = @"
@@ -94,8 +89,7 @@ namespace UniversityExamCreator.Services
         // Insert User
         public void InsertUser(string username, string password)
         {
-            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
                 string query = @"
@@ -114,8 +108,7 @@ namespace UniversityExamCreator.Services
         // Insert Answer
         public void InsertAnswer(int task_id, string answer_content, string username)
         {
-            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
                 string query = @"
@@ -135,8 +128,7 @@ namespace UniversityExamCreator.Services
         // Insert Exam Config
         public void InsertExamConfig(int exam_id, int user_id)
         {
-            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
                 string query = @"
@@ -155,8 +147,7 @@ namespace UniversityExamCreator.Services
         // Insert Task Answer
         public void InsertTaskAnswer(int answer_id, int task_id)
         {
-            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
                 string query = @"
@@ -175,8 +166,7 @@ namespace UniversityExamCreator.Services
         // Insert Module
         public void InsertModule(int module_id, string faculty)
         {
-            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
                 string query = @"
@@ -200,8 +190,7 @@ namespace UniversityExamCreator.Services
         // Delete Task
         public void DeleteTask(int id)
         {
-            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
                 string query = "DELETE FROM task WHERE id = @id";
@@ -217,8 +206,7 @@ namespace UniversityExamCreator.Services
         // Delete Exam
         public void DeleteExam(int id)
         {
-            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
                 string query = "DELETE FROM exam WHERE id = @id";
@@ -234,8 +222,7 @@ namespace UniversityExamCreator.Services
         // Delete Exam Task
         public void DeleteExamTask(int id)
         {
-            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
                 string query = "DELETE FROM exam_task WHERE id = @id";
@@ -250,8 +237,7 @@ namespace UniversityExamCreator.Services
         // Delete User
         public void DeleteUser(int id)
         {
-            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
                 string query = "DELETE FROM user WHERE id = @id";
@@ -267,8 +253,7 @@ namespace UniversityExamCreator.Services
         // Delete Answer
         public void DeleteAnswer(int id)
         {
-            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
                 string query = "DELETE FROM answer WHERE id = @id";
@@ -284,8 +269,7 @@ namespace UniversityExamCreator.Services
         // Delete Exam Config
         public void DeleteExamConfig(int id)
         {
-            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
                 string query = "DELETE FROM exam_config WHERE id = @id";
@@ -301,8 +285,7 @@ namespace UniversityExamCreator.Services
         // Delete Task Answer
         public void DeleteTaskAnswer(int id)
         {
-            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
                 string query = "DELETE FROM task_answer WHERE id = @id";
@@ -317,8 +300,7 @@ namespace UniversityExamCreator.Services
         // Delete Module
         public void DeleteModule(int id)
         {
-            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
-            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
                 string query = "DELETE FROM module WHERE id = @id";
@@ -338,10 +320,9 @@ namespace UniversityExamCreator.Services
         // Check if Task Exists
         public bool IfTaskExists(int id)
         {
-            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                using (SQLiteConnection conn = new SQLiteConnection(connection))
                 {
                     conn.Open();
                     string query = "SELECT COUNT(1) FROM task WHERE id = @id";
@@ -362,10 +343,9 @@ namespace UniversityExamCreator.Services
         // Check if Exam Exists
         public bool IfExamExists(int id)
         {
-            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                using (SQLiteConnection conn = new SQLiteConnection(connection))
                 {
                     conn.Open();
                     string query = "SELECT COUNT(1) FROM exam WHERE id = @id";
@@ -386,10 +366,9 @@ namespace UniversityExamCreator.Services
         // Check if Exam Task Exists
         public bool IfExamTaskExists(int id)
         {
-            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                using (SQLiteConnection conn = new SQLiteConnection(connection))
                 {
                     conn.Open();
                     string query = "SELECT COUNT(1) FROM exam_task WHERE id = @id";
@@ -410,10 +389,9 @@ namespace UniversityExamCreator.Services
         // Check if User Exists
     public bool IfUserExists(int id)
         {
-            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                using (SQLiteConnection conn = new SQLiteConnection(connection))
                 {
                     conn.Open();
                     string query = "SELECT COUNT(1) FROM user WHERE id = @id";
@@ -434,10 +412,9 @@ namespace UniversityExamCreator.Services
         // Check if Answer Exists
         public bool IfAnswerExists(int id)
         {
-            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                using (SQLiteConnection conn = new SQLiteConnection(connection))
                 {
                     conn.Open();
                     string query = "SELECT COUNT(1) FROM answer WHERE id = @id";
@@ -458,10 +435,9 @@ namespace UniversityExamCreator.Services
         // Check if Exam Config Exists
         public bool IfExamConfigExists(int id)
         {
-            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                using (SQLiteConnection conn = new SQLiteConnection(connection))
                 {
                     conn.Open();
                     string query = "SELECT COUNT(1) FROM exam_config WHERE id = @id";
@@ -482,10 +458,9 @@ namespace UniversityExamCreator.Services
         // Check if Task Answer Exists
         public bool IfTaskAnswerExists(int id)
         {
-            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                using (SQLiteConnection conn = new SQLiteConnection(connection))
                 {
                     conn.Open();
                     string query = "SELECT COUNT(1) FROM task_answer WHERE id = @id";
@@ -506,10 +481,9 @@ namespace UniversityExamCreator.Services
         // Check if Module Exists
         public bool IfModuleExists(int id)
         {
-            string connectionString = "Data Source=C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Databases/database.db;Version=3;";
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+                using (SQLiteConnection conn = new SQLiteConnection(connection))
                 {
                     conn.Open();
                     string query = "SELECT COUNT(1) FROM module WHERE id = @id";
