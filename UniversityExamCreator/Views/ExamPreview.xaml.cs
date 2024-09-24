@@ -10,6 +10,10 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.IO;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Controls.Primitives;
+using System.Data.SQLite;
 
 namespace UniversityExamCreator.Views
 {
@@ -50,6 +54,11 @@ namespace UniversityExamCreator.Views
         const double mcSpacing = 10; // Increased spacing between MC answers
         const double checkboxSize = 10;
         double yPoint = 100;
+
+        // Task-Switch-Content
+        private string dbConnectionString;
+        private ObservableCollection<UniversityExamCreator.Models.Task> tasksSwitch;
+        private UniversityExamCreator.Models.Task draggedItem;
 
         internal ExamPreview(Examconfig examconfig, List<Task> tasks)
         {
@@ -95,6 +104,13 @@ namespace UniversityExamCreator.Views
             // Additional Content
             additionalInformation = additionalInformationCreator();
             ListViewInformation.ItemsSource = additionalInformation;
+
+            // Task-Switch-Content 
+            PathFinder pathFinder = new PathFinder("Databases", "database.db");
+            dbConnectionString = "Data Source=" + pathFinder.GetPath() + ";Version=3;";
+            tasksSwitch = new ObservableCollection<UniversityExamCreator.Models.Task>();
+            dataGrid.ItemsSource = tasksSwitch;  // Binde die ObservableCollection an das DataGrid
+            LoadDataFromDatabase();        // Lade die Daten beim Start der Anwendung
         }
 
         /// <summary>
@@ -660,6 +676,11 @@ namespace UniversityExamCreator.Views
                 }
             };
 
+            foreach (UniversityExamCreator.Models.Task task in tasksSwitch) 
+            {
+                tasks.Add(task);
+            }
+
             return tasks;
         }
 
@@ -802,5 +823,118 @@ namespace UniversityExamCreator.Views
                 MessageBox.Show($"Beschreibung: {info.Content}");
             }
         }
+
+
+        /*---------------------------------------------------------*/
+        //                  Data-Switch-Area
+        /*---------------------------------------------------------*/
+
+        private void LoadDataFromDatabase()
+        {
+            tasksSwitch.Clear(); // Lösche alle vorhandenen Daten in der ObservableCollection
+
+            using (SQLiteConnection connection = new SQLiteConnection(dbConnectionString))
+            {
+                connection.Open();
+                string selectQuery = "SELECT id, topic, type, difficulty, points, name, content, date_created, author FROM aufgabe";
+
+                using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
+                {
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string topic = reader.GetString(1);         // Topic
+                            string type = reader.GetString(2);          // TaskType
+                            string difficulty = reader.GetString(3);    // Difficulty
+                            int points = reader.GetInt32(4);            // Points
+                            string name = reader.GetString(5);          // TaskName
+                            string content = reader.GetString(6);       // TaskContent
+                            DateTime dateCreated = reader.GetDateTime(7); // DateCreated
+                            string author = reader.GetString(8);        // Author
+
+                            // Erstelle Task-Objekt und setze die richtigen Eigenschaften
+                            // hier müssen noch die zusätzlichen Eigenschaften eingefügt werden, die angezeigt werden sollen
+                            tasksSwitch.Add(new UniversityExamCreator.Models.Task(topic, author, type, difficulty, points, name, content));
+                        }
+                    }
+                }
+            }
+        }
+
+        // Drag-and-Drop-Funktionalität
+        private void DataGrid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var row = FindVisualParent<DataGridRow>(e.OriginalSource as DependencyObject);
+
+            // Check if the mouse is over a scrollbar or button, and avoid starting drag
+            if (IsMouseOverScrollbarOrButton(e.OriginalSource as DependencyObject))
+            {
+                draggedItem = null;
+                return; // Stop if mouse is over scrollbar or button
+            }
+
+            if (row != null)
+            {
+                draggedItem = row.Item as UniversityExamCreator.Models.Task;
+            }
+        }
+
+        private void DataGrid_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            if (draggedItem != null && e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragDrop.DoDragDrop(dataGrid, draggedItem, DragDropEffects.Move);
+                draggedItem = null; // Reset after dragging
+            }
+        }
+
+        private void DataGrid_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(UniversityExamCreator.Models.Task)))
+            {
+                var droppedData = e.Data.GetData(typeof(UniversityExamCreator.Models.Task)) as UniversityExamCreator.Models.Task;
+                var target = FindVisualParent<DataGridRow>(e.OriginalSource as DependencyObject)?.Item as UniversityExamCreator.Models.Task;
+
+                if (droppedData != null && target != null && droppedData != target)
+                {
+                    int removedIdx = tasksSwitch.IndexOf(droppedData);
+                    int targetIdx = tasksSwitch.IndexOf(target);
+
+                    tasksSwitch.Move(removedIdx, targetIdx);
+                    // Optionale Datenbankaktualisierung nach Drag-and-Drop
+                    // UpdateDatabaseAfterReorder();
+                }
+            }
+        }
+
+        private static T FindVisualParent<T>(DependencyObject child) where T : DependencyObject
+        {
+            DependencyObject parentObject = VisualTreeHelper.GetParent(child);
+            if (parentObject == null) return null;
+
+            T parent = parentObject as T;
+            return parent ?? FindVisualParent<T>(parentObject);
+        }
+
+        private bool IsMouseOverScrollbarOrButton(DependencyObject originalSource)
+        {
+            while (originalSource != null)
+            {
+                if (originalSource is ScrollBar || originalSource is Button)
+                    return true;
+
+                originalSource = VisualTreeHelper.GetParent(originalSource);
+            }
+            return false;
+        }
+
+        // Optional: Aktualisiere die Reihenfolge in der Datenbank
+        private void UpdateDatabaseAfterReorder()
+        {
+            // Implementieren Sie eine Methode, um die Reihenfolge der Aufgaben in der Datenbank zu speichern,
+            // z. B. indem Sie eine neue Spalte für die Sortierreihenfolge hinzufügen.
+        }
     }
 }
+

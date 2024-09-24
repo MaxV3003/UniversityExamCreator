@@ -34,22 +34,6 @@ namespace UniversityExamCreator.Views
             LoadDataFromDatabase(); // Lade die Daten beim Start der Anwendung
             LoadTableNames();  // Lade die Tabellennamen
         }
-        // Methode zum Erstellen der Datenbank und Tabelle
-        private void CreateDatabaseAndTable()
-        {
-            using (SQLiteConnection connection = new SQLiteConnection(dbConnectionString))
-            {
-                connection.Open();
-                string createTableQuery = @"CREATE TABLE IF NOT EXISTS People (
-                                            Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                            Name TEXT NOT NULL,
-                                            Age INTEGER NOT NULL)";
-                using (SQLiteCommand command = new SQLiteCommand(createTableQuery, connection))
-                {
-                    command.ExecuteNonQuery();
-                }
-            }
-        }
 
         // Methode zum Laden der Daten aus der Datenbank
         private void LoadDataFromDatabase()
@@ -79,7 +63,7 @@ namespace UniversityExamCreator.Views
                             string author = reader.GetString(8);        // Author
 
                             // Erstelle Task-Objekt und setze die richtigen Eigenschaften
-                            tasks.Add(new UniversityExamCreator.Models.Task(topic, author, type, difficulty, points, name));
+                            tasks.Add(new UniversityExamCreator.Models.Task(topic, author, type, difficulty, points, name, content));
                         }
                     }
                 }
