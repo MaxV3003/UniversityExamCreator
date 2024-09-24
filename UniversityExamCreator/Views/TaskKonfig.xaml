@@ -22,7 +22,7 @@
             </ComboBox>
 
             <TextBlock x:Name="Theme"  HorizontalAlignment="Left" Height="20" Margin="103,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" FontFamily="Verdana" Foreground="#FF0068B4"><Run Text="Them"/><Run Text="a"/></TextBlock>
-            <TextBox Name="ThemeText" HorizontalAlignment="Left" Height="21" Margin="241,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="397" MaxLength="100"
+            <TextBox Name="ThemeText" HorizontalAlignment="Left" Height="21" Margin="241,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="399" MaxLength="100"
                  AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Background="#FFF5FBFB" BorderBrush="#FFAACEE9"/>
 
             <TextBlock x:Name="QuestionMC"  HorizontalAlignment="Left" Height="20" Margin="103,158,0,0"
@@ -35,7 +35,7 @@
                     </LinearGradientBrush>
                 </ComboBox.Background>
             </ComboBox>
-            
+
 
             <TextBlock Name="MCRules" Text="Text der den Studenten angibt welche Regeln für die Multiple Choice Fragen gelten"  HorizontalAlignment="Left"
                    Height="32" Margin="104,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" FontFamily="Verdana" Foreground="#FF0068B4"/>
@@ -55,11 +55,11 @@
             </ComboBox>
 
             <TextBlock x:Name="Points"  HorizontalAlignment="Left" Height="20" Margin="103,311,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" FontFamily="Verdana" Foreground="#FF0068B4" Text="Punkte"/>
-            <TextBox Name="PointsText" HorizontalAlignment="Left" Height="21" Margin="241,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="396" MaxLength="100"
+            <TextBox Name="PointsText" HorizontalAlignment="Left" Height="21" Margin="241,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="399" MaxLength="100"
                  AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Background="#FFF5FBFB" BorderBrush="#FFAACEE9"/>
 
             <TextBlock Name="Title" Text="Titel der Aufgabe"  HorizontalAlignment="Left" Height="20" Margin="97,347,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="107" FontFamily="Verdana" Foreground="#FF0068B4"/>
-            <TextBox Name="TitleText" HorizontalAlignment="Left" Height="21" Margin="240,346,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="395" MaxLength="100"
+            <TextBox Name="TitleText" HorizontalAlignment="Left" Height="21" Margin="240,346,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="399" MaxLength="100"
                  AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Background="#FFF5FBFB" BorderBrush="#FFAACEE9"/>
 
             <Button Name="Back" Content="zurück" HorizontalAlignment="Left" Height="24" Margin="78,379,0,0" VerticalAlignment="Top" Width="71" Click="Back_Click" Background="#FFF5FBFB" Foreground="#FF0068B4" BorderBrush="#FFAACEE9"/>
@@ -67,11 +67,4 @@
 
         </Grid>
     </Viewbox>
-
-
-
-
-
-
-
 </Page>
