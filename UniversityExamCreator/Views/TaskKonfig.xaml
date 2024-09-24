@@ -35,16 +35,7 @@
                     </LinearGradientBrush>
                 </ComboBox.Background>
             </ComboBox>
-            <TextBlock Name="MCCount" Text="Anzahl der Multiple Choice Antworten"  HorizontalAlignment="Left" Height="17" Margin="363,155,0,0" TextWrapping="Wrap"
-                   VerticalAlignment="Top" Width="215" FontFamily="Verdana" Foreground="#FF0068B4"/>
-            <ComboBox Name="MCCountDD" HorizontalAlignment="Left" Margin="544,152,0,0" VerticalAlignment="Top" Width="92" Height="21" >
-                <ComboBox.Background>
-                    <LinearGradientBrush EndPoint="0,1">
-                        <GradientStop Color="#FFF0F0F0"/>
-                        <GradientStop Color="#FFF5FBFB" Offset="1"/>
-                    </LinearGradientBrush>
-                </ComboBox.Background>
-            </ComboBox>
+            
 
             <TextBlock Name="MCRules" Text="Text der den Studenten angibt welche Regeln für die Multiple Choice Fragen gelten"  HorizontalAlignment="Left"
                    Height="32" Margin="104,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" FontFamily="Verdana" Foreground="#FF0068B4"/>

@@ -63,7 +63,7 @@ namespace UniversityExamCreator.Views
                             string author = reader.GetString(8);        // Author
 
                             // Erstelle Task-Objekt und setze die richtigen Eigenschaften
-                            tasks.Add(new UniversityExamCreator.Models.Task(topic, author, type, difficulty, points, name));
+                            tasks.Add(new UniversityExamCreator.Models.Task(topic, author, type, difficulty, points, name, content));
                         }
                     }
                 }
