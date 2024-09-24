@@ -209,33 +209,41 @@ namespace UniversityExamCreator.Views
 
         private void LoadTableData(string tableName)
         {
-            string query = tableQueries[tableName];
-
-            using (SQLiteConnection connection = new SQLiteConnection(dbConnectionString))
+            try
             {
-                connection.Open();
+                string query = tableQueries[tableName];
 
-                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                using (SQLiteConnection connection = new SQLiteConnection(dbConnectionString))
                 {
-                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    connection.Open();
+
+                    using (SQLiteCommand command = new SQLiteCommand(query, connection))
                     {
-                        var dataTable = new DataTable();
-                        dataTable.Load(reader);  // Lade die Daten in ein DataTable-Objekt
-
-                        // Überprüfe, ob Daten geladen wurden
-                        if (dataTable.Rows.Count > 0)
+                        using (SQLiteDataReader reader = command.ExecuteReader())
                         {
-                            MessageBox.Show($"{dataTable.Rows.Count} Zeilen geladen");
-                        }
-                        else
-                        {
-                            MessageBox.Show("Keine Daten geladen");
-                        }
+                            DataTable dataTable = new DataTable();
+                            dataTable.Load(reader);  // Lade die Daten in ein DataTable-Objekt
 
-                        dataGrid.ItemsSource = dataTable.DefaultView;  // Neue Datenquelle binden
-                        dataGrid.Items.Refresh();  // Aktualisiere die Anzeige
+                            // Überprüfe, ob Daten geladen wurden
+                            if (dataTable.Rows.Count > 0)
+                            {
+                                MessageBox.Show($"{dataTable.Rows.Count} Zeilen geladen");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Keine Daten geladen.");
+                            }
+
+                            dataGrid.Columns.Clear();  // Spalten zurücksetzen
+                            dataGrid.ItemsSource = dataTable.DefaultView;  // Neue Datenquelle binden
+                            dataGrid.Items.Refresh();  // Aktualisiere die Anzeige
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Fehler beim Laden der Daten: " + ex.Message);
             }
         }
     }

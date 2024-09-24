@@ -44,7 +44,7 @@
 
 
         <!-- DataGrid zur Anzeige der Aufgaben -->
-        <DataGrid Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,350,0,0" Width="760" Height="200" AutoGenerateColumns="False">
+        <DataGrid Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,350,0,0" Width="760" Height="200" AutoGenerateColumns="True">
             <!-- Spalten für die Daten -->
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50" IsReadOnly="True"/>
