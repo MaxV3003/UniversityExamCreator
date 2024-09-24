@@ -28,7 +28,7 @@ namespace UniversityExamCreator.Views
         PdfSharp.Pdf.PdfDocument document;
         PdfSharp.Drawing.XGraphics gfx;
 
-        //Test-Area
+        // Test-Area
         List <String> Fonts { get; set; }
 
         List<AdditionalInformation> additionalInformation;
@@ -50,8 +50,8 @@ namespace UniversityExamCreator.Views
         const double pageWidth = 600;
         const double margin = 60;
         const double innerWidth = pageWidth - 2 * margin;
-        const double taskSpacing = 20; // Decreased spacing between tasks
-        const double mcSpacing = 10; // Increased spacing between MC answers
+        const double taskSpacing = 20; 
+        const double mcSpacing = 10; 
         const double checkboxSize = 10;
         double yPoint = 100;
 
@@ -213,37 +213,52 @@ namespace UniversityExamCreator.Views
 
         private void GeneratePDFButton_Click(object sender, RoutedEventArgs e)
         {
+            // Create new PDF-Document, Page & Graphics
             PdfSharp.Pdf.PdfDocument newDocument = new PdfDocument()
             {
                 Info = { Title = "Klausur Vorschau" }
             };
+
+            // Page initializisation 
             document = newDocument;
             yPoint = 100;
-
-            // Initialize page and graphics
             PdfPage page = document.AddPage();
             gfx = XGraphics.FromPdfPage(page);
 
-            // Logo laden und einfügen
-            //XImage logo = XImage.FromFile("C:/Users/Max/source/repos/UniversityExamCreator/UniversityExamCreator/Models/OVGU-FIN_farbig.jpg");
-            string basePath = AppDomain.CurrentDomain.BaseDirectory;
-            string projectDirectory = Path.GetFullPath(Path.Combine(basePath, @"..\..\"));
-            string relativePath = @"Models\OVGU-FIN_farbig.jpg";
-            string fullPath = Path.Combine(projectDirectory, relativePath);
+            // Draw the PDF
+            drawCoverSheet(page);
+            yPoint = pageHeight;
+            drawTasks(page);
 
-            // Lade das Bild
+            // Save the document to a temporary file
+            tempFilename = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "KlausurVorschau.pdf");
+            document.Save(tempFilename);
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(tempFilename) { UseShellExecute = true });
+        }
+
+        private void drawCoverSheet(PdfPage page)
+        {
+            // All methods are hard-coded for consitency. 
+            drawHeader();
+            drawMetaTable();
+            drawTasksTable(page);
+            drawAdditionalInformation(page);
+        }
+
+        private void drawHeader()
+        {
+            // Laod Logo
+            PathFinder pathFinder = new PathFinder("Models", "OVGU-FIN_farbig.jpg");
+            string fullPath = pathFinder.GetPath();
             XImage logo = XImage.FromFile(fullPath);
             gfx.DrawImage(logo, 150, 0, 300, 100);
 
-            // Draw the Exam Header
+            // Initialize Exam-Header and first Line
             var examHeader = new XTextFormatter(gfx);
-
-            //Draw the Prof.
             string leftSideText = "Dr. ...";
-
-            //Draw the DateTime. 
             DateTime? selectedDate = ExamDate.SelectedDate;
 
+            // Draw the first Line 
             if (selectedDate.HasValue)
             {
                 DateTime date = selectedDate.Value;
@@ -253,52 +268,16 @@ namespace UniversityExamCreator.Views
                 gfx.DrawString(leftSideText, taskFont, XBrushes.Black, new XPoint(margin, yPoint));
                 gfx.DrawString(rightSideText, taskFont, XBrushes.Black, new XPoint(xRightPosition, yPoint));
                 yPoint += taskSpacing;
-                // Weiterverarbeitung des Datums
             }
             else
             {
-                // Kein Datum ausgewählt - Aufforderungsfenster anzeigen
                 MessageBox.Show("Bitte ein Datum eingeben.", "Fehlende Datumsangabe", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-
 
             // Draw the exam name with wrapping
             var examNameRect = new XRect(margin, yPoint, innerWidth, pageHeight - yPoint - margin);
             DrawWrappedText(Examconfig.ExamName, examTitelFont, examNameRect, out double textHeight);
-            yPoint += textHeight; // Problem: The Textheight isn't right after Measurement. If the Text is to long it will overlap the MetaTable.
-
-            //Draw the rest of the Sheet
-            drawCoverSheet(page);
-            yPoint = pageHeight;
-            drawTasks(page);
-
-
-            // Save the document to a temporary file
-            tempFilename = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "KlausurVorschau.pdf");
-            document.Save(tempFilename);
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(tempFilename) { UseShellExecute = true });
-        }
-
-        private void DrawWrappedText(string text, XFont font, XRect rect, out double textHeight)
-        {
-            var tf = new XTextFormatter(gfx);
-            tf.Alignment = XParagraphAlignment.Center;
-
-            // Measure text height to fit the rect
-            var size = gfx.MeasureString(text, font, XStringFormats.TopLeft);
-            textHeight = size.Height;
-
-            // Draw text with wrapping
-            tf.DrawString(text, font, XBrushes.Black, rect, XStringFormats.TopLeft);
-
-        }
-
-        private void drawCoverSheet(PdfPage page)
-        {
-            //static 
-            drawMetaTable();
-            drawTasksTable(page);
-            drawAdditionalInformation(page);
+            yPoint += textHeight; // Problem: The Textheight isn't right after Measurement. If the Text is to long it will overlap the MetaTable
         }
 
         private void drawMetaTable()
@@ -330,146 +309,155 @@ namespace UniversityExamCreator.Views
         {
             double cellHeight = 20;
             double defaultCellWidth = specialFont.Size*7;
+            string[,] data = new string[Tasks.Count + 1, 4]; // +1 for Header
 
-            Console.WriteLine("Default CellWidth: " + defaultCellWidth);
-
-            // Erstelle die Tabelle-Daten
-            string[,] data = new string[Tasks.Count + 1, 4]; // +1 für die Kopfzeile
-
-            // Kopfzeile
+            // Header
             string[] headers = { " # ", " Aufgabe ", " max. Punkte ", " erreicht " };
             for (int i = 0; i < headers.Length; i++)
             {
                 data[0, i] = headers[i];
             }
 
-            // Datenzeilen
-            int a = 1; // Beginne mit der zweiten Zeile, da die erste Zeile die Kopfzeile ist
+            // Datarows
+            int a = 1; // start at second entry
             foreach (var task in Tasks)
             {
-                data[a, 0] = (a).ToString();  // Index anpassen, damit es korrekt angezeigt wird
+                data[a, 0] = (a).ToString();  
                 data[a, 1] = task.TaskName;
                 data[a, 2] = task.Points.ToString();
                 data[a, 3] = "";
                 a++;
             }
 
-            // Berechne die maximale Breite der zweiten Spalte
+            // Calculate Tablesettings
             double secondColumnWidth = CalculateMaxCellWidthInSecondColumn(data, specialFont, defaultCellWidth);
-
-            // Gesamte Breite der Tabelle berechnen
             double totalTableWidth = defaultCellWidth * 3 + secondColumnWidth;
 
-            // Zeichnen des Hinweises
+            // Draw Information
             string noticeText = "Diese Tabelle bitte nicht ausfüllen!";
             gfx.DrawString(noticeText, specialFont, XBrushes.Black,
                            new XRect(margin, yPoint, innerWidth, specialFont.Height),
                            XStringFormats.Center);
             yPoint += specialFont.Height + 2;
 
-            // Zentrieren der Tabelle auf der Seite
+            // Center the table and draw it
             double x = (page.Width - totalTableWidth) / 2;
             double y = yPoint;
 
-            // Zeichnen der Tabelle
             for (int row = 0; row < data.GetLength(0); row++)
             {
-                double currentX = x; // Startpunkt der X-Koordinate für jede Zeile
+                double currentX = x; 
 
                 for (int col = 0; col < data.GetLength(1); col++)
                 {
                     double currentCellWidth = (col == 1) ? secondColumnWidth : defaultCellWidth;
 
-                    // Bestimme Formatierung für Kopfzeile (erste Zeile)
                     if (row == 0)
                     {
-                        // Zeichne die Kopfzeile mit spezieller Formatierung
+                        // Draw Heading 
                         gfx.DrawRectangle(XPens.Black, XBrushes.LightGray, currentX, y, currentCellWidth, cellHeight);
                         gfx.DrawString(data[row, col], specialFont, XBrushes.Black, new XRect(currentX, y, currentCellWidth, cellHeight), XStringFormats.Center);
                     }
                     else
                     {
-                        // Zeichne die Datenzeilen mit Standardformatierung
+                        // Draw Datarows
                         gfx.DrawRectangle(XPens.Black, currentX, y, currentCellWidth, cellHeight);
                         gfx.DrawString(data[row, col], specialFont, XBrushes.Black,
                                        new XRect(currentX, y, currentCellWidth, cellHeight),
                                        XStringFormats.Center);
                     }
 
-                    // Aktualisiere die X-Koordinate für die nächste Spalte
+                    // Update x-Coordinate
                     currentX += currentCellWidth;
                 }
 
-                // Erhöhe yPoint nach dem Zeichnen der Zeile, damit die nächste Zeile korrekt positioniert wird
+                // Update y-Coordinate
                 y += cellHeight;
             }
 
-            // Zusätzlicher Abstand nach der Tabelle
+            // Spacing after the table
             yPoint = y + 2 * cellHeight;
         }
 
         private void drawAdditionalInformation(PdfPage page)
         {
             double titelHigth = MeasureTextHeight("Hinweise", titleFont, innerWidth);
-
-            gfx.DrawString("Zusätzliche Hinweise", titleFont, XBrushes.Black, new XRect(margin, yPoint, innerWidth, page.Height), XStringFormats.TopCenter);
-            yPoint += titelHigth + taskSpacing / 2;
-
             List<String> checkedInfos = new List<String>();
-
-            foreach (var checkItem in additionalInformation) 
+            
+            foreach (var checkItem in additionalInformation)
             {
-                if (checkItem.IsChecked == true) 
+                if (checkItem.IsChecked == true)
                 {
                     checkedInfos.Add(checkItem.Content);
                 }
             }
 
+            // Draw title
+            gfx.DrawString("Zusätzliche Hinweise", titleFont, XBrushes.Black, new XRect(margin, yPoint, innerWidth, page.Height), XStringFormats.TopCenter);
+            yPoint += titelHigth + taskSpacing / 2;
+
+            // Draw the additional Information
             foreach (var info in checkedInfos)
             {
-                string bulletPoint = "\u2022 "; // Unicode für den Punkt (•)
+                string bulletPoint = "\u2022 "; // Unicode for Dots
                 string bulletText = bulletPoint + info;
-
                 double infoHigth = MeasureTextHeight(bulletText, specialFont, innerWidth / 2);
 
+                // Update page-amount if necessary 
                 if (yPoint + infoHigth > pageHeight - margin)
                 {
-                    // Neue Seite hinzufügen und yPoint zurücksetzen
                     page = document.AddPage();
                     gfx = XGraphics.FromPdfPage(page);
-                    yPoint = margin; // Zurücksetzen auf den oberen Rand der neuen Seite
+                    yPoint = margin;
                 }
 
+                // Add justification
                 var tf = new XTextFormatter(gfx)
                 {
-                    Alignment = XParagraphAlignment.Justify // Setzt den Text im Blocksatz
+                    Alignment = XParagraphAlignment.Justify 
                 };
 
-                // Berechnung der X-Position, um den Text in der Mitte der Seite anzuzeigen
+                // Center the text
                 double xPosition = (page.Width - innerWidth / 2) / 2;
                 var rect = new XRect(xPosition, yPoint, innerWidth / 2, page.Height - yPoint - margin);
 
+                // Draw bulletpoints
                 tf.DrawString(bulletText, specialFont, XBrushes.Black, rect, XStringFormats.TopLeft);
-                yPoint += infoHigth + 2; // Etwas Platz zwischen den Stichpunkten
+                yPoint += infoHigth + 2; 
             }
+        }
+
+        private void DrawWrappedText(string text, XFont font, XRect rect, out double textHeight)
+        {
+            var tf = new XTextFormatter(gfx);
+            tf.Alignment = XParagraphAlignment.Center;
+
+            // Measure text height to fit the rect
+            var size = gfx.MeasureString(text, font, XStringFormats.TopLeft);
+            textHeight = size.Height;
+
+            // Draw text with wrapping
+            tf.DrawString(text, font, XBrushes.Black, rect, XStringFormats.TopLeft);
+
         }
 
         private double getCellWidth(string text, XFont font, double cellWidth)
         {
-            // Erzeuge einen Grafik-Kontext zum Messen des Textes
+            // Create a Datacontext for a cell
             using (var gfx = XGraphics.CreateMeasureContext(
-                new XSize(1000, 1000),               // Größe des Messbereichs
-                XGraphicsUnit.Point,                 // Maßeinheit
-                XPageDirection.Downwards))           // Seitenausrichtung
+                new XSize(1000, 1000),               // Size of measuring range
+                XGraphicsUnit.Point,                 // Measurement-Unit
+                XPageDirection.Downwards))           // Side Alignment
             {
                 XSize size = gfx.MeasureString(text, font);
+
                 if (size.Width < cellWidth)
                 {
                     return cellWidth;
                 }
                 else
                 {
-                    return size.Width; // Gibt die tatsächliche Breite des Textes zurück
+                    return size.Width; 
                 }
             }
         }
@@ -478,7 +466,8 @@ namespace UniversityExamCreator.Views
         {
             double maxWidth = 0;
 
-            for (int row = 1; row < data.GetLength(0); row++) // Beginne bei 1, um die Kopfzeile zu überspringen
+            // Ignore Header-Line
+            for (int row = 1; row < data.GetLength(0); row++) 
             {
                 double currentWidth = getCellWidth(data[row, 1], font, cellWidth);
                 if (currentWidth > maxWidth)
@@ -487,19 +476,21 @@ namespace UniversityExamCreator.Views
                 }
             }
 
-            return maxWidth + 10; // Padding hinzufügen
+            // Padding
+            return maxWidth + 10; 
         }
 
         private void drawTasks(PdfPage page)
         {
             List<Task> tasks = taskCreator();
 
-            //hier werden die Tasks aus der ExamCreate überführt 
+            // Copy the tasks which were selected on the ExamCreate-Page 
             foreach (var task in Tasks)
             {
                 tasks.Add(task);
             }
 
+            // Draw the tasks
             foreach (var task in tasks)
             {
                 double titleHeight = MeasureTextHeight(task.TaskName, titleFont, innerWidth);
@@ -537,7 +528,7 @@ namespace UniversityExamCreator.Views
                 gfx.DrawString(task.TaskName, titleFont, XBrushes.Black, new XRect(margin, yPoint, innerWidth, page.Height), XStringFormats.TopLeft);
                 yPoint += titleHeight;
 
-                // Draw the task description using XTextFormatter
+                // Draw the task description 
                 var tf = new XTextFormatter(gfx);
                 var rect = new XRect(margin, yPoint, innerWidth, page.Height - yPoint - margin);
                 tf.DrawString(task.TaskContent, taskFont, XBrushes.Black, rect, XStringFormats.TopLeft);
@@ -550,14 +541,13 @@ namespace UniversityExamCreator.Views
                     {
                         double mcAnswerHeight = MeasureTextHeight(mcAnswer.Content, mcFont, innerWidth - checkboxSize - 5);
 
-                        // Draw the checkbox
                         gfx.DrawRectangle(XPens.Black, XBrushes.White, new XRect(margin, yPoint, checkboxSize, checkboxSize));
-
-                        // Draw the MC answer text
                         gfx.DrawString(mcAnswer.Content, mcFont, XBrushes.Black, new XRect(margin + checkboxSize + 5, yPoint, innerWidth - checkboxSize - 5, page.Height), XStringFormats.TopLeft);
 
                         yPoint += mcAnswerHeight + mcSpacing;
                     }
+
+                    // Add Spacing 
                     yPoint += taskSpacing;
                 }
             }
@@ -565,7 +555,7 @@ namespace UniversityExamCreator.Views
 
         private List<Task> taskCreator()
         {
-            ///Task-Stuff
+            // Task-Stuff
             var tasks = new List<Task>
             {
                 new Task("Einf", "Datastruct", "OF", "Easy", 3, "Task 1")
@@ -676,6 +666,7 @@ namespace UniversityExamCreator.Views
                 }
             };
 
+            // Task-Switch-Content
             foreach (UniversityExamCreator.Models.Task task in tasksSwitch) 
             {
                 tasks.Add(task);
@@ -705,6 +696,7 @@ namespace UniversityExamCreator.Views
 
         private double MeasureTextHeight(string text, XFont font, double width)
         {
+            // Add a temporary page for measuring 
             using (var tempDocument = new PdfDocument())
             {
                 var tempPage = tempDocument.AddPage();
@@ -738,13 +730,11 @@ namespace UniversityExamCreator.Views
 
             foreach (var word in words)
             {
-                // Measure current line width with new word added
                 var proposedSize = gfx.MeasureString(currentLine.ToString() + " " + word, font);
 
                 // Check if adding the new word exceeds innerWidth
                 if (proposedSize.Width > innerWidth)
                 {
-                    // Add current line to lines and start new line with current word
                     lines.Add(currentLine.ToString());
                     currentLine.Clear();
                     currentLine.Append(word);
@@ -753,7 +743,6 @@ namespace UniversityExamCreator.Views
                     // Check if new line exceeds page height
                     if (currentY + font.GetHeight() > pageHeight - margin)
                     {
-                        // Add remaining text as one line and return
                         lines.Add(currentLine.ToString());  //potenzielle Fehlerquelle, falls Aufgabe zu lang ist 
                         return lines;
                     }
@@ -831,7 +820,7 @@ namespace UniversityExamCreator.Views
 
         private void LoadDataFromDatabase()
         {
-            tasksSwitch.Clear(); // Lösche alle vorhandenen Daten in der ObservableCollection
+            tasksSwitch.Clear();
 
             using (SQLiteConnection connection = new SQLiteConnection(dbConnectionString))
             {
@@ -844,14 +833,14 @@ namespace UniversityExamCreator.Views
                     {
                         while (reader.Read())
                         {
-                            string topic = reader.GetString(1);         // Topic
-                            string type = reader.GetString(2);          // TaskType
-                            string difficulty = reader.GetString(3);    // Difficulty
-                            int points = reader.GetInt32(4);            // Points
-                            string name = reader.GetString(5);          // TaskName
-                            string content = reader.GetString(6);       // TaskContent
-                            DateTime dateCreated = reader.GetDateTime(7); // DateCreated
-                            string author = reader.GetString(8);        // Author
+                            string topic = reader.GetString(1);             // Topic
+                            string type = reader.GetString(2);              // TaskType
+                            string difficulty = reader.GetString(3);        // Difficulty
+                            int points = reader.GetInt32(4);                // Points
+                            string name = reader.GetString(5);              // TaskName
+                            string content = reader.GetString(6);           // TaskContent
+                            DateTime dateCreated = reader.GetDateTime(7);   // DateCreated
+                            string author = reader.GetString(8);            // Author
 
                             // Erstelle Task-Objekt und setze die richtigen Eigenschaften
                             // hier müssen noch die zusätzlichen Eigenschaften eingefügt werden, die angezeigt werden sollen
@@ -902,7 +891,7 @@ namespace UniversityExamCreator.Views
                     int targetIdx = tasksSwitch.IndexOf(target);
 
                     tasksSwitch.Move(removedIdx, targetIdx);
-                    // Optionale Datenbankaktualisierung nach Drag-and-Drop
+
                     // UpdateDatabaseAfterReorder();
                 }
             }
@@ -930,11 +919,7 @@ namespace UniversityExamCreator.Views
         }
 
         // Optional: Aktualisiere die Reihenfolge in der Datenbank
-        private void UpdateDatabaseAfterReorder()
-        {
-            // Implementieren Sie eine Methode, um die Reihenfolge der Aufgaben in der Datenbank zu speichern,
-            // z. B. indem Sie eine neue Spalte für die Sortierreihenfolge hinzufügen.
-        }
+        private void UpdateDatabaseAfterReorder() { }
     }
 }
 
