@@ -66,17 +66,6 @@ namespace UniversityExamCreator.Views
             MCDD.Items.Add("Offene Frage");
             MCDD.SelectedIndex = 1;
 
-            MCCountDD.Items.Add("1");
-            MCCountDD.Items.Add("2");
-            MCCountDD.Items.Add("3");
-            MCCountDD.Items.Add("4");
-            MCCountDD.Items.Add("5");
-            MCCountDD.Items.Add("6");
-            MCCountDD.Items.Add("7");
-            MCCountDD.Items.Add("8");
-            MCCountDD.Items.Add("9");
-            MCCountDD.Items.Add("10");
-
             DifficultyDD.Items.Add("Leicht");
             DifficultyDD.Items.Add("Mittel");
             DifficultyDD.Items.Add("Schwer");
@@ -184,12 +173,6 @@ namespace UniversityExamCreator.Views
                     MCRulesText.BorderThickness = new Thickness(2);
                     return false;
                 }
-                else if (MCCountDD.SelectedItem == null)
-                {
-                    MCCountDD.BorderBrush = Brushes.Red;
-                    MCCountDD.BorderThickness = new Thickness(2);
-                    return false;
-                }
             }
             return true;
         }
@@ -205,15 +188,11 @@ namespace UniversityExamCreator.Views
 
             if (MCDD.SelectedItem.ToString() == "Multiple Choice")
             {
-                MCCountDD.Visibility = Visibility.Visible;
-                MCCount.Visibility = Visibility.Visible;
                 MCRulesText.Visibility = Visibility.Visible;
                 MCRules.Visibility = Visibility.Visible;
             }
             else
             {
-                MCCountDD.Visibility = Visibility.Hidden;
-                MCCount.Visibility = Visibility.Hidden; 
                 MCRulesText.Visibility = Visibility.Hidden;
                 MCRules.Visibility= Visibility.Hidden;  
             }
