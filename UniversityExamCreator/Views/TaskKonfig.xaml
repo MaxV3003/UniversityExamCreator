@@ -12,7 +12,7 @@
         <Grid Background="#FFF5FBFB" Width="800" Height="450">
 
             <TextBlock x:Name="Modul"  HorizontalAlignment="Left" Height="17" Margin="101,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" FontFamily="Verdana" Foreground="#FF0068B4" Text="Modul"/>
-            <ComboBox Name="ModulDD" HorizontalAlignment="Left" Height="21" Margin="241,61,0,0" VerticalAlignment="Top" Width="399" BorderBrush="#FFAACEE9" >
+            <ComboBox Name="ModulDD" HorizontalAlignment="Left" Height="21" Margin="241,61,0,0" VerticalAlignment="Top" Width="399" BorderBrush="#FFAACEE9" SelectionChanged="ModulDD_SelectionChanged" >
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>

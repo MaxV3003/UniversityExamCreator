@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SQLite; // SQLite-Bibliothek importieren
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using UniversityExamCreator.Models;
-using System.Windows.Shapes;
 
 namespace UniversityExamCreator.Views
 {
@@ -24,8 +14,9 @@ namespace UniversityExamCreator.Views
         public TaskKonfig()
         {
             InitializeComponent();
-            InitializeDD();
-        }        
+            InitializeDD();  // Initialisiere die statischen Dropdown-Werte
+            LoadModulesFromDatabase(); // Lade Module aus der Datenbank
+        }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
@@ -36,32 +27,26 @@ namespace UniversityExamCreator.Views
         {
             if (CheckFilled() == true)
             {
-                if(MCDD.Text == "Multiple Choice")
+                if (MCDD.Text == "Multiple Choice")
                 {
-                    
                     NextPath(CreateTaskMC());
                 }
                 else
                 {
-                    
                     NextPath(CreateTaskOF());
-                }           
+                }
             }
             else
             {
                 MessageBox.Show("Bitte alle Felder füllen");
-                
             }
         }
+
         /// <summary>
-        /// Erzeugt die Dropdown Optionen.
+        /// Initialisiert statische Dropdown-Optionen.
         /// </summary>
         private void InitializeDD()
         {
-            ModulDD.Items.Add("Einfinf");
-            ModulDD.Items.Add("Mathe 1");
-            ModulDD.Items.Add("Mathe 2");
-
             MCDD.Items.Add("Multiple Choice");
             MCDD.Items.Add("Offene Frage");
             MCDD.SelectedIndex = 1;
@@ -69,7 +54,41 @@ namespace UniversityExamCreator.Views
             DifficultyDD.Items.Add("Leicht");
             DifficultyDD.Items.Add("Mittel");
             DifficultyDD.Items.Add("Schwer");
+        }
 
+        /// <summary>
+        /// Lädt die Modulnamen aus der SQLite-Datenbank und fügt sie in die Modul-ComboBox ein.
+        /// </summary>
+        private void LoadModulesFromDatabase()
+        {
+            try
+            {
+                PathFinder pathFinder = new PathFinder("Databases", "database.db");
+                string databasePath = pathFinder.GetPath();
+
+                using (var connection = new SQLiteConnection($"Data Source={databasePath};Version=3;"))
+                {
+                    connection.Open();
+
+                    // SQL-Abfrage zum Abrufen der Modulnamen
+                    string query = "SELECT Name FROM Module"; // Annahme: Die Tabelle 'Module' hat eine Spalte 'Name'
+                    using (var command = new SQLiteCommand(query, connection))
+                    {
+                        using (var reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                // Füge den Modulnamen zur ComboBox hinzu
+                                ModulDD.Items.Add(reader["name"].ToString());
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Fehler beim Laden der Module: " + ex.Message);
+            }
         }
 
         private Models.Task CreateTaskMC()
@@ -79,6 +98,7 @@ namespace UniversityExamCreator.Views
             Models.Task taskMC = new Models.Task(ModulDD.SelectedItem.ToString(), ThemeText.Text, MCDD.SelectedItem.ToString(), DifficultyDD.SelectedItem.ToString(), points, TitleText.Text);
             return taskMC;
         }
+
         private Models.Task CreateTaskOF()
         {
             int points;
@@ -87,9 +107,6 @@ namespace UniversityExamCreator.Views
             return taskOF;
         }
 
-        /// <summary>
-        /// NextPath entscheidet auf welche WPF-Seite der User als nächstes kommt, basierend auf den Eingaben auf der aktuellen Seite.
-        /// </summary>
         private void NextPath(Models.Task task)
         {
             if (MCDD.Text == "Multiple Choice")
@@ -102,65 +119,35 @@ namespace UniversityExamCreator.Views
             }
         }
 
-        private string CheckEerythingFilled()
+        private Boolean CheckFilled()
         {
-            return "";
-        }
-        
-
-
-        /// <summary>
-        /// ZUm testen neuer Funktionen
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Test_Click(object sender, RoutedEventArgs e)
-        {
-            //string[] test = new string[5];
-            
-            /*string testString = "";
-            for (int j = 0; j < 5; j++)
-            {
-                testString = testString + test[j];
-            }*/
-
-            //Text();
-        }
-        /// <summary>
-        /// Checkt, ob alle Pflichfelder befüllt wurden und markiert alle rot, die nicht befüllt wurden.
-        /// </summary>
-        /// <returns></returns>
-        private Boolean CheckFilled()// Kann man noch besser schreiben, sodass alle fehlenden Felder direkt markiert werden.
-        {
-            //string selectedText = MCDD.SelectedItem.ToString();
-
             if (ModulDD.SelectedItem == null)
             {
-                ModulDD.BorderBrush = Brushes.Red;
+                ModulDD.BorderBrush = System.Windows.Media.Brushes.Red;
                 ModulDD.BorderThickness = new Thickness(2);
                 return false;
             }
             else if (ThemeText.Text == "")
             {
-                ThemeText.BorderBrush = Brushes.Red;
+                ThemeText.BorderBrush = System.Windows.Media.Brushes.Red;
                 ThemeText.BorderThickness = new Thickness(2);
                 return false;
             }
             else if (DifficultyDD.SelectedItem == null)
             {
-                DifficultyDD.BorderBrush = Brushes.Red;
+                DifficultyDD.BorderBrush = System.Windows.Media.Brushes.Red;
                 DifficultyDD.BorderThickness = new Thickness(2);
                 return false;
             }
             else if (PointsText.Text == "")
             {
-                PointsText.BorderBrush = Brushes.Red;
+                PointsText.BorderBrush = System.Windows.Media.Brushes.Red;
                 PointsText.BorderThickness = new Thickness(2);
                 return false;
             }
             else if (TitleText.Text == "")
             {
-                TitleText.BorderBrush = Brushes.Red;
+                TitleText.BorderBrush = System.Windows.Media.Brushes.Red;
                 TitleText.BorderThickness = new Thickness(2);
                 return false;
             }
@@ -169,7 +156,7 @@ namespace UniversityExamCreator.Views
             {
                 if (MCRules.Text == "")
                 {
-                    MCRulesText.BorderBrush = Brushes.Red;
+                    MCRulesText.BorderBrush = System.Windows.Media.Brushes.Red;
                     MCRulesText.BorderThickness = new Thickness(2);
                     return false;
                 }
@@ -177,15 +164,8 @@ namespace UniversityExamCreator.Views
             return true;
         }
 
-        /// <summary>
-        /// Die Felder MCCCountDD und MCRulesText werden erst benutzbar gemacht, wenn Multiple Choice als Art der Klausur ausgewählt wurde.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void MCDD_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //string selectedText = MCDD.SelectedItem.ToString();
-
             if (MCDD.SelectedItem.ToString() == "Multiple Choice")
             {
                 MCRulesText.Visibility = Visibility.Visible;
@@ -194,9 +174,19 @@ namespace UniversityExamCreator.Views
             else
             {
                 MCRulesText.Visibility = Visibility.Hidden;
-                MCRules.Visibility= Visibility.Hidden;  
+                MCRules.Visibility = Visibility.Hidden;
             }
         }
+
+        private void ModulDD_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Test_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
-    
 }
+
