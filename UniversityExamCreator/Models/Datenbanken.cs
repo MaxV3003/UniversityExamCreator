@@ -85,30 +85,30 @@ public class DatabaseManager
 
             string createModuleTable = @"
             CREATE TABLE IF NOT EXISTS module (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name VARCHAR(50) NOT NULL,
-            faculty VARCHAR(50) NOT NULL
+            moduleID INTEGER PRIMARY KEY,
+            name TEXT NOT NULL
             );";
 
             ExecuteNonQuery(conn, createTaskTable);
             ExecuteNonQuery(conn, createExamTable);
-            ExecuteNonQuery(conn, createExamTaskTable); 
+            ExecuteNonQuery(conn, createExamTaskTable);
             ExecuteNonQuery(conn, createUserTable);
             ExecuteNonQuery(conn, createAnswerTable);
             ExecuteNonQuery(conn, createExamConfigTable);
             ExecuteNonQuery(conn, createTaskAnswerTable);
             ExecuteNonQuery(conn, createModuleTable);
         }
+    }
 
-        void ExecuteNonQuery(SQLiteConnection conn, string sql)
+    private void ExecuteNonQuery(SQLiteConnection conn, string sql)
+    {
+        using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
         {
-            using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
-            {
-                cmd.ExecuteNonQuery();
-            }
+            cmd.ExecuteNonQuery();
         }
     }
 }
+
 
 
 

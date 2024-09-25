@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Navigation;
+using System.Data.SQLite;
 using UniversityExamCreator.Models;
 using UniversityExamCreator.Services;
 
@@ -20,16 +20,10 @@ namespace UniversityExamCreator.Views
             Examconfig = examconfig;
             InitializeComponent();
 
-            //ComboBox-Content
-            Module.Items.Add("EinfInf");
-            Module.Items.Add("Mathe3");
-            Module.Items.Add("AuD");
+            // Lade die Module in die ComboBox durch eine direkte SQL-Abfrage
+            LoadModulesFromDatabase();
 
             ConfigLoader(examconfig);
-            /*
-             * Implement the Function to get the Items from the list
-             * List<string> Items = getDropDownItems();
-             */
 
             PathFinder pathFinder = new PathFinder("Databases", "database.db");
             DatabaseManager databaseManager = new DatabaseManager(pathFinder.GetPath());
@@ -37,6 +31,41 @@ namespace UniversityExamCreator.Views
 
             DataService dataService = new DataService(pathFinder.GetPath());
             dataService.InsertTask("test", "test", "testetstest", 1000, "test", "1000Test", DateTime.Now, "MV");
+        }
+
+        /// <summary>
+        /// Lädt die Module direkt aus der Datenbank und fügt sie in die ComboBox ein.
+        /// </summary>
+        private void LoadModulesFromDatabase()
+        {
+            try
+            {
+                PathFinder pathFinder = new PathFinder("Databases", "database.db");
+                string databasePath = pathFinder.GetPath();
+
+                using (var connection = new SQLiteConnection($"Data Source={databasePath};Version=3;"))
+                {
+                    connection.Open();
+
+                    // SQL-Abfrage zum Abrufen der Modulnamen
+                    string query = "SELECT Name FROM Module"; // Annahme: Die Tabelle 'Module' hat eine Spalte 'Name'
+                    using (var command = new SQLiteCommand(query, connection))
+                    {
+                        using (var reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                // Füge den Modulnamen zur ComboBox hinzu
+                                Module.Items.Add(reader.GetString(0));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Fehler beim Laden der Module: " + ex.Message);
+            }
         }
 
         /// <summary>
@@ -93,7 +122,7 @@ namespace UniversityExamCreator.Views
         /// </summary>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new ToolsPage());  
+            NavigationService.Navigate(new ToolsPage());
         }
 
         /// <summary>
@@ -101,7 +130,7 @@ namespace UniversityExamCreator.Views
         /// </summary>
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           Examconfig.ModuleID = Module.SelectedItem.ToString();
+            Examconfig.ModuleID = Module.SelectedItem.ToString();
         }
 
         /// <summary>
@@ -154,3 +183,4 @@ namespace UniversityExamCreator.Views
         }
     }
 }
+

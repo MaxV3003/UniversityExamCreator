@@ -164,19 +164,19 @@ namespace UniversityExamCreator.Services
         }
 
         // Insert Module
-        public void InsertModule(int module_id, string faculty)
+        public void InsertModule(string modulID, string name)
         {
             using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
                 string query = @"
-                    INSERT INTO module (module_id, faculty) 
-                    VALUES (@module_id, @faculty)";
+            INSERT INTO module (modulID, name) 
+            VALUES (@modulID, @name)";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, conn))
                 {
-                    command.Parameters.AddWithValue("@module_id", module_id);
-                    command.Parameters.AddWithValue("@faculty", faculty);
+                    command.Parameters.AddWithValue("@modulID", modulID);
+                    command.Parameters.AddWithValue("@name", name);
                     command.ExecuteNonQuery();
                 }
             }
@@ -298,20 +298,21 @@ namespace UniversityExamCreator.Services
         }
 
         // Delete Module
-        public void DeleteModule(int id)
+        public void DeleteModule(string modulID)
         {
             using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
-                string query = "DELETE FROM module WHERE id = @id";
+                string query = "DELETE FROM module WHERE modulID = @modulID";
                 using (SQLiteCommand command = new SQLiteCommand(query, conn))
                 {
-                    command.Parameters.AddWithValue("@id", id);
+                    command.Parameters.AddWithValue("@modulID", modulID);
                     command.ExecuteNonQuery();
-                    Console.WriteLine("Module erfolgreich gelöscht.");
+                    Console.WriteLine("Modul erfolgreich gelöscht.");
                 }
             }
         }
+
 
         //----------------------------------- 
         // If-Exists Section
@@ -479,17 +480,17 @@ namespace UniversityExamCreator.Services
         }
 
         // Check if Module Exists
-        public bool IfModuleExists(int id)
+        public bool IfModuleExists(string modulID)
         {
             try
             {
                 using (SQLiteConnection conn = new SQLiteConnection(connection))
                 {
                     conn.Open();
-                    string query = "SELECT COUNT(1) FROM module WHERE id = @id";
+                    string query = "SELECT COUNT(1) FROM module WHERE modulID = @modulID";
                     using (SQLiteCommand command = new SQLiteCommand(query, conn))
                     {
-                        command.Parameters.AddWithValue("@id", id);
+                        command.Parameters.AddWithValue("@modulID", modulID);
                         return Convert.ToInt32(command.ExecuteScalar()) > 0;
                     }
                 }
@@ -500,7 +501,6 @@ namespace UniversityExamCreator.Services
                 return false;
             }
         }
-
     }
 }
 

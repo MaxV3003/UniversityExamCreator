@@ -67,5 +67,6 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <Button Content="Zurück" HorizontalAlignment="Left" Margin="700,298,0,0" VerticalAlignment="Top" Click="Button_Click_1" Width="71" Height="24" FontFamily="Verdana" Foreground="#FF0068B4" Background="#FFF5FBFB" BorderBrush="#FFAACEE9"/>
     </Grid>
 </Page>
