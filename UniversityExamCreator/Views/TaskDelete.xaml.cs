@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.SQLite;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UniversityExamCreator.Models;
 using static UniversityExamCreator.Views.ExamCreate;
 
 namespace UniversityExamCreator.Views
@@ -39,20 +42,13 @@ namespace UniversityExamCreator.Views
             InitializeComponent();
 
             // Initialize the ObservableCollection and add items
-            Items = new ObservableCollection<Item>
-            {
-                new Item { Name = "Item is cool but does it have much place to exist1", IsSelected = false, Info = "Information about Item 1", Points=2, Theme ="Test", Difficulty="leicht"},
-                new Item { Name = "Item 2", IsSelected = false, Info = "Information about Item 2", Points = 2, Theme="Datenbanken", Difficulty="leicht"},
-                new Item { Name = "Item 3", IsSelected = false, Info = "Information about Item 3", Points = 3, Theme="Datenbanken", Difficulty="schwer"},
-                new Item { Name = "Item 1", IsSelected = false, Info = "Information about Item 1", Points = 3, Theme="Programmieren", Difficulty="normal"},
-                new Item { Name = "Item 2", IsSelected = false, Info = "Information about Item 2", Points = 1, Theme="Programmieren", Difficulty="schwer"},
-                new Item { Name = "Item 3", IsSelected = false, Info = "Information about Item 3", Points = 1, Theme="Lineare Algebra", Difficulty="schwer"},
-                new Item { Name = "Item 1", IsSelected = false, Info = "Information about Item 1", Points = 3, Theme="Lineare Algebra", Difficulty="normal"},
-               };
+            Items = new ObservableCollection<Item>();
 
             // Initialize the filtered items collection
             FilteredItems = new ObservableCollection<Item>();
             SelectedItems = new ObservableCollection<Item>();
+
+            LoadTasksFromDatabase();
 
             // Initialize the themes list and populate it with distinct themes
             Themes = Items.Select(i => i.Theme).Distinct().ToList();
@@ -139,8 +135,6 @@ namespace UniversityExamCreator.Views
                 }
                 item.IsSelected = false; // Reset the IsSelected property
             }
-            //UpdateSelectedItemsPoints();
-            NavigationService.Navigate(new ToolsPage());
 
         }
 
@@ -154,9 +148,6 @@ namespace UniversityExamCreator.Views
             {
                 SelectedItems.Remove(item);
             }
-            //UpdateSelectedItemsPoints();
-            NavigationService.Navigate(new ToolsPage());
-
         }
 
 
@@ -172,29 +163,74 @@ namespace UniversityExamCreator.Views
             public string Difficulty { get; set; }
         }
 
-    private void Back_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new ToolsPage());
-        }
-
-        private void Delete_Click(object sender, RoutedEventArgs e)
-        {
-            //Selected Items aus der Datenbank löschen
-            if (/*Check if deleted) == true*/0==0)
-            {
-                MessageBox.Show("Aufgabe aus der Datenbank gelöscht");
-            }
-            else
-            {
-                MessageBox.Show("Löschung konnte nicht ausgeführt werden");
-            }
-
-            NavigationService.Navigate(new ToolsPage());
-        }
-
         private void ItemListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+        private void LoadTasksFromDatabase()
+        {
+            try
+            {
+                // Pfad zur SQLite-Datenbankdatei ermitteln
+                PathFinder pathFinder = new PathFinder("Databases", "database.db");
+                string databasePath = pathFinder.GetPath();
+
+                // Überprüfen, ob die Datenbankdatei existiert
+                if (!File.Exists(databasePath))
+                {
+                    throw new FileNotFoundException("Datenbankdatei nicht gefunden: " + databasePath);
+                }
+
+                // Verbindung zur SQLite-Datenbank öffnen
+                using (var connection = new SQLiteConnection($"Data Source={databasePath};Version=3;"))
+                {
+                    connection.Open();
+
+                    // SQL-Abfrage zum Abrufen der Aufgaben aus der Tabelle "task"
+                    string query = "SELECT topic, type, difficulty, points, name, content FROM task";
+                    using (var command = new SQLiteCommand(query, connection))
+                    {
+                        using (var reader = command.ExecuteReader())
+                        {
+                            // Überprüfen, ob Einträge vorhanden sind
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                    // Erstelle ein neues Item-Objekt für jede geladene Aufgabe
+                                    var taskItem = new Item
+                                    {
+                                        Name = reader["name"].ToString(),
+                                        Info = reader["content"].ToString(),
+                                        Points = Convert.ToInt32(reader["points"]),
+                                        Theme = reader["topic"].ToString(),
+                                        Difficulty = reader["difficulty"].ToString(),
+                                        IsSelected = false
+                                    };
+
+                                    // Füge die Aufgabe der ObservableCollection hinzu
+                                    Items.Add(taskItem);
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Keine Aufgaben in der Datenbank gefunden.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                            }
+                        }
+                    }
+                }
+
+                // Filter anwenden, um die Daten in der Observer-Box anzuzeigen
+                ApplyFilters();
+            }
+            catch (SQLiteException ex)
+            {
+                MessageBox.Show("Fehler beim Laden der Aufgaben: " + ex.Message);
+            }
+        }
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

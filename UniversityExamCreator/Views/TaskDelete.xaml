@@ -117,9 +117,7 @@
 
             <Button Content="Delete Selected Items" HorizontalAlignment="Left" Margin="573,146,0,0" VerticalAlignment="Top" Click="DeleteSelectedItemsButton_Click" Grid.Row="1" FontFamily="Verdana" Height="28" Width="155" Foreground="#FF0068B4" BorderBrush="#FFAACEE9" Background="#FFF5FBFB"/>
 
-            <Button Name="Back" Content="Zurück" HorizontalAlignment="Left" Height="45" Margin="50,375,0,0" VerticalAlignment="Top" Width="120" Click="Back_Click"/>
-            <Button Name="Delete" Content="löschen" HorizontalAlignment="Left" Height="60" Margin="630,360,0,0" VerticalAlignment="Top" Width="120" Click="Delete_Click"/>
-
+            <Button Content="Zurück" HorizontalAlignment="Left" Margin="81,180,0,0" VerticalAlignment="Top" Click="BackButton_Click" Grid.Row="1" Width="71" Height="24" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB"/>
         </Grid>
     </Viewbox>
 </Page>
