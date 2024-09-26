@@ -7,10 +7,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ExamCreate"
-       Background="#FFF9FCFD" >
+      Background="#FFF9FCFD">
     <Viewbox>
-        <Grid Background="#FFF9FCFD" Height="450" Width="800
-              ">
+        <Grid Background="#FFF9FCFD" Height="450" Width="800">
             <Grid.RowDefinitions>
                 <RowDefinition Height="217*"/>
                 <RowDefinition Height="233*"/>
@@ -31,11 +30,10 @@
                 </Grid>
             </Border>
 
-            <!-- ComboBox for filtering by theme -->
             <ComboBox HorizontalAlignment="Left" Margin="64,83,0,0" VerticalAlignment="Top" Width="120" 
-          ItemsSource="{Binding Themes}" 
-          SelectedItem="{Binding SelectedTheme, Mode=TwoWay}"
-          SelectionChanged="ComboBox_SelectionChanged" BorderBrush="#FFAACEE9">
+                      ItemsSource="{Binding Themes}" 
+                      SelectedItem="{Binding SelectedTheme, Mode=TwoWay}"
+                      SelectionChanged="ComboBox_SelectionChanged" BorderBrush="#FFAACEE9">
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>
@@ -45,25 +43,22 @@
             </ComboBox>
 
             <ComboBox HorizontalAlignment="Center" Margin="0,83,0,0" VerticalAlignment="Top" Width="120" 
-          ItemsSource="{Binding Difficulties}" 
-          SelectedItem="{Binding SelectedDifficulty, Mode=TwoWay}"
-          SelectionChanged="ComboBox_SelectionChanged" BorderBrush="#FFAACEE9"/>
+                      ItemsSource="{Binding Difficulties}" 
+                      SelectedItem="{Binding SelectedDifficulty, Mode=TwoWay}"
+                      SelectionChanged="ComboBox_SelectionChanged" BorderBrush="#FFAACEE9"/>
 
             <ComboBox HorizontalAlignment="Left" Margin="612,83,0,0" VerticalAlignment="Top" Width="120" 
-          ItemsSource="{Binding Points}" 
-          SelectedItem="{Binding SelectedPoints, Mode=TwoWay}"
-          SelectionChanged="ComboBox_SelectionChanged" BorderBrush="#FFAACEE9"/>
+                      ItemsSource="{Binding Points}" 
+                      SelectedItem="{Binding SelectedPoints, Mode=TwoWay}"
+                      SelectionChanged="ComboBox_SelectionChanged" BorderBrush="#FFAACEE9"/>
 
-
-            <StackPanel HorizontalAlignment="Left" Height="188" Margin="50,145,0,0" VerticalAlignment="Top" Width="276" Background="Gray" Grid.RowSpan="2" >
-                <!-- ListView with CheckBoxes and Info Buttons -->
+            <StackPanel HorizontalAlignment="Left" Height="188" Margin="50,145,0,0" VerticalAlignment="Top" Width="276" Background="Gray" Grid.RowSpan="2">
                 <ListView x:Name="ItemListView" Width="283" Height="191" ScrollViewer.VerticalScrollBarVisibility="Auto"
-                  ItemsSource="{Binding FilteredTasks}" Background="#FFF5FBFB" SelectionChanged="ItemListView_SelectionChanged" RenderTransformOrigin="0.5,0.5" BorderBrush="#FFAACEE9">
+                          ItemsSource="{Binding FilteredTasks}" Background="#FFF5FBFB" SelectionChanged="ItemListView_SelectionChanged" RenderTransformOrigin="0.5,0.5" BorderBrush="#FFAACEE9">
                     <ListView.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
                             <SkewTransform/>
-                            
                             <TranslateTransform/>
                         </TransformGroup>
                     </ListView.RenderTransform>
@@ -82,15 +77,13 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <!-- ListView with CheckBoxes and Info Buttons -->
             </StackPanel>
 
             <Button Content="Add Selected Items" HorizontalAlignment="Left" Margin="105,132,0,0" VerticalAlignment="Top" Click="AddSelectedTasksButton_Click" Grid.Row="1" Width="155" FontFamily="Verdana" Height="28" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB"/>
 
-            <!-- StackPanel for Selected Items -->
             <StackPanel HorizontalAlignment="Left" Height="192" Margin="444,149,0,0" VerticalAlignment="Top" Width="288" Background="Gray" Grid.RowSpan="2">
                 <ListView x:Name="SelectedItemListView" Width="291" Height="194" ScrollViewer.VerticalScrollBarVisibility="Auto"
-                  ItemsSource="{Binding SelectedTasks}" Background="#FFF5FBFB" ScrollViewer.CanContentScroll="False" UseLayoutRounding="False" BorderBrush="#FFAACEE9">
+                          ItemsSource="{Binding SelectedTasks}" Background="#FFF5FBFB" ScrollViewer.CanContentScroll="False" UseLayoutRounding="False" BorderBrush="#FFAACEE9">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -101,8 +94,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <CheckBox Grid.Column="0" IsChecked="{Binding IsSelectedForDeletion, Mode=TwoWay}" Content="{Binding TaskName}" Width="180" />
-                                <Button Grid.Column="1" Content="Info" Click="InfoButton_Click"
-                                Tag="{Binding }" Margin="185,-3,-79,3" />
+                                <Button Grid.Column="1" Content="Info" Click="InfoButton_Click" Tag="{Binding }" Margin="185,-3,-79,3" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -112,9 +104,11 @@
             <TextBlock x:Name="TotalPointsTextBlock" Text="Total Points: 0" HorizontalAlignment="Left" Margin="672,138,0,0" VerticalAlignment="Top" Grid.Row="1" FontFamily="Verdana" Foreground="#FF0068B4"/>
             <Button Content="Delete Selected Items" HorizontalAlignment="Left" Margin="503,134,0,0" VerticalAlignment="Top" Click="DeleteSelectedTasksButton_Click" Grid.Row="1" Width="155" FontFamily="Verdana" Height="28" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB"/>
 
-            <Button Content="Weiter" HorizontalAlignment="Left" Margin="645,165,0,0" VerticalAlignment="Top" Click="Button_Click" Grid.Row="1" Width="71" Height="24" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB"/>
-            <Button Content="Zurück" HorizontalAlignment="Left" Margin="81,165,0,0" VerticalAlignment="Top" Click="Button_Click_1" Grid.Row="1" Width="71" Height="24" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB"/>
+            <Button Content="Weiter" HorizontalAlignment="Left" Margin="645,165,0,0" VerticalAlignment="Top" Click="NextButton_Click" Grid.Row="1" Width="71" Height="24" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB"/>
+            <Button Content="Zurück" HorizontalAlignment="Left" Margin="81,165,0,0" VerticalAlignment="Top" Click="BackButton_Click" Grid.Row="1" Width="71" Height="24" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB"/>
 
         </Grid>
     </Viewbox>
 </Page>
+
+
