@@ -497,6 +497,10 @@ namespace UniversityExamCreator.Views
             {
                 double titleHeight = MeasureTextHeight(task.TaskName, titleFont, innerWidth);
                 double descriptionHeight = MeasureTextHeight(task.TaskContent, taskFont, innerWidth);
+
+                Console.WriteLine("EmptyLineCount: " + task.EmptyLineCount);
+                descriptionHeight += task.EmptyLineCount*10;
+                Console.WriteLine("TestHeight: " + descriptionHeight);
                 double mcAnswersHeight = 0;
 
                 if (task.TaskType == "MC" && task.MCAnswers != null)
@@ -983,6 +987,19 @@ namespace UniversityExamCreator.Views
 
         // Optional: Aktualisiere die Reihenfolge in der Datenbank
         private void UpdateDatabaseAfterReorder() { }
+
+        private void EmptyLineCountComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            // Get the ComboBox and the selected item
+            var comboBox = sender as System.Windows.Controls.ComboBox;
+            var selectedItem = comboBox.SelectedItem as System.Windows.Controls.ComboBoxItem;
+
+            if (selectedItem != null && comboBox.DataContext is Task task)
+            {
+                // Set the EmptyLineCount based on the selected ComboBox item content
+                task.EmptyLineCount = double.Parse(selectedItem.Content.ToString());
+            }
+        }
     }
 }
 

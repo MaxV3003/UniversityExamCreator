@@ -94,18 +94,34 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Topic" Binding="{Binding Topic}" Width="150" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Task Type" Binding="{Binding TaskType}" Width="150" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Difficulty" Binding="{Binding Difficulty}" Width="100" IsReadOnly="True"/>
+                            <!-- <DataGridTextColumn Header="Difficulty" Binding="{Binding Difficulty}" Width="100" IsReadOnly="True"/> -->
                             <DataGridTextColumn Header="Points" Binding="{Binding Points}" Width="100" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Task Name" Binding="{Binding TaskName}" Width="150" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Task Content" Binding="{Binding TaskContent}" Width="300" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Date Created" Binding="{Binding DateCreated}" Width="150" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Author" Binding="{Binding Author}" Width="150" IsReadOnly="True"/>
+                            <!-- <DataGridTextColumn Header="Author" Binding="{Binding Author}" Width="150" IsReadOnly="True"/> -->
 
                             <!-- Löschen Button in jeder Zeile -->
                             <DataGridTemplateColumn Header="Aktion">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Content="Löschen" Tag="{Binding TaskName}"/>
+                                        <!--<Button Content="Löschen" Tag="{Binding TaskName}"/> -->
+                                        <!-- ComboBox to select the number of empty lines -->
+                                        <!-- ComboBox to select the number of empty lines -->
+                                        <ComboBox Width="100" SelectedValue="{Binding EmptyLineCount, Mode=TwoWay}" SelectionChanged="EmptyLineCountComboBox_SelectionChanged">
+                                            <ComboBoxItem Content="0"/>
+                                            <ComboBoxItem Content="1"/>
+                                            <ComboBoxItem Content="2"/>
+                                            <ComboBoxItem Content="3"/>
+                                            <ComboBoxItem Content="4"/>
+                                            <ComboBoxItem Content="5"/>
+                                            <ComboBoxItem Content="6"/>
+                                            <ComboBoxItem Content="7"/>
+                                            <ComboBoxItem Content="8"/>
+                                            <ComboBoxItem Content="9"/>
+                                            <ComboBoxItem Content="10"/>
+                                            <ComboBoxItem Content="11"/>
+                                        </ComboBox>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
