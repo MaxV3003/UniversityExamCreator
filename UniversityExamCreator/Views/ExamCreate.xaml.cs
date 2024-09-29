@@ -117,16 +117,49 @@ namespace UniversityExamCreator.Views
 
         private void AddSelectedTasksButton_Click(object sender, RoutedEventArgs e)
         {
+            // neue Tasks die geaddet werden sollen
             var tasksToAdd = Tasks.Where(t => t.IsSelected).ToList();
+
+            // Punkte aus den schon Seleceteten Tasks
+            double totalPoints = SelectedTasks.Sum(task => task.Points);
+
+            // Punkte aus den Tasks die hinzukommen sollen
+            totalPoints += tasksToAdd.Sum(task => task.Points);
+            int selecetedTaskAmoount = 0;
+            
             foreach (var task in tasksToAdd)
             {
-                if (!SelectedTasks.Contains(task))
-                {
-                    SelectedTasks.Add(task);
-                }
-                task.IsSelected = false;
+                selecetedTaskAmoount++;
             }
-            UpdateSelectedTasksPoints();
+
+            foreach (var task in SelectedTasks)
+            {
+                selecetedTaskAmoount++;
+            }
+
+            if (!(selecetedTaskAmoount > Examconfig.TaskAmount))
+            {
+                if (!(totalPoints > Examconfig.PointAmount))
+                {
+                    foreach (var task in tasksToAdd)
+                    {
+                        if (!SelectedTasks.Contains(task))
+                        {
+                            SelectedTasks.Add(task);
+                        }
+                        task.IsSelected = false;
+                    }
+                    UpdateSelectedTasksPoints();
+                }
+                else
+                {
+                    MessageBox.Show("Die ausgewählten Aufgaben überschreiten das Punktelimit!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Die maximale Anzahl an Aufgaben wurde überschritten!");
+            }
         }
 
         private void DeleteSelectedTasksButton_Click(object sender, RoutedEventArgs e)

@@ -179,7 +179,18 @@ namespace UniversityExamCreator.Views
 
         private void NumTasks_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (int.TryParse(NumTasks.Text, out int taskAmount))
+            {
+                Examconfig.TaskAmount = taskAmount;
+            }
+        }
 
+        private void NumPoints_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (double.TryParse(NumPoints.Text, out double taskPoints))
+            {
+                Examconfig.PointAmount = taskPoints;
+            }
         }
     }
 }
