@@ -14,17 +14,22 @@ namespace UniversityExamCreator.Views
 {
     public partial class ExamCreate : Page
     {
+        // Opperating Itemlists for task-Items
         public ObservableCollection<Task> Tasks { get; set; }
         public ObservableCollection<Task> SelectedTasks { get; set; }
         public ObservableCollection<Task> FilteredTasks { get; set; }
 
+        // Opperating Itemlists for Exam-/Task-Attributes 
         public List<string> Themes { get; set; }
         public List<int> Points { get; set; }
         public List<string> Difficulties { get; set; }
+
+        // Seleceted Value for Combobox
         public string SelectedTheme { get; set; }
         public int SelectedPoints { get; set; }
         public string SelectedDifficulty { get; set; }
 
+        // Examconfig-Item
         Examconfig Examconfig { get; set; }
 
         internal ExamCreate(Examconfig examconfig)
@@ -100,6 +105,9 @@ namespace UniversityExamCreator.Views
             }
         }
 
+        /// <summary>
+        /// Apply the filter in every Combobox. Add every filtered Item (task) to the FilteredTask-List. 
+        /// </summary>
         private void ApplyFilters()
         {
             var filteredByTheme = Tasks.Where(t => SelectedTheme == null || SelectedTheme == "Alle Themen" || t.Topic == SelectedTheme);
@@ -115,6 +123,9 @@ namespace UniversityExamCreator.Views
             }
         }
 
+        /// <summary>
+        /// Add the selected tasks from the left list to the right list. If the Pointamount or Taskamount don't match the Examconfigdeclarations the tasks will not be add to the list. 
+        /// </summary>
         private void AddSelectedTasksButton_Click(object sender, RoutedEventArgs e)
         {
             // neue Tasks die geaddet werden sollen
@@ -162,6 +173,9 @@ namespace UniversityExamCreator.Views
             }
         }
 
+        /// <summary>
+        /// Delete the tasks form the right list. 
+        /// </summary>
         private void DeleteSelectedTasksButton_Click(object sender, RoutedEventArgs e)
         {
             var tasksToRemove = SelectedTasks.Where(t => t.IsSelectedForDeletion).ToList();
@@ -172,17 +186,30 @@ namespace UniversityExamCreator.Views
             UpdateSelectedTasksPoints();
         }
 
+        /// <summary>
+        /// Update the Pointamount Textblock.
+        /// </summary>
         private void UpdateSelectedTasksPoints()
         {
             int totalPoints = SelectedTasks.Sum(task => task.Points);
             TotalPointsTextBlock.Text = $"Total Points: {totalPoints}";
         }
 
+        /// <summary>
+        /// If the user changes the Combobox-Item. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ApplyFilters();  // ComboBox-Filter aktualisieren die angezeigten Aufgaben
+            ApplyFilters(); 
         }
 
+        /// <summary>
+        /// Get the Taskcontent as Information for the user. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void InfoButton_Click(object sender, RoutedEventArgs e)
         {
             Button infoButton = sender as Button;
@@ -194,6 +221,9 @@ namespace UniversityExamCreator.Views
             }
         }
 
+        /// <summary>
+        /// Navigate to the next page. 
+        /// </summary>
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
             if (this.NavigationService != null)
@@ -207,7 +237,9 @@ namespace UniversityExamCreator.Views
             }
         }
 
-
+        /// <summary>
+        /// Navigate to the previous page
+        /// </summary>
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
