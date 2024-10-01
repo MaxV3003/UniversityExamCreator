@@ -4,17 +4,8 @@ using System.Collections.ObjectModel;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using UniversityExamCreator.Models;
 using static UniversityExamCreator.Views.ExamCreate;
 
@@ -30,13 +21,14 @@ namespace UniversityExamCreator.Views
         public ObservableCollection<Item> SelectedItems { get; set; }
         public ObservableCollection<Item> FilteredItems { get; set; }
 
-        //Lists to save the the Filteropotion-Items 
+        // Lists to save the Filteroption-Items 
         public List<string> Themes { get; set; }
         public List<int> Points { get; set; }
         public List<string> Difficulties { get; set; }
         public string SelectedTheme { get; set; }
         public int SelectedPoints { get; set; }
         public string SelectedDifficulty { get; set; }
+
         public TaskDelete()
         {
             InitializeComponent();
@@ -64,6 +56,7 @@ namespace UniversityExamCreator.Views
             // Set default selected points
             SelectedPoints = Points[0];
 
+            // Initialize the difficulties list and populate it with distinct difficulties
             Difficulties = Items.Select(i => i.Difficulty).Distinct().ToList();
             Difficulties.Insert(0, "Alle Schwierigkeiten");
             SelectedDifficulty = Difficulties[0];
@@ -89,11 +82,11 @@ namespace UniversityExamCreator.Views
         }
 
         /// <summary>
-        /// Dropdown-Changes will be initialized after selecting a new Filteroption. 
+        /// Dropdown-Changes will be initialized after selecting a new Filteroption.
         /// </summary>
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Filter the items based on the selected theme and points
+            // Filter the items based on the selected theme, points, and difficulty
             ApplyFilters();
         }
 
@@ -135,25 +128,51 @@ namespace UniversityExamCreator.Views
                 }
                 item.IsSelected = false; // Reset the IsSelected property
             }
-
         }
 
         /// <summary>
-        /// Button to delete the Items from the List of the Items which sould be in the Exam.
+        /// Button to delete the Items from the List of the Items which should be in the Exam.
         /// </summary>
         private void DeleteSelectedItemsButton_Click(object sender, RoutedEventArgs e)
         {
             var itemsToRemove = SelectedItems.Where(i => i.IsSelectedForDeletion).ToList();
-            foreach (var item in itemsToRemove)
-            {
-                SelectedItems.Remove(item);
-            }
-        }
 
+            // SQLite-Verbindung öffnen
+            PathFinder pathFinder = new PathFinder("Databases", "database.db");
+            string databasePath = pathFinder.GetPath();
+
+            using (var connection = new SQLiteConnection($"Data Source={databasePath};Version=3;"))
+            {
+                connection.Open();
+
+                foreach (var item in itemsToRemove)
+                {
+                    // SQL-Abfrage zum Löschen des Items aus der Datenbank über die ID
+                    string query = "DELETE FROM task WHERE id = @id";
+
+                    using (var command = new SQLiteCommand(query, connection))
+                    {
+                        // Parameter hinzufügen, um SQL-Injection zu verhindern
+                        command.Parameters.AddWithValue("@id", item.Id); // Verwendet die ID des Items
+
+                        // SQL-Abfrage ausführen
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Entferne das Item aus der ObservableCollection
+                    SelectedItems.Remove(item);
+                }
+            }
+
+            // Aktualisiere die UI
+            ApplyFilters();
+            MessageBox.Show("Die ausgewählten Aufgaben wurden erfolgreich gelöscht.", "Erfolg", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
 
         // Item class
         public class Item
         {
+            public int Id { get; set; }  // Neue Id-Eigenschaft für die Aufgaben-ID
             public string Name { get; set; }
             public bool IsSelected { get; set; }
             public bool IsSelectedForDeletion { get; set; }
@@ -165,29 +184,26 @@ namespace UniversityExamCreator.Views
 
         private void ItemListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            // Implementiere Auswahländerungen bei Bedarf
         }
+
         private void LoadTasksFromDatabase()
         {
             try
             {
-                // Pfad zur SQLite-Datenbankdatei ermitteln
                 PathFinder pathFinder = new PathFinder("Databases", "database.db");
                 string databasePath = pathFinder.GetPath();
 
-                // Überprüfen, ob die Datenbankdatei existiert
                 if (!File.Exists(databasePath))
                 {
                     throw new FileNotFoundException("Datenbankdatei nicht gefunden: " + databasePath);
                 }
 
-                // Verbindung zur SQLite-Datenbank öffnen
                 using (var connection = new SQLiteConnection($"Data Source={databasePath};Version=3;"))
                 {
                     connection.Open();
 
-                    // SQL-Abfrage zum Abrufen der Aufgaben aus der Tabelle "task"
-                    string query = "SELECT topic, type, difficulty, points, name, content FROM task";
+                    string query = "SELECT id, topic, type, difficulty, points, name, content FROM task";
                     using (var command = new SQLiteCommand(query, connection))
                     {
                         using (var reader = command.ExecuteReader())
@@ -200,6 +216,7 @@ namespace UniversityExamCreator.Views
                                     // Erstelle ein neues Item-Objekt für jede geladene Aufgabe
                                     var taskItem = new Item
                                     {
+                                        Id = Convert.ToInt32(reader["id"]),  // Zuweisung der ID
                                         Name = reader["name"].ToString(),
                                         Info = reader["content"].ToString(),
                                         Points = Convert.ToInt32(reader["points"]),
@@ -219,7 +236,6 @@ namespace UniversityExamCreator.Views
                         }
                     }
                 }
-
                 // Filter anwenden, um die Daten in der Observer-Box anzuzeigen
                 ApplyFilters();
             }
@@ -228,9 +244,15 @@ namespace UniversityExamCreator.Views
                 MessageBox.Show("Fehler beim Laden der Aufgaben: " + ex.Message);
             }
         }
+
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        private void SelectedItemListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

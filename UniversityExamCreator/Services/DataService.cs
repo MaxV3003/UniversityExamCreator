@@ -164,23 +164,48 @@ namespace UniversityExamCreator.Services
         }
 
         // Insert Module
-        public void InsertModule(string modulID, string name)
+        public void InsertModule(string moduleID, string name)
         {
             using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
                 string query = @"
-            INSERT INTO module (modulID, name) 
-            VALUES (@modulID, @name)";
+                    INSERT INTO module (modulID, name) 
+                    VALUES (@modulID, @name)";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, conn))
                 {
-                    command.Parameters.AddWithValue("@modulID", modulID);
+                    command.Parameters.AddWithValue("@moduleID", moduleID);
                     command.Parameters.AddWithValue("@name", name);
                     command.ExecuteNonQuery();
                 }
             }
         }
+
+        public void InsertTempExam(int examID, int taskID)
+        {
+            // SQLite-Verbindung öffnen
+            using (SQLiteConnection conn = new SQLiteConnection(connection))
+            {
+                conn.Open();
+
+                // SQL-Abfrage zum Einfügen der exam_id und task_id in die tempexam-Tabelle
+                string query = @"
+                    INSERT INTO tempexam (exam_id, task_id) 
+                    VALUES (@examID, @taskID)";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    // Parameter hinzufügen, um SQL-Injection zu verhindern
+                    command.Parameters.AddWithValue("@examID", examID);
+                    command.Parameters.AddWithValue("@taskID", taskID);
+
+                    // Ausführung der SQL-Abfrage
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
 
 
         //----------------------------------- 

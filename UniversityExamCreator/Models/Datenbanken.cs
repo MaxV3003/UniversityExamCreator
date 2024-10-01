@@ -89,6 +89,15 @@ public class DatabaseManager
             name TEXT NOT NULL
             );";
 
+            string createTempexamTable = @"
+            CREATE TABLE IF NOT EXISTS tempexam (
+            exam_id INTEGER,
+            task_id INTEGER,
+            FOREIGN KEY(exam_id) REFERENCES exam(id),
+            FOREIGN KEY(task_id) REFERENCES task(id),
+            PRIMARY KEY (exam_id, task_id)
+            );";
+
             ExecuteNonQuery(conn, createTaskTable);
             ExecuteNonQuery(conn, createExamTable);
             ExecuteNonQuery(conn, createExamTaskTable);
@@ -97,6 +106,7 @@ public class DatabaseManager
             ExecuteNonQuery(conn, createExamConfigTable);
             ExecuteNonQuery(conn, createTaskAnswerTable);
             ExecuteNonQuery(conn, createModuleTable);
+            ExecuteNonQuery(conn, createTempexamTable);
         }
     }
 

@@ -62,8 +62,7 @@ namespace UniversityExamCreator.Models
         /// Property indicating if the task is selected for deletion.
         /// </summary>
         public bool IsSelectedForDeletion { get; set; }
-
-        public double EmptyLineCount { get; set; }
+        public int Id { get; internal set; }
 
         /// <summary>
         /// Constructor for a TaskItem.
@@ -81,7 +80,6 @@ namespace UniversityExamCreator.Models
             MCAnswers = new List<MCAnswer>();
             IsSelected = false;
             IsSelectedForDeletion = false;
-            EmptyLineCount = 0;
         }
 
         public Task(string module, string topic, string taskType, string difficulty, int points, string taskName, string content)

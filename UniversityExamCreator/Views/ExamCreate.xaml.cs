@@ -59,7 +59,7 @@ namespace UniversityExamCreator.Views
             {
                 Examconfig.PointAmount = 0;
             }
-            
+
 
             DataContext = this;
 
@@ -143,7 +143,7 @@ namespace UniversityExamCreator.Views
             // Punkte aus den Tasks die hinzukommen sollen
             totalPoints += tasksToAdd.Sum(task => task.Points);
             int selecetedTaskAmoount = 0;
-            
+
             foreach (var task in tasksToAdd)
             {
                 selecetedTaskAmoount++;
@@ -210,7 +210,7 @@ namespace UniversityExamCreator.Views
         /// <param name="e"></param>
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ApplyFilters(); 
+            ApplyFilters();
         }
 
         /// <summary>

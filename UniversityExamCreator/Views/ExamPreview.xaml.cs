@@ -30,7 +30,7 @@ namespace UniversityExamCreator.Views
         PdfSharp.Drawing.XGraphics gfx;
 
         // Test-Area
-        List <String> Fonts { get; set; }
+        List<String> Fonts { get; set; }
 
         List<AdditionalInformation> additionalInformation;
 
@@ -51,8 +51,8 @@ namespace UniversityExamCreator.Views
         const double pageWidth = 600;
         const double margin = 60;
         const double innerWidth = pageWidth - 2 * margin;
-        const double taskSpacing = 20; 
-        const double mcSpacing = 10; 
+        const double taskSpacing = 20;
+        const double mcSpacing = 10;
         const double checkboxSize = 10;
         double yPoint = 100;
 
@@ -131,7 +131,7 @@ namespace UniversityExamCreator.Views
         /// <summary>
         /// If ExamTitleFontCombobox-Value has changed.
         /// </summary>
-        private void ExamTitleFontSize_SelectionChanged(object sender, SelectionChangedEventArgs e) 
+        private void ExamTitleFontSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int? selectedExamTitleFontSize = ExamTitleFontSize.SelectedItem as int?;
 
@@ -170,7 +170,7 @@ namespace UniversityExamCreator.Views
         /// <summary>
         /// Set the Font-Typ the Exam is written in.
         /// </summary>
-        private void setFont(string font) 
+        private void setFont(string font)
         {
             defaultFont = font;
             examTitelFont = new XFont(font, 25);
@@ -206,7 +206,7 @@ namespace UniversityExamCreator.Views
         /*---------------------------------------------------------------------------------------------------*/
         //                                  PDF-Erzeugungs-Abschnitt
         /*---------------------------------------------------------------------------------------------------*/
-        
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new ExamCreate(Examconfig));
@@ -310,7 +310,7 @@ namespace UniversityExamCreator.Views
         private void drawTasksTable(PdfPage page)
         {
             double cellHeight = 20;
-            double defaultCellWidth = specialFont.Size*7;
+            double defaultCellWidth = specialFont.Size * 7;
             string[,] data = new string[Tasks.Count + 1, 4]; // +1 for Header
 
             // Header
@@ -324,7 +324,7 @@ namespace UniversityExamCreator.Views
             int a = 1; // start at second entry
             foreach (var task in Tasks)
             {
-                data[a, 0] = (a).ToString();  
+                data[a, 0] = (a).ToString();
                 data[a, 1] = task.TaskName;
                 data[a, 2] = task.Points.ToString();
                 data[a, 3] = "";
@@ -337,7 +337,7 @@ namespace UniversityExamCreator.Views
 
             // Draw Information
             string noticeText = "Diese Tabelle bitte nicht ausfüllen!";
-            draw(noticeText, specialFont, new XRect(margin, yPoint, innerWidth, specialFont.Height),"Center");
+            draw(noticeText, specialFont, new XRect(margin, yPoint, innerWidth, specialFont.Height), "Center");
             //gfx.DrawString(noticeText, specialFont, XBrushes.Black, new XRect(margin, yPoint, innerWidth, specialFont.Height), XStringFormats.Center);
             yPoint += specialFont.Height + 2;
 
@@ -347,7 +347,7 @@ namespace UniversityExamCreator.Views
 
             for (int row = 0; row < data.GetLength(0); row++)
             {
-                double currentX = x; 
+                double currentX = x;
 
                 for (int col = 0; col < data.GetLength(1); col++)
                 {
@@ -384,7 +384,7 @@ namespace UniversityExamCreator.Views
         {
             double titelHigth = MeasureTextHeight("Hinweise", titleFont, innerWidth);
             List<String> checkedInfos = new List<String>();
-            
+
             foreach (var checkItem in additionalInformation)
             {
                 if (checkItem.IsChecked == true)
@@ -416,7 +416,7 @@ namespace UniversityExamCreator.Views
                 // Add justification
                 var tf = new XTextFormatter(gfx)
                 {
-                    Alignment = XParagraphAlignment.Justify 
+                    Alignment = XParagraphAlignment.Justify
                 };
 
                 // Center the text
@@ -425,7 +425,7 @@ namespace UniversityExamCreator.Views
 
                 // Draw bulletpoints
                 tf.DrawString(bulletText, specialFont, XBrushes.Black, rect, XStringFormats.TopLeft);
-                yPoint += infoHigth + 2; 
+                yPoint += infoHigth + 2;
             }
         }
 
@@ -459,7 +459,7 @@ namespace UniversityExamCreator.Views
                 }
                 else
                 {
-                    return size.Width; 
+                    return size.Width;
                 }
             }
         }
@@ -469,7 +469,7 @@ namespace UniversityExamCreator.Views
             double maxWidth = 0;
 
             // Ignore Header-Line
-            for (int row = 1; row < data.GetLength(0); row++) 
+            for (int row = 1; row < data.GetLength(0); row++)
             {
                 double currentWidth = getCellWidth(data[row, 1], font, cellWidth);
                 if (currentWidth > maxWidth)
@@ -479,7 +479,7 @@ namespace UniversityExamCreator.Views
             }
 
             // Padding
-            return maxWidth + 10; 
+            return maxWidth + 10;
         }
 
         private void drawTasks(PdfPage page)
@@ -498,7 +498,7 @@ namespace UniversityExamCreator.Views
             {
                 double titleHeight = MeasureTextHeight(task.TaskName, titleFont, innerWidth);
                 double descriptionHeight = MeasureTextHeight(task.TaskContent, taskFont, innerWidth);
-                descriptionHeight += task.EmptyLineCount*10;
+                descriptionHeight += task.EmptyLineCount * 10;
                 double mcAnswersHeight = 0;
 
                 if (task.TaskType == "MC" && task.MCAnswers != null)
@@ -523,7 +523,7 @@ namespace UniversityExamCreator.Views
                 finalheader += headercounter;
                 headercounter++;
                 finalheader += ". " + task.TaskName;
-                draw(finalheader, titleFont,new XRect(margin, yPoint, innerWidth, page.Height), "TopLeft");
+                draw(finalheader, titleFont, new XRect(margin, yPoint, innerWidth, page.Height), "TopLeft");
                 yPoint += titleHeight;
 
                 // Draw the task description 
@@ -685,7 +685,7 @@ namespace UniversityExamCreator.Views
             };
 
             // Task-Switch-Content
-            foreach (UniversityExamCreator.Models.Task task in tasksSwitch) 
+            foreach (UniversityExamCreator.Models.Task task in tasksSwitch)
             {
                 tasks.Add(task);
             }
@@ -831,7 +831,7 @@ namespace UniversityExamCreator.Views
             }
         }
 
-        private void draw(string text, XFont font, XPoint point) 
+        private void draw(string text, XFont font, XPoint point)
         {
             gfx.DrawString(text, font, XBrushes.Black, point);
         }
@@ -847,7 +847,7 @@ namespace UniversityExamCreator.Views
             XStringFormat finalFormat = formatchecker(format);
             tf.DrawString(text, font, XBrushes.Black, rect, finalFormat);
         }
-        private XStringFormat formatchecker(string format) 
+        private XStringFormat formatchecker(string format)
         {
             // Konvertiere den String in Kleinbuchstaben
             string lowerFormat = format.Trim().ToLower();
@@ -1004,4 +1004,6 @@ namespace UniversityExamCreator.Views
         }
     }
 }
+
+
 
