@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Controls.Primitives;
 using System.Data.SQLite;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace UniversityExamCreator.Views
 {
@@ -265,12 +266,13 @@ namespace UniversityExamCreator.Views
                 string rightSideText = "Magdeburg, " + date.ToString("dd.MM.yyyy");
                 XSize rightTextSize = gfx.MeasureString(rightSideText, taskFont);
                 double xRightPosition = margin + innerWidth - rightTextSize.Width;
-                gfx.DrawString(leftSideText, taskFont, XBrushes.Black, new XPoint(margin, yPoint));
-                gfx.DrawString(rightSideText, taskFont, XBrushes.Black, new XPoint(xRightPosition, yPoint));
+                draw(leftSideText, taskFont, new XPoint(margin, yPoint));
+                draw(rightSideText, taskFont, new XPoint(xRightPosition, yPoint));
                 yPoint += taskSpacing;
             }
             else
             {
+                //hier fehlt noch dass wenn man kein Datum ausgewählt hat soll das Programm die klausur auch nicht erstellen
                 MessageBox.Show("Bitte ein Datum eingeben.", "Fehlende Datumsangabe", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
 
@@ -297,8 +299,8 @@ namespace UniversityExamCreator.Views
                 for (int col = 0; col < data.GetLength(1); col++)
                 {
                     gfx.DrawRectangle(XPens.Black, x + col * cellWidth, y + (row + 1) * cellHeight, cellWidth, cellHeight);
-                    gfx.DrawString(data[row, col], specialFont, XBrushes.Black, new XRect(x + col * cellWidth, y + (row + 1) * cellHeight, cellWidth, cellHeight), XStringFormats.TopLeft);
-
+                    draw(data[row, col], specialFont, new XRect(x + col * cellWidth, y + (row + 1) * cellHeight, cellWidth, cellHeight), "XTopLeft");
+                    //gfx.DrawString(data[row, col], specialFont, XBrushes.Black, new XRect(x + col * cellWidth, y + (row + 1) * cellHeight, cellWidth, cellHeight), XStringFormats.TopLeft);
                 }
                 yPoint += cellHeight;
             }
@@ -335,9 +337,8 @@ namespace UniversityExamCreator.Views
 
             // Draw Information
             string noticeText = "Diese Tabelle bitte nicht ausfüllen!";
-            gfx.DrawString(noticeText, specialFont, XBrushes.Black,
-                           new XRect(margin, yPoint, innerWidth, specialFont.Height),
-                           XStringFormats.Center);
+            draw(noticeText, specialFont, new XRect(margin, yPoint, innerWidth, specialFont.Height),"Center");
+            //gfx.DrawString(noticeText, specialFont, XBrushes.Black, new XRect(margin, yPoint, innerWidth, specialFont.Height), XStringFormats.Center);
             yPoint += specialFont.Height + 2;
 
             // Center the table and draw it
@@ -356,15 +357,15 @@ namespace UniversityExamCreator.Views
                     {
                         // Draw Heading 
                         gfx.DrawRectangle(XPens.Black, XBrushes.LightGray, currentX, y, currentCellWidth, cellHeight);
-                        gfx.DrawString(data[row, col], specialFont, XBrushes.Black, new XRect(currentX, y, currentCellWidth, cellHeight), XStringFormats.Center);
+                        //gfx.DrawString(data[row, col], specialFont, XBrushes.Black, new XRect(currentX, y, currentCellWidth, cellHeight), XStringFormats.Center);
+                        draw(data[row, col], specialFont, new XRect(currentX, y, currentCellWidth, cellHeight), "Center");
                     }
                     else
                     {
                         // Draw Datarows
                         gfx.DrawRectangle(XPens.Black, currentX, y, currentCellWidth, cellHeight);
-                        gfx.DrawString(data[row, col], specialFont, XBrushes.Black,
-                                       new XRect(currentX, y, currentCellWidth, cellHeight),
-                                       XStringFormats.Center);
+                        //gfx.DrawString(data[row, col], specialFont, XBrushes.Black, new XRect(currentX, y, currentCellWidth, cellHeight), XStringFormats.Center);
+                        draw(data[row, col], specialFont, new XRect(currentX, y, currentCellWidth, cellHeight), "Center");
                     }
 
                     // Update x-Coordinate
@@ -393,7 +394,8 @@ namespace UniversityExamCreator.Views
             }
 
             // Draw title
-            gfx.DrawString("Zusätzliche Hinweise", titleFont, XBrushes.Black, new XRect(margin, yPoint, innerWidth, page.Height), XStringFormats.TopCenter);
+            //gfx.DrawString("Zusätzliche Hinweise", titleFont, XBrushes.Black, new XRect(margin, yPoint, innerWidth, page.Height), XStringFormats.TopCenter);
+            draw("Zusätzliche Hinweise", titleFont, new XRect(margin, yPoint, innerWidth, page.Height), "TopCenter");
             yPoint += titelHigth + taskSpacing / 2;
 
             // Draw the additional Information
@@ -482,6 +484,7 @@ namespace UniversityExamCreator.Views
 
         private void drawTasks(PdfPage page)
         {
+            int headercounter = 1;
             List<Task> tasks = taskCreator();
 
             // Copy the tasks which were selected on the ExamCreate-Page 
@@ -495,6 +498,7 @@ namespace UniversityExamCreator.Views
             {
                 double titleHeight = MeasureTextHeight(task.TaskName, titleFont, innerWidth);
                 double descriptionHeight = MeasureTextHeight(task.TaskContent, taskFont, innerWidth);
+                descriptionHeight += task.EmptyLineCount*10;
                 double mcAnswersHeight = 0;
 
                 if (task.TaskType == "MC" && task.MCAnswers != null)
@@ -510,28 +514,24 @@ namespace UniversityExamCreator.Views
                 // Check if there is enough space for the next task frame
                 if (yPoint + requiredSpace > pageHeight - margin)
                 {
-                    // Add a new page and reset yPoint
-                    page = document.AddPage();
-                    gfx = XGraphics.FromPdfPage(page);
-                    yPoint = margin;
-
-                    // Creating a Header.
-                    double headerhight = MeasureTextHeight(Examconfig.ExamName, taskFont, innerWidth);
-                    gfx.DrawString(Examconfig.ModuleID + " - " + DateTime.Now.Year.ToString(), taskFont, XBrushes.Black, margin, yPoint);
-                    gfx.DrawString("Name: ", taskFont, XBrushes.Black, innerWidth - margin, yPoint);
-                    XPen pen = new XPen(XColors.Black, 1);
-                    gfx.DrawLine(pen, margin, yPoint + headerhight, pageWidth - margin, yPoint + headerhight);
-                    yPoint += headerhight + 10; // Reset to top margin of the new page
+                    CreateHeaderSite(page);
                 }
 
-                // Draw the task title
-                gfx.DrawString(task.TaskName, titleFont, XBrushes.Black, new XRect(margin, yPoint, innerWidth, page.Height), XStringFormats.TopLeft);
+                // Draw the task title and adjust the Tasknumber
+                //gfx.DrawString(task.TaskName, titleFont, XBrushes.Black, new XRect(margin, yPoint, innerWidth, page.Height), XStringFormats.TopLeft);
+                string finalheader = string.Empty;
+                finalheader += headercounter;
+                headercounter++;
+                finalheader += ". " + task.TaskName;
+                draw(finalheader, titleFont,new XRect(margin, yPoint, innerWidth, page.Height), "TopLeft");
                 yPoint += titleHeight;
 
                 // Draw the task description 
                 var tf = new XTextFormatter(gfx);
-                var rect = new XRect(margin, yPoint, innerWidth, page.Height - yPoint - margin);
-                tf.DrawString(task.TaskContent, taskFont, XBrushes.Black, rect, XStringFormats.TopLeft);
+                tf.Alignment = XParagraphAlignment.Justify;
+                //var rect = new XRect(margin, yPoint, innerWidth, page.Height - yPoint - margin);
+                //tf.DrawString(task.TaskContent, taskFont, XBrushes.Black, rect, XStringFormats.TopLeft);
+                draw(task.TaskContent, taskFont, new XRect(margin, yPoint, innerWidth, page.Height - yPoint - margin), "TopLeft", tf);
                 yPoint += descriptionHeight + taskSpacing;
 
                 // Draw MC Answers if any
@@ -543,6 +543,7 @@ namespace UniversityExamCreator.Views
 
                         gfx.DrawRectangle(XPens.Black, XBrushes.White, new XRect(margin, yPoint, checkboxSize, checkboxSize));
                         gfx.DrawString(mcAnswer.Content, mcFont, XBrushes.Black, new XRect(margin + checkboxSize + 5, yPoint, innerWidth - checkboxSize - 5, page.Height), XStringFormats.TopLeft);
+                        draw(mcAnswer.Content, mcFont, new XRect(margin + checkboxSize + 5, yPoint, innerWidth - checkboxSize - 5, page.Height), "TopLeft");
 
                         yPoint += mcAnswerHeight + mcSpacing;
                     }
@@ -551,6 +552,23 @@ namespace UniversityExamCreator.Views
                     yPoint += taskSpacing;
                 }
             }
+        }
+
+        private void CreateHeaderSite(PdfPage page)
+        {
+            // Add a new page and reset yPoint
+            page = document.AddPage();
+            gfx = XGraphics.FromPdfPage(page);
+            yPoint = margin;
+
+            // Creating a Header.
+            double headerhight = MeasureTextHeight(Examconfig.ExamName, taskFont, innerWidth);
+            gfx.DrawString(Examconfig.ModuleID + " - " + DateTime.Now.Year.ToString(), taskFont, XBrushes.Black, margin, yPoint);
+            gfx.DrawString("Name: ", taskFont, XBrushes.Black, innerWidth - margin, yPoint);
+            XPen pen = new XPen(XColors.Black, 1);
+            //gfx.DrawLine(pen, margin, yPoint + headerhight, pageWidth - margin, yPoint + headerhight);
+            draw(pen, margin, yPoint + headerhight, pageWidth - margin, yPoint + headerhight);
+            yPoint += headerhight + 10; // Reset to top margin of the new page
         }
 
         private List<Task> taskCreator()
@@ -804,7 +822,7 @@ namespace UniversityExamCreator.Views
 
         private void AdditionalInformationInfoButton(object sender, RoutedEventArgs e)
         {
-            Button button = sender as Button;
+            System.Windows.Forms.Button button = sender as System.Windows.Forms.Button;
             AdditionalInformation info = button.Tag as AdditionalInformation;
 
             if (info != null)
@@ -813,6 +831,57 @@ namespace UniversityExamCreator.Views
             }
         }
 
+        private void draw(string text, XFont font, XPoint point) 
+        {
+            gfx.DrawString(text, font, XBrushes.Black, point);
+        }
+
+        private void draw(string text, XFont font, XRect rect, string format)
+        {
+            XStringFormat finalFormat = formatchecker(format);
+            gfx.DrawString(text, font, XBrushes.Black, rect, finalFormat);
+        }
+
+        private void draw(string text, XFont font, XRect rect, string format, XTextFormatter tf)
+        {
+            XStringFormat finalFormat = formatchecker(format);
+            tf.DrawString(text, font, XBrushes.Black, rect, finalFormat);
+        }
+        private XStringFormat formatchecker(string format) 
+        {
+            // Konvertiere den String in Kleinbuchstaben
+            string lowerFormat = format.Trim().ToLower();
+            switch (lowerFormat)
+            {
+                case "center":
+                    return XStringFormats.Center;
+                case "topcenter":
+                    return XStringFormats.TopCenter;
+                case "bottomcenter":
+                    return XStringFormats.BottomCenter;
+                case "topleft":
+                    return XStringFormats.TopLeft;
+                case "topright":
+                    return XStringFormats.TopRight;
+                case "bottomleft":
+                    return XStringFormats.BottomLeft;
+                case "bottomright":
+                    return XStringFormats.BottomRight;
+                case "baselineleft":
+                    return XStringFormats.BaseLineLeft;
+                case "baselineright":
+                    return XStringFormats.BaseLineRight;
+                case "baselinecenter":
+                    return XStringFormats.BaseLineCenter;
+                default:
+                    return XStringFormats.TopLeft;
+            }
+        }
+
+        private void draw(XPen pen, double xLeft, double yLeft, double xRight, double yRight)
+        {
+            gfx.DrawLine(pen, xLeft, yLeft, xRight, yRight);
+        }
 
         /*---------------------------------------------------------*/
         //                  Data-Switch-Area
@@ -910,7 +979,7 @@ namespace UniversityExamCreator.Views
         {
             while (originalSource != null)
             {
-                if (originalSource is ScrollBar || originalSource is Button)
+                if (originalSource is System.Windows.Forms.ScrollBar || originalSource is System.Windows.Forms.Button)
                     return true;
 
                 originalSource = VisualTreeHelper.GetParent(originalSource);
@@ -920,6 +989,19 @@ namespace UniversityExamCreator.Views
 
         // Optional: Aktualisiere die Reihenfolge in der Datenbank
         private void UpdateDatabaseAfterReorder() { }
+
+        private void EmptyLineCountComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            // Get the ComboBox and the selected item
+            var comboBox = sender as System.Windows.Controls.ComboBox;
+            var selectedItem = comboBox.SelectedItem as System.Windows.Controls.ComboBoxItem;
+
+            if (selectedItem != null && comboBox.DataContext is Task task)
+            {
+                // Set the EmptyLineCount based on the selected ComboBox item content
+                task.EmptyLineCount = double.Parse(selectedItem.Content.ToString());
+            }
+        }
     }
 }
 

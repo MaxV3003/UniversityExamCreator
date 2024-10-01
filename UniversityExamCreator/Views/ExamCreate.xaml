@@ -72,7 +72,7 @@
 
                                 <CheckBox Grid.Column="0" IsChecked="{Binding IsSelected, Mode=TwoWay}" Content="{Binding TaskName}" Width="180" />
                                 <Button Grid.Column="1" Content="Info" Click="InfoButton_Click" 
-                                        Tag="{Binding }" Margin="185,-3,-79,3" />
+                                        Tag="{Binding TaskContent}" Margin="185,-3,-79,3" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
