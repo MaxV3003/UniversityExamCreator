@@ -484,6 +484,7 @@ namespace UniversityExamCreator.Views
 
         private void drawTasks(PdfPage page)
         {
+            int headercounter = 1;
             List<Task> tasks = taskCreator();
 
             // Copy the tasks which were selected on the ExamCreate-Page 
@@ -497,10 +498,7 @@ namespace UniversityExamCreator.Views
             {
                 double titleHeight = MeasureTextHeight(task.TaskName, titleFont, innerWidth);
                 double descriptionHeight = MeasureTextHeight(task.TaskContent, taskFont, innerWidth);
-
-                Console.WriteLine("EmptyLineCount: " + task.EmptyLineCount);
                 descriptionHeight += task.EmptyLineCount*10;
-                Console.WriteLine("TestHeight: " + descriptionHeight);
                 double mcAnswersHeight = 0;
 
                 if (task.TaskType == "MC" && task.MCAnswers != null)
@@ -519,9 +517,13 @@ namespace UniversityExamCreator.Views
                     CreateHeaderSite(page);
                 }
 
-                // Draw the task title
+                // Draw the task title and adjust the Tasknumber
                 //gfx.DrawString(task.TaskName, titleFont, XBrushes.Black, new XRect(margin, yPoint, innerWidth, page.Height), XStringFormats.TopLeft);
-                draw(task.TaskName, titleFont,new XRect(margin, yPoint, innerWidth, page.Height), "TopLeft");
+                string finalheader = string.Empty;
+                finalheader += headercounter;
+                headercounter++;
+                finalheader += ". " + task.TaskName;
+                draw(finalheader, titleFont,new XRect(margin, yPoint, innerWidth, page.Height), "TopLeft");
                 yPoint += titleHeight;
 
                 // Draw the task description 

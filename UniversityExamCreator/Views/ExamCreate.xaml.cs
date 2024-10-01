@@ -55,6 +55,12 @@ namespace UniversityExamCreator.Views
             Difficulties.Insert(0, "Alle Schwierigkeiten");
             SelectedDifficulty = Difficulties[0];
 
+            if (Examconfig.PointAmount.Equals(null))
+            {
+                Examconfig.PointAmount = 0;
+            }
+            
+
             DataContext = this;
 
             ApplyFilters();
@@ -148,9 +154,11 @@ namespace UniversityExamCreator.Views
                 selecetedTaskAmoount++;
             }
 
+            Console.WriteLine("TotalPoints:" + totalPoints);
+
             if (!(selecetedTaskAmoount > Examconfig.TaskAmount))
             {
-                if (!(totalPoints > Examconfig.PointAmount))
+                if ((!(totalPoints > Examconfig.PointAmount)) || (Examconfig.PointAmount.Equals(0)))
                 {
                     foreach (var task in tasksToAdd)
                     {
