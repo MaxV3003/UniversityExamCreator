@@ -67,6 +67,9 @@ namespace UniversityExamCreator.Models
         /// <summary>
         /// Constructor for a TaskItem.
         /// </summary>
+        public double EmptyLineCount { get; set; }
+
+
         public Task (string module, string topic, string taskType, string difficulty, int points, string taskName)
         {
             Module = module;
@@ -80,6 +83,7 @@ namespace UniversityExamCreator.Models
             MCAnswers = new List<MCAnswer>();
             IsSelected = false;
             IsSelectedForDeletion = false;
+            EmptyLineCount = 0;
         }
 
         public Task(string module, string topic, string taskType, string difficulty, int points, string taskName, string content)
