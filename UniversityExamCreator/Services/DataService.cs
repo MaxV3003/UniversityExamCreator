@@ -7,7 +7,7 @@ public class DataService
 
     public DataService(string connectionString)
     {
-        connection = connectionString; // Die Verbindungszeichenfolge wird direkt verwendet
+        connection = connectionString; 
     }
 
     // Insert Task
