@@ -9,7 +9,6 @@ namespace UniversityExamCreator.Models
     public class Task
     {
 
-        
         public string Author { get; set; }
         /// <summary>
         /// Name of a Task. Its the Identifire for it.
@@ -132,7 +131,7 @@ namespace UniversityExamCreator.Models
         /// Methode to get a String of the Content of the Task.
         /// </summary>
         /// <returns>String-Content</returns>
-        public string getContent() 
+        public string getTaskContent() 
         {
             return TaskContent;
         }
@@ -141,7 +140,7 @@ namespace UniversityExamCreator.Models
         /// Methode to get the AnswerItem of a Task.
         /// </summary>
         /// <returns>AnswerItem</returns>
-        public Answer getAnswer() 
+        public Answer getTaskAnswer() 
         {
             return TaskAnswer;
         }

@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using UniversityExamCreator.Models;
 
 namespace UniversityExamCreator.Views
@@ -22,58 +12,88 @@ namespace UniversityExamCreator.Views
     public partial class TaskCreateOF : Page
     {
         Models.Task task;
+
         public TaskCreateOF(Models.Task task)
         {
             InitializeComponent();
             this.task = task;
-
         }
 
-        private void Back_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new TaskKonfig());
-        }
         private void Create_Click(object sender, RoutedEventArgs e)
         {
-            AddContent(task);//returnt Task muss dann noch in die DB
+            // Setze den Inhalt und die Antwort der Aufgabe in das Task-Objekt
+            AddContent(task);
 
             if (CheckFilled() == true)
             {
-
-                if (0 == 0)//Für DB abfrage ob Task gespeichert
+                // Prüfe, ob der Autor korrekt gesetzt wurde
+                if (string.IsNullOrEmpty(task.Author))
                 {
-                    MessageBox.Show("Aufgabe wurde gespeichert.");
+                    task.Author = "Unbekannter Autor"; // Fallback, falls der Autor nicht gesetzt wurde
                 }
-                else
+
+                // Erstelle die Datenbankverbindung
+                PathFinder pathFinder = new PathFinder("Databases", "database.db");
+                string databasePath = pathFinder.GetPath();
+                string connectionString = $"Data Source={databasePath};Version=3;";
+
+                DataService dataService = new DataService(connectionString);
+
+                try
                 {
-                    MessageBox.Show("Aufgabe konnte nicht gespeichert werden. Bitte Angaben überprüfen.");
+                    // Speichere die Aufgabe in der Datenbank
+                    dataService.InsertTask(
+                        topic: task.Topic,
+                        taskType: task.TaskType,
+                        difficulty: task.Difficulty,
+                        points: task.Points,
+                        taskName: task.TaskName,
+                        taskContent: task.getTaskContent(), // Hol den Inhalt der Aufgabe
+                        dateCreated: DateTime.Now,
+                        author: task.Author // Verwende den Autor, der in der Konfigurationsseite gesetzt wurde
+                    );
+
+                    MessageBox.Show("Aufgabe wurde erfolgreich gespeichert.");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Aufgabe konnte nicht gespeichert werden: " + ex.Message);
                 }
             }
             else
             {
                 MessageBox.Show("Bitte geben Sie eine Fragestellung ein.");
-
             }
+
+            // Navigiere zur nächsten Seite oder zurück
             NavigationService.Navigate(new ToolsPage());
+        }
 
 
-        }/// <summary>
-         /// Fügt den COntent und die Answer zur Task hinzu. 
-         /// </summary>
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            // Navigiere zurück zur vorherigen Seite
+            NavigationService.Navigate(new TaskKonfig());
+        }
+
+        /// <summary>
+        /// Fügt den Content und die Antwort zur Aufgabe hinzu.
+        /// </summary>
         private Models.Task AddContent(Models.Task task)
         {
+            // Setze den Inhalt und die Antwort in die Task-Instanz
             task.setTaskContent(ContentText.Text);
             task.setTaskAnswer(AnswerText.Text);
             return task;
-
         }
+
         /// <summary>
-        /// Checkt ob alle Pflichfelder gefüllt worden sind.
+        /// Überprüft, ob alle Pflichtfelder ausgefüllt wurden.
         /// </summary>
         /// <returns></returns>
         private Boolean CheckFilled()
         {
-            if (ContentText.Text != "")
+            if (!string.IsNullOrEmpty(ContentText.Text))
             {
                 return true;
             }
@@ -87,9 +107,15 @@ namespace UniversityExamCreator.Views
 
         private void AnswerText_TextChanged(object sender, TextChangedEventArgs e)
         {
+            // Hier kannst du logische Dinge hinzufügen, falls sich die Antwort ändert
+        }
 
+        private void ContentText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Hier kannst du logische Dinge hinzufügen, falls sich der Inhalt ändert
         }
     }
 }
+
 
 

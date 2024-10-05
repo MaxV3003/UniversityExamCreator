@@ -29,7 +29,7 @@ public class DatabaseManager
             name TEXT NOT NULL,
             content TEXT NOT NULL,
             date_created DATE NOT NULL,
-            author VARCHAR(100) NOT NULL
+            author TEXT 
             );";
 
             string createExamTable = @"

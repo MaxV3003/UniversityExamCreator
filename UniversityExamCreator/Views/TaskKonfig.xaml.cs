@@ -30,7 +30,9 @@ namespace UniversityExamCreator.Views
             {
                 Models.Task task;
                 string taskContent = ""; // Standardwert für taskContent
-                string author = AuthorText.Text;
+
+                // Setze den Autor entweder aus dem Textfeld oder auf "Unbekannter Autor"
+                string author = !string.IsNullOrEmpty(AuthorText.Text) ? AuthorText.Text : "Unbekannter Autor";
 
                 if (MCDD.Text == "Multiple Choice")
                 {
@@ -40,21 +42,18 @@ namespace UniversityExamCreator.Views
                 else
                 {
                     task = CreateTaskOF();
-                    // Hier kannst du optional auch Inhalte für offene Fragen hinzufügen, falls vorhanden
                 }
 
-                // Erstelle den Verbindungszeichenfolgen-Pfad
                 PathFinder pathFinder = new PathFinder("Databases", "database.db");
                 string databasePath = pathFinder.GetPath();
                 string connectionString = $"Data Source={databasePath};Version=3;";
 
-                // Erstelle eine Instanz von DataService mit dem connectionString
                 DataService dataService = new DataService(connectionString);
 
                 // Speichere die Aufgabe in der Datenbank
                 try
                 {
-                    // Rufe die InsertTask-Methode auf
+                    // Rufe die InsertTask-Methode auf und übergebe den Autor
                     dataService.InsertTask(
                         topic: task.Topic,
                         taskType: task.TaskType,
@@ -62,14 +61,14 @@ namespace UniversityExamCreator.Views
                         points: task.Points,
                         taskName: task.TaskName,
                         taskContent: taskContent,
-                        dateCreated: DateTime.Now, // aktuelles Datum
-                        author: author
+                        dateCreated: DateTime.Now,
+                        author: author // Hier wird der zuvor festgelegte Autor übergeben
                     );
 
                     MessageBox.Show("Aufgabe erfolgreich gespeichert.");
 
                     // Navigiere zur nächsten Seite
-                    NextPath(task);
+                    NavigationService.Navigate(new TaskCreateOF(task));
                 }
                 catch (Exception ex)
                 {
@@ -81,7 +80,6 @@ namespace UniversityExamCreator.Views
                 MessageBox.Show("Bitte alle Felder füllen");
             }
         }
-
 
 
         /// <summary>
