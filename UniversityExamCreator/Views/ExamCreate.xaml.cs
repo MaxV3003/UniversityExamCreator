@@ -250,7 +250,7 @@ namespace UniversityExamCreator.Views
         /// </summary>
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            NavigationService.Navigate(new ToolsPage());
         }
 
         private void ItemListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

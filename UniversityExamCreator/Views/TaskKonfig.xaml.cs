@@ -3,6 +3,7 @@ using System.Data.SQLite; // SQLite-Bibliothek importieren
 using System.Windows;
 using System.Windows.Controls;
 using UniversityExamCreator.Models;
+using UniversityExamCreator.Services;
 
 namespace UniversityExamCreator.Views
 {
@@ -27,13 +28,52 @@ namespace UniversityExamCreator.Views
         {
             if (CheckFilled() == true)
             {
+                Models.Task task;
+                string taskContent = ""; // Standardwert für taskContent
+                string author = AuthorText.Text;
+
                 if (MCDD.Text == "Multiple Choice")
                 {
-                    NextPath(CreateTaskMC());
+                    task = CreateTaskMC();
+                    taskContent = MCRulesText.Text; // Content für Multiple Choice
                 }
                 else
                 {
-                    NextPath(CreateTaskOF());
+                    task = CreateTaskOF();
+                    // Hier kannst du optional auch Inhalte für offene Fragen hinzufügen, falls vorhanden
+                }
+
+                // Erstelle den Verbindungszeichenfolgen-Pfad
+                PathFinder pathFinder = new PathFinder("Databases", "database.db");
+                string databasePath = pathFinder.GetPath();
+                string connectionString = $"Data Source={databasePath};Version=3;";
+
+                // Erstelle eine Instanz von DataService mit dem connectionString
+                DataService dataService = new DataService(connectionString);
+
+                // Speichere die Aufgabe in der Datenbank
+                try
+                {
+                    // Rufe die InsertTask-Methode auf
+                    dataService.InsertTask(
+                        topic: task.Topic,
+                        taskType: task.TaskType,
+                        difficulty: task.Difficulty,
+                        points: task.Points,
+                        taskName: task.TaskName,
+                        taskContent: taskContent,
+                        dateCreated: DateTime.Now, // aktuelles Datum
+                        author: author
+                    );
+
+                    MessageBox.Show("Aufgabe erfolgreich gespeichert.");
+
+                    // Navigiere zur nächsten Seite
+                    NextPath(task);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Fehler beim Speichern der Aufgabe: " + ex.Message);
                 }
             }
             else
@@ -41,6 +81,8 @@ namespace UniversityExamCreator.Views
                 MessageBox.Show("Bitte alle Felder füllen");
             }
         }
+
+
 
         /// <summary>
         /// Initialisiert statische Dropdown-Optionen.
@@ -184,6 +226,11 @@ namespace UniversityExamCreator.Views
         }
 
         private void Test_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DifficultyDD_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

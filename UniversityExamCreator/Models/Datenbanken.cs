@@ -61,7 +61,6 @@ public class DatabaseManager
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             task_id INTEGER NOT NULL,
             answer_content TEXT NOT NULL,
-            username VARCHAR(50) NOT NULL,
             FOREIGN KEY (task_id) REFERENCES task(id)
             );";
 

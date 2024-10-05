@@ -8,6 +8,9 @@ namespace UniversityExamCreator.Models
 {
     public class Task
     {
+
+        
+        public string Author { get; set; }
         /// <summary>
         /// Name of a Task. Its the Identifire for it.
         /// </summary>

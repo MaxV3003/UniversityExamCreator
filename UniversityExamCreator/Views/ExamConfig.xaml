@@ -27,7 +27,7 @@
             <TextBox x:Name="NumPoints" HorizontalAlignment="Left" Margin="485,203,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="108" Background="#FFF5FBFB" Height="21" FontFamily="Verdana" Foreground="#FF0068B4" BorderBrush="#FFAACEE9" TextChanged="NumPoints_TextChanged"/>
 
             <TextBlock HorizontalAlignment="Left" Margin="80,249,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="#FFF5FBFB" Height="21" Width="127" FontFamily="Verdana" Foreground="#FF0068B4"><Run Text="Klausurüberschrift"/><Run Language="de-de" /></TextBlock>
-            <TextBox x:Name="ExamTitle" HorizontalAlignment="Left" Margin="320,248,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="399" Background="#FFF5FBFB" Height="21" BorderBrush="#FFAACEE9"/>
+            <TextBox x:Name="ExamTitle" HorizontalAlignment="Left" Margin="318,248,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="399" Background="#FFF5FBFB" Height="21" BorderBrush="#FFAACEE9"/>
 
             <Button Content="Weiter" HorizontalAlignment="Left" Margin="639,370,0,0" VerticalAlignment="Top" Click="Button_Click" Width="71" Height="24" FontFamily="Verdana" Foreground="#FF0068B4" Background="#FFF5FBFB" BorderBrush="#FFAACEE9"/>
             <Button Content="Zurück" HorizontalAlignment="Left" Margin="80,367,0,0" VerticalAlignment="Top" Click="Button_Click_1" Width="71" Height="24" FontFamily="Verdana" Foreground="#FF0068B4" Background="#FFF5FBFB" BorderBrush="#FFAACEE9"/>

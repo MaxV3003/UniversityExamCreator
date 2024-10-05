@@ -17,7 +17,7 @@
         <TextBlock Name="Answer" HorizontalAlignment="Left" Height="20" Margin="50,190,0,0" TextWrapping="Wrap" 
                    Text="Musterantwort für die offene Frage:            (Keine Pflichangabe)" VerticalAlignment="Top" Width="645" FontFamily="Verdana" Foreground="#FF0068B4"/>
         <TextBox Name="AnswerText" HorizontalAlignment="Left" Height="100" Margin="50,225,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="695" 
-                 AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Background="#FFF5FBFB" BorderBrush="#FFAACEE9"/>
+                 AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Background="#FFF5FBFB" BorderBrush="#FFAACEE9" TextChanged="AnswerText_TextChanged"/>
         <Button Name="Back" Content="Zurück" HorizontalAlignment="Left" Height="24" Margin="78,373,0,0" VerticalAlignment="Top" Width="71" Click="Back_Click" FontFamily="Verdana" Background="#FFF5FBFB" Foreground="#FF0068B4"/>
         <Button Name="Create" Content="erstellen" HorizontalAlignment="Left" Height="24" Margin="644,375,0,0" VerticalAlignment="Top" Width="71" Click="Create_Click" FontFamily="Verdana" Foreground="#FF0068B4" Background="#FFF5FBFB" BorderBrush="#FFAACEE9"/>
     </Grid>

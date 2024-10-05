@@ -1,27 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SQLite;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UniversityExamCreator.Models;
+﻿using System.Data.SQLite;
+using System;
 
-namespace UniversityExamCreator.Services
+public class DataService
 {
-    public class DataService
+    private string connection;
+
+    public DataService(string connectionString)
     {
-        private string connection;
+        connection = connectionString; // Die Verbindungszeichenfolge wird direkt verwendet
+    }
 
-        public DataService(string connectionString)
-        {
-            connection = $"Data Source=" + connectionString + ";Version=3;";
-        }
-        //-----------------------------------
-        //Insert-Section
-        //-----------------------------------
-
-        // Insert Task
+    // Insert Task
         public void InsertTask(string topic, string taskType, string difficulty, int points, string taskName, string taskContent, DateTime dateCreated, string author)
         {
             using (SQLiteConnection conn = new SQLiteConnection(connection))
@@ -42,11 +31,10 @@ namespace UniversityExamCreator.Services
                     command.Parameters.AddWithValue("@date_created", dateCreated);
                     command.Parameters.AddWithValue("@author", author);
 
-                    command.ExecuteNonQuery();
+                command.ExecuteNonQuery();
                 }
             }
         }
-
         // Insert Exam
         public void InsertExam(string course, string examiner, DateTime date)
         {
@@ -106,20 +94,19 @@ namespace UniversityExamCreator.Services
         }
 
         // Insert Answer
-        public void InsertAnswer(int task_id, string answer_content, string username)
+        public void InsertAnswer(int task_id, string answer_content)
         {
             using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
                 string query = @"
-                    INSERT INTO answer (task_id, answer_content, username) 
+                    INSERT INTO answer (task_id, answer_content) 
                     VALUES (@task_id, @answer_content, @username)";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, conn))
                 {
                     command.Parameters.AddWithValue("@task_id", task_id);
                     command.Parameters.AddWithValue("@answer_content", answer_content);
-                    command.Parameters.AddWithValue("@username", username);
                     command.ExecuteNonQuery();
                 }
             }
@@ -527,7 +514,6 @@ namespace UniversityExamCreator.Services
             }
         }
     }
-}
 
 
 

@@ -25,8 +25,8 @@ namespace UniversityExamCreator.Views
         public TaskCreateOF(Models.Task task)
         {
             InitializeComponent();
-              this.task = task;
-            
+            this.task = task;
+
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -39,7 +39,7 @@ namespace UniversityExamCreator.Views
 
             if (CheckFilled() == true)
             {
-                
+
                 if (0 == 0)//Für DB abfrage ob Task gespeichert
                 {
                     MessageBox.Show("Aufgabe wurde gespeichert.");
@@ -58,8 +58,8 @@ namespace UniversityExamCreator.Views
 
 
         }/// <summary>
-        /// Fügt den COntent und die Answer zur Task hinzu. 
-        /// </summary>
+         /// Fügt den COntent und die Answer zur Task hinzu. 
+         /// </summary>
         private Models.Task AddContent(Models.Task task)
         {
             task.setTaskContent(ContentText.Text);
@@ -73,7 +73,7 @@ namespace UniversityExamCreator.Views
         /// <returns></returns>
         private Boolean CheckFilled()
         {
-            if (ContentText.Text !=  "")
+            if (ContentText.Text != "")
             {
                 return true;
             }
@@ -84,5 +84,12 @@ namespace UniversityExamCreator.Views
                 return false;
             }
         }
+
+        private void AnswerText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
+
+
