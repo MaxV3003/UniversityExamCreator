@@ -92,21 +92,16 @@
 
                         <!-- Spalten für die Daten -->
                         <DataGrid.Columns>
+                            <DataGridTextColumn Header="Aufgabenname" Binding="{Binding TaskName}" Width="150" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Topic" Binding="{Binding Topic}" Width="150" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Task Type" Binding="{Binding TaskType}" Width="150" IsReadOnly="True"/>
-                            <!-- <DataGridTextColumn Header="Difficulty" Binding="{Binding Difficulty}" Width="100" IsReadOnly="True"/> -->
                             <DataGridTextColumn Header="Points" Binding="{Binding Points}" Width="100" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Task Name" Binding="{Binding TaskName}" Width="150" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Task Content" Binding="{Binding TaskContent}" Width="300" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Date Created" Binding="{Binding DateCreated}" Width="150" IsReadOnly="True"/>
                             <!-- <DataGridTextColumn Header="Author" Binding="{Binding Author}" Width="150" IsReadOnly="True"/> -->
 
                             <!-- Löschen Button in jeder Zeile -->
-                            <DataGridTemplateColumn Header="Aktion">
+                            <DataGridTemplateColumn Header="Leerzeilen">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <!--<Button Content="Löschen" Tag="{Binding TaskName}"/> -->
-                                        <!-- ComboBox to select the number of empty lines -->
                                         <!-- ComboBox to select the number of empty lines -->
                                         <ComboBox Width="100" SelectedValue="{Binding EmptyLineCount, Mode=TwoWay}" SelectionChanged="EmptyLineCountComboBox_SelectionChanged">
                                             <ComboBoxItem Content="0"/>

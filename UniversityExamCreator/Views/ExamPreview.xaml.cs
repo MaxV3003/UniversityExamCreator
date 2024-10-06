@@ -112,6 +112,8 @@ namespace UniversityExamCreator.Views
             tasksSwitch = new ObservableCollection<UniversityExamCreator.Models.Task>();
             dataGrid.ItemsSource = tasksSwitch;  // Binde die ObservableCollection an das DataGrid
             LoadDataFromDatabase();        // Lade die Daten beim Start der Anwendung
+
+            Tasks = taskCreator();
         }
 
         /// <summary>
@@ -574,7 +576,8 @@ namespace UniversityExamCreator.Views
         private List<Task> taskCreator()
         {
             // Task-Stuff
-            var tasks = new List<Task>
+            var tasks = new List<Task>();
+            /*var tasks = new List<Task>
             {
                 new Task("Einf", "Datastruct", "OF", "Easy", 3, "Task 1")
                 {
@@ -682,7 +685,7 @@ namespace UniversityExamCreator.Views
                         new MCAnswer("Task4", "Option 3", 3, 0)
                     }
                 }
-            };
+            };*/
 
             // Task-Switch-Content
             foreach (UniversityExamCreator.Models.Task task in tasksSwitch)

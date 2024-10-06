@@ -117,7 +117,22 @@ namespace UniversityExamCreator.Models
             IsSelected = false;
             IsSelectedForDeletion = false;
         }
-                
+
+        public Task(string name, string topic, int points)
+        {
+            Module = String.Empty;
+            Topic = topic;
+            TaskType = String.Empty;
+            Difficulty = String.Empty;
+            Points = points;
+            TaskName = name;
+            TaskContent = string.Empty;
+            TaskAnswer = new Answer(name, string.Empty);
+            MCAnswers = new List<MCAnswer>();
+            IsSelected = false;
+            IsSelectedForDeletion = false;
+        }
+
         /// <summary>
         /// Methode to get a String of the Name of the Task.
         /// </summary>

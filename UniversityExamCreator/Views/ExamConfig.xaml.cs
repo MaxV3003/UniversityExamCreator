@@ -28,9 +28,6 @@ namespace UniversityExamCreator.Views
             PathFinder pathFinder = new PathFinder("Databases", "database.db");
             DatabaseManager databaseManager = new DatabaseManager(pathFinder.GetPath());
             databaseManager.CreateTables(pathFinder.GetPath());
-
-            DataService dataService = new DataService(pathFinder.GetPath());
-            dataService.InsertTask("test", "test", "testetstest", 1000, "test", "1000Test", DateTime.Now, "MV");
         }
 
         /// <summary>
