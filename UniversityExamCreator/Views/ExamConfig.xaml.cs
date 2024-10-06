@@ -145,7 +145,7 @@ namespace UniversityExamCreator.Views
         }
 
         /// <summary>
-        /// Loader for the Examconfig-Item. Especially if u switch the Pages. 
+        /// Loader for the Examconfig-Item. Especially if switching the Pages. 
         /// </summary>
         /// <param name="examconfig"></param>
         internal void ConfigLoader(Examconfig examconfig)
