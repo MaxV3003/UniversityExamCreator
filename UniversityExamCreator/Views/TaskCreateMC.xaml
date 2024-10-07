@@ -12,7 +12,7 @@
     <!-- ScrollViewer in der ersten Zeile -->
     <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
         <Viewbox>
-            <Grid Background="#FFF9FCFD" Width="800" Height="1450">
+            <Grid Background="#FFF9FCFD" Width="800" Height="450">
 
 
                 <TextBlock Name="Titel" Text="MC" FontSize="23"  HorizontalAlignment="Center" Height="37" Margin="0,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF0068B4"/>
@@ -23,7 +23,7 @@
 
                 <Grid>
                     <!-- Hier wird das StackPanel eingefügt, in dem die TextBoxen hinzugefügt werden -->
-                    <StackPanel x:Name="TextBoxContainer" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="105,180,0,0" Height="1000" Width="650">
+                    <StackPanel x:Name="TextBoxContainer" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="105,180,0,0" Height="240" Width="650">
                         <!-- Hier kannst du feste TextBoxen oder andere Steuerelemente hinzufügen -->
 
                     </StackPanel>
