@@ -68,7 +68,7 @@ namespace UniversityExamCreator.Views
                     MessageBox.Show("Aufgabe erfolgreich gespeichert.");
 
                     // Navigiere zur nächsten Seite
-                    NavigationService.Navigate(new TaskCreateOF(task));
+                    NextPath(task);
                 }
                 catch (Exception ex)
                 {

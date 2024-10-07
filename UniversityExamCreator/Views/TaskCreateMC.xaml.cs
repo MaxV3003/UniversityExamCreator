@@ -37,31 +37,32 @@ namespace UniversityExamCreator.Views
         /// </summary>
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            
+
+
+            System.Windows.Controls.RadioButton radioButton1 = new System.Windows.Controls.RadioButton();
+            radioButton1.Content = "Richtig";
+            radioButton1.GroupName = $"Group{textBoxCount}";
+            radioButton1.Margin = new Thickness(5, 0, 0, 0);
+
+
+            System.Windows.Controls.RadioButton radioButton2 = new System.Windows.Controls.RadioButton();
+            radioButton2.Content = "Falsch";
+            radioButton2.GroupName = $"Group{textBoxCount}";
+            radioButton2.Margin = new Thickness(5, 0, 0, 0);
+
+            Canvas.SetLeft(radioButton1, 80);
+            Canvas.SetTop(radioButton1, currentY);
+
+
+            Canvas.SetLeft(radioButton2, 90);
+            Canvas.SetTop(radioButton2, currentY);
+
             System.Windows.Controls.TextBox newTextBox = new System.Windows.Controls.TextBox();
             newTextBox.Width = 490; 
             newTextBox.Height = 60;
             newTextBox.Margin = new Thickness(0, 10, 0, 0); 
             Canvas.SetLeft(newTextBox, 100); 
             Canvas.SetTop(newTextBox, currentY);
-
-            System.Windows.Controls.RadioButton radioButton1 = new System.Windows.Controls.RadioButton();
-            radioButton1.Content = "Richtig"; 
-            radioButton1.GroupName = $"Group{textBoxCount}"; 
-            radioButton1.Margin = new Thickness(5, 0, 0, 0); 
-
-            
-            System.Windows.Controls.RadioButton radioButton2 = new System.Windows.Controls.RadioButton();
-            radioButton2.Content = "Falsch"; 
-            radioButton2.GroupName = $"Group{textBoxCount}"; 
-            radioButton2.Margin = new Thickness(5, 0, 0, 0);
-
-            Canvas.SetLeft(radioButton1, 80);
-            Canvas.SetTop(radioButton1, currentY - 10); 
-
-            
-            Canvas.SetLeft(radioButton2, 90); 
-            Canvas.SetTop(radioButton2, currentY + 10);
 
             currentY += 20; 
 
