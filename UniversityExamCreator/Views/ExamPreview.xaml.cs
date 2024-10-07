@@ -227,16 +227,33 @@ namespace UniversityExamCreator.Views
             yPoint = 100;
             PdfPage page = document.AddPage();
             gfx = XGraphics.FromPdfPage(page);
+            DateTime? selectedDate = ExamDate.SelectedDate;
 
-            // Draw the PDF
-            drawCoverSheet(page);
-            yPoint = pageHeight;
-            drawTasks(page);
+            // Nur wenn diese Felder ausgefüllt sind, darf eine Klausur erstellt werden
+            if (selectedDate.HasValue && (TextBoxExaminer.Text != string.Empty))
+            {
+                // Draw the PDF
+                drawCoverSheet(page);
+                yPoint = pageHeight;
+                drawTasks(page);
 
-            // Save the document to a temporary file
-            tempFilename = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "KlausurVorschau.pdf");
-            document.Save(tempFilename);
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(tempFilename) { UseShellExecute = true });
+                // Save the document to a temporary file
+                tempFilename = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "KlausurVorschau.pdf");
+                document.Save(tempFilename);
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(tempFilename) { UseShellExecute = true });
+            }
+            if (!selectedDate.HasValue && (TextBoxExaminer.Text.Equals(string.Empty)))
+            {
+                MessageBox.Show("Bitte ein Datum und einen Prüfer eingeben.", "Fehlende Prüfungsangaben", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            if (selectedDate.HasValue && (TextBoxExaminer.Text.Equals(string.Empty)))
+            {
+                MessageBox.Show("Bitte einen Prüfer eingeben.", "Fehlende Prüfungsangaben", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            if (!selectedDate.HasValue && (!TextBoxExaminer.Text.Equals(string.Empty)))
+            {
+                MessageBox.Show("Bitte ein Datum eingeben.", "Fehlende Prüfungsangaben", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         private void drawCoverSheet(PdfPage page)
@@ -258,26 +275,18 @@ namespace UniversityExamCreator.Views
 
             // Initialize Exam-Header and first Line
             var examHeader = new XTextFormatter(gfx);
-            string leftSideText = "Dr. ...";
+            string leftSideText = "Prüfer: ";
             DateTime? selectedDate = ExamDate.SelectedDate;
 
             // Draw the first Line 
-            if (selectedDate.HasValue)
-            {
-                DateTime date = selectedDate.Value;
-                string rightSideText = "Magdeburg, " + date.ToString("dd.MM.yyyy");
-                XSize rightTextSize = gfx.MeasureString(rightSideText, taskFont);
-                double xRightPosition = margin + innerWidth - rightTextSize.Width;
-                draw(leftSideText, taskFont, new XPoint(margin, yPoint));
-                draw(rightSideText, taskFont, new XPoint(xRightPosition, yPoint));
-                yPoint += taskSpacing;
-            }
-            else
-            {
-                //hier fehlt noch dass wenn man kein Datum ausgewählt hat soll das Programm die klausur auch nicht erstellen
-                MessageBox.Show("Bitte ein Datum eingeben.", "Fehlende Datumsangabe", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-
+            DateTime date = selectedDate.Value;
+            leftSideText += TextBoxExaminer.Text;
+            string rightSideText = "Magdeburg, " + date.ToString("dd.MM.yyyy");
+            XSize rightTextSize = gfx.MeasureString(rightSideText, taskFont);
+            double xRightPosition = margin + innerWidth - rightTextSize.Width;
+            draw(leftSideText, taskFont, new XPoint(margin, yPoint));
+            draw(rightSideText, taskFont, new XPoint(xRightPosition, yPoint));
+            
             // Draw the exam name with wrapping
             var examNameRect = new XRect(margin, yPoint, innerWidth, pageHeight - yPoint - margin);
             DrawWrappedText(Examconfig.ExamName, examTitelFont, examNameRect, out double textHeight);
