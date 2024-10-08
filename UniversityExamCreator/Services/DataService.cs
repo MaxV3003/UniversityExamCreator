@@ -171,28 +171,40 @@ public class DataService
 
         public void InsertTempExam(int examID, int taskID)
         {
-            // SQLite-Verbindung öffnen
             using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
 
-                // SQL-Abfrage zum Einfügen der exam_id und task_id in die tempexam-Tabelle
                 string query = @"
                     INSERT INTO tempexam (exam_id, task_id) 
                     VALUES (@examID, @taskID)";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, conn))
                 {
-                    // Parameter hinzufügen, um SQL-Injection zu verhindern
                     command.Parameters.AddWithValue("@examID", examID);
                     command.Parameters.AddWithValue("@taskID", taskID);
-
-                    // Ausführung der SQL-Abfrage
                     command.ExecuteNonQuery();
                 }
             }
         }
+        public void InsertHint(string name, string content)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(connection))
+            {
+                conn.Open();
 
+                string query = @"
+                        INSERT INTO tempexam (name, content) 
+                        VALUES (@name, @content)";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@name", name);
+                    command.Parameters.AddWithValue("@content", content);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
 
 
         //----------------------------------- 

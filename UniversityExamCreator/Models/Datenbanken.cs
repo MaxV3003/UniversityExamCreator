@@ -97,6 +97,13 @@ public class DatabaseManager
             PRIMARY KEY (exam_id, task_id)
             );";
 
+            string createHintTable = @"
+            CREATE TABLE IF NOT EXISTS tempexam (
+            id INTEGER PRIMARY KEY AUTOINCREMENT
+            name VARCHAR(50) NOT NULL,
+            content TEXT NOT NULL,
+            );";
+
             ExecuteNonQuery(conn, createTaskTable);
             ExecuteNonQuery(conn, createExamTable);
             ExecuteNonQuery(conn, createExamTaskTable);
@@ -106,6 +113,7 @@ public class DatabaseManager
             ExecuteNonQuery(conn, createTaskAnswerTable);
             ExecuteNonQuery(conn, createModuleTable);
             ExecuteNonQuery(conn, createTempexamTable);
+            ExecuteNonQuery(conn, createHintTable);
         }
     }
 
