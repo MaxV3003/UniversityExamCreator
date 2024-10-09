@@ -26,6 +26,7 @@ namespace UniversityExamCreator.Views
         Models.Task task;
         private int textBoxCount = 0;
         private double currentY = 10;
+        private List<System.Windows.Controls.StackPanel> panelList = new List<System.Windows.Controls.StackPanel>();
         private List<System.Windows.Controls.TextBox> textBoxList = new List<System.Windows.Controls.TextBox>();
         private List<(System.Windows.Controls.RadioButton, System.Windows.Controls.RadioButton)> radioButtonGroups = new List<(System.Windows.Controls.RadioButton, System.Windows.Controls.RadioButton)>();
         public TaskCreateMC(Models.Task task)       
@@ -34,46 +35,44 @@ namespace UniversityExamCreator.Views
             this.task = task;
         }
         /// <summary>
-        /// Erzeugt die neuen Textfelder und Radiobutton bei Click des Butoon
+        /// Erzeugt neue Textfelder und Radiobuttons bei Klick auf den Button "Hinzufügen"
         /// </summary>
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            
             System.Windows.Controls.TextBox newTextBox = new System.Windows.Controls.TextBox();
-            newTextBox.Width = 490; 
+            newTextBox.Width = 400;
             newTextBox.Height = 60;
-            newTextBox.Margin = new Thickness(0, 10, 0, 0); 
-            Canvas.SetLeft(newTextBox, 100); 
-            Canvas.SetTop(newTextBox, currentY);
+            newTextBox.Margin = new Thickness(0, 10, 0, 0);
+            newTextBox.BorderBrush = new SolidColorBrush(Colors.White);
 
             System.Windows.Controls.RadioButton radioButton1 = new System.Windows.Controls.RadioButton();
-            radioButton1.Content = "Richtig"; 
-            radioButton1.GroupName = $"Group{textBoxCount}"; 
-            radioButton1.Margin = new Thickness(5, 0, 0, 0); 
+            radioButton1.Content = "Richtig";
+            radioButton1.GroupName = $"Group{textBoxCount}";
+            radioButton1.Margin = new Thickness(5, 0, 0, 0);
 
-            
             System.Windows.Controls.RadioButton radioButton2 = new System.Windows.Controls.RadioButton();
-            radioButton2.Content = "Falsch"; 
-            radioButton2.GroupName = $"Group{textBoxCount}"; 
+            radioButton2.Content = "Falsch";
+            radioButton2.GroupName = $"Group{textBoxCount}";
             radioButton2.Margin = new Thickness(5, 0, 0, 0);
 
-            Canvas.SetLeft(radioButton1, 80);
-            Canvas.SetTop(radioButton1, currentY - 10); 
+            // Erstelle ein horizontales StackPanel, um die TextBox und die RadioButtons nebeneinander anzuordnen
+            System.Windows.Controls.StackPanel horizontalPanel = new System.Windows.Controls.StackPanel();
+            horizontalPanel.Orientation = System.Windows.Controls.Orientation.Horizontal;
 
-            
-            Canvas.SetLeft(radioButton2, 90); 
-            Canvas.SetTop(radioButton2, currentY + 10);
+            // Füge die TextBox und die RadioButtons zum horizontalen StackPanel hinzu
+            horizontalPanel.Children.Add(newTextBox);
+            horizontalPanel.Children.Add(radioButton1);
+            horizontalPanel.Children.Add(radioButton2);
 
-            currentY += 20; 
+            // Füge das horizontale StackPanel in das vertikale StackPanel (TextBoxContainer) ein
+            TextBoxContainer.Children.Add(horizontalPanel);
 
-            TextBoxContainer.Children.Add(newTextBox);
-            TextBoxContainer.Children.Add(radioButton1);
-            TextBoxContainer.Children.Add(radioButton2);
-
+            // Speichere das StackPanel, die TextBox und das RadioButton-Paar
+            panelList.Add(horizontalPanel); // Das gesamte Panel speichern
             textBoxList.Add(newTextBox);
             radioButtonGroups.Add((radioButton1, radioButton2));
 
-        textBoxCount++;
+            textBoxCount++;
         }
 
         /// <summary>
@@ -81,13 +80,18 @@ namespace UniversityExamCreator.Views
         /// </summary>
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            if (textBoxList.Count > 0)
+            if (panelList.Count > 0)
             {
-                textBoxList.RemoveAt(textBoxList.Count - 1);
+                // Entferne das letzte StackPanel (das die TextBox und die RadioButtons enthält)
+                System.Windows.Controls.StackPanel lastPanel = panelList.Last();
+                TextBoxContainer.Children.Remove(lastPanel); // Entferne das Panel aus dem UI
+                panelList.RemoveAt(panelList.Count - 1); // Entferne das Panel aus der Liste
 
-                var lastRadioButtons = radioButtonGroups.Last();
+                // Entferne das letzte TextBox-Element und die zugehörigen Radiobuttons aus den Listen
+                textBoxList.RemoveAt(textBoxList.Count - 1);
                 radioButtonGroups.RemoveAt(radioButtonGroups.Count - 1);
-                TextBoxContainer.Children.RemoveAt(TextBoxContainer.Children.Count - 1);
+
+                // Zähler verringern
                 textBoxCount--;
             }
             else

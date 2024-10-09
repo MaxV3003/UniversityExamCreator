@@ -30,7 +30,7 @@
 
                     <!-- Ein Button, der auf den Add_Click-Handler verweist -->
                     <Button Content="EIne neue Antwortmöglichkeit hinzufügen" Click="Add_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,200,0,0"/>
-                    <Button Content="Die letzte Antwortmöglichkeit löschen" Click="Delete_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,220,0,0"/>
+                    <Button Content="Die letzte Antwortmöglichkeit löschen" Click="Delete_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,200,0,0"/>
                 </Grid>
 
 
