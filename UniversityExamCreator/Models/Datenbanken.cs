@@ -98,11 +98,12 @@ public class DatabaseManager
             );";
 
             string createHintTable = @"
-            CREATE TABLE IF NOT EXISTS tempexam (
-            id INTEGER PRIMARY KEY AUTOINCREMENT
+            CREATE TABLE IF NOT EXISTS hint (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             name VARCHAR(50) NOT NULL,
-            content TEXT NOT NULL,
+            content TEXT NOT NULL
             );";
+
 
             ExecuteNonQuery(conn, createTaskTable);
             ExecuteNonQuery(conn, createExamTable);

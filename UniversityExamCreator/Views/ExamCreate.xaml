@@ -83,7 +83,7 @@
 
             <StackPanel HorizontalAlignment="Left" Height="192" Margin="444,149,0,0" VerticalAlignment="Top" Width="288" Background="Gray" Grid.RowSpan="2">
                 <ListView x:Name="SelectedItemListView" Width="291" Height="194" ScrollViewer.VerticalScrollBarVisibility="Auto"
-                          ItemsSource="{Binding SelectedTasks}" Background="#FFF5FBFB" ScrollViewer.CanContentScroll="False" UseLayoutRounding="False" BorderBrush="#FFAACEE9">
+                          ItemsSource="{Binding SelectedTasks}" Background="#FFF5FBFB" ScrollViewer.CanContentScroll="False" UseLayoutRounding="False" BorderBrush="#FFAACEE9" SelectionChanged="SelectedItemListView_SelectionChanged">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>

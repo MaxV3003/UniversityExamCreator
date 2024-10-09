@@ -113,5 +113,10 @@ namespace UniversityExamCreator.Views
             NavigationService.Navigate(new ToolsPage());
             ProcessInputs();
         }
+
+        private void FrageText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

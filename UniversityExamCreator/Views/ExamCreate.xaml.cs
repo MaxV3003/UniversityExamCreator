@@ -257,6 +257,11 @@ namespace UniversityExamCreator.Views
         {
             // Auswahländerungen können hier bearbeitet werden, wenn nötig
         }
+
+        private void SelectedItemListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
 
