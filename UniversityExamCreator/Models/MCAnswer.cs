@@ -19,7 +19,7 @@ namespace UniversityExamCreator.Models
         public string Content { get; set; }
 
         /// <summary>
-        /// ID of the MC-Answer. From 1-8.
+        /// ID of the MC-Answer. From 1-10.
         /// </summary>
         public int ID { get; set; }
 

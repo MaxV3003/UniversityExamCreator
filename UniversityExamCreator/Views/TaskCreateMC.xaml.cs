@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UniversityExamCreator.Models;
 
 namespace UniversityExamCreator.Views
 {
@@ -74,33 +75,57 @@ namespace UniversityExamCreator.Views
 
         textBoxCount++;
         }
+
         /// <summary>
-        /// Verarbeitet die eingaben der Textfelder
+        /// Löscht das zuletzt hinzugefügte Textfeld und die zugehörigen Radiobuttons
         /// </summary>
-        private void ProcessInputs()
+        private void Delete_Click(object sender, RoutedEventArgs e)
         {
+            if (textBoxList.Count > 0)
+            {
+                textBoxList.RemoveAt(textBoxList.Count - 1);
+
+                var lastRadioButtons = radioButtonGroups.Last();
+                radioButtonGroups.RemoveAt(radioButtonGroups.Count - 1);
+                TextBoxContainer.Children.RemoveAt(TextBoxContainer.Children.Count - 1);
+                textBoxCount--;
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Es gibt keine weiteren Elemente zum Löschen.");
+            }
+        }
+
+
+        /// <summary>
+        /// Verarbeitet die eingaben der Textfelder und fügt zu Zum Objekt Task hinzu
+        /// </summary>
+        private void ProcessInputs(Models.Task task)
+        {
+            string TaskName=task.getName();
             for (int i = 0; i < textBoxList.Count; i++)
             {
                 
                 string textBoxValue = textBoxList[i].Text;
-                Console.WriteLine($"TextBox {i + 1}: {textBoxValue}");
-
+                MCAnswer Answer = new MCAnswer(TaskName, textBoxValue, i + 1, 0);
                 
                 var (radioButton1, radioButton2) = radioButtonGroups[i];
 
                 if (radioButton1.IsChecked == true)// Richtig
                 {
-                    
+                    Answer.AnswerFlag = 1;
                 }
                 else if (radioButton2.IsChecked == true)//Falsch
                 {
-                    
+                    Answer.AnswerFlag = 0;
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show("Bitte auswählen, ob die Antworten Richttig oder Falsch sind");
+                    //System.Windows.MessageBox.Show("Bitte auswählen, ob die Antworten Richttig oder Falsch sind");
                 }
+                //task.MCAnswers.set(Answer);
             }
+            task.TaskContent = QuestionText.Text;
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -110,8 +135,9 @@ namespace UniversityExamCreator.Views
 
         private void Create_Click(object sender, RoutedEventArgs e)
         {
+            ProcessInputs(task);
             NavigationService.Navigate(new ToolsPage());
-            ProcessInputs();
+            
         }
     }
 }

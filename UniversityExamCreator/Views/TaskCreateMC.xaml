@@ -12,24 +12,25 @@
     <!-- ScrollViewer in der ersten Zeile -->
     <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
         <Viewbox>
-            <Grid Background="#FFF9FCFD" Width="800" Height="450">
+            <Grid Background="#FFF9FCFD" Width="800" Height="1450">
 
 
                 <TextBlock Name="Titel" Text="MC" FontSize="23"  HorizontalAlignment="Center" Height="37" Margin="0,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF0068B4"/>
-                <TextBlock Name="Frage" HorizontalAlignment="Left" Height="85" Margin="100,91,0,0" TextWrapping="Wrap" Text="Frage:" VerticalAlignment="Top" Width="180" Foreground="#FF0068B4"/>
-                <TextBox Name="FrageText" HorizontalAlignment="Left" Height="60" Margin="227,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="491" BorderBrush="#FFAACEE9"/>
+                <TextBlock Name="Question" HorizontalAlignment="Left" Height="85" Margin="100,91,0,0" TextWrapping="Wrap" Text="Frage:" VerticalAlignment="Top" Width="180" Foreground="#FF0068B4"/>
+                <TextBox Name="QuestionText" HorizontalAlignment="Left" Height="60" Margin="227,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="491" BorderBrush="#FFAACEE9" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
 
                 <TextBlock Name="Antwort" HorizontalAlignment="Left" Height="22" Margin="100,154,0,0" TextWrapping="Wrap" Text="Antworten:" VerticalAlignment="Top" Width="65" Foreground="#FF0068B4"/>
 
                 <Grid>
                     <!-- Hier wird das StackPanel eingefügt, in dem die TextBoxen hinzugefügt werden -->
-                    <StackPanel x:Name="TextBoxContainer" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="105,180,0,0" Height="240" Width="650">
+                    <StackPanel x:Name="TextBoxContainer" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="105,180,0,0" Height="1000" Width="650">
                         <!-- Hier kannst du feste TextBoxen oder andere Steuerelemente hinzufügen -->
 
                     </StackPanel>
 
                     <!-- Ein Button, der auf den Add_Click-Handler verweist -->
-                    <Button Content="Hinzufügen" Click="Add_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,200,0,0"/>
+                    <Button Content="EIne neue Antwortmöglichkeit hinzufügen" Click="Add_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,200,0,0"/>
+                    <Button Content="Die letzte Antwortmöglichkeit löschen" Click="Delete_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,220,0,0"/>
                 </Grid>
 
 
