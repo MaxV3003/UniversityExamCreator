@@ -122,7 +122,7 @@ public class DatabaseManager
     {
         using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
         {
-            cmd.ExecuteNonQuery();
+            //cmd.ExecuteNonQuery();
         }
     }
 }
