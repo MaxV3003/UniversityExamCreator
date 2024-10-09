@@ -228,15 +228,41 @@ namespace UniversityExamCreator.Views
                 MessageBox.Show($"Task Info:\nName: {selectedTask.TaskName}\nContent: {selectedTask.TaskContent}", "Task Info");
             }
         }
+        private void SaveSelectedTasksToDatabase()
+        {
+            try
+            {
+                // Verbindungsstring ermitteln
+                PathFinder pathFinder = new PathFinder("Databases", "database.db");
+                string databasePath = pathFinder.GetPath();
+                string connectionString = $"Data Source={databasePath};Version=3;";
+
+                // DataService mit dem Verbindungsstring instanziieren
+                DataService dataService = new DataService(connectionString);
+
+                // Gehe durch die ausgewählten Aufgaben und füge sie in die Tabelle tempexam ein
+                foreach (var task in SelectedTasks)
+                {
+                    dataService.InsertTempExam(Examconfig.Id, task.Id); // Verwende die Methode aus DataService
+                }
+
+                MessageBox.Show("Aufgaben erfolgreich gespeichert.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Fehler beim Speichern der Aufgaben: " + ex.Message);
+            }
+        }
 
         /// <summary>
         /// Navigate to the next page. 
         /// </summary>
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
+            SaveSelectedTasksToDatabase(); // Speichere die Aufgaben zuerst
+
             if (this.NavigationService != null)
             {
-                // Stelle sicher, dass du die ausgewählten Aufgaben übergibst
                 this.NavigationService.Navigate(new ExamPreview(Examconfig, SelectedTasks.ToList()));
             }
             else

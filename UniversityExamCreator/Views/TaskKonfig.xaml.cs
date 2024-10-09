@@ -15,7 +15,7 @@ namespace UniversityExamCreator.Views
         public TaskKonfig()
         {
             InitializeComponent();
-            InitializeDD();  // Initialisiere die statischen Dropdown-Werte
+            InitializeDD();
             LoadModulesFromDatabase(); // Lade Module aus der Datenbank
         }
 
@@ -43,44 +43,13 @@ namespace UniversityExamCreator.Views
                 {
                     task = CreateTaskOF();
                 }
-
-                PathFinder pathFinder = new PathFinder("Databases", "database.db");
-                string databasePath = pathFinder.GetPath();
-                string connectionString = $"Data Source={databasePath};Version=3;";
-
-                DataService dataService = new DataService(connectionString);
-
-                // Speichere die Aufgabe in der Datenbank
-                try
-                {
-                    // Rufe die InsertTask-Methode auf und übergebe den Autor
-                    dataService.InsertTask(
-                        topic: task.Topic,
-                        taskType: task.TaskType,
-                        difficulty: task.Difficulty,
-                        points: task.Points,
-                        taskName: task.TaskName,
-                        taskContent: taskContent,
-                        dateCreated: DateTime.Now,
-                        author: author // Hier wird der zuvor festgelegte Autor übergeben
-                    );
-
-                    MessageBox.Show("Aufgabe erfolgreich gespeichert.");
-
-                    // Navigiere zur nächsten Seite
-                    NextPath(task);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Fehler beim Speichern der Aufgabe: " + ex.Message);
-                }
+                NextPath(task);
             }
             else
             {
                 MessageBox.Show("Bitte alle Felder füllen");
             }
         }
-
 
         /// <summary>
         /// Initialisiert statische Dropdown-Optionen.
@@ -111,7 +80,7 @@ namespace UniversityExamCreator.Views
                     connection.Open();
 
                     // SQL-Abfrage zum Abrufen der Modulnamen
-                    string query = "SELECT Name FROM Module"; // Annahme: Die Tabelle 'Module' hat eine Spalte 'Name'
+                    string query = "SELECT Name FROM Module"; 
                     using (var command = new SQLiteCommand(query, connection))
                     {
                         using (var reader = command.ExecuteReader())
