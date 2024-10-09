@@ -42,7 +42,7 @@
 
 
             <TextBlock Name="MCRules" Text="Text der den Studenten angibt welche Regeln für die Multiple Choice Fragen gelten"  HorizontalAlignment="Left"
-                   Height="32" Margin="101,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" FontFamily="Verdana" Foreground="#FF0068B4"/>
+                   Height="32" Margin="101,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" FontFamily="Verdana" Foreground="#FF0068B4"/>
             <TextBox Name="MCRulesText" HorizontalAlignment="Left" Height="21" Margin="348,211,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="292" MaxLength="100"
                  AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Background="#FFF5FBFB" BorderBrush="#FFAACEE9"/>
 
