@@ -31,9 +31,6 @@ namespace UniversityExamCreator.Views
                 Models.Task task;
                 string taskContent = ""; // Standardwert für taskContent
 
-                // Setze den Autor entweder aus dem Textfeld oder auf "Unbekannter Autor"
-                string author = !string.IsNullOrEmpty(AuthorText.Text) ? AuthorText.Text : "Unbekannter Autor";
-
                 if (MCDD.Text == "Multiple Choice")
                 {
                     task = CreateTaskMC();
@@ -198,6 +195,11 @@ namespace UniversityExamCreator.Views
         }
 
         private void DifficultyDD_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void TitleText_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }

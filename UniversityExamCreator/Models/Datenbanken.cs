@@ -56,13 +56,14 @@ public class DatabaseManager
             password VARCHAR(20) NOT NULL
             );";
 
-            string createAnswerTable = @"
-            CREATE TABLE IF NOT EXISTS answer (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            task_id INTEGER NOT NULL,
-            answer_content TEXT NOT NULL,
-            FOREIGN KEY (task_id) REFERENCES task(id)
-            );";
+           string createAnswerTable = @"
+           CREATE TABLE IF NOT EXISTS answer (
+           id INTEGER PRIMARY KEY AUTOINCREMENT,
+           task_id INTEGER NOT NULL,
+           answer_content TEXT NOT NULL,
+           username VARCHAR(50),
+           FOREIGN KEY (task_id) REFERENCES task(id)
+           );";
 
             string createExamConfigTable = @"
             CREATE TABLE IF NOT EXISTS exam_config (
@@ -104,7 +105,7 @@ public class DatabaseManager
             content TEXT NOT NULL
             );";
 
-
+         
             ExecuteNonQuery(conn, createTaskTable);
             ExecuteNonQuery(conn, createExamTable);
             ExecuteNonQuery(conn, createExamTaskTable);

@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using UniversityExamCreator.Models;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace UniversityExamCreator.Views
 {
@@ -21,37 +22,47 @@ namespace UniversityExamCreator.Views
 
         private void Create_Click(object sender, RoutedEventArgs e)
         {
-            // Setze den Inhalt und die Antwort der Aufgabe in das Task-Objekt
+            // Hole den Text aus der TextBox, die den Benutzernamen enthält
+            string username = username_text.Text;
+
+            // Wenn der username leer ist, setze ihn auf einen leeren String
+            if (string.IsNullOrEmpty(username))
+            {
+                username = ""; // Fallback für leeren Benutzernamen
+            }
+
+            // Restlicher Code für das Erstellen der Aufgabe und das Speichern in der Datenbank
             AddContent(task);
 
             if (CheckFilled() == true)
             {
-                // Prüfe, ob der Autor korrekt gesetzt wurde
                 if (string.IsNullOrEmpty(task.Author))
                 {
-                    task.Author = "Unbekannter Autor"; // Fallback, falls der Autor nicht gesetzt wurde
+                    task.Author = "Unbekannter Autor";
                 }
 
                 // Erstelle die Datenbankverbindung
                 PathFinder pathFinder = new PathFinder("Databases", "database.db");
                 string databasePath = pathFinder.GetPath();
                 string connectionString = $"Data Source={databasePath};Version=3;";
-
                 DataService dataService = new DataService(connectionString);
 
                 try
                 {
-                    // Speichere die Aufgabe in der Datenbank
+                    // Speichere die Aufgabe
                     dataService.InsertTask(
                         topic: task.Topic,
                         taskType: task.TaskType,
                         difficulty: task.Difficulty,
                         points: task.Points,
                         taskName: task.TaskName,
-                        taskContent: task.getTaskContent(), // Hol den Inhalt der Aufgabe
+                        taskContent: task.getTaskContent(),
                         dateCreated: DateTime.Now,
-                        author: task.Author // Verwende den Autor, der in der Konfigurationsseite gesetzt wurde
+                        author: task.Author
                     );
+
+                    // Speichere die Antwort in der Datenbank
+                    dataService.InsertAnswer(task.Id, AnswerText.Text, username);
 
                     MessageBox.Show("Aufgabe wurde erfolgreich gespeichert.");
                 }
@@ -65,7 +76,7 @@ namespace UniversityExamCreator.Views
                 MessageBox.Show("Bitte geben Sie eine Fragestellung ein.");
             }
 
-            // Navigiere zur nächsten Seite oder zurück
+            // Navigation zur nächsten Seite
             NavigationService.Navigate(new ToolsPage());
         }
 
@@ -116,6 +127,7 @@ namespace UniversityExamCreator.Views
         }
     }
 }
+
 
 
 

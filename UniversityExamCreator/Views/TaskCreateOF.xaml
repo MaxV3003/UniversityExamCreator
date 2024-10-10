@@ -9,7 +9,13 @@
       Title="TaskCreateOF"
       Background="#FFF9FCFD">
     <Viewbox>
+        
         <Grid Background="#FFF9FCFD" Width="800" Height="450">
+
+        <TextBlock x:Name="username"  HorizontalAlignment="Left" Height="20" Margin="101,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" FontFamily="Verdana" Foreground="#FF0068B4" Visibility="Collapsed"><Run Text="username"/></TextBlock>
+        <TextBox Name="username_text" HorizontalAlignment="Left" Height="21" Margin="241,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="399" MaxLength="100"
+            AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Background="#FFF5FBFB" BorderBrush="#FFAACEE9" Visibility="Collapsed"/>
+
         <TextBlock Name="Content" HorizontalAlignment="Left" Height="20" Margin="50,25,0,0" TextWrapping="Wrap" 
                    Text="Fragestellung für die offene Frage:" VerticalAlignment="Top" Width="645" FontFamily="Verdana" Foreground="#FF0068B4"/>
         <TextBox Name="ContentText" HorizontalAlignment="Left" Height="100" Margin="50,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="695" 

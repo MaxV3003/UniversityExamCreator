@@ -64,7 +64,7 @@
 
             <TextBlock Name="Title" Text="Titel der Aufgabe"  HorizontalAlignment="Left" Height="20" Margin="101,347,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="107" FontFamily="Verdana" Foreground="#FF0068B4"/>
             <TextBox Name="TitleText" HorizontalAlignment="Left" Height="21" Margin="240,346,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="399" MaxLength="100"
-                 AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Background="#FFF5FBFB" BorderBrush="#FFAACEE9"/>
+                 AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Background="#FFF5FBFB" BorderBrush="#FFAACEE9" TextChanged="TitleText_TextChanged"/>
 
             <Button Name="Back" Content="zurück" HorizontalAlignment="Left" Height="24" Margin="78,379,0,0" VerticalAlignment="Top" Width="71" Click="Back_Click" Background="#FFF5FBFB" Foreground="#FF0068B4" BorderBrush="#FFAACEE9"/>
             <Button Name="Next" Content="Weiter" HorizontalAlignment="Left" Height="24" Margin="647,382,0,0" VerticalAlignment="Top" Width="71" Click="Next_Click" Background="#FFF5FBFB" Foreground="#FF0068B4" BorderBrush="#FFAACEE9"/>

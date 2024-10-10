@@ -10,6 +10,7 @@ public class DataService
         connection = connectionString; 
     }
 
+
     // Insert Task
         public void InsertTask(string topic, string taskType, string difficulty, int points, string taskName, string taskContent, DateTime dateCreated, string author)
         {
@@ -94,19 +95,20 @@ public class DataService
         }
 
         // Insert Answer
-        public void InsertAnswer(int task_id, string answer_content)
+        public void InsertAnswer(int task_id, string answer_content, string username)
         {
             using (SQLiteConnection conn = new SQLiteConnection(connection))
             {
                 conn.Open();
                 string query = @"
-                    INSERT INTO answer (task_id, answer_content) 
+                    INSERT INTO answer (task_id, answer_content, username) 
                     VALUES (@task_id, @answer_content, @username)";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, conn))
                 {
                     command.Parameters.AddWithValue("@task_id", task_id);
                     command.Parameters.AddWithValue("@answer_content", answer_content);
+                command.Parameters.AddWithValue("@username", username);
                     command.ExecuteNonQuery();
                 }
             }
