@@ -286,6 +286,7 @@ namespace UniversityExamCreator.Views
             double xRightPosition = margin + innerWidth - rightTextSize.Width;
             draw(leftSideText, taskFont, new XPoint(margin, yPoint));
             draw(rightSideText, taskFont, new XPoint(xRightPosition, yPoint));
+            yPoint += taskSpacing;
 
             // Draw the exam name with wrapping
             var examNameRect = new XRect(margin, yPoint, innerWidth, pageHeight - yPoint - margin);
@@ -725,12 +726,24 @@ namespace UniversityExamCreator.Views
 
         private void AdditionalInformationInfoButton(object sender, RoutedEventArgs e)
         {
-            System.Windows.Forms.Button button = sender as System.Windows.Forms.Button;
-            AdditionalInformation info = button.Tag as AdditionalInformation;
+            System.Windows.Controls.Button button = sender as System.Windows.Controls.Button;
 
-            if (info != null)
+            if (button != null) 
             {
-                MessageBox.Show($"Beschreibung: {info.Content}");
+                AdditionalInformation info = button.Tag as AdditionalInformation;
+
+                if (info != null)
+                {
+                    MessageBox.Show($"Beschreibung: {info.Content}");
+                }
+                else
+                {
+                    MessageBox.Show("Tag ist kein AdditionalInformation-Objekt.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Sender ist kein WPF Button.");
             }
         }
 

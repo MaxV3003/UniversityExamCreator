@@ -154,8 +154,6 @@ namespace UniversityExamCreator.Views
                 selecetedTaskAmoount++;
             }
 
-            Console.WriteLine("TotalPoints:" + totalPoints);
-
             if (!(selecetedTaskAmoount > Examconfig.TaskAmount))
             {
                 if ((!(totalPoints > Examconfig.PointAmount)) || (Examconfig.PointAmount.Equals(0)))
@@ -276,7 +274,7 @@ namespace UniversityExamCreator.Views
         /// </summary>
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new ToolsPage());
+            NavigationService.Navigate(new ExamConfig(Examconfig));
         }
 
         private void ItemListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
