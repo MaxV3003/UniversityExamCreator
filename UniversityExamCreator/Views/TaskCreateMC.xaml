@@ -29,8 +29,8 @@
                     </StackPanel>
 
                     <!-- Ein Button, der auf den Add_Click-Handler verweist -->
-                    <Button Content="EIne neue Antwortmöglichkeit hinzufügen" Click="Add_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,200,0,0"/>
-                    <Button Content="Die letzte Antwortmöglichkeit löschen" Click="Delete_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,200,0,0"/>
+                    <Button Content="EIne neue Antwortmöglichkeit hinzufügen" Click="Add_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="105,200,0,0" Background="#FFF5FBFB" Foreground="#FF0068B4" BorderBrush="#FFAACEE9"/>
+                    <Button Content="Die letzte Antwortmöglichkeit löschen" Click="Delete_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="506,200,0,0" Background="#FFF5FBFB" Foreground="#FF0068B4" BorderBrush="#FFAACEE9"/>
                 </Grid>
 
 

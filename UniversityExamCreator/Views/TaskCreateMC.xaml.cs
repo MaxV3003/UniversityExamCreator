@@ -43,7 +43,7 @@ namespace UniversityExamCreator.Views
             newTextBox.Width = 400;
             newTextBox.Height = 60;
             newTextBox.Margin = new Thickness(0, 10, 0, 0);
-            newTextBox.BorderBrush = new SolidColorBrush(Colors.White);
+            newTextBox.BorderBrush = new SolidColorBrush(Colors.Blue);
 
             System.Windows.Controls.RadioButton radioButton1 = new System.Windows.Controls.RadioButton();
             radioButton1.Content = "Richtig";
@@ -82,16 +82,16 @@ namespace UniversityExamCreator.Views
         {
             if (panelList.Count > 0)
             {
-                // Entferne das letzte StackPanel (das die TextBox und die RadioButtons enthält)
+                
                 System.Windows.Controls.StackPanel lastPanel = panelList.Last();
-                TextBoxContainer.Children.Remove(lastPanel); // Entferne das Panel aus dem UI
-                panelList.RemoveAt(panelList.Count - 1); // Entferne das Panel aus der Liste
+                TextBoxContainer.Children.Remove(lastPanel); 
+                panelList.RemoveAt(panelList.Count - 1); 
 
-                // Entferne das letzte TextBox-Element und die zugehörigen Radiobuttons aus den Listen
+               
                 textBoxList.RemoveAt(textBoxList.Count - 1);
                 radioButtonGroups.RemoveAt(radioButtonGroups.Count - 1);
 
-                // Zähler verringern
+                
                 textBoxCount--;
             }
             else
@@ -111,25 +111,26 @@ namespace UniversityExamCreator.Views
             {
                 
                 string textBoxValue = textBoxList[i].Text;
-                MCAnswer Answer = new MCAnswer(TaskName, textBoxValue, i + 1, 0);
+                MCAnswer answer = new MCAnswer(task.TaskName, textBoxValue, i + 1, 0);
                 
                 var (radioButton1, radioButton2) = radioButtonGroups[i];
 
-                if (radioButton1.IsChecked == true)// Richtig
+                if (radioButton1.IsChecked == true)
                 {
-                    Answer.AnswerFlag = 1;
+                    answer.AnswerFlag = 1;
                 }
-                else if (radioButton2.IsChecked == true)//Falsch
+                else if (radioButton2.IsChecked == true)
                 {
-                    Answer.AnswerFlag = 0;
+                    answer.AnswerFlag = 0;
                 }
                 else
                 {
                     //System.Windows.MessageBox.Show("Bitte auswählen, ob die Antworten Richttig oder Falsch sind");
                 }
-                //task.MCAnswers.set(Answer);
+                task.addMCAnswer(answer);
             }
             task.TaskContent = QuestionText.Text;
+            
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
