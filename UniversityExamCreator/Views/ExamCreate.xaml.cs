@@ -95,10 +95,10 @@ namespace UniversityExamCreator.Views
                                     taskType: reader["type"].ToString(),
                                     difficulty: reader["difficulty"].ToString(),
                                     points: Convert.ToInt32(reader["points"]),
-                                    taskName: reader["name"].ToString()
-                                    //hier muss der Taskcontent abgefragt werden
+                                    taskName: reader["name"].ToString(),
+                                    content: reader["content"].ToString()
                                 );
-                                task.setTaskContent(reader["content"].ToString());
+                                //task.setTaskContent(reader["content"].ToString());
                                 Tasks.Add(task);
                             }
                         }
@@ -221,10 +221,10 @@ namespace UniversityExamCreator.Views
         {
             Button infoButton = sender as Button;
             Task selectedTask = infoButton?.Tag as Task;
-
+            Console.WriteLine("selecetedTask: " + selectedTask.TaskContent);
             if (selectedTask != null)
             {
-                MessageBox.Show($"Task Info:\nName: {selectedTask.TaskName}\nContent: {selectedTask.TaskContent}", "Task Info");
+                MessageBox.Show($"{selectedTask.TaskContent}", selectedTask.TaskName);
             }
         }
         private void SaveSelectedTasksToDatabase()
