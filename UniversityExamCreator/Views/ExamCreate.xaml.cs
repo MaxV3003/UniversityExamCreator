@@ -96,6 +96,7 @@ namespace UniversityExamCreator.Views
                                     difficulty: reader["difficulty"].ToString(),
                                     points: Convert.ToInt32(reader["points"]),
                                     taskName: reader["name"].ToString()
+                                    //hier muss der Taskcontent abgefragt werden
                                 );
                                 task.setTaskContent(reader["content"].ToString());
                                 Tasks.Add(task);
