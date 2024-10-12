@@ -16,7 +16,7 @@ namespace UniversityExamCreator.Views
         {
             InitializeComponent();
             InitializeDD();
-            LoadModulesFromDatabase(); // Lade Module aus der Datenbank
+            LoadModulesFromDatabase(); 
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -34,7 +34,7 @@ namespace UniversityExamCreator.Views
                 if (MCDD.Text == "Multiple Choice")
                 {
                     task = CreateTaskMC();
-                    taskContent = MCRulesText.Text; // Content für Multiple Choice
+                    taskContent = MCRulesText.Text; 
                 }
                 else
                 {
@@ -76,7 +76,6 @@ namespace UniversityExamCreator.Views
                 {
                     connection.Open();
 
-                    // SQL-Abfrage zum Abrufen der Modulnamen
                     string query = "SELECT Name FROM Module"; 
                     using (var command = new SQLiteCommand(query, connection))
                     {
@@ -84,7 +83,6 @@ namespace UniversityExamCreator.Views
                         {
                             while (reader.Read())
                             {
-                                // Füge den Modulnamen zur ComboBox hinzu
                                 ModulDD.Items.Add(reader["name"].ToString());
                             }
                         }

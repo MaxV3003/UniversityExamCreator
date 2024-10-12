@@ -41,7 +41,6 @@ namespace UniversityExamCreator.Views
                     task.Author = "Unbekannter Autor";
                 }
 
-                // Erstelle die Datenbankverbindung
                 PathFinder pathFinder = new PathFinder("Databases", "database.db");
                 string databasePath = pathFinder.GetPath();
                 string connectionString = $"Data Source={databasePath};Version=3;";
@@ -76,7 +75,6 @@ namespace UniversityExamCreator.Views
                 MessageBox.Show("Bitte geben Sie eine Fragestellung ein.");
             }
 
-            // Navigation zur nächsten Seite
             NavigationService.Navigate(new ToolsPage());
         }
 
@@ -123,7 +121,6 @@ namespace UniversityExamCreator.Views
 
         private void ContentText_TextChanged(object sender, TextChangedEventArgs e)
         {
-            // Hier kannst du logische Dinge hinzufügen, falls sich der Inhalt ändert
         }
     }
 }
