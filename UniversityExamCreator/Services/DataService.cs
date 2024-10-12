@@ -11,32 +11,36 @@ public class DataService
     }
 
     // Insert Task
-    public void InsertTask(string topic, string taskType, string difficulty, int points, string taskName, string taskContent, DateTime dateCreated, string author)
+    public int InsertTask(string topic, string taskType, string difficulty, int points, string taskName, string taskContent, DateTime dateCreated, string author)
+    {
+        using (SQLiteConnection conn = new SQLiteConnection(connection))
         {
-            using (SQLiteConnection conn = new SQLiteConnection(connection))
+            conn.Open();
+            string insertQuery = @"
+            INSERT INTO task (topic, type, difficulty, points, name, content, date_created, author) 
+            VALUES (@topic, @type, @difficulty, @points, @name, @content, @date_created, @author);
+            SELECT last_insert_rowid();";  // Rückgabe der zuletzt eingefügten ID
+
+            using (SQLiteCommand command = new SQLiteCommand(insertQuery, conn))
             {
-                conn.Open();
-                string insertQuery = @"
-                    INSERT INTO task (topic, type, difficulty, points, name, content, date_created, author) 
-                    VALUES (@topic, @type, @difficulty, @points, @name, @content, @date_created, @author)";
+                command.Parameters.AddWithValue("@topic", topic);
+                command.Parameters.AddWithValue("@type", taskType);
+                command.Parameters.AddWithValue("@difficulty", difficulty);
+                command.Parameters.AddWithValue("@points", points);
+                command.Parameters.AddWithValue("@name", taskName);
+                command.Parameters.AddWithValue("@content", taskContent);
+                command.Parameters.AddWithValue("@date_created", dateCreated);
+                command.Parameters.AddWithValue("@author", author);
 
-                using (SQLiteCommand command = new SQLiteCommand(insertQuery, conn))
-                {
-                    command.Parameters.AddWithValue("@topic", topic);
-                    command.Parameters.AddWithValue("@type", taskType);
-                    command.Parameters.AddWithValue("@difficulty", difficulty);
-                    command.Parameters.AddWithValue("@points", points);
-                    command.Parameters.AddWithValue("@name", taskName);
-                    command.Parameters.AddWithValue("@content", taskContent);
-                    command.Parameters.AddWithValue("@date_created", dateCreated);
-                    command.Parameters.AddWithValue("@author", author);
-
-                command.ExecuteNonQuery();
-                }
+                // Rückgabe der letzten eingefügten ID
+                long id = (long)command.ExecuteScalar();
+                return (int)id;
             }
         }
-        // Insert Exam
-        public void InsertExam(string course, string examiner, DateTime date)
+    }
+
+    // Insert Exam
+    public void InsertExam(string course, string examiner, DateTime date)
         {
             using (SQLiteConnection conn = new SQLiteConnection(connection))
             {

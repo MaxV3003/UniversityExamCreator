@@ -48,8 +48,8 @@ namespace UniversityExamCreator.Views
 
                 try
                 {
-                    // Speichere die Aufgabe
-                    dataService.InsertTask(
+                    // Speichere die Aufgabe und erhalte die generierte ID
+                    task.Id = dataService.InsertTask(
                         topic: task.Topic,
                         taskType: task.TaskType,
                         difficulty: task.Difficulty,
@@ -61,8 +61,7 @@ namespace UniversityExamCreator.Views
                     );
 
                     // Speichere die Antwort in der Datenbank
-                    Console.WriteLine("TaskID: " + task.Id);
-                    //dataService.InsertAnswer(lastTaskId, AnswerText.Text, username);
+                    dataService.InsertAnswer(task.Id, AnswerText.Text, username);
 
                     MessageBox.Show("Aufgabe wurde erfolgreich gespeichert.");
                 }
@@ -71,6 +70,7 @@ namespace UniversityExamCreator.Views
                     MessageBox.Show("Aufgabe konnte nicht gespeichert werden: " + ex.Message);
                 }
 
+
                 NavigationService.Navigate(new ToolsPage());
             }
         }
@@ -78,7 +78,6 @@ namespace UniversityExamCreator.Views
 
                 private void Back_Click(object sender, RoutedEventArgs e)
         {
-            // Navigiere zurück zur vorherigen Seite
             NavigationService.Navigate(new TaskKonfig());
         }
 
