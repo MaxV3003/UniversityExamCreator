@@ -262,6 +262,7 @@ namespace UniversityExamCreator.Views
             drawHeader();
             drawMetaTable();
             drawTasksTable(page);
+            //es könnte sein, dass hier die falsche Page des Dokuments übergeben wird
             drawAdditionalInformation(page);
         }
 
@@ -360,6 +361,14 @@ namespace UniversityExamCreator.Views
             for (int row = 0; row < data.GetLength(0); row++)
             {
                 double currentX = x;
+                
+                // Update page-amount if necessary 
+                /*if (yPoint + cellHeight > pageHeight - margin)
+                {
+                    page = document.AddPage();
+                    gfx = XGraphics.FromPdfPage(page);
+                    y = margin;
+                }*/
 
                 for (int col = 0; col < data.GetLength(1); col++)
                 {
@@ -544,7 +553,21 @@ namespace UniversityExamCreator.Views
                 //var rect = new XRect(margin, yPoint, innerWidth, page.Height - yPoint - margin);
                 //tf.DrawString(task.TaskContent, taskFont, XBrushes.Black, rect, XStringFormats.TopLeft);
                 draw(task.TaskContent, taskFont, new XRect(margin, yPoint, innerWidth, page.Height - yPoint - margin), "TopLeft", tf);
-                yPoint += descriptionHeight + taskSpacing;
+                yPoint += descriptionHeight + taskSpacing; //hier muss noch die Height angepasst werden, wenn der requiredspace > als eine ganze Seite ist 
+                /*
+                 * if(yPoint > pageHeight -margin){
+                 *      double y = yPoint;
+                 *      CreateHeaderSite(page);
+                 *      yPoint = y; 
+                 *      while(ypoint > pageHeight - margin)
+                 *      {
+                 *          yPoint -= pageHeight - margin;
+                 *          y = yPoint;
+                 *          CreateHeaderSite(page);
+                 *          yPoint = y;
+                 *      }
+                 * }
+                 */
 
                 // Draw MC Answers if any
                 if (task.TaskType == "MC" && task.MCAnswers != null)
