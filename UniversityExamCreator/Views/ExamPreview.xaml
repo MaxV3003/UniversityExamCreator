@@ -23,7 +23,7 @@
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
             <Viewbox>
                 <!-- Grid muss in Height angepasst werden, damit neue Elemente mit der Scrollbar sichtbar werden-->
-                <Grid Background="#FFF9FCFD" Height="750" Width="800">
+                <Grid Background="#FFF9FCFD" Height="1000" Width="800">
                     <TextBlock HorizontalAlignment="Left" Margin="300,34,0,0" TextWrapping="Wrap" Text="KlausurVorschau" VerticalAlignment="Top" FontSize="23" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF0068B4"/>
 
                     <TextBlock HorizontalAlignment="Left" Margin="105,125,0,0" TextWrapping="Wrap" Text="Schriftgröße Titel" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
@@ -77,7 +77,7 @@
 
                     <TextBlock HorizontalAlignment="Left" Margin="105,370,0,0" TextWrapping="Wrap" Text="Zusätzliche Hinweise" VerticalAlignment="Top" Foreground="#FF0068B4">
                     </TextBlock>
-                    <ListView x:Name="ListViewInformation" Margin="105,250,105,0" Height="200" 
+                    <ListView x:Name="ListViewInformation" Margin="105,0,105,0" Height="200" 
                               ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding additionalInformation}" SelectionChanged="ListViewInformation_SelectionChanged">
                         <ListView.ItemTemplate>
                             <DataTemplate>
