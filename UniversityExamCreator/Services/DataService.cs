@@ -10,9 +10,8 @@ public class DataService
         connection = connectionString; 
     }
 
-
     // Insert Task
-        public void InsertTask(string topic, string taskType, string difficulty, int points, string taskName, string taskContent, DateTime dateCreated, string author)
+    public void InsertTask(string topic, string taskType, string difficulty, int points, string taskName, string taskContent, DateTime dateCreated, string author)
         {
             using (SQLiteConnection conn = new SQLiteConnection(connection))
             {

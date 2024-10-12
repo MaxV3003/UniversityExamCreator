@@ -32,7 +32,7 @@ namespace UniversityExamCreator.Views
             }
 
             // Restlicher Code für das Erstellen der Aufgabe und das Speichern in der Datenbank
-            AddContent(task);
+            task = AddContent(task);
 
             if (CheckFilled() == true)
             {
@@ -61,7 +61,8 @@ namespace UniversityExamCreator.Views
                     );
 
                     // Speichere die Antwort in der Datenbank
-                    dataService.InsertAnswer(task.Id, AnswerText.Text, username);
+                    Console.WriteLine("TaskID: " + task.Id);
+                    //dataService.InsertAnswer(lastTaskId, AnswerText.Text, username);
 
                     MessageBox.Show("Aufgabe wurde erfolgreich gespeichert.");
                 }
@@ -69,17 +70,13 @@ namespace UniversityExamCreator.Views
                 {
                     MessageBox.Show("Aufgabe konnte nicht gespeichert werden: " + ex.Message);
                 }
-            }
-            else
-            {
-                MessageBox.Show("Bitte geben Sie eine Fragestellung ein.");
-            }
 
-            NavigationService.Navigate(new ToolsPage());
+                NavigationService.Navigate(new ToolsPage());
+            }
         }
 
 
-        private void Back_Click(object sender, RoutedEventArgs e)
+                private void Back_Click(object sender, RoutedEventArgs e)
         {
             // Navigiere zurück zur vorherigen Seite
             NavigationService.Navigate(new TaskKonfig());
