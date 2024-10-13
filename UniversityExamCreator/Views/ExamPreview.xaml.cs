@@ -266,6 +266,48 @@ namespace UniversityExamCreator.Views
             drawAdditionalInformation(page);
         }
 
+        private void GenerateAnswerPDF_Click(object sender, RoutedEventArgs e)
+        {
+            // Create new PDF-Document, Page & Graphics
+            PdfSharp.Pdf.PdfDocument newDocument = new PdfDocument()
+            {
+                Info = { Title = "Klausur Vorschau" }
+            };
+
+            // Page initializisation 
+            document = newDocument;
+            yPoint = 100;
+            PdfPage page = document.AddPage();
+            gfx = XGraphics.FromPdfPage(page);
+            DateTime? selectedDate = ExamDate.SelectedDate;
+
+            // Nur wenn diese Felder ausgefüllt sind, darf eine Klausur erstellt werden
+            if (selectedDate.HasValue && (TextBoxExaminer.Text != string.Empty))
+            {
+                // Draw the PDF
+                drawCoverSheet(page);
+                yPoint = pageHeight;
+                drawTaskAnswers(page);
+
+                // Save the document to a temporary file
+                tempFilename = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "AntwortKlausurVorschau.pdf");
+                document.Save(tempFilename);
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(tempFilename) { UseShellExecute = true });
+            }
+            if (!selectedDate.HasValue && (TextBoxExaminer.Text.Equals(string.Empty)))
+            {
+                MessageBox.Show("Bitte ein Datum und einen Prüfer eingeben.", "Fehlende Prüfungsangaben", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            if (selectedDate.HasValue && (TextBoxExaminer.Text.Equals(string.Empty)))
+            {
+                MessageBox.Show("Bitte einen Prüfer eingeben.", "Fehlende Prüfungsangaben", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            if (!selectedDate.HasValue && (!TextBoxExaminer.Text.Equals(string.Empty)))
+            {
+                MessageBox.Show("Bitte ein Datum eingeben.", "Fehlende Prüfungsangaben", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
         private void drawHeader()
         {
             // Laod Logo
@@ -583,6 +625,106 @@ namespace UniversityExamCreator.Views
                         yPoint += mcAnswerHeight + mcSpacing;
                     }
 
+                    // Add Spacing 
+                    yPoint += taskSpacing;
+                }
+            }
+        }
+
+        private void drawTaskAnswers(PdfPage page)
+        {
+            int headercounter = 1;
+            List<Task> tasks = taskCreator();
+
+            // Copy the tasks which were selected on the ExamCreate-Page 
+            foreach (var task in Tasks)
+            {
+                tasks.Add(task);
+            }
+
+            // Draw the tasks
+            foreach (var task in tasks)
+            {
+                double titleHeight = MeasureTextHeight(task.TaskName, titleFont, innerWidth);
+                double descriptionHeight = MeasureTextHeight(task.TaskContent, taskFont, innerWidth);
+                double answerHeight = 0;
+
+                if (!task.TaskAnswer.Content.Equals(null)) 
+                {
+                    answerHeight = MeasureTextHeight(task.TaskAnswer.Content, taskFont, innerWidth);
+                }
+
+                // Add some space between TaskDescription and -answer.
+                double finaldescriptionHeight = (2*taskSpacing + answerHeight + descriptionHeight);
+                double mcAnswersHeight = 0;
+
+                if (task.TaskType == "MC" && task.MCAnswers != null)
+                {
+                    foreach (var mcAnswer in task.MCAnswers)
+                    {
+                        if (mcAnswer.AnswerFlag.Equals(1))
+                        {
+                            mcAnswersHeight += MeasureTextHeight(mcAnswer.Content, mcFont, innerWidth - checkboxSize - 5) + mcSpacing;
+                        }
+                    }
+                }
+
+                double requiredSpace = titleHeight + finaldescriptionHeight + mcAnswersHeight + taskSpacing;
+
+                // Check if there is enough space for the next task frame
+                if (yPoint + requiredSpace > pageHeight - margin)
+                {
+                    CreateHeaderSite(page);
+                }
+
+                // Draw the task title and adjust the Tasknumber
+                string finalheader = string.Empty;
+                finalheader += headercounter;
+                headercounter++;
+                finalheader += ". " + task.TaskName;
+                draw(finalheader, titleFont, new XRect(margin, yPoint, innerWidth, page.Height), "TopLeft");
+                yPoint += titleHeight;
+
+                // Draw the task description 
+                var tf = new XTextFormatter(gfx);
+                tf.Alignment = XParagraphAlignment.Justify;
+                draw(task.TaskContent, taskFont, new XRect(margin, yPoint, innerWidth, page.Height - yPoint - margin), "TopLeft", tf);
+                yPoint += descriptionHeight + taskSpacing; //hier muss noch die Height angepasst werden, wenn der requiredspace > als eine ganze Seite ist 
+
+                // Draw the Taskanswer
+                draw(task.TaskAnswer.Content, taskFont, new XRect(margin, yPoint, innerWidth, page.Height - yPoint - margin), "TopLeft", tf);
+                yPoint += answerHeight + taskSpacing;
+                /*
+                 * if(yPoint > pageHeight -margin){
+                 *      double y = yPoint;
+                 *      CreateHeaderSite(page);
+                 *      yPoint = y; 
+                 *      while(ypoint > pageHeight - margin)
+                 *      {
+                 *          yPoint -= pageHeight - margin;
+                 *          y = yPoint;
+                 *          CreateHeaderSite(page);
+                 *          yPoint = y;
+                 *      }
+                 * }
+                 */
+
+                // Draw MC Answers if any one is right 
+                if (task.TaskType == "MC" && task.MCAnswers != null)
+                {
+                    foreach (var mcAnswer in task.MCAnswers)
+                    {
+                        if (mcAnswer.AnswerFlag.Equals(1))
+                        {
+                            double mcAnswerHeight = MeasureTextHeight(mcAnswer.Content, mcFont, innerWidth - checkboxSize - 5);
+
+                            gfx.DrawRectangle(XPens.Black, XBrushes.White, new XRect(margin, yPoint, checkboxSize, checkboxSize));
+                            gfx.DrawString(mcAnswer.Content, mcFont, XBrushes.Black, new XRect(margin + checkboxSize + 5, yPoint, innerWidth - checkboxSize - 5, page.Height), XStringFormats.TopLeft);
+                            draw(mcAnswer.Content, mcFont, new XRect(margin + checkboxSize + 5, yPoint, innerWidth - checkboxSize - 5, page.Height), "TopLeft");
+
+                            yPoint += mcAnswerHeight + mcSpacing;
+                        }
+                    }
                     // Add Spacing 
                     yPoint += taskSpacing;
                 }
@@ -947,5 +1089,7 @@ namespace UniversityExamCreator.Views
         {
 
         }
+
+
     }
 }

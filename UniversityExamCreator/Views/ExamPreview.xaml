@@ -138,9 +138,10 @@
 
         <!-- Buttons in der zweiten Zeile -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-            <Button Content="Zurück" Click="Button_Click" Width="71" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
-            <Button Content="Generate PDF" Click="GeneratePDFButton_Click" Width="112" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
-            <Button Content="Save PDF" Click="SavePDFButton_Click" Width="71" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
+            <Button Content="Zurück" Click="Button_Click" Width="75" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
+            <Button Content="Generate PDF" Click="GeneratePDFButton_Click" Width="115" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
+            <Button Content="GenerateAnswerPDF" Click="GenerateAnswerPDF_Click" Width="130" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
+            <Button Content="Save PDF" Click="SavePDFButton_Click" Width="75" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
         </StackPanel>
     </Grid>
 </Page>
