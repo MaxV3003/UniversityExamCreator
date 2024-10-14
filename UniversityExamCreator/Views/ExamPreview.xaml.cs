@@ -825,7 +825,7 @@ namespace UniversityExamCreator.Views
         /*---------------------------------------------------------*/
         //                  Data-Switch-Area
         /*---------------------------------------------------------*/
-        
+
         //Marc fragen wegen Datenbank -> wie komme ich auf die Attribute des Tasks wenn ich seine ID habe? Ändern des tables auf:exam_task
         private void LoadDataFromDatabase()
         {
@@ -834,10 +834,18 @@ namespace UniversityExamCreator.Views
             using (SQLiteConnection connection = new SQLiteConnection(dbConnectionString))
             {
                 connection.Open();
-                string selectQuery = "SELECT id, topic, type, difficulty, points, name, content, date_created, author FROM task";
+
+                // Wähle die Aufgaben, die im TempExam gespeichert wurden
+                string selectQuery = @"SELECT task.id, task.topic, task.type, task.difficulty, task.points, task.name, task.content, task.date_created, task.author
+                               FROM tempexam
+                               JOIN task ON tempexam.task_id = task.id
+                               WHERE tempexam.exam_id = @examId";
 
                 using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
                 {
+                    // Setze den Parameter für die Exam ID
+                    command.Parameters.AddWithValue("@examId", Examconfig.Id);
+
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
@@ -851,14 +859,14 @@ namespace UniversityExamCreator.Views
                             DateTime dateCreated = reader.GetDateTime(7);   // DateCreated
                             string author = reader.GetString(8);            // Author
 
-                            // Erstelle Task-Objekt und setze die richtigen Eigenschaften
-                            // hier müssen noch die zusätzlichen Eigenschaften eingefügt werden, die angezeigt werden sollen
+                            // Füge das gelesene Task-Objekt zur Liste hinzu
                             tasksSwitch.Add(new UniversityExamCreator.Models.Task(topic, author, type, difficulty, points, name, content));
                         }
                     }
                 }
             }
         }
+
 
         // Drag-and-Drop-Funktionalität
         private void DataGrid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
