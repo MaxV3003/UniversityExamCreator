@@ -137,8 +137,6 @@ namespace UniversityExamCreator.Views
             if (!string.IsNullOrEmpty(taskName))
             {
                 DeleteTaskFromDatabase(taskName);
-
-                // Aktualisiere die Anzeige im DataGrid
                 LoadDataFromDatabase();
             }
         }
@@ -179,8 +177,8 @@ namespace UniversityExamCreator.Views
         { "Module", "SELECT * FROM module" },
         { "Aufgabe", "SELECT * FROM aufgabe" },
         { "TempExam", "SELECT * FROM tempexam"},
-        { "MCAnswers", "SELECT * FROM mcanswer"}
-
+        { "MCAnswers", "SELECT * FROM mcanswer"},
+        { "Hints", "SELECT * FROM hint"}
     };
 
         public DBTest()

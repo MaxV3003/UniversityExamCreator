@@ -779,6 +779,7 @@ namespace UniversityExamCreator.Views
                 new AdditionalInformation("Schriftbild", false, "Schreiben Sie deutlich und benutzen keine Bleistifte oder Farbstifte!")
             };
 
+
             return information;
         }
 

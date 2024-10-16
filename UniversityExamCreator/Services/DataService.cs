@@ -219,7 +219,7 @@ public class DataService
                 conn.Open();
 
                 string query = @"
-                        INSERT INTO tempexam (name, content) 
+                        INSERT INTO hint (name, content) 
                         VALUES (@name, @content)";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, conn))
