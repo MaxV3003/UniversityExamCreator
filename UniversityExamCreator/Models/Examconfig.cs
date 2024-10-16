@@ -8,7 +8,7 @@ namespace UniversityExamCreator.Models
 {
     internal class Examconfig
     {
-        public int Id { get; set; }
+        public int ExamId { get; set; }
 
         /// <summary>
         /// Name / Identifire of the Examconfig-Element.

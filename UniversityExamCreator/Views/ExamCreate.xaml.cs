@@ -43,7 +43,7 @@ namespace UniversityExamCreator.Views
             Tasks = new ObservableCollection<Task>();
             SelectedTasks = new ObservableCollection<Task>();
             FilteredTasks = new ObservableCollection<Task>();
-            SelectedTaskList = new List<Task>(); // Initialisierung der Liste
+            SelectedTaskList = new List<Task>(); 
 
             LoadTasksFromDatabase();
 
@@ -100,7 +100,6 @@ namespace UniversityExamCreator.Views
                                     taskName: reader["name"].ToString(),
                                     content: reader["content"].ToString()
                                 );
-                                //task.setTaskContent(reader["content"].ToString());
                                 Tasks.Add(task);
                             }
                         }
@@ -197,48 +196,21 @@ namespace UniversityExamCreator.Views
                 MessageBox.Show($"Task Info:\nName: {selectedTask.TaskName}\nContent: {selectedTask.TaskContent}", "Task Info");
             }
         }
-        private void SaveSelectedTasksToDatabase()
-        {
-            try
-            {
-                // Verbindungsstring ermitteln
-                PathFinder pathFinder = new PathFinder("Databases", "database.db");
-                string databasePath = pathFinder.GetPath();
-                string connectionString = $"Data Source={databasePath};Version=3;";
-
-                // DataService mit dem Verbindungsstring instanziieren
-                DataService dataService = new DataService(connectionString);
-
-                // Füge jede ausgewählte Aufgabe zur Liste hinzu
-                foreach (var task in SelectedTasks)
-                {
-                    if (!SelectedTaskList.Contains(task))
-                    {
-                        SelectedTaskList.Add(task);
-                    }
-                }
-
-                MessageBox.Show("Aufgaben erfolgreich in die Liste gespeichert.");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Fehler beim Speichern der Aufgaben: " + ex.Message);
-            }
-        }
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            SaveSelectedTasksToList(); // Speichere in die Liste
+            SaveSelectedTasksToList(); 
 
             if (this.NavigationService != null)
             {
-                this.NavigationService.Navigate(new ExamPreview(Examconfig, SelectedTasks.ToList()));
+                this.NavigationService.Navigate(new ExamPreview(Examconfig, Tasks.ToList(),  SelectedTasks.ToList()));
             }
             else
             {
                 MessageBox.Show("NavigationService ist nicht verfügbar.");
             }
         }
+
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {

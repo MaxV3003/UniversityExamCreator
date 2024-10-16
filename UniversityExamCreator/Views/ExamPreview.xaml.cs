@@ -25,6 +25,7 @@ namespace UniversityExamCreator.Views
         private string tempFilename;
         Examconfig Examconfig { get; set; }
         public List<Task> Tasks { get; set; }
+        public List<Task> SelectedTasks { get; set; }
 
         // PDF-Document & Drawing 
         PdfSharp.Pdf.PdfDocument document;
@@ -59,14 +60,19 @@ namespace UniversityExamCreator.Views
 
         // Task-Switch-Content
         private string dbConnectionString;
-        private ObservableCollection<UniversityExamCreator.Models.Task> tasksSwitch;
-        private UniversityExamCreator.Models.Task draggedItem;
+        private ObservableCollection<Task> TasksSwitch;
+        private Task draggedItem;
 
-        internal ExamPreview(Examconfig examconfig, List<Task> tasks)
+        internal ExamPreview(Examconfig examconfig, List<Task> tasks, List<Task> selectedTasks)
         {
             Examconfig = examconfig;
             Tasks = tasks;
             InitializeComponent();
+            
+            
+            SelectedTasks = selectedTasks;
+            this.DataContext = this;
+            LoadDataFromDatabase();
 
             // Initialisiere die Fonts-Liste
             Fonts = new List<string>
@@ -110,9 +116,9 @@ namespace UniversityExamCreator.Views
             // Task-Switch-Content 
             PathFinder pathFinder = new PathFinder("Databases", "database.db");
             dbConnectionString = "Data Source=" + pathFinder.GetPath() + ";Version=3;";
-            tasksSwitch = new ObservableCollection<UniversityExamCreator.Models.Task>();
-            dataGrid.ItemsSource = tasksSwitch;  // Binde die ObservableCollection an das DataGrid
-            //LoadDataFromDatabase();        // Lade die Daten beim Start der Anwendung
+            TasksSwitch = new ObservableCollection<Task>();
+            dataGrid.ItemsSource = TasksSwitch;  // Binde die ObservableCollection an das DataGrid
+            LoadDataFromDatabase();
 
             Tasks = taskCreator();
         }
@@ -755,7 +761,7 @@ namespace UniversityExamCreator.Views
             var tasks = new List<Task>();
 
             // Task-Switch-Content
-            foreach (UniversityExamCreator.Models.Task task in tasksSwitch)
+            foreach (Task task in TasksSwitch)
             {
                 tasks.Add(task);
             }
@@ -1000,86 +1006,27 @@ namespace UniversityExamCreator.Views
         /*---------------------------------------------------------*/
         //                  Data-Switch-Area
         /*---------------------------------------------------------*/
-        private List<Task> _selectedTasks;
 
-        private void LoadSelectedTasks()
-        {
-            tasksSwitch.Clear(); // Leert die Liste, um sicherzustellen, dass alte Daten nicht angezeigt werden.
-
-            foreach (var task in _selectedTasks)
-            {
-                // Füge jede Aufgabe in die `tasksSwitch`-Liste hinzu, die in deiner UI verwendet wird
-                tasksSwitch.Add(task);
-            }
-
-            // Aktualisiere die UI oder zeige die Aufgaben an
-            MessageBox.Show("Aufgaben erfolgreich geladen und angezeigt.");
-        }
         //Marc fragen wegen Datenbank -> wie komme ich auf die Attribute des Tasks wenn ich seine ID habe? Ändern des tables auf:exam_task
-        /*        private void LoadDataFromDatabase()
+        private void LoadDataFromDatabase()
+        {
+            try
+            {
+                if (SelectedTasks != null && SelectedTasks.Count > 0)
                 {
-                    try
+                    foreach (var task in SelectedTasks)
                     {
-                        tasksSwitch.Clear(); // Leert die Liste, um sicherzustellen, dass alte Daten nicht angezeigt werden.
+                        Console.WriteLine($"Task: {task.TaskName}, Topic: {task.Topic}, Points: {task.Points}");
 
-                        using (SQLiteConnection connection = new SQLiteConnection(dbConnectionString))
-                        {
-                            connection.Open();
-
-                            // SQL-Abfrage, um Aufgaben aus der tempexam-Tabelle zu laden, die zur Prüfung gehören
-                            string selectQuery = @"
-                        SELECT task.id, task.topic, task.type, task.difficulty, task.points, task.name, task.content, task.author
-                        FROM tempexam
-                        JOIN task ON tempexam.task_id = task.id
-                        WHERE tempexam.exam_id = @examId";
-
-                            using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
-                            {
-                                // Setze den Parameter für die Prüfung ID
-                                command.Parameters.AddWithValue("@examId", Examconfig.Id);
-
-                                using (SQLiteDataReader reader = command.ExecuteReader())
-                                {
-                                    if (!reader.HasRows)
-                                    {
-                                        MessageBox.Show("Es wurden keine Aufgaben für diese Prüfung gefunden.");
-                                        return;
-                                    }
-
-                                    // Die Daten aus der Datenbank lesen und in die Liste hinzufügen
-                                    while (reader.Read())
-                                    {
-                                        // Aufgabe erstellen und alle relevanten Felder setzen
-                                        var task = new UniversityExamCreator.Models.Task(
-                                            module: string.Empty, // Es scheint, dass das Modul hier nicht in der Datenbank ist, daher leer.
-                                            topic: reader.GetString(1),             // Thema der Aufgabe
-                                            taskType: reader.GetString(2),          // Typ der Aufgabe
-                                            difficulty: reader.GetString(3),        // Schwierigkeitsgrad
-                                            points: reader.GetInt32(4),             // Punkte der Aufgabe
-                                            taskName: reader.GetString(5),          // Name der Aufgabe
-                                            content: reader.GetString(6)            // Inhalt der Aufgabe
-                                        )
-                                        {
-                                            Author = reader.GetString(7),            // Autor der Aufgabe
-                                            Id = reader.GetInt32(0)                  // ID der Aufgabe
-                                        };
-
-                                        // Die Aufgabe zur Liste hinzufügen
-                                        tasksSwitch.Add(task);
-                                    }
-                                }
-                            }
-                        }
-
-                        // Erfolgreich geladen, möglicherweise kann hier eine Meldung ausgegeben werden oder die UI aktualisiert werden
-                        MessageBox.Show("Daten erfolgreich aus der Datenbank geladen.");
+                        TasksSwitch.Add(task);
                     }
-                    catch (Exception ex)
-                    {
-                        // Fehler beim Laden der Daten abfangen
-                        MessageBox.Show("Fehler beim Laden der Daten: " + ex.Message);
-                    }
-                }*/
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Fehler beim Laden der Daten: " + ex.Message);
+            }
+        }
 
         // Drag-and-Drop-Funktionalität
         private void DataGrid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -1117,10 +1064,10 @@ namespace UniversityExamCreator.Views
 
                 if (droppedData != null && target != null && droppedData != target)
                 {
-                    int removedIdx = tasksSwitch.IndexOf(droppedData);
-                    int targetIdx = tasksSwitch.IndexOf(target);
+                    int removedIdx = TasksSwitch.IndexOf(droppedData);
+                    int targetIdx = TasksSwitch.IndexOf(target);
 
-                    tasksSwitch.Move(removedIdx, targetIdx);
+                    TasksSwitch.Move(removedIdx, targetIdx);
 
                     // UpdateDatabaseAfterReorder();
                 }
