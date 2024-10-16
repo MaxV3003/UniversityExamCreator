@@ -776,11 +776,42 @@ namespace UniversityExamCreator.Views
                 new AdditionalInformation("Wörterbuch", false, "Erlaubte Hilfsmittel: Taschenrechner, Wörterbuch"),
                 new AdditionalInformation("Täuschungsversuch", false, "Täuschungsversuche führen zum Nichtbestehen der Klausur!"),
                 new AdditionalInformation("Schreibfelder", false, "Verwenden Sie den Ihnen zur Verfügung stehenden Platz und nutzen Sie die Zusatzblätter."),
-                new AdditionalInformation("Schriftbild", false, "Schreiben Sie deutlich und benutzen keine Bleistifte oder Farbstifte!")
+                new AdditionalInformation("Schriftbild", false, "Schreiben Sie deutlich und benutzen keine Bleistifte oder Farbstifte!"),
+
             };
-
-
+            SaveHintsToDatabase(information);
             return information;
+        }
+        private void SaveHintsToDatabase(List<AdditionalInformation> hints)
+        {
+            PathFinder pathFinder = new PathFinder("Databases", "database.db");
+            string databasePath = pathFinder.GetPath();
+            string connectionString = $"Data Source={databasePath};Version=3;";
+            DataService dataService = new DataService(connectionString);
+
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                foreach (var hint in hints)
+                {
+                    // Prüfe, ob der Hinweis bereits existiert
+                    string checkQuery = "SELECT COUNT(*) FROM hint WHERE name = @Name AND content = @Content";
+                    using (var checkCmd = new SQLiteCommand(checkQuery, connection))
+                    {
+                        checkCmd.Parameters.AddWithValue("@Name", hint.Name);
+                        checkCmd.Parameters.AddWithValue("@Content", hint.Content);
+
+                        var count = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                        // Wenn der Hinweis noch nicht existiert, füge ihn ein
+                        if (count == 0)
+                        {
+                            dataService.InsertHint(hint.Name, hint.Content);
+                        }
+                    }
+                }
+            }
         }
 
         private double MeasureTextHeight(string text, XFont font, double width)
