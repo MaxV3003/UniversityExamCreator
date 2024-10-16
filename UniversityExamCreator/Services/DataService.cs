@@ -19,7 +19,7 @@ public class DataService
             string insertQuery = @"
             INSERT INTO task (topic, type, difficulty, points, name, content, date_created, author) 
             VALUES (@topic, @type, @difficulty, @points, @name, @content, @date_created, @author);
-            SELECT last_insert_rowid();";  // Rückgabe der zuletzt eingefügten ID
+            SELECT last_insert_rowid();";  
 
             using (SQLiteCommand command = new SQLiteCommand(insertQuery, conn))
             {
@@ -111,7 +111,27 @@ public class DataService
                 {
                     command.Parameters.AddWithValue("@task_id", task_id);
                     command.Parameters.AddWithValue("@answer_content", answer_content);
-                command.Parameters.AddWithValue("@username", username);
+                    command.Parameters.AddWithValue("@username", username);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        //Insert MC-Answers
+        public void InsertMCAnswer(int taskId, string answerContent, int answerFlag)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(connection))
+            {
+                conn.Open();
+                string insertQuery = @"
+                INSERT INTO mcanswer (task_id, content, is_correct) 
+                VALUES (@task_id, @content, @is_correct);";
+
+                using (SQLiteCommand command = new SQLiteCommand(insertQuery, conn))
+                {
+                    command.Parameters.AddWithValue("@task_id", taskId);
+                    command.Parameters.AddWithValue("@content", answerContent);
+                    command.Parameters.AddWithValue("@is_correct", answerFlag);
                     command.ExecuteNonQuery();
                 }
             }

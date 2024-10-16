@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using UniversityExamCreator.Models;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace UniversityExamCreator.Views
 {
@@ -129,29 +130,37 @@ namespace UniversityExamCreator.Views
 
         private bool CheckFilled()
         {
-
             string TaskName = task.getName();
+
             for (int i = 0; i < textBoxList.Count; i++)
             {
                 string textBoxValue = textBoxList[i].Text;
                 var (radioButton1, radioButton2) = radioButtonGroups[i];
 
-                if (radioButton1.IsChecked == false || radioButton2.IsChecked == false)
+                // Überprüfung: Wurde keiner der beiden Radiobuttons ausgewählt?
+                if (radioButton1.IsChecked == false && radioButton2.IsChecked == false)
                 {
+                    // Rot umrandete Radiobuttons als visuelles Feedback
                     radioButton1.BorderBrush = System.Windows.Media.Brushes.Red;
                     radioButton1.BorderThickness = new Thickness(2);
                     radioButton2.BorderBrush = System.Windows.Media.Brushes.Red;
                     radioButton2.BorderThickness = new Thickness(2);
-                    System.Windows.MessageBox.Show("Bitte auswählen, ob Antworten" + i+1 +" Richttig oder Falsch sind");
+
+                    // Fehlermeldung anzeigen
+                    System.Windows.MessageBox.Show($"Bitte auswählen, ob Antwort {i + 1} Richtig oder Falsch ist");
                     return false;
                 }
+
+                // Überprüfung: Ist das Textfeld leer?
                 else if (string.IsNullOrEmpty(textBoxList[i].Text))
                 {
                     textBoxList[i].BorderBrush = System.Windows.Media.Brushes.Red;
                     textBoxList[i].BorderThickness = new Thickness(2);
-                    System.Windows.MessageBox.Show("Bitte einen Antworttext bei Antwort" + i + 1 + " angeben");
+                    System.Windows.MessageBox.Show($"Bitte einen Antworttext bei Antwort {i + 1} angeben");
                     return false;
                 }
+
+                // Überprüfung: Ist die Frage leer?
                 else if (string.IsNullOrEmpty(QuestionText.Text))
                 {
                     QuestionText.BorderBrush = System.Windows.Media.Brushes.Red;
@@ -159,8 +168,8 @@ namespace UniversityExamCreator.Views
                     System.Windows.MessageBox.Show("Bitte einen Fragetext angeben");
                     return false;
                 }
-                
             }
+
             return true;
         }
 
@@ -171,18 +180,45 @@ namespace UniversityExamCreator.Views
 
         private void Create_Click(object sender, RoutedEventArgs e)
         {
+            string username = username_text.Text;
+            if (string.IsNullOrEmpty(username))
+            {
+                username = ""; // Fallback für leeren Benutzernamen
+            }
+
             if (CheckFilled() == true)
             {
+                if (string.IsNullOrEmpty(task.Author))
+                {
+                    task.Author = "Unbekannter Autor";
+                }
+
                 System.Windows.MessageBox.Show("Aufgabe wurde gespeichert");
+
                 ProcessInputs(task);
+
+                PathFinder pathFinder = new PathFinder("Databases", "database.db");
+                string databasePath = pathFinder.GetPath();
+                string connectionString = $"Data Source={databasePath};Version=3;";
+                DataService dataService = new DataService(connectionString);
+
+                task.Id = dataService.InsertTask(
+                    topic: task.Topic,
+                    taskType: task.TaskType,
+                    difficulty: task.Difficulty,
+                    points: task.Points,
+                    taskName: task.TaskName,
+                    taskContent: task.getTaskContent(),
+                    dateCreated: DateTime.Now,
+                    author: task.Author
+                );
+                foreach (var answer in task.MCAnswers)
+                {
+                    dataService.InsertMCAnswer(task.Id, answer.Content, answer.AnswerFlag);
+                }
                 NavigationService.Navigate(new ToolsPage());
             }
-            
-            ProcessInputs(task);
-            NavigationService.Navigate(new ToolsPage());
-            
         }
 
-      
     }
 }

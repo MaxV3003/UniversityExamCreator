@@ -177,7 +177,10 @@ namespace UniversityExamCreator.Views
         { "User", "SELECT * FROM user" },
         { "Answer", "SELECT * FROM answer" },
         { "Module", "SELECT * FROM module" },
-        { "Aufgabe", "SELECT * FROM aufgabe" }
+        { "Aufgabe", "SELECT * FROM aufgabe" },
+        { "TempExam", "SELECT * FROM tempexam"},
+        { "MCAnswers", "SELECT * FROM mcanswer"}
+
     };
 
         public DBTest()

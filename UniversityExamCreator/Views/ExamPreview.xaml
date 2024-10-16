@@ -9,29 +9,22 @@
       Title="ExamPreview"
       Background="#FFF9FCFD">
 
-    <!-- Grid mit zwei Zeilen -->
     <Grid Background="#FFF9FCFD">
-        <!-- Definition der Zeilen -->
         <Grid.RowDefinitions>
-            <!-- Erste Zeile für den ScrollViewer, Höhe kann nach Bedarf angepasst werden -->
             <RowDefinition Height="*" />
-            <!-- Zweite Zeile für die Buttons -->
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- ScrollViewer in der ersten Zeile -->
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
             <Viewbox>
-                <!-- Grid muss in Height angepasst werden, damit neue Elemente mit der Scrollbar sichtbar werden-->
                 <Grid Background="#FFF9FCFD" Height="1000" Width="800">
                     <TextBlock HorizontalAlignment="Left" Margin="300,34,0,0" TextWrapping="Wrap" Text="KlausurVorschau" VerticalAlignment="Top" FontSize="23" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF0068B4"/>
 
                     <TextBlock HorizontalAlignment="Left" Margin="105,125,0,0" TextWrapping="Wrap" Text="Schriftgröße Titel" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="105,160,0,0" TextWrapping="Wrap" Text="Schriftgröße Aufgabenüberschirft" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="105,160,0,0" TextWrapping="Wrap" Text="Schriftgröße Aufgabenüberschrift" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
                     <TextBlock HorizontalAlignment="Left" Margin="105,195,0,0" TextWrapping="Wrap" Text="Schriftgröße Text" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
                     <TextBlock HorizontalAlignment="Left" Margin="105,230,0,0" TextWrapping="Wrap" Text="Schriftart" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
                     <TextBlock HorizontalAlignment="Left" Margin="105,300,0,0" TextWrapping="Wrap" Text="Prüfer" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
-
 
                     <ComboBox x:Name="ExamTitleFontSize" HorizontalAlignment="Left" Margin="450,125,0,0" VerticalAlignment="Top" Width="120" BorderBrush="#FFAACEE9" SelectionChanged="ExamTitleFontSize_SelectionChanged">
                         <ComboBox.Background>
@@ -65,7 +58,6 @@
                             <LinearGradientBrush EndPoint="0,1">
                                 <GradientStop Color="#FFF0F0F0"/>
                                 <GradientStop Color="#FFF5FBFB" Offset="1"/>
-
                             </LinearGradientBrush>
                         </ComboBox.Background>
                     </ComboBox>
@@ -75,16 +67,14 @@
 
                     <TextBox x:Name="TextBoxExaminer" HorizontalAlignment="Left" Margin="450,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
 
-                    <TextBlock HorizontalAlignment="Left" Margin="105,370,0,0" TextWrapping="Wrap" Text="Zusätzliche Hinweise" VerticalAlignment="Top" Foreground="#FF0068B4">
-                    </TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Margin="105,370,0,0" TextWrapping="Wrap" Text="Zusätzliche Hinweise" VerticalAlignment="Top" Foreground="#FF0068B4"/>
+
                     <ListView x:Name="ListViewInformation" Margin="105,0,105,0" Height="200" 
                               ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding additionalInformation}" SelectionChanged="ListViewInformation_SelectionChanged">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <!-- Checkbox für jedes Item -->
                                     <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" Margin="0,0,10,0"/>
-                                    <!-- Textblock für den String aus additionalInformation -->
                                     <TextBlock Text="{Binding Name}" />
                                     <Button x:Name="AdditionalInformationInfoButton" Content="Info" Click="AdditionalInformationInfoButton" Tag="{Binding}" Margin="10,0,0,0"/>
                                 </StackPanel>
@@ -92,25 +82,19 @@
                         </ListView.ItemTemplate>
                     </ListView>
 
-                    <TextBlock HorizontalAlignment="Left" Margin="105,615,0,0" TextWrapping="Wrap" Text="Task-Swapper" VerticalAlignment="Top">
-                    </TextBlock>
-                    <!-- DataGrid zur Anzeige der Aufgaben -->
-                    <DataGrid Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="105,645,105,0"  Height="200" AutoGenerateColumns="False" AllowDrop="True" 
-                    PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown" PreviewMouseMove="DataGrid_PreviewMouseMove" Drop="DataGrid_Drop">
+                    <TextBlock HorizontalAlignment="Left" Margin="105,615,0,0" TextWrapping="Wrap" Text="Task-Swapper" VerticalAlignment="Top"/>
 
-                        <!-- Spalten für die Daten -->
+                    <!-- DataGrid zur Anzeige der Aufgaben -->
+                    <DataGrid Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="105,645,105,0" Height="200" AutoGenerateColumns="False" AllowDrop="True" 
+                              ItemsSource="{Binding _selectedTasks}" PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown" PreviewMouseMove="DataGrid_PreviewMouseMove" Drop="DataGrid_Drop">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Aufgabenname" Binding="{Binding TaskName}" Width="150" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Topic" Binding="{Binding Topic}" Width="150" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Points" Binding="{Binding Points}" Width="100" IsReadOnly="True"/>
-                            <!-- <DataGridTextColumn Header="Author" Binding="{Binding Author}" Width="150" IsReadOnly="True"/> -->
 
-                            <!-- Löschen Button in jeder Zeile -->
                             <DataGridTemplateColumn Header="Leerzeilen">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <!--<Button Content="Löschen" Tag="{Binding TaskName}"/> -->
-                                        <!-- ComboBox to select the number of empty lines -->
                                         <ComboBox Width="100" SelectedValue="{Binding EmptyLineCount, Mode=TwoWay}" SelectionChanged="EmptyLineCountComboBox_SelectionChanged">
                                             <ComboBoxItem Content="0"/>
                                             <ComboBoxItem Content="2"/>
@@ -136,7 +120,6 @@
             </Viewbox>
         </ScrollViewer>
 
-        <!-- Buttons in der zweiten Zeile -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
             <Button Content="Zurück" Click="Button_Click" Width="75" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
             <Button Content="Generate PDF" Click="GeneratePDFButton_Click" Width="115" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
@@ -145,6 +128,8 @@
         </StackPanel>
     </Grid>
 </Page>
+
+
 
 
 

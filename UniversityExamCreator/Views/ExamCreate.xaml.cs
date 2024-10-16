@@ -194,7 +194,7 @@ namespace UniversityExamCreator.Views
             Console.WriteLine("selecetedTask: " + selectedTask.TaskContent);
             if (selectedTask != null)
             {
-                MessageBox.Show($"{selectedTask.TaskContent}", selectedTask.TaskName);
+                MessageBox.Show($"Task Info:\nName: {selectedTask.TaskName}\nContent: {selectedTask.TaskContent}", "Task Info");
             }
         }
         private void SaveSelectedTasksToDatabase()
@@ -248,17 +248,6 @@ namespace UniversityExamCreator.Views
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ApplyFilters();
-        }
-
-        private void InfoButton_Click(object sender, RoutedEventArgs e)
-        {
-            Button infoButton = sender as Button;
-            Task selectedTask = infoButton?.Tag as Task;
-
-            if (selectedTask != null)
-            {
-                MessageBox.Show($"Task Info:\nName: {selectedTask.TaskName}\nContent: {selectedTask.TaskContent}", "Task Info");
-            }
         }
 
         private void SelectedItemListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

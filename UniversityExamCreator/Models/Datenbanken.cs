@@ -8,7 +8,6 @@ public class DatabaseManager
 
     public DatabaseManager(string databasePath)
     {
-        // Setze die Verbindungszeichenfolge korrekt
         connectionString = databasePath;
     }
 
@@ -56,14 +55,14 @@ public class DatabaseManager
             password VARCHAR(20) NOT NULL
             );";
 
-           string createAnswerTable = @"
-           CREATE TABLE IF NOT EXISTS answer (
-           id INTEGER PRIMARY KEY AUTOINCREMENT,
-           task_id INTEGER NOT NULL,
-           answer_content TEXT NOT NULL,
-           username VARCHAR(50),
-           FOREIGN KEY (task_id) REFERENCES task(id)
-           );";
+            string createAnswerTable = @"
+            CREATE TABLE IF NOT EXISTS answer (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            task_id INTEGER NOT NULL,
+            answer_content TEXT NOT NULL,
+            username VARCHAR(50),
+            FOREIGN KEY (task_id) REFERENCES task(id)
+            );";
 
             string createExamConfigTable = @"
             CREATE TABLE IF NOT EXISTS exam_config (
@@ -105,7 +104,15 @@ public class DatabaseManager
             content TEXT NOT NULL
             );";
 
-         
+            string createMcanswerTable = @"
+            CREATE TABLE IF NOT EXISTS mcanswer (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            task_id INTEGER NOT NULL,
+            content TEXT NOT NULL,
+            is_correct INTEGER NOT NULL,
+            FOREIGN KEY (task_id) REFERENCES task(id)
+            );";
+
             ExecuteNonQuery(conn, createTaskTable);
             ExecuteNonQuery(conn, createExamTable);
             ExecuteNonQuery(conn, createExamTaskTable);
@@ -116,6 +123,8 @@ public class DatabaseManager
             ExecuteNonQuery(conn, createModuleTable);
             ExecuteNonQuery(conn, createTempexamTable);
             ExecuteNonQuery(conn, createHintTable);
+            ExecuteNonQuery(conn, createMcanswerTable);
+
         }
     }
 
@@ -123,7 +132,7 @@ public class DatabaseManager
     {
         using (SQLiteCommand cmd = new SQLiteCommand(sql, conn))
         {
-            //cmd.ExecuteNonQuery();
+            cmd.ExecuteNonQuery();
         }
     }
 }

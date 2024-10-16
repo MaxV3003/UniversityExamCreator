@@ -20,6 +20,7 @@ namespace UniversityExamCreator.Views
 {
     public partial class ExamPreview : System.Windows.Controls.Page //System.Windows.Controls. sonst entfernen
     {
+
         // Configs
         private string tempFilename;
         Examconfig Examconfig { get; set; }
@@ -111,7 +112,7 @@ namespace UniversityExamCreator.Views
             dbConnectionString = "Data Source=" + pathFinder.GetPath() + ";Version=3;";
             tasksSwitch = new ObservableCollection<UniversityExamCreator.Models.Task>();
             dataGrid.ItemsSource = tasksSwitch;  // Binde die ObservableCollection an das DataGrid
-            LoadDataFromDatabase();        // Lade die Daten beim Start der Anwendung
+            //LoadDataFromDatabase();        // Lade die Daten beim Start der Anwendung
 
             Tasks = taskCreator();
         }
@@ -967,48 +968,86 @@ namespace UniversityExamCreator.Views
         /*---------------------------------------------------------*/
         //                  Data-Switch-Area
         /*---------------------------------------------------------*/
+        private List<Task> _selectedTasks;
 
-        //Marc fragen wegen Datenbank -> wie komme ich auf die Attribute des Tasks wenn ich seine ID habe? Ändern des tables auf:exam_task
-        private void LoadDataFromDatabase()
+        private void LoadSelectedTasks()
         {
-            tasksSwitch.Clear();
+            tasksSwitch.Clear(); // Leert die Liste, um sicherzustellen, dass alte Daten nicht angezeigt werden.
 
-            using (SQLiteConnection connection = new SQLiteConnection(dbConnectionString))
+            foreach (var task in _selectedTasks)
             {
-                connection.Open();
-
-                // Wähle die Aufgaben, die im TempExam gespeichert wurden
-                string selectQuery = @"SELECT task.id, task.topic, task.type, task.difficulty, task.points, task.name, task.content, task.date_created, task.author
-                               FROM tempexam
-                               JOIN task ON tempexam.task_id = task.id
-                               WHERE tempexam.exam_id = @examId";
-
-                using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
-                {
-                    // Setze den Parameter für die Exam ID
-                    command.Parameters.AddWithValue("@examId", Examconfig.Id);
-
-                    using (SQLiteDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            string topic = reader.GetString(1);             // Topic
-                            string type = reader.GetString(2);              // TaskType
-                            string difficulty = reader.GetString(3);        // Difficulty
-                            int points = reader.GetInt32(4);                // Points
-                            string name = reader.GetString(5);              // TaskName
-                            string content = reader.GetString(6);           // TaskContent
-                            DateTime dateCreated = reader.GetDateTime(7);   // DateCreated
-                            string author = reader.GetString(8);            // Author
-
-                            // Füge das gelesene Task-Objekt zur Liste hinzu
-                            tasksSwitch.Add(new UniversityExamCreator.Models.Task(topic, author, type, difficulty, points, name, content));
-                        }
-                    }
-                }
+                // Füge jede Aufgabe in die `tasksSwitch`-Liste hinzu, die in deiner UI verwendet wird
+                tasksSwitch.Add(task);
             }
-        }
 
+            // Aktualisiere die UI oder zeige die Aufgaben an
+            MessageBox.Show("Aufgaben erfolgreich geladen und angezeigt.");
+        }
+        //Marc fragen wegen Datenbank -> wie komme ich auf die Attribute des Tasks wenn ich seine ID habe? Ändern des tables auf:exam_task
+        /*        private void LoadDataFromDatabase()
+                {
+                    try
+                    {
+                        tasksSwitch.Clear(); // Leert die Liste, um sicherzustellen, dass alte Daten nicht angezeigt werden.
+
+                        using (SQLiteConnection connection = new SQLiteConnection(dbConnectionString))
+                        {
+                            connection.Open();
+
+                            // SQL-Abfrage, um Aufgaben aus der tempexam-Tabelle zu laden, die zur Prüfung gehören
+                            string selectQuery = @"
+                        SELECT task.id, task.topic, task.type, task.difficulty, task.points, task.name, task.content, task.author
+                        FROM tempexam
+                        JOIN task ON tempexam.task_id = task.id
+                        WHERE tempexam.exam_id = @examId";
+
+                            using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
+                            {
+                                // Setze den Parameter für die Prüfung ID
+                                command.Parameters.AddWithValue("@examId", Examconfig.Id);
+
+                                using (SQLiteDataReader reader = command.ExecuteReader())
+                                {
+                                    if (!reader.HasRows)
+                                    {
+                                        MessageBox.Show("Es wurden keine Aufgaben für diese Prüfung gefunden.");
+                                        return;
+                                    }
+
+                                    // Die Daten aus der Datenbank lesen und in die Liste hinzufügen
+                                    while (reader.Read())
+                                    {
+                                        // Aufgabe erstellen und alle relevanten Felder setzen
+                                        var task = new UniversityExamCreator.Models.Task(
+                                            module: string.Empty, // Es scheint, dass das Modul hier nicht in der Datenbank ist, daher leer.
+                                            topic: reader.GetString(1),             // Thema der Aufgabe
+                                            taskType: reader.GetString(2),          // Typ der Aufgabe
+                                            difficulty: reader.GetString(3),        // Schwierigkeitsgrad
+                                            points: reader.GetInt32(4),             // Punkte der Aufgabe
+                                            taskName: reader.GetString(5),          // Name der Aufgabe
+                                            content: reader.GetString(6)            // Inhalt der Aufgabe
+                                        )
+                                        {
+                                            Author = reader.GetString(7),            // Autor der Aufgabe
+                                            Id = reader.GetInt32(0)                  // ID der Aufgabe
+                                        };
+
+                                        // Die Aufgabe zur Liste hinzufügen
+                                        tasksSwitch.Add(task);
+                                    }
+                                }
+                            }
+                        }
+
+                        // Erfolgreich geladen, möglicherweise kann hier eine Meldung ausgegeben werden oder die UI aktualisiert werden
+                        MessageBox.Show("Daten erfolgreich aus der Datenbank geladen.");
+                    }
+                    catch (Exception ex)
+                    {
+                        // Fehler beim Laden der Daten abfangen
+                        MessageBox.Show("Fehler beim Laden der Daten: " + ex.Message);
+                    }
+                }*/
 
         // Drag-and-Drop-Funktionalität
         private void DataGrid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
