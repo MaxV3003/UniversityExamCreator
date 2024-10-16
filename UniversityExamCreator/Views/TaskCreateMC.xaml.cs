@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using UniversityExamCreator.Models;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace UniversityExamCreator.Views
 {
@@ -55,20 +56,16 @@ namespace UniversityExamCreator.Views
             radioButton2.GroupName = $"Group{textBoxCount}";
             radioButton2.Margin = new Thickness(5, 0, 0, 0);
 
-            // Erstelle ein horizontales StackPanel, um die TextBox und die RadioButtons nebeneinander anzuordnen
             System.Windows.Controls.StackPanel horizontalPanel = new System.Windows.Controls.StackPanel();
             horizontalPanel.Orientation = System.Windows.Controls.Orientation.Horizontal;
 
-            // Füge die TextBox und die RadioButtons zum horizontalen StackPanel hinzu
             horizontalPanel.Children.Add(newTextBox);
             horizontalPanel.Children.Add(radioButton1);
             horizontalPanel.Children.Add(radioButton2);
 
-            // Füge das horizontale StackPanel in das vertikale StackPanel (TextBoxContainer) ein
             TextBoxContainer.Children.Add(horizontalPanel);
 
-            // Speichere das StackPanel, die TextBox und das RadioButton-Paar
-            panelList.Add(horizontalPanel); // Das gesamte Panel speichern
+            panelList.Add(horizontalPanel); 
             textBoxList.Add(newTextBox);
             radioButtonGroups.Add((radioButton1, radioButton2));
 
@@ -119,18 +116,52 @@ namespace UniversityExamCreator.Views
                 {
                     answer.AnswerFlag = 1;
                 }
-                else if (radioButton2.IsChecked == true)
+                else if(radioButton2.IsChecked == true)
                 {
                     answer.AnswerFlag = 0;
                 }
-                else
-                {
-                    //System.Windows.MessageBox.Show("Bitte auswählen, ob die Antworten Richttig oder Falsch sind");
-                }
+                
                 task.addMCAnswer(answer);
             }
             task.TaskContent = QuestionText.Text;
             
+        }
+
+        private bool CheckFilled()
+        {
+
+            string TaskName = task.getName();
+            for (int i = 0; i < textBoxList.Count; i++)
+            {
+                string textBoxValue = textBoxList[i].Text;
+                var (radioButton1, radioButton2) = radioButtonGroups[i];
+
+                if (radioButton1.IsChecked == false || radioButton2.IsChecked == false)
+                {
+                    radioButton1.BorderBrush = System.Windows.Media.Brushes.Red;
+                    radioButton1.BorderThickness = new Thickness(2);
+                    radioButton2.BorderBrush = System.Windows.Media.Brushes.Red;
+                    radioButton2.BorderThickness = new Thickness(2);
+                    System.Windows.MessageBox.Show("Bitte auswählen, ob Antworten" + i+1 +" Richttig oder Falsch sind");
+                    return false;
+                }
+                else if (string.IsNullOrEmpty(textBoxList[i].Text))
+                {
+                    textBoxList[i].BorderBrush = System.Windows.Media.Brushes.Red;
+                    textBoxList[i].BorderThickness = new Thickness(2);
+                    System.Windows.MessageBox.Show("Bitte einen Antworttext bei Antwort" + i + 1 + " angeben");
+                    return false;
+                }
+                else if (string.IsNullOrEmpty(QuestionText.Text))
+                {
+                    QuestionText.BorderBrush = System.Windows.Media.Brushes.Red;
+                    QuestionText.BorderThickness = new Thickness(2);
+                    System.Windows.MessageBox.Show("Bitte einen Fragetext angeben");
+                    return false;
+                }
+                
+            }
+            return true;
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -140,14 +171,18 @@ namespace UniversityExamCreator.Views
 
         private void Create_Click(object sender, RoutedEventArgs e)
         {
+            if (CheckFilled() == true)
+            {
+                System.Windows.MessageBox.Show("Aufgabe wurde gespeichert");
+                ProcessInputs(task);
+                NavigationService.Navigate(new ToolsPage());
+            }
+            
             ProcessInputs(task);
             NavigationService.Navigate(new ToolsPage());
             
         }
 
-        private void FrageText_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
+      
     }
 }

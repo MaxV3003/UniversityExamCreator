@@ -97,9 +97,10 @@ namespace UniversityExamCreator.Views
                                     taskType: reader["type"].ToString(),
                                     difficulty: reader["difficulty"].ToString(),
                                     points: Convert.ToInt32(reader["points"]),
-                                    taskName: reader["name"].ToString()
+                                    taskName: reader["name"].ToString(),
+                                    content: reader["content"].ToString()
                                 );
-                                task.setTaskContent(reader["content"].ToString());
+                                //task.setTaskContent(reader["content"].ToString());
                                 Tasks.Add(task);
                             }
                         }
@@ -178,13 +179,35 @@ namespace UniversityExamCreator.Views
 
         private void SaveSelectedTasksToList()
         {
+            ApplyFilters();
+        }
+
+        /// <summary>
+        /// Get the Taskcontent as Information for the user. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InfoButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button infoButton = sender as Button;
+            Task selectedTask = infoButton?.Tag as Task;
+            Console.WriteLine("selecetedTask: " + selectedTask.TaskContent);
+            if (selectedTask != null)
+            {
+                MessageBox.Show($"{selectedTask.TaskContent}", selectedTask.TaskName);
+            }
+        }
+        private void SaveSelectedTasksToDatabase()
+        {
             try
             {
-                // Falls die Liste noch nicht initialisiert ist
-                if (SelectedTaskList == null)
-                {
-                    SelectedTaskList = new List<Task>();
-                }
+                // Verbindungsstring ermitteln
+                PathFinder pathFinder = new PathFinder("Databases", "database.db");
+                string databasePath = pathFinder.GetPath();
+                string connectionString = $"Data Source={databasePath};Version=3;";
+
+                // DataService mit dem Verbindungsstring instanziieren
+                DataService dataService = new DataService(connectionString);
 
                 // Füge jede ausgewählte Aufgabe zur Liste hinzu
                 foreach (var task in SelectedTasks)

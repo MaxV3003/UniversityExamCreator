@@ -98,16 +98,21 @@ namespace UniversityExamCreator.Views
         /// <returns></returns>
         private Boolean CheckFilled()
         {
-            if (!string.IsNullOrEmpty(ContentText.Text))
-            {
-                return true;
-            }
-            else
+            if (string.IsNullOrEmpty(ContentText.Text))
             {
                 ContentText.BorderBrush = Brushes.Red;
                 ContentText.BorderThickness = new Thickness(2);
+                System.Windows.MessageBox.Show("Bitte einen Fragetext angeben");
                 return false;
             }
+            else if (string.IsNullOrEmpty(AnswerText.Text))
+            {
+                ContentText.BorderBrush = Brushes.Red;
+                ContentText.BorderThickness = new Thickness(2);
+                System.Windows.MessageBox.Show("Bitte einen Antworttext angeben");
+                return false;
+            }
+            return true;
         }
 
         private void AnswerText_TextChanged(object sender, TextChangedEventArgs e)
