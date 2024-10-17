@@ -942,7 +942,7 @@ namespace UniversityExamCreator.Views
 
                 if (info != null)
                 {
-                    MessageBox.Show($"Beschreibung: {info.Content}");
+                    MessageBox.Show($"{info.Content}", info.Name);
                 }
                 else
                 {

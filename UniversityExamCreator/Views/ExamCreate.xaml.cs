@@ -263,7 +263,7 @@ namespace UniversityExamCreator.Views
             Console.WriteLine("selecetedTask: " + selectedTask.TaskContent);
             if (selectedTask != null)
             {
-                MessageBox.Show($"Task Info:\nName: {selectedTask.TaskName}\nContent: {selectedTask.TaskContent}", "Task Info");
+                MessageBox.Show($"{selectedTask.TaskContent}", selectedTask.TaskName);
             }
         }
 
