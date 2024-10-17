@@ -86,7 +86,8 @@
 
                     <!-- DataGrid zur Anzeige der Aufgaben -->
                     <DataGrid Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Top"
-                    Margin="105,645,105,0" Height="200" AutoGenerateColumns="False" ItemsSource="{Binding TasksSwitch}">
+                    Margin="105,645,105,0" Height="200" AutoGenerateColumns="False" AllowDrop="True" 
+                    PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown" PreviewMouseMove="DataGrid_PreviewMouseMove" Drop="DataGrid_Drop">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Aufgabenname" Binding="{Binding TaskName}" Width="150" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Topic" Binding="{Binding Topic}" Width="150" IsReadOnly="True"/>

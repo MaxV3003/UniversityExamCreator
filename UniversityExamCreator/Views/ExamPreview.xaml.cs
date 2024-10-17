@@ -25,7 +25,7 @@ namespace UniversityExamCreator.Views
         private string tempFilename;
         Examconfig Examconfig { get; set; }
         public List<Task> Tasks { get; set; }
-        public List<Task> SelectedTasks { get; set; }
+        private ObservableCollection<Task> SelectedTasks { get; set; }
 
         // PDF-Document & Drawing 
         PdfSharp.Pdf.PdfDocument document;
@@ -60,7 +60,7 @@ namespace UniversityExamCreator.Views
 
         // Task-Switch-Content
         private string dbConnectionString;
-        private ObservableCollection<Task> TasksSwitch;
+        //private ObservableCollection<Task> TasksSwitch;
         private Task draggedItem;
 
         internal ExamPreview(Examconfig examconfig, List<Task> tasks, List<Task> selectedTasks)
@@ -68,9 +68,15 @@ namespace UniversityExamCreator.Views
             Examconfig = examconfig;
             Tasks = tasks;
             InitializeComponent();
-            
-            
-            SelectedTasks = selectedTasks;
+
+            SelectedTasks = new ObservableCollection<Task>();
+
+            foreach (Task task in selectedTasks) 
+            {
+                SelectedTasks.Add(task);
+            }
+
+            //SelectedTasks = selectedTasks;
             LoadDataFromDatabase();
 
             // Initialisiere die Fonts-Liste
@@ -115,7 +121,7 @@ namespace UniversityExamCreator.Views
             // Task-Switch-Content 
             PathFinder pathFinder = new PathFinder("Databases", "database.db");
             dbConnectionString = "Data Source=" + pathFinder.GetPath() + ";Version=3;";
-            TasksSwitch = new ObservableCollection<Task>();
+            //TasksSwitch = new ObservableCollection<Task>();
             dataGrid.ItemsSource = SelectedTasks;  // Binde die ObservableCollection an das DataGrid
 
             Tasks = taskCreator();
@@ -1069,14 +1075,15 @@ namespace UniversityExamCreator.Views
 
                 if (droppedData != null && target != null && droppedData != target)
                 {
-                    int removedIdx = TasksSwitch.IndexOf(droppedData);
-                    int targetIdx = TasksSwitch.IndexOf(target);
+                    int removedIdx = SelectedTasks.IndexOf(droppedData);
+                    int targetIdx = SelectedTasks.IndexOf(target);
 
-                    TasksSwitch.Move(removedIdx, targetIdx);
+                    SelectedTasks.Move(removedIdx, targetIdx);
 
                     // UpdateDatabaseAfterReorder();
                 }
             }
+            Tasks = taskCreator();
         }
 
         private static T FindVisualParent<T>(DependencyObject child) where T : DependencyObject
