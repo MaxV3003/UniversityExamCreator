@@ -71,7 +71,6 @@ namespace UniversityExamCreator.Views
             
             
             SelectedTasks = selectedTasks;
-            this.DataContext = this;
             LoadDataFromDatabase();
 
             // Initialisiere die Fonts-Liste
@@ -117,8 +116,7 @@ namespace UniversityExamCreator.Views
             PathFinder pathFinder = new PathFinder("Databases", "database.db");
             dbConnectionString = "Data Source=" + pathFinder.GetPath() + ";Version=3;";
             TasksSwitch = new ObservableCollection<Task>();
-            dataGrid.ItemsSource = TasksSwitch;  // Binde die ObservableCollection an das DataGrid
-            LoadDataFromDatabase();
+            dataGrid.ItemsSource = SelectedTasks;  // Binde die ObservableCollection an das DataGrid
 
             Tasks = taskCreator();
         }
@@ -555,13 +553,13 @@ namespace UniversityExamCreator.Views
         private void drawTasks(PdfPage page)
         {
             int headercounter = 1;
-            List<Task> tasks = taskCreator();
+            List<Task> tasks = Tasks;
 
             // Copy the tasks which were selected on the ExamCreate-Page 
-            foreach (var task in Tasks)
+            /*foreach (var task in Tasks)
             {
                 tasks.Add(task);
-            }
+            }*/
 
             // Draw the tasks
             foreach (var task in tasks)
@@ -641,13 +639,13 @@ namespace UniversityExamCreator.Views
         private void drawTaskAnswers(PdfPage page)
         {
             int headercounter = 1;
-            List<Task> tasks = taskCreator();
+            List<Task> tasks = Tasks;
 
             // Copy the tasks which were selected on the ExamCreate-Page 
-            foreach (var task in Tasks)
+           /* foreach (var task in Tasks)
             {
                 tasks.Add(task);
-            }
+            }*/
 
             // Draw the tasks
             foreach (var task in tasks)
@@ -761,7 +759,7 @@ namespace UniversityExamCreator.Views
             var tasks = new List<Task>();
 
             // Task-Switch-Content
-            foreach (Task task in TasksSwitch)
+            foreach (Task task in SelectedTasks)
             {
                 tasks.Add(task);
             }
@@ -1017,16 +1015,23 @@ namespace UniversityExamCreator.Views
                     foreach (var task in SelectedTasks)
                     {
                         Console.WriteLine($"Task: {task.TaskName}, Topic: {task.Topic}, Points: {task.Points}");
-
-                        TasksSwitch.Add(task);
                     }
                 }
+                else
+                {
+                    MessageBox.Show("Keine Aufgaben zum Anzeigen gefunden!");
+                }
+
+                dataGrid.ItemsSource = SelectedTasks;
+                
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Fehler beim Laden der Daten: " + ex.Message);
             }
         }
+
 
         // Drag-and-Drop-Funktionalität
         private void DataGrid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)

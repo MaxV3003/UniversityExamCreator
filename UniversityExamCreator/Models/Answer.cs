@@ -9,7 +9,6 @@ namespace UniversityExamCreator.Models
 {
     public class Answer
     {
-        public string username { get; set; }
         public string Name { get; set; }
         public string Content { get; set; }
 
