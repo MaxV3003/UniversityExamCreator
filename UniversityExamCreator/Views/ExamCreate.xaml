@@ -14,7 +14,7 @@
                 <RowDefinition Height="217*"/>
                 <RowDefinition Height="233*"/>
             </Grid.RowDefinitions>
-            <TextBlock HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="KlausurErstellen" VerticalAlignment="Top" FontSize="23" FontWeight="Bold" FontFamily="Verdana" Foreground="#FF0068B4"/>
+            <TextBlock HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="Klausur erstellen" VerticalAlignment="Top" FontSize="23" FontWeight="Bold" FontFamily="Verdana" Foreground="#FF0068B4"/>
 
             <Border BorderBrush="#FFAACEE9" BorderThickness="1" HorizontalAlignment="Left" Height="57" Margin="56,61,0,0" VerticalAlignment="Top" Width="679">
                 <Grid Margin="0,-5,0,0">
@@ -79,7 +79,7 @@
                 </ListView>
             </StackPanel>
 
-            <Button Content="Add Selected Items" HorizontalAlignment="Left" Margin="115,132,0,0" VerticalAlignment="Top" Click="AddSelectedTasksButton_Click" Grid.Row="1" Width="155" FontFamily="Verdana" Height="28" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB"/>
+            <Button Content="Aufgabe(n) übernehmen" HorizontalAlignment="Left" Margin="115,132,0,0" VerticalAlignment="Top" Click="AddSelectedTasksButton_Click" Grid.Row="1" Width="155" FontFamily="Verdana" Height="28" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB"/>
 
             <StackPanel HorizontalAlignment="Left" Height="190" Margin="460,149,0,0" VerticalAlignment="Top" Width="275" Background="Gray" Grid.RowSpan="2">
                 <ListView x:Name="SelectedItemListView" Width="291" Height="194" ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -101,8 +101,8 @@
                 </ListView>
             </StackPanel>
 
-            <TextBlock x:Name="TotalPointsTextBlock" Text="Total Points: 0" HorizontalAlignment="Left" Margin="672,138,0,0" VerticalAlignment="Top" Grid.Row="1" FontFamily="Verdana" Foreground="#FF0068B4"/>
-            <Button Content="Delete Selected Items" HorizontalAlignment="Left" Margin="500,134,0,0" VerticalAlignment="Top" Click="DeleteSelectedTasksButton_Click" Grid.Row="1" Width="155" FontFamily="Verdana" Height="28" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB"/>
+            <TextBlock x:Name="TotalPointsTextBlock" Text="Gesamtpunkte: 0" HorizontalAlignment="Left" Margin="672,138,0,0" VerticalAlignment="Top" Grid.Row="1" FontFamily="Verdana" Foreground="#FF0068B4"/>
+            <Button Content="Aufgabe(n) verwerfen" HorizontalAlignment="Left" Margin="500,134,0,0" VerticalAlignment="Top" Click="DeleteSelectedTasksButton_Click" Grid.Row="1" Width="155" FontFamily="Verdana" Height="28" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB"/>
 
             <Button Content="Weiter" HorizontalAlignment="Left" Margin="645,165,0,0" VerticalAlignment="Top" Click="NextButton_Click" Grid.Row="1" Width="71" Height="24" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB"/>
             <Button Content="Zurück" HorizontalAlignment="Left" Margin="81,165,0,0" VerticalAlignment="Top" Click="BackButton_Click" Grid.Row="1" Width="71" Height="24" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB"/>

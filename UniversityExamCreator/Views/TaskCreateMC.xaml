@@ -17,7 +17,7 @@
                 <TextBlock x:Name="username"  HorizontalAlignment="Left" Height="20" Margin="101,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" FontFamily="Verdana" Foreground="#FF0068B4" Visibility="Collapsed"><Run Text="username"/></TextBlock>
                 <TextBox Name="username_text" HorizontalAlignment="Left" Height="21" Margin="241,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="399" MaxLength="100"
                     AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Background="#FFF5FBFB" BorderBrush="#FFAACEE9" Visibility="Collapsed"/>
-                
+
                 <TextBlock Name="Titel" Text="MC" FontSize="23"  HorizontalAlignment="Center" Height="37" Margin="0,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF0068B4"/>
                 <TextBlock Name="Question" HorizontalAlignment="Left" Height="85" Margin="100,91,0,0" TextWrapping="Wrap" Text="Frage:" VerticalAlignment="Top" Width="180" Foreground="#FF0068B4"/>
                 <TextBox Name="QuestionText" HorizontalAlignment="Left" Height="60" Margin="227,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="491" BorderBrush="#FFAACEE9" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
@@ -26,7 +26,7 @@
 
                 <Grid>
                     <!-- Hier wird das StackPanel eingefügt, in dem die TextBoxen hinzugefügt werden -->
-                    <StackPanel x:Name="TextBoxContainer" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="105,180,0,0" Height="1000" Width="650">
+                    <StackPanel x:Name="TextBoxContainer" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="105,230,0,0" Height="1000" Width="650">
                         <!-- Hier kannst du feste TextBoxen oder andere Steuerelemente hinzufügen -->
 
                     </StackPanel>
@@ -36,8 +36,8 @@
                     <Button Content="Die letzte Antwortmöglichkeit löschen" Click="Delete_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="506,200,0,0" Background="#FFF5FBFB" Foreground="#FF0068B4" BorderBrush="#FFAACEE9"/>
                 </Grid>
 
-                <Button Content="Erstellen" Click="Create_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="664,1185,0,0" Background="#FFF5FBFB" Foreground="#FF0068B4" BorderBrush="#FFAACEE9"/>
-                <Button Content="Zurück" Click="Back_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,1185,0,0" Background="#FFF5FBFB" Foreground="#FF0068B4" BorderBrush="#FFAACEE9"/>
+                <Button Content="Erstellen" Click="Create_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="664,1200,0,0" Background="#FFF5FBFB" Foreground="#FF0068B4" BorderBrush="#FFAACEE9"/>
+                <Button Content="Zurück" Click="Back_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,1200,0,0" Background="#FFF5FBFB" Foreground="#FF0068B4" BorderBrush="#FFAACEE9"/>
 
             </Grid>
         </Viewbox>
