@@ -575,7 +575,7 @@ namespace UniversityExamCreator.Views
                 descriptionHeight += task.EmptyLineCount * 10;
                 double mcAnswersHeight = 0;
 
-                if (task.TaskType == "MC" && task.MCAnswers != null)
+                if (task.TaskType == "Multiple Choice" && task.MCAnswers != null)
                 {
                     foreach (var mcAnswer in task.MCAnswers)
                     {
@@ -623,9 +623,9 @@ namespace UniversityExamCreator.Views
                  */
 
                 // Draw MC Answers if any
-                if (task.TaskType == "MC" && task.MCAnswers != null)
+                if (task.TaskType == "Multiple Choice" && task.MCAnswers != null)
                 {
-                    foreach (var mcAnswer in task.MCAnswers)
+                    foreach (MCAnswer mcAnswer in task.MCAnswers)
                     {
                         double mcAnswerHeight = MeasureTextHeight(mcAnswer.Content, mcFont, innerWidth - checkboxSize - 5);
 
@@ -669,7 +669,7 @@ namespace UniversityExamCreator.Views
                 double finaldescriptionHeight = (2*taskSpacing + answerHeight + descriptionHeight);
                 double mcAnswersHeight = 0;
 
-                if (task.TaskType == "MC" && task.MCAnswers != null)
+                if (task.TaskType == "Multiple Choice" && task.MCAnswers != null)
                 {
                     foreach (var mcAnswer in task.MCAnswers)
                     {
@@ -721,7 +721,7 @@ namespace UniversityExamCreator.Views
                  */
 
                 // Draw MC Answers if any one is right 
-                if (task.TaskType == "MC" && task.MCAnswers != null)
+                if (task.TaskType == "Multiple Choice" && task.MCAnswers != null)
                 {
                     foreach (var mcAnswer in task.MCAnswers)
                     {

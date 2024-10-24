@@ -84,7 +84,7 @@ namespace UniversityExamCreator.Views
                 {
                     connection.Open();
 
-                    string query = "SELECT topic, type, difficulty, points, name, content FROM task";
+                    string query = "SELECT id, topic, type, difficulty, points, name, content FROM task";
                     using (var command = new SQLiteCommand(query, connection))
                     {
                         using (var reader = command.ExecuteReader())
@@ -98,31 +98,55 @@ namespace UniversityExamCreator.Views
                                     difficulty: reader["difficulty"].ToString(),
                                     points: Convert.ToInt32(reader["points"]),
                                     taskName: reader["name"].ToString(),
-                                    content: reader["content"].ToString()
+                                    content: reader["content"].ToString(),
+                                    taskID: Convert.ToInt32(reader["id"])
                                 );
-                                Tasks.Add(task);
+                                try
+                                {
+                                    string query2 = "SELECT * FROM answer WHERE task_id = @task_id";
+                                    using (var command2 = new SQLiteCommand(query2, connection))
+                                    {
+                                        command2.Parameters.AddWithValue("@task_id", task.Id);
+                                        using (var reader2 = command2.ExecuteReader())
+                                        {
+                                            while (reader2.Read())
+                                            {
+                                                task.TaskAnswer.Content = reader2["answer_content"].ToString();
+                                            }
+                                        }
+                                    }
+                                }
+                                catch (Exception ex) 
+                                {
+                                    //
+                                }
 
-                                // Tasks.Add(task);
+                                if (task.TaskType == "Multiple Choice")
+                                {
+                                    string query3 = "SELECT * FROM mcanswer WHERE task_id = @task_id";
+                                    using (var command3 = new SQLiteCommand(query3, connection))
+                                    {
+                                        // Parameter hinzufügen, bevor ExecuteReader aufgerufen wird
+                                        command3.Parameters.AddWithValue("@task_id", task.Id);
+
+                                        using (var reader3 = command3.ExecuteReader())
+                                        {
+                                            while (reader3.Read())
+                                            {
+                                                var mcAnswer = new MCAnswer(
+                                                    content: reader3["content"].ToString(),
+                                                    identifire: Convert.ToInt32(reader3["id"]),
+                                                    answerFlag: Convert.ToInt32(reader3["is_correct"])
+                                                );
+                                                task.MCAnswers.Add(mcAnswer);
+                                            }
+                                        }
+                                    }
+                                }
+                                Tasks.Add(task);
                             }
                         }
                     }
-                  /*  //Zu jeder Taskid die wir in die selected Tasks laden, den answer Content erhalten
-                    string query2 = "SELECT * FROM answer WHERE task_id = @task_id";
-                    using (var command = new SQLiteCommand(query2, connection))
-                    {
-                        using (var reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var answer = new Answer(
-                                    name: reader["task_id"].ToString(),
-                                    content: reader["content"].ToString()
-                                  );
-                                tmpanswer.Add(answer);
-                            }
-                        }
-                    }*/
-
                 }
                 ApplyFilters();
             }

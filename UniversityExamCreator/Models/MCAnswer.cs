@@ -9,11 +9,6 @@ namespace UniversityExamCreator.Models
     public class MCAnswer
     {
         /// <summary>
-        /// Name of the Task it belongs to.
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
         /// Content of the MC-Answer
         /// </summary>
         public string Content { get; set; }
@@ -28,17 +23,11 @@ namespace UniversityExamCreator.Models
         /// </summary>
         public int AnswerFlag { get; set; }
 
-        public MCAnswer(string name, string content,int identifire, int answerFlag)
+        public MCAnswer(string content,int identifire, int answerFlag)
         {
-            Name = name;
             Content = content;
             ID = identifire;
             AnswerFlag = answerFlag;
-        }
-
-        public void getTaskName(Task task) 
-        {
-            Name = task.TaskName;
         }
     }
 }

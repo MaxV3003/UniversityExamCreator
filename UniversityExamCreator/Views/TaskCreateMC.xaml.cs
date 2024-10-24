@@ -109,7 +109,7 @@ namespace UniversityExamCreator.Views
             {
                 
                 string textBoxValue = textBoxList[i].Text;
-                MCAnswer answer = new MCAnswer(task.TaskName, textBoxValue, i + 1, 0);
+                MCAnswer answer = new MCAnswer(textBoxValue, i + 1, 0);
                 
                 var (radioButton1, radioButton2) = radioButtonGroups[i];
 

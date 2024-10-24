@@ -9,21 +9,18 @@ namespace UniversityExamCreator.Models
 {
     public class Answer
     {
-        public string Name { get; set; }
+        public int TaskID { get; set; }
         public string Content { get; set; }
 
-        public Answer(string name, string content) 
+        public Answer(int taskID, string content) 
         { 
-            Name = name;
+            TaskID = taskID;
             Content = content;
         }
 
-        /// <summary>
-        /// Methode to get the Name of a Task-Item.
-        /// </summary>
-        public void getTaskName(Task task) 
+        public Answer(string content) 
         {
-            Name = task.getName();
+            Content = content;
         }
     }
 }

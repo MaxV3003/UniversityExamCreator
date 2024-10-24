@@ -81,14 +81,32 @@ namespace UniversityExamCreator.Models
             Points = points;
             TaskName = taskName;
             TaskContent = string.Empty;
-            TaskAnswer = new Answer(taskName, string.Empty);
+            TaskAnswer = new Answer(string.Empty);
             MCAnswers = new List<MCAnswer>();
             IsSelected = false;
             IsSelectedForDeletion = false;
             EmptyLineCount = 0;
+            Id = 0;
         }
 
-        public Task(string module, string topic, string taskType, string difficulty, int points, string taskName, string content)
+        public Task(string module, string topic, string taskType, string difficulty, int points, string taskName, int taskID)
+        {
+            Module = module;
+            Topic = topic;
+            TaskType = taskType;
+            Difficulty = difficulty;
+            Points = points;
+            TaskName = taskName;
+            TaskContent = string.Empty;
+            TaskAnswer = new Answer(taskID, string.Empty);
+            MCAnswers = new List<MCAnswer>();
+            IsSelected = false;
+            IsSelectedForDeletion = false;
+            EmptyLineCount = 0;
+            Id = taskID;
+        }
+
+        public Task(string module, string topic, string taskType, string difficulty, int points, string taskName, string content, int taskID)
         {
             Module = module;
             Topic = topic;
@@ -97,10 +115,11 @@ namespace UniversityExamCreator.Models
             Points = points;
             TaskName = taskName;
             TaskContent = content;
-            TaskAnswer = new Answer(taskName, string.Empty);
+            TaskAnswer = new Answer(string.Empty);
             MCAnswers = new List<MCAnswer>();
             IsSelected = false;
             IsSelectedForDeletion = false;
+            Id = taskID;
         }
 
         public Task(string name, string content) 
@@ -112,7 +131,7 @@ namespace UniversityExamCreator.Models
             Points = 0;
             TaskName = name;
             TaskContent = content;
-            TaskAnswer = new Answer(name, string.Empty);
+            TaskAnswer = new Answer(string.Empty);
             MCAnswers = new List<MCAnswer>();
             IsSelected = false;
             IsSelectedForDeletion = false;
