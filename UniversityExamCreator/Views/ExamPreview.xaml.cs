@@ -598,7 +598,7 @@ namespace UniversityExamCreator.Views
                 headercounter++;
                 finalheader += ". " + task.TaskName;
                 draw(finalheader, titleFont, new XRect(margin, yPoint, innerWidth, page.Height), "TopLeft");
-                yPoint += titleHeight;
+                yPoint += titleHeight+5;
 
                 // Draw the task description 
                 var tf = new XTextFormatter(gfx);
@@ -647,13 +647,6 @@ namespace UniversityExamCreator.Views
             int headercounter = 1;
             List<Task> tasks = Tasks;
 
-            // Copy the tasks which were selected on the ExamCreate-Page 
-           /* foreach (var task in Tasks)
-            {
-                tasks.Add(task);
-            }*/
-
-            // Draw the tasks
             foreach (var task in tasks)
             {
                 double titleHeight = MeasureTextHeight(task.TaskName, titleFont, innerWidth);
@@ -694,7 +687,7 @@ namespace UniversityExamCreator.Views
                 headercounter++;
                 finalheader += ". " + task.TaskName;
                 draw(finalheader, titleFont, new XRect(margin, yPoint, innerWidth, page.Height), "TopLeft");
-                yPoint += titleHeight;
+                yPoint += titleHeight+5;
 
                 // Draw the task description 
                 var tf = new XTextFormatter(gfx);

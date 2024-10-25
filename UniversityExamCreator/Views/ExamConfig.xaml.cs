@@ -110,7 +110,7 @@ namespace UniversityExamCreator.Views
             }
 
             Examconfig.ExamName = ExamTitle.Text;
-            Examconfig.toString();
+            //Examconfig.toString();
             NavigationService.Navigate(new ExamCreate(Examconfig));
         }
 
@@ -137,7 +137,7 @@ namespace UniversityExamCreator.Views
         {
             if (sender is RadioButton checkedRadioButton)
             {
-                Examconfig.ExamType = checkedRadioButton.Name.ToString();
+                Examconfig.ExamType = checkedRadioButton.Content.ToString();
             }
         }
 

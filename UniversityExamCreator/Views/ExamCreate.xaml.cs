@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
+using System.Security.RightsManagement;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -35,6 +36,10 @@ namespace UniversityExamCreator.Views
         // Liste für die ausgewählten Aufgaben
         public List<Task> SelectedTaskList { get; set; }
 
+        public string Module;
+
+        public string TaskType;
+
         internal ExamCreate(Examconfig examconfig)
         {
             Examconfig = examconfig;
@@ -43,7 +48,10 @@ namespace UniversityExamCreator.Views
             Tasks = new ObservableCollection<Task>();
             SelectedTasks = new ObservableCollection<Task>();
             FilteredTasks = new ObservableCollection<Task>();
-            SelectedTaskList = new List<Task>(); 
+            SelectedTaskList = new List<Task>();
+
+            Module = examconfig.ModuleID;
+            TaskType = examconfig.ExamType;
 
             LoadTasksFromDatabase();
 
@@ -85,6 +93,14 @@ namespace UniversityExamCreator.Views
                     connection.Open();
 
                     string query = "SELECT id, topic, type, difficulty, points, name, content FROM task";
+
+                    if (TaskType != "Mischform")
+                    {
+                        query += " WHERE type = '" + TaskType + "'";
+                    }
+
+                    //string query = "SELECT id, topic, type, difficulty, points, name, content FROM task WHERE module=";
+                    //query += Module;
                     using (var command = new SQLiteCommand(query, connection))
                     {
                         using (var reader = command.ExecuteReader())
@@ -154,58 +170,7 @@ namespace UniversityExamCreator.Views
             {
                 MessageBox.Show("Fehler beim Laden der Tasks: " + ex.Message);
             }
-           /* foreach (var task in tmp)
-            {
-                foreach (var answer in tmpanswer)
-                {
-                    // Versuche, answer.Name in einen int zu parsen
-                    if (int.TryParse(answer.Name, out int parsedId))
-                    {
-                        // Wenn das Parsen erfolgreich ist, vergleiche den int-Wert mit task.Id
-                        if (task.Id == parsedId)
-                        {
-                            task.TaskAnswer = answer;
-                        }
-                    }
-                }
-                Tasks.Add(task);
-            }*/
         }
-      /*  public List<Answer> GetAnswersByTaskId(int taskId)
-        {
-            List<Answer> answers = new List<Answer>();
-
-            string query = "SELECT * FROM answer WHERE task_id = @task_id";
-
-            using (SQLiteConnection conn = new SQLiteConnection("Data Source=database.db;Version=3;"))
-            {
-                conn.Open();
-                using (SQLiteCommand cmd = new SQLiteCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@task_id", taskId);
-
-                    using (SQLiteDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            Answer answer = new Answer
-                            {
-                                AnswerID = Convert.ToInt32(reader["id"]),
-                                TaskID = Convert.ToInt32(reader["task_id"]),
-                                AnswerContent = reader["answer_content"].ToString(),
-                                Username = reader["username"].ToString()
-                            };
-                            answers.Add(answer);
-                        }
-                    }
-                }
-            }
-
-            return answers;
-        }*/
-
-
-
 
         private void ApplyFilters()
         {
