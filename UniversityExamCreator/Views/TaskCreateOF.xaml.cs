@@ -50,6 +50,7 @@ namespace UniversityExamCreator.Views
                 {
                     // Speichere die Aufgabe und erhalte die generierte ID
                     task.Id = dataService.InsertTask(
+                        module: task.Module,
                         topic: task.Topic,
                         taskType: task.TaskType,
                         difficulty: task.Difficulty,

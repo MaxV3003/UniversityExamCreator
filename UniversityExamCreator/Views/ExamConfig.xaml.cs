@@ -25,9 +25,9 @@ namespace UniversityExamCreator.Views
 
             ConfigLoader(examconfig);
 
-            PathFinder pathFinder = new PathFinder("Databases", "database.db");
+            /*PathFinder pathFinder = new PathFinder("Databases", "database.db");
             DatabaseManager databaseManager = new DatabaseManager(pathFinder.GetPath());
-            databaseManager.CreateTables(pathFinder.GetPath());
+            databaseManager.CreateTables(pathFinder.GetPath());*/
         }
 
         /// <summary>

@@ -92,11 +92,14 @@ namespace UniversityExamCreator.Views
                 {
                     connection.Open();
 
-                    string query = "SELECT id, topic, type, difficulty, points, name, content FROM task";
+                    string query = "SELECT id, topic, type, difficulty, points, name, content FROM task WHERE module=";
+                    query += "'" + Module + "'";
+                    
+                    
 
                     if (TaskType != "Mischform")
                     {
-                        query += " WHERE type = '" + TaskType + "'";
+                        query += " AND type = '" + TaskType + "'";
                     }
 
                     //string query = "SELECT id, topic, type, difficulty, points, name, content FROM task WHERE module=";

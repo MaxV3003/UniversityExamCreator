@@ -21,6 +21,7 @@ public class DatabaseManager
             string createTaskTable = @"
             CREATE TABLE IF NOT EXISTS task (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+            module TEXT NOT NULL,
             topic TEXT NOT NULL,
             type TEXT NOT NULL,
             difficulty VARCHAR(50) NOT NULL,

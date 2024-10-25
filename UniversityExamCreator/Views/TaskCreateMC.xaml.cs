@@ -203,6 +203,7 @@ namespace UniversityExamCreator.Views
                 DataService dataService = new DataService(connectionString);
 
                 task.Id = dataService.InsertTask(
+                    module: task.Module,
                     topic: task.Topic,
                     taskType: task.TaskType,
                     difficulty: task.Difficulty,

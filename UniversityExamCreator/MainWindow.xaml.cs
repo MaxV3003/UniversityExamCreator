@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UniversityExamCreator.Models;
 using UniversityExamCreator.Views;
 
 namespace UniversityExamCreator
@@ -25,6 +26,9 @@ namespace UniversityExamCreator
         {
             InitializeComponent();
             MainFrame.Navigate(new LogIn());
+            PathFinder pathFinder = new PathFinder("Databases", "database.db");
+            DatabaseManager databaseManager = new DatabaseManager(pathFinder.GetPath());
+            databaseManager.CreateTables(pathFinder.GetPath());
         }
 
     }

@@ -43,7 +43,7 @@ namespace UniversityExamCreator.Views
             using (SQLiteConnection connection = new SQLiteConnection(dbConnectionString))
             {
                 connection.Open();
-                string selectQuery = "SELECT id, topic, type, difficulty, points, name, content, date_created, author FROM aufgabe";
+                string selectQuery = "SELECT id, topic, type, difficulty, points, name, content, date_created, author FROM task";
 
                 using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
                 {

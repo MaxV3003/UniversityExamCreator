@@ -11,18 +11,19 @@ public class DataService
     }
 
     // Insert Task
-    public int InsertTask(string topic, string taskType, string difficulty, int points, string taskName, string taskContent, DateTime dateCreated, string author)
+    public int InsertTask(string module, string topic, string taskType, string difficulty, int points, string taskName, string taskContent, DateTime dateCreated, string author)
     {
         using (SQLiteConnection conn = new SQLiteConnection(connection))
         {
             conn.Open();
             string insertQuery = @"
-            INSERT INTO task (topic, type, difficulty, points, name, content, date_created, author) 
-            VALUES (@topic, @type, @difficulty, @points, @name, @content, @date_created, @author);
+            INSERT INTO task (module, topic, type, difficulty, points, name, content, date_created, author) 
+            VALUES (@module, @topic, @type, @difficulty, @points, @name, @content, @date_created, @author);
             SELECT last_insert_rowid();";  
 
             using (SQLiteCommand command = new SQLiteCommand(insertQuery, conn))
             {
+                command.Parameters.AddWithValue("@module", module);
                 command.Parameters.AddWithValue("@topic", topic);
                 command.Parameters.AddWithValue("@type", taskType);
                 command.Parameters.AddWithValue("@difficulty", difficulty);
