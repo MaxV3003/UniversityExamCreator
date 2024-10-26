@@ -64,6 +64,10 @@ namespace UniversityExamCreator.Models
         /// Property indicating if the task is selected for deletion.
         /// </summary>
         public bool IsSelectedForDeletion { get; set; }
+
+        /// <summary>
+        /// ID of the task in the database.
+        /// </summary>
         public int Id { get; internal set; }
 
         /// <summary>
@@ -89,23 +93,6 @@ namespace UniversityExamCreator.Models
             Id = 0;
         }
 
-        public Task(string module, string topic, string taskType, string difficulty, int points, string taskName, int taskID)
-        {
-            Module = module;
-            Topic = topic;
-            TaskType = taskType;
-            Difficulty = difficulty;
-            Points = points;
-            TaskName = taskName;
-            TaskContent = string.Empty;
-            TaskAnswer = new Answer(taskID, string.Empty);
-            MCAnswers = new List<MCAnswer>();
-            IsSelected = false;
-            IsSelectedForDeletion = false;
-            EmptyLineCount = 0;
-            Id = taskID;
-        }
-
         public Task(string module, string topic, string taskType, string difficulty, int points, string taskName, string content, int taskID)
         {
             Module = module;
@@ -120,21 +107,6 @@ namespace UniversityExamCreator.Models
             IsSelected = false;
             IsSelectedForDeletion = false;
             Id = taskID;
-        }
-
-        public Task(string name, string content) 
-        {
-            Module = String.Empty;
-            Topic = String.Empty;
-            TaskType = String.Empty;
-            Difficulty = String.Empty;
-            Points = 0;
-            TaskName = name;
-            TaskContent = content;
-            TaskAnswer = new Answer(string.Empty);
-            MCAnswers = new List<MCAnswer>();
-            IsSelected = false;
-            IsSelectedForDeletion = false;
         }
 
         /// <summary>
@@ -153,15 +125,6 @@ namespace UniversityExamCreator.Models
         public string getTaskContent() 
         {
             return TaskContent;
-        }
-
-        /// <summary>
-        /// Methode to get the AnswerItem of a Task.
-        /// </summary>
-        /// <returns>AnswerItem</returns>
-        public Answer getTaskAnswer() 
-        {
-            return TaskAnswer;
         }
 
         /// <summary>

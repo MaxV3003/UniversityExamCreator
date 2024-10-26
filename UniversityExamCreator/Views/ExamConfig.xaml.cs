@@ -19,15 +19,8 @@ namespace UniversityExamCreator.Views
         {
             Examconfig = examconfig;
             InitializeComponent();
-
-            // Lade die Module in die ComboBox durch eine direkte SQL-Abfrage
             LoadModulesFromDatabase();
-
-            ConfigLoader(examconfig);
-
-            /*PathFinder pathFinder = new PathFinder("Databases", "database.db");
-            DatabaseManager databaseManager = new DatabaseManager(pathFinder.GetPath());
-            databaseManager.CreateTables(pathFinder.GetPath());*/
+            ConfigLoader();
         }
 
         /// <summary>
@@ -45,7 +38,7 @@ namespace UniversityExamCreator.Views
                     connection.Open();
 
                     // SQL-Abfrage zum Abrufen der Modulnamen
-                    string query = "SELECT Name FROM Module"; // Annahme: Die Tabelle 'Module' hat eine Spalte 'Name'
+                    string query = "SELECT Name FROM Module";
                     using (var command = new SQLiteCommand(query, connection))
                     {
                         using (var reader = command.ExecuteReader())
@@ -68,8 +61,9 @@ namespace UniversityExamCreator.Views
         /// <summary>
         /// Button to get on the next Page. 
         /// </summary>
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void NextButton_Click(object sender, RoutedEventArgs e)
         {
+            // Check for selected type of the exam.
             if (string.IsNullOrEmpty(Examconfig.ExamType))
             {
                 MessageBox.Show("Bitte wählen Sie eine Prüfungsart aus.");
@@ -82,6 +76,7 @@ namespace UniversityExamCreator.Views
                 return;
             }
 
+            // Check for selected taskamount of the exam.
             if (int.TryParse(NumTasks.Text, out int taskAmount))
             {
                 Examconfig.TaskAmount = taskAmount;
@@ -94,6 +89,7 @@ namespace UniversityExamCreator.Views
                 return;
             }
 
+            // Check for selected pointamount of the exam. 
             if (double.TryParse(NumPoints.Text, out double pointAmount))
             {
                 Examconfig.PointAmount = pointAmount;
@@ -117,7 +113,7 @@ namespace UniversityExamCreator.Views
         /// <summary>
         /// Button to get to the last Page. 
         /// </summary>
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new ToolsPage());
         }
@@ -144,18 +140,17 @@ namespace UniversityExamCreator.Views
         /// <summary>
         /// Loader for the Examconfig-Item. Especially if switching the Pages. 
         /// </summary>
-        /// <param name="examconfig"></param>
-        internal void ConfigLoader(Examconfig examconfig)
+        internal void ConfigLoader()
         {
-            if (!examconfig.isEmpty())
+            if (!Examconfig.isEmpty())
             {
 
-                if (!string.IsNullOrEmpty(examconfig.ModuleID))
+                if (!string.IsNullOrEmpty(Examconfig.ModuleID))
                 {
-                    Module.SelectedItem = examconfig.ModuleID;
+                    Module.SelectedItem = Examconfig.ModuleID;
                 }
 
-                switch (examconfig.ExamType)
+                switch (Examconfig.ExamType)
                 {
                     case "MC":
                         MC.IsChecked = true;
@@ -168,12 +163,15 @@ namespace UniversityExamCreator.Views
                         break;
                 }
 
-                NumTasks.Text = examconfig.TaskAmount.ToString();
-                NumPoints.Text = examconfig.PointAmount.ToString();
-                ExamTitle.Text = examconfig.ExamName;
+                NumTasks.Text = Examconfig.TaskAmount.ToString();
+                NumPoints.Text = Examconfig.PointAmount.ToString();
+                ExamTitle.Text = Examconfig.ExamName;
             }
         }
 
+        /// <summary>
+        /// Change-Event for the taskamount-selection.
+        /// </summary>
         private void NumTasks_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (int.TryParse(NumTasks.Text, out int taskAmount))
@@ -182,6 +180,9 @@ namespace UniversityExamCreator.Views
             }
         }
 
+        /// <summary>
+        /// Change-Event for the pointamount-selection.
+        /// </summary>
         private void NumPoints_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (double.TryParse(NumPoints.Text, out double taskPoints))

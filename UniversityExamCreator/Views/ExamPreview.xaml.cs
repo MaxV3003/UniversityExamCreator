@@ -9,12 +9,9 @@ using System.Text;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
-using System.IO;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Controls.Primitives;
 using System.Data.SQLite;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace UniversityExamCreator.Views
 {
@@ -217,7 +214,7 @@ namespace UniversityExamCreator.Views
         }
 
         /*---------------------------------------------------------------------------------------------------*/
-        //                                  PDF-Erzeugungs-Abschnitt
+        //                                  PDF-Erzeugungs-Abschnitt                                         //
         /*---------------------------------------------------------------------------------------------------*/
 
         private void Button_Click(object sender, RoutedEventArgs e)
