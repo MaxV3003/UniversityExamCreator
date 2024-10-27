@@ -82,7 +82,7 @@
                         </ListView.ItemTemplate>
                     </ListView>
 
-                    <TextBlock HorizontalAlignment="Left" Margin="105,615,0,0" TextWrapping="Wrap" Text="Task-Swapper" VerticalAlignment="Top"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="105,615,0,0" TextWrapping="Wrap" Text="Aufgaben-Tauscher (Drag and Drop)" VerticalAlignment="Top" Foreground="#FF0068B4"/>
 
                     <!-- DataGrid zur Anzeige der Aufgaben -->
                     <DataGrid Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Top"
