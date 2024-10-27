@@ -73,7 +73,7 @@ namespace UniversityExamCreator.Views
                 SelectedTasks.Add(task);
             }
 
-            LoadDataFromDatabase();
+            dataGrid.ItemsSource = SelectedTasks;
 
             // Initialize the available fonts.
             Fonts = new List<string>
@@ -590,7 +590,6 @@ namespace UniversityExamCreator.Views
             int headercounter = 1;
             List<Task> tasks = Tasks;
 
-
             // Draw the tasks
             foreach (var task in tasks)
             {
@@ -598,8 +597,6 @@ namespace UniversityExamCreator.Views
                 double descriptionHeight = MeasureTextHeight(task.TaskContent, taskFont, innerWidth);
                 descriptionHeight += task.EmptyLineCount * 10;
                 double mcAnswersHeight = 0;
-                double requiredSpace = 0;
-                string finalheader = string.Empty;
 
                 if (task.TaskType == "Multiple Choice" && task.MCAnswers != null)
                 {
@@ -609,7 +606,7 @@ namespace UniversityExamCreator.Views
                     }
                 }
 
-                requiredSpace = titleHeight + descriptionHeight + mcAnswersHeight + taskSpacing;
+                double requiredSpace = titleHeight + descriptionHeight + mcAnswersHeight + taskSpacing;
 
                 // Check if there is enough space for the next task frame
                 if (yPoint + requiredSpace > pageHeight - margin)
@@ -618,17 +615,18 @@ namespace UniversityExamCreator.Views
                 }
 
                 // Draw the task title and adjust the Tasknumber
+                string finalheader = string.Empty;
                 finalheader += headercounter;
                 headercounter++;
                 finalheader += ". " + task.TaskName;
                 draw(finalheader, titleFont, new XRect(margin, yPoint, innerWidth, page.Height), "TopLeft");
-                yPoint += titleHeight+5;
+                yPoint += titleHeight + 5;
 
                 // Draw the task description 
                 var tf = new XTextFormatter(gfx);
                 tf.Alignment = XParagraphAlignment.Justify;
                 draw(task.TaskContent, taskFont, new XRect(margin, yPoint, innerWidth, page.Height - yPoint - margin), "TopLeft", tf);
-                yPoint += descriptionHeight + taskSpacing;
+                yPoint += descriptionHeight + taskSpacing; //hier muss noch die Height angepasst werden, wenn der requiredspace > als eine ganze Seite ist 
 
                 // Draw MC Answers if any
                 if (task.TaskType == "Multiple Choice" && task.MCAnswers != null)
@@ -650,6 +648,9 @@ namespace UniversityExamCreator.Views
             }
         }
 
+        /// <summary>
+        /// Draw every taskscontent and taskanswer for the answerexam.
+        /// </summary>
         private void drawTaskAnswers(PdfPage page)
         {
             int headercounter = 1;
@@ -743,23 +744,30 @@ namespace UniversityExamCreator.Views
             }
         }
 
+        /// <summary>
+        /// Build up a PDF-page with a header. 
+        /// </summary>
         private void CreateHeaderSite(PdfPage page)
         {
+            double headerhight = MeasureTextHeight(Examconfig.ExamName, taskFont, innerWidth);
+            XPen pen = new XPen(XColors.Black, 1);
+
             // Add a new page and reset yPoint
             page = document.AddPage();
             gfx = XGraphics.FromPdfPage(page);
             yPoint = margin;
 
             // Creating a Header.
-            double headerhight = MeasureTextHeight(Examconfig.ExamName, taskFont, innerWidth);
             gfx.DrawString(Examconfig.ModuleID + " - " + DateTime.Now.Year.ToString(), taskFont, XBrushes.Black, margin, yPoint);
             gfx.DrawString("Name: ", taskFont, XBrushes.Black, innerWidth - margin, yPoint);
-            XPen pen = new XPen(XColors.Black, 1);
-            //gfx.DrawLine(pen, margin, yPoint + headerhight, pageWidth - margin, yPoint + headerhight);
             draw(pen, margin, yPoint + headerhight, pageWidth - margin, yPoint + headerhight);
-            yPoint += headerhight + 10; // Reset to top margin of the new page
+            yPoint += headerhight + 10;
         }
 
+        /// <summary>
+        /// Copy all tasks from the configuration to a list to work with them. 
+        /// </summary>
+        /// <returns> List of task-items. </returns>
         private List<Task> taskCreator()
         {
             // Task-Stuff
@@ -774,6 +782,10 @@ namespace UniversityExamCreator.Views
             return tasks;
         }
 
+        /// <summary>
+        /// Initialize all the exam-hints. 
+        /// </summary>
+        /// <returns> List of hints for the database. </returns>
         private List<AdditionalInformation> additionalInformationCreator()
         {
             var information = new List<AdditionalInformation>
@@ -793,6 +805,10 @@ namespace UniversityExamCreator.Views
             SaveHintsToDatabase(information);
             return information;
         }
+
+        /// <summary>
+        /// Save the hints in the database. 
+        /// </summary>
         private void SaveHintsToDatabase(List<AdditionalInformation> hints)
         {
             PathFinder pathFinder = new PathFinder("Databases", "database.db");
@@ -825,6 +841,10 @@ namespace UniversityExamCreator.Views
             }
         }
 
+        /// <summary>
+        /// Measures the required space for a text on the Pdf-page.
+        /// </summary>
+        /// <returns> Rquired space for the given text. </returns>
         private double MeasureTextHeight(string text, XFont font, double width)
         {
             // Add a temporary page for measuring 
@@ -850,6 +870,10 @@ namespace UniversityExamCreator.Views
             }
         }
 
+        /// <summary>
+        /// Split the text in lines if the text hits the borders.
+        /// </summary>
+        /// <returns> List of Lines that fits in the space between the text-borders. </returns>
         private List<string> SplitTextIntoLines(string text, XFont font, double innerWidth, XGraphics gfx, double pageHeight, double margin)
         {
             var lines = new List<string>();
@@ -898,6 +922,9 @@ namespace UniversityExamCreator.Views
             return lines;
         }
 
+        /// <summary>
+        /// The user could select in which directory the PDF should be saved.
+        /// </summary>
         private void SavePDF(string tempFilename)
         {
             // Create a SaveFileDialog to ask the user where to save the PDF
@@ -921,6 +948,9 @@ namespace UniversityExamCreator.Views
             }
         }
 
+        /// <summary>
+        /// Save the PDF in the chosen directory.
+        /// </summary>
         private void SavePDFButton_Click(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrEmpty(tempFilename) && System.IO.File.Exists(tempFilename))
@@ -933,6 +963,9 @@ namespace UniversityExamCreator.Views
             }
         }
 
+        /// <summary>
+        /// Shows the Additional-Information content.
+        /// </summary>
         private void AdditionalInformationInfoButton(object sender, RoutedEventArgs e)
         {
             System.Windows.Controls.Button button = sender as System.Windows.Controls.Button;
@@ -956,22 +989,44 @@ namespace UniversityExamCreator.Views
             }
         }
 
+        /// <summary>
+        /// Draw the specified string onto the PDF page.
+        /// </summary>
         private void draw(string text, XFont font, XPoint point)
         {
             gfx.DrawString(text, font, XBrushes.Black, point);
         }
 
+        /// <summary>
+        /// Draw the specified string onto the PDF page.
+        /// </summary>
         private void draw(string text, XFont font, XRect rect, string format)
         {
             XStringFormat finalFormat = formatchecker(format);
             gfx.DrawString(text, font, XBrushes.Black, rect, finalFormat);
         }
 
+        /// <summary>
+        /// Draw the specified string onto the PDF page.
+        /// </summary>
         private void draw(string text, XFont font, XRect rect, string format, XTextFormatter tf)
         {
             XStringFormat finalFormat = formatchecker(format);
             tf.DrawString(text, font, XBrushes.Black, rect, finalFormat);
         }
+
+        /// <summary>
+        /// Draw the specified string onto the PDF page.
+        /// </summary>
+        private void draw(XPen pen, double xLeft, double yLeft, double xRight, double yRight)
+        {
+            gfx.DrawLine(pen, xLeft, yLeft, xRight, yRight);
+        }
+
+        /// <summary>
+        /// Textalignment options. 
+        /// </summary>
+        /// <returns> Stringalignment format. </returns>
         private XStringFormat formatchecker(string format)
         {
             // Konvertiere den String in Kleinbuchstaben
@@ -1003,44 +1058,15 @@ namespace UniversityExamCreator.Views
             }
         }
 
-        private void draw(XPen pen, double xLeft, double yLeft, double xRight, double yRight)
-        {
-            gfx.DrawLine(pen, xLeft, yLeft, xRight, yRight);
-        }
+
 
         /*---------------------------------------------------------*/
         //                  Data-Switch-Area
         /*---------------------------------------------------------*/
 
-        //Marc fragen wegen Datenbank -> wie komme ich auf die Attribute des Tasks wenn ich seine ID habe? Ändern des tables auf:exam_task
-        private void LoadDataFromDatabase()
-        {
-            try
-            {
-                if (SelectedTasks != null && SelectedTasks.Count > 0)
-                {
-                    foreach (var task in SelectedTasks)
-                    {
-                        Console.WriteLine($"Task: {task.TaskName}, Topic: {task.Topic}, Points: {task.Points}");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Keine Aufgaben zum Anzeigen gefunden!");
-                }
-
-                dataGrid.ItemsSource = SelectedTasks;
-                
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Fehler beim Laden der Daten: " + ex.Message);
-            }
-        }
-
-
-        // Drag-and-Drop-Funktionalität
+        /// <summary>
+        /// Drag the selected item.
+        /// </summary>
         private void DataGrid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var row = FindVisualParent<DataGridRow>(e.OriginalSource as DependencyObject);
@@ -1058,6 +1084,9 @@ namespace UniversityExamCreator.Views
             }
         }
 
+        /// <summary>
+        /// Shows the drag-effect.
+        /// </summary>
         private void DataGrid_PreviewMouseMove(object sender, MouseEventArgs e)
         {
             if (draggedItem != null && e.LeftButton == MouseButtonState.Pressed)
@@ -1067,6 +1096,9 @@ namespace UniversityExamCreator.Views
             }
         }
 
+        /// <summary>
+        /// Changes the Index of the Items to get them in the right position. 
+        /// </summary>
         private void DataGrid_Drop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(typeof(UniversityExamCreator.Models.Task)))
@@ -1096,6 +1128,9 @@ namespace UniversityExamCreator.Views
             return parent ?? FindVisualParent<T>(parentObject);
         }
 
+        /// <summary>
+        /// Check if the mouse is over the scrollbar.
+        /// </summary>
         private bool IsMouseOverScrollbarOrButton(DependencyObject originalSource)
         {
             while (originalSource != null)
@@ -1111,6 +1146,9 @@ namespace UniversityExamCreator.Views
         // Optional: Aktualisiere die Reihenfolge in der Datenbank
         private void UpdateDatabaseAfterReorder() { }
 
+        /// <summary>
+        /// Updates the EmptyLineCount for the specific task. 
+        /// </summary>
         private void EmptyLineCountComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             // Get the ComboBox and the selected item
@@ -1128,7 +1166,5 @@ namespace UniversityExamCreator.Views
         {
 
         }
-
-
     }
 }
