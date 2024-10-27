@@ -73,10 +73,9 @@ namespace UniversityExamCreator.Views
                 SelectedTasks.Add(task);
             }
 
-            //SelectedTasks = selectedTasks;
             LoadDataFromDatabase();
 
-            // Initialisiere die Fonts-Liste
+            // Initialize the available fonts.
             Fonts = new List<string>
             {
                 "Verdana",
@@ -87,7 +86,7 @@ namespace UniversityExamCreator.Views
             // Fill FontCombobox.
             FontComboBox.ItemsSource = Fonts;
 
-            // Initialisiere die Schriftgrößen in der Combobox
+            // Initialize the Fontsizes for the Comboboxes.
             for (int i = 9; i <= 32; i += 1)
             {
                 ExamTitleFontSize.Items.Add(i);
@@ -118,8 +117,7 @@ namespace UniversityExamCreator.Views
             // Task-Switch-Content 
             PathFinder pathFinder = new PathFinder("Databases", "database.db");
             dbConnectionString = "Data Source=" + pathFinder.GetPath() + ";Version=3;";
-            //TasksSwitch = new ObservableCollection<Task>();
-            dataGrid.ItemsSource = SelectedTasks;  // Binde die ObservableCollection an das DataGrid
+            dataGrid.ItemsSource = SelectedTasks;
 
             Tasks = taskCreator();
         }
@@ -133,7 +131,6 @@ namespace UniversityExamCreator.Views
 
             if (selectedFont != null)
             {
-                //in Extraklasse machen, die auf alle Fontarten und deren Schriftgröße gleichzeitig zugreift. Wenn eine der beiden Attribute geändert wird soll auch nur ein Methodenaufruf dafür notwendig sein.
                 setFont(selectedFont);
             }
         }
@@ -217,11 +214,17 @@ namespace UniversityExamCreator.Views
         //                                  PDF-Erzeugungs-Abschnitt                                         //
         /*---------------------------------------------------------------------------------------------------*/
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Navigate to previous page.
+        /// </summary>
+        private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new ExamCreate(Examconfig));
         }
 
+        /// <summary>
+        /// Starts the PDF-creation-process. 
+        /// </summary>
         private void GeneratePDFButton_Click(object sender, RoutedEventArgs e)
         {
             // Create new PDF-Document, Page & Graphics
@@ -230,14 +233,14 @@ namespace UniversityExamCreator.Views
                 Info = { Title = "Klausur Vorschau" }
             };
 
-            // Page initializisation 
+            // Page initializisation.
             document = newDocument;
             yPoint = 100;
             PdfPage page = document.AddPage();
             gfx = XGraphics.FromPdfPage(page);
             DateTime? selectedDate = ExamDate.SelectedDate;
 
-            // Nur wenn diese Felder ausgefüllt sind, darf eine Klausur erstellt werden
+            // The process starts if the values are set. 
             if (selectedDate.HasValue && (TextBoxExaminer.Text != string.Empty))
             {
                 // Draw the PDF
@@ -250,6 +253,8 @@ namespace UniversityExamCreator.Views
                 document.Save(tempFilename);
                 System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(tempFilename) { UseShellExecute = true });
             }
+
+            // Check for missing values. 
             if (!selectedDate.HasValue && (TextBoxExaminer.Text.Equals(string.Empty)))
             {
                 MessageBox.Show("Bitte ein Datum und einen Prüfer eingeben.", "Fehlende Prüfungsangaben", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -264,6 +269,9 @@ namespace UniversityExamCreator.Views
             }
         }
 
+        /// <summary>
+        /// Call-Function for the cover-sheet operations. 
+        /// </summary>
         private void drawCoverSheet(PdfPage page)
         {
             // All methods are hard-coded for consitency. 
@@ -274,6 +282,9 @@ namespace UniversityExamCreator.Views
             drawAdditionalInformation(page);
         }
 
+        /// <summary>
+        /// Starts the PDF-creation-process for the Answer-PDF.
+        /// </summary>
         private void GenerateAnswerPDF_Click(object sender, RoutedEventArgs e)
         {
             // Create new PDF-Document, Page & Graphics
@@ -282,14 +293,14 @@ namespace UniversityExamCreator.Views
                 Info = { Title = "Klausur Vorschau" }
             };
 
-            // Page initializisation 
+            // Page initializisation.
             document = newDocument;
             yPoint = 100;
             PdfPage page = document.AddPage();
             gfx = XGraphics.FromPdfPage(page);
             DateTime? selectedDate = ExamDate.SelectedDate;
 
-            // Nur wenn diese Felder ausgefüllt sind, darf eine Klausur erstellt werden
+            // The process starts if the values are set. 
             if (selectedDate.HasValue && (TextBoxExaminer.Text != string.Empty))
             {
                 // Draw the PDF
@@ -302,6 +313,8 @@ namespace UniversityExamCreator.Views
                 document.Save(tempFilename);
                 System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(tempFilename) { UseShellExecute = true });
             }
+
+            // Check for missing values. 
             if (!selectedDate.HasValue && (TextBoxExaminer.Text.Equals(string.Empty)))
             {
                 MessageBox.Show("Bitte ein Datum und einen Prüfer eingeben.", "Fehlende Prüfungsangaben", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -316,6 +329,9 @@ namespace UniversityExamCreator.Views
             }
         }
 
+        /// <summary>
+        /// Draw the header of the cover-sheet.
+        /// </summary>
         private void drawHeader()
         {
             // Laod Logo
@@ -345,6 +361,9 @@ namespace UniversityExamCreator.Views
             yPoint += textHeight; // Problem: The Textheight isn't right after Measurement. If the Text is to long it will overlap the MetaTable
         }
 
+        /// <summary>
+        /// Draw the meta-table for the student authentication.
+        /// </summary>
         private void drawMetaTable()
         {
             double x = margin;
@@ -363,13 +382,15 @@ namespace UniversityExamCreator.Views
                 {
                     gfx.DrawRectangle(XPens.Black, x + col * cellWidth, y + (row + 1) * cellHeight, cellWidth, cellHeight);
                     draw(data[row, col], specialFont, new XRect(x + col * cellWidth, y + (row + 1) * cellHeight, cellWidth, cellHeight), "XTopLeft");
-                    //gfx.DrawString(data[row, col], specialFont, XBrushes.Black, new XRect(x + col * cellWidth, y + (row + 1) * cellHeight, cellWidth, cellHeight), XStringFormats.TopLeft);
                 }
                 yPoint += cellHeight;
             }
             yPoint += 2 * cellHeight;
         }
 
+        /// <summary>
+        /// Draw the table which contains all tasks as an overview.
+        /// </summary>
         private void drawTasksTable(PdfPage page)
         {
             double cellHeight = 20;
@@ -401,7 +422,6 @@ namespace UniversityExamCreator.Views
             // Draw Information
             string noticeText = "Diese Tabelle bitte nicht ausfüllen!";
             draw(noticeText, specialFont, new XRect(margin, yPoint, innerWidth, specialFont.Height), "Center");
-            //gfx.DrawString(noticeText, specialFont, XBrushes.Black, new XRect(margin, yPoint, innerWidth, specialFont.Height), XStringFormats.Center);
             yPoint += specialFont.Height + 2;
 
             // Center the table and draw it
@@ -428,14 +448,12 @@ namespace UniversityExamCreator.Views
                     {
                         // Draw Heading 
                         gfx.DrawRectangle(XPens.Black, XBrushes.LightGray, currentX, y, currentCellWidth, cellHeight);
-                        //gfx.DrawString(data[row, col], specialFont, XBrushes.Black, new XRect(currentX, y, currentCellWidth, cellHeight), XStringFormats.Center);
                         draw(data[row, col], specialFont, new XRect(currentX, y, currentCellWidth, cellHeight), "Center");
                     }
                     else
                     {
                         // Draw Datarows
                         gfx.DrawRectangle(XPens.Black, currentX, y, currentCellWidth, cellHeight);
-                        //gfx.DrawString(data[row, col], specialFont, XBrushes.Black, new XRect(currentX, y, currentCellWidth, cellHeight), XStringFormats.Center);
                         draw(data[row, col], specialFont, new XRect(currentX, y, currentCellWidth, cellHeight), "Center");
                     }
 
@@ -451,6 +469,9 @@ namespace UniversityExamCreator.Views
             yPoint = y + 2 * cellHeight;
         }
 
+        /// <summary>
+        /// Draw additional information for the students. 
+        /// </summary>
         private void drawAdditionalInformation(PdfPage page)
         {
             double titelHigth = MeasureTextHeight("Hinweise", titleFont, innerWidth);
@@ -465,7 +486,6 @@ namespace UniversityExamCreator.Views
             }
 
             // Draw title
-            //gfx.DrawString("Zusätzliche Hinweise", titleFont, XBrushes.Black, new XRect(margin, yPoint, innerWidth, page.Height), XStringFormats.TopCenter);
             draw("Zusätzliche Hinweise", titleFont, new XRect(margin, yPoint, innerWidth, page.Height), "TopCenter");
             yPoint += titelHigth + taskSpacing / 2;
 
@@ -500,6 +520,9 @@ namespace UniversityExamCreator.Views
             }
         }
 
+        /// <summary>
+        /// HelpFunction for drawing the examtitle.
+        /// </summary>
         private void DrawWrappedText(string text, XFont font, XRect rect, out double textHeight)
         {
             var tf = new XTextFormatter(gfx);
@@ -508,12 +531,36 @@ namespace UniversityExamCreator.Views
             // Measure text height to fit the rect
             var size = gfx.MeasureString(text, font, XStringFormats.TopLeft);
             textHeight = size.Height;
-
-            // Draw text with wrapping
             tf.DrawString(text, font, XBrushes.Black, rect, XStringFormats.TopLeft);
 
         }
 
+        /// <summary>
+        /// Calculates the width for the second column of the task-table.
+        /// </summary>
+        /// <returns> Double </returns>
+        private double CalculateMaxCellWidthInSecondColumn(string[,] data, XFont font, double cellWidth)
+        {
+            double maxWidth = 0;
+
+            // Ignore Header-Line
+            for (int row = 1; row < data.GetLength(0); row++)
+            {
+                double currentWidth = getCellWidth(data[row, 1], font, cellWidth);
+                if (currentWidth > maxWidth)
+                {
+                    maxWidth = currentWidth;
+                }
+            }
+
+            // Padding
+            return maxWidth + 10;
+        }
+
+        /// <summary>
+        /// Calculates the width of the current table-cell.
+        /// </summary>
+        /// <returns> Double </returns>
         private double getCellWidth(string text, XFont font, double cellWidth)
         {
             // Create a Datacontext for a cell
@@ -535,34 +582,14 @@ namespace UniversityExamCreator.Views
             }
         }
 
-        private double CalculateMaxCellWidthInSecondColumn(string[,] data, XFont font, double cellWidth)
-        {
-            double maxWidth = 0;
-
-            // Ignore Header-Line
-            for (int row = 1; row < data.GetLength(0); row++)
-            {
-                double currentWidth = getCellWidth(data[row, 1], font, cellWidth);
-                if (currentWidth > maxWidth)
-                {
-                    maxWidth = currentWidth;
-                }
-            }
-
-            // Padding
-            return maxWidth + 10;
-        }
-
+        /// <summary>
+        /// Draw every task which was selected for the exam.
+        /// </summary>
         private void drawTasks(PdfPage page)
         {
             int headercounter = 1;
             List<Task> tasks = Tasks;
 
-            // Copy the tasks which were selected on the ExamCreate-Page 
-            /*foreach (var task in Tasks)
-            {
-                tasks.Add(task);
-            }*/
 
             // Draw the tasks
             foreach (var task in tasks)
@@ -571,6 +598,8 @@ namespace UniversityExamCreator.Views
                 double descriptionHeight = MeasureTextHeight(task.TaskContent, taskFont, innerWidth);
                 descriptionHeight += task.EmptyLineCount * 10;
                 double mcAnswersHeight = 0;
+                double requiredSpace = 0;
+                string finalheader = string.Empty;
 
                 if (task.TaskType == "Multiple Choice" && task.MCAnswers != null)
                 {
@@ -580,7 +609,7 @@ namespace UniversityExamCreator.Views
                     }
                 }
 
-                double requiredSpace = titleHeight + descriptionHeight + mcAnswersHeight + taskSpacing;
+                requiredSpace = titleHeight + descriptionHeight + mcAnswersHeight + taskSpacing;
 
                 // Check if there is enough space for the next task frame
                 if (yPoint + requiredSpace > pageHeight - margin)
@@ -589,8 +618,6 @@ namespace UniversityExamCreator.Views
                 }
 
                 // Draw the task title and adjust the Tasknumber
-                //gfx.DrawString(task.TaskName, titleFont, XBrushes.Black, new XRect(margin, yPoint, innerWidth, page.Height), XStringFormats.TopLeft);
-                string finalheader = string.Empty;
                 finalheader += headercounter;
                 headercounter++;
                 finalheader += ". " + task.TaskName;
@@ -600,24 +627,8 @@ namespace UniversityExamCreator.Views
                 // Draw the task description 
                 var tf = new XTextFormatter(gfx);
                 tf.Alignment = XParagraphAlignment.Justify;
-                //var rect = new XRect(margin, yPoint, innerWidth, page.Height - yPoint - margin);
-                //tf.DrawString(task.TaskContent, taskFont, XBrushes.Black, rect, XStringFormats.TopLeft);
                 draw(task.TaskContent, taskFont, new XRect(margin, yPoint, innerWidth, page.Height - yPoint - margin), "TopLeft", tf);
-                yPoint += descriptionHeight + taskSpacing; //hier muss noch die Height angepasst werden, wenn der requiredspace > als eine ganze Seite ist 
-                /*
-                 * if(yPoint > pageHeight -margin){
-                 *      double y = yPoint;
-                 *      CreateHeaderSite(page);
-                 *      yPoint = y; 
-                 *      while(ypoint > pageHeight - margin)
-                 *      {
-                 *          yPoint -= pageHeight - margin;
-                 *          y = yPoint;
-                 *          CreateHeaderSite(page);
-                 *          yPoint = y;
-                 *      }
-                 * }
-                 */
+                yPoint += descriptionHeight + taskSpacing;
 
                 // Draw MC Answers if any
                 if (task.TaskType == "Multiple Choice" && task.MCAnswers != null)
