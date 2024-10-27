@@ -704,9 +704,7 @@ namespace UniversityExamCreator.Views
                 draw(task.TaskContent, taskFont, new XRect(margin, yPoint, innerWidth, page.Height - yPoint - margin), "TopLeft", tf);
                 yPoint += descriptionHeight + taskSpacing; //hier muss noch die Height angepasst werden, wenn der requiredspace > als eine ganze Seite ist 
 
-                // Draw the Taskanswer
-                draw(task.TaskAnswer.Content, taskFont, new XRect(margin, yPoint, innerWidth, page.Height - yPoint - margin), "TopLeft", tf);
-                yPoint += answerHeight + taskSpacing;
+
                 /*
                  * if(yPoint > pageHeight -margin){
                  *      double y = yPoint;
@@ -741,6 +739,9 @@ namespace UniversityExamCreator.Views
                     // Add Spacing 
                     yPoint += taskSpacing;
                 }
+                // Draw the Taskanswer
+                draw(task.TaskAnswer.Content, taskFont, new XRect(margin, yPoint, innerWidth, page.Height - yPoint - margin), "TopLeft", tf);
+                yPoint += answerHeight + 2*taskSpacing;
             }
         }
 
