@@ -63,7 +63,7 @@
                     </ComboBox>
 
                     <DatePicker x:Name="ExamDate" HorizontalAlignment="Left" Margin="450,265,0,0" VerticalAlignment="Top" Foreground="#FF0068B4"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="105,265,0,0" TextWrapping="Wrap" Text="Prüfungsdatum" VerticalAlignment="Top" Foreground="#FF0068B4"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="105,265,0,0" TextWrapping="Wrap" Text="Prüfungsdatum" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
 
                     <TextBox x:Name="TextBoxExaminer" HorizontalAlignment="Left" Margin="450,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
 
