@@ -18,7 +18,7 @@
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
             <Viewbox>
                 <Grid Background="#FFF9FCFD" Height="1000" Width="800">
-                    <TextBlock HorizontalAlignment="Left" Margin="300,34,0,0" TextWrapping="Wrap" Text="KlausurVorschau" VerticalAlignment="Top" FontSize="23" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF0068B4"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="300,34,0,0" TextWrapping="Wrap" Text="Klausurvorschau" VerticalAlignment="Top" FontSize="23" FontFamily="Verdana" FontWeight="Bold" Foreground="#FF0068B4"/>
 
                     <TextBlock HorizontalAlignment="Left" Margin="105,125,0,0" TextWrapping="Wrap" Text="Schriftgröße Titel" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
                     <TextBlock HorizontalAlignment="Left" Margin="105,160,0,0" TextWrapping="Wrap" Text="Schriftgröße Aufgabenüberschrift" VerticalAlignment="Top" FontFamily="Verdana" Foreground="#FF0068B4"/>
@@ -123,9 +123,9 @@
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
             <Button Content="Zurück" Click="BackButton_Click" Width="75" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
-            <Button Content="Generate PDF" Click="GeneratePDFButton_Click" Width="115" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
-            <Button Content="GenerateAnswerPDF" Click="GenerateAnswerPDF_Click" Width="130" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
-            <Button Content="Save PDF" Click="SavePDFButton_Click" Width="75" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
+            <Button Content="PDF generieren" Click="GeneratePDFButton_Click" Width="115" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
+            <Button Content="Antwort-PDF generieren" Click="GenerateAnswerPDF_Click" Width="150" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
+            <Button Content="PDF speichern" Click="SavePDFButton_Click" Width="95" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
         </StackPanel>
     </Grid>
 </Page>

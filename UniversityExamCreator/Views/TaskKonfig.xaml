@@ -41,12 +41,10 @@
             </ComboBox>
 
 
-            <TextBlock Name="MCRules" Text="Text der den Studenten angibt welche Regeln für die Multiple Choice Fragen gelten"  HorizontalAlignment="Left"
-                   Height="32" Margin="101,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" FontFamily="Verdana" Foreground="#FF0068B4"/>
-            <TextBox Name="MCRulesText" HorizontalAlignment="Left" Height="21" Margin="348,211,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="292" MaxLength="100"
+            <TextBlock Name="MCRules" Text="Text der den Studenten angibt welche Regeln für die Multiple Choice Fragen gelten."  HorizontalAlignment="Left"
+                   Height="34" Margin="101,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" FontFamily="Verdana" Foreground="#FF0068B4"/>
+            <TextBox Name="MCRulesText" HorizontalAlignment="Left" Height="56" Margin="400,184,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" MaxLength="100"
                  AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Background="#FFF5FBFB" BorderBrush="#FFAACEE9"/>
-
-            <Button Name="Test" Content="Test" HorizontalAlignment="Left" Height="24" Margin="159,380,0,0" VerticalAlignment="Top" Width="71" Click="Test_Click" Background="#FFF5FBFB" Foreground="#FF0068B4" BorderBrush="#FFAACEE9"/>
 
             <TextBlock x:Name="Difficulty"  HorizontalAlignment="Left" Height="20" Margin="101,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92" FontFamily="Verdana" Foreground="#FF0068B4" Text="Schwierigkeit"/>
             <ComboBox Name="DifficultyDD" HorizontalAlignment="Left" Height="21" Margin="240,259,0,0" VerticalAlignment="Top" Width="400" BorderBrush="#FFAACEE9">
