@@ -35,7 +35,6 @@ namespace UniversityExamCreator.Views
             tableQueries = new Dictionary<string, string>
             {
                 { "task", "SELECT * FROM task" },
-                { "exam", "SELECT * FROM exam" },
                 { "user", "SELECT * FROM user" },
                 { "answer", "SELECT * FROM answer" },
                 { "module", "SELECT * FROM module" },
@@ -53,7 +52,6 @@ namespace UniversityExamCreator.Views
         private Dictionary<string, string[]> tableFields = new Dictionary<string, string[]>
         {
             { "task", new[] { "module", "topic", "type", "difficulty", "points", "name", "content", "date_created", "author" } },
-            { "exam", new[] { "course", "examiner", "date" } },
             { "user", new[] { "username", "password" } },
             { "answer", new[] { "task_id", "answer_content", "username" } },
             { "module", new[] { "moduleID", "name" } },
