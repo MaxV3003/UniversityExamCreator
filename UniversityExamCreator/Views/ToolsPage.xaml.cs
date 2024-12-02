@@ -51,11 +51,11 @@ namespace UniversityExamCreator.Views
         /// <summary>
         /// Navigate to DBTest.
         /// </summary>
-        private void DBTest_Click(object sender, RoutedEventArgs e)
+        /*private void DBTest_Click(object sender, RoutedEventArgs e)
         {
             PathFinder pathFinder = new PathFinder("Databases", "database.db");
             string path = "Data Source=" + pathFinder.GetPath() + ";Version=3;";
             NavigationService.Navigate(new DBTest(path));
-        }
+        }*/
     }
 }
