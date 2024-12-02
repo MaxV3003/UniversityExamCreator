@@ -1,16 +1,27 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using System.Windows.Shapes;
 using UniversityExamCreator.Models;
 
 namespace UniversityExamCreator.Views
 {
     /// <summary>
-    /// Interaktionslogik für ToolsPage.xaml
+    /// Interaktionslogik für DevTools.xaml
     /// </summary>
-    public partial class ToolsPage : Page
+    public partial class DevTools : Page
     {
-        public ToolsPage()
+        public DevTools()
         {
             InitializeComponent();
         }
@@ -49,21 +60,21 @@ namespace UniversityExamCreator.Views
         }
 
         /// <summary>
-        /// Navigate to DevToolsPage.
+        /// Navigate to Toolspage.
         /// </summary>
-        private void Entwickleroperationen_Click(object sender, RoutedEventArgs e)
+        private void UserAnsicht_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new DevTools());
+            NavigationService.Navigate(new ToolsPage());
         }
 
         /// <summary>
         /// Navigate to DBTest.
         /// </summary>
-        /*private void DBTest_Click(object sender, RoutedEventArgs e)
+        private void DBTest_Click(object sender, RoutedEventArgs e)
         {
             PathFinder pathFinder = new PathFinder("Databases", "database.db");
             string path = "Data Source=" + pathFinder.GetPath() + ";Version=3;";
             NavigationService.Navigate(new DBTest(path));
-        }*/
+        }
     }
 }

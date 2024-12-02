@@ -169,6 +169,9 @@
     <Compile Include="Views\DBTest.xaml.cs">
       <DependentUpon>DBTest.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DevTools.xaml.cs">
+      <DependentUpon>DevTools.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ExamConfig.xaml.cs">
       <DependentUpon>ExamConfig.xaml</DependentUpon>
     </Compile>
@@ -212,6 +215,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\DBTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DevTools.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
