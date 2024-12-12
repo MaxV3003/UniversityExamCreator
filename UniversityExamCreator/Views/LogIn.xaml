@@ -13,7 +13,7 @@
             <Grid.Background>
                 <ImageBrush/>
             </Grid.Background>
-            <TextBlock Text="Exam Creator" FontSize="43" FontWeight="UltraBold" HorizontalAlignment="Left" VerticalAlignment="Top" Width="376" Height="59" Margin="234,141,0,0" FontFamily="Verdana" Foreground="#FF0068B4"/>
+            <TextBlock Text="Exam Creator" FontSize="43" FontWeight="UltraBold" HorizontalAlignment="Left" VerticalAlignment="Top" Width="376" Height="59" Margin="210,140,0,0" FontFamily="Verdana" Foreground="#FF0068B4"/>
 
             <Button Content="Weiter" HorizontalAlignment="Left" Height="24" Margin="639,369,0,0" VerticalAlignment="Top" Width="71" Click="Button_Click" FontFamily="Verdana" Background="#FFF5FBFB" Foreground="#FF0068B4" BorderBrush="#FFAACEE9"/>
             <TextBox x:Name="ExamTitle" HorizontalAlignment="Center" Margin="0,298,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142" Background="#FFF5FBFB" Height="21" BorderBrush="#FFAACEE9" Foreground="#FF0068B4"/>
