@@ -18,193 +18,73 @@ using UniversityExamCreator.Models;
 
 namespace UniversityExamCreator.Views
 {
-    /// <summary>
-    /// Interaktionslogik für DBTest.xaml
-    /// </summary>
     public partial class DBTest : Page
     {
-
         private string dbConnectionString;
 
         public DBTest(string connectionString)
         {
             dbConnectionString = connectionString;
             InitializeComponent();
-            //CreateDatabaseAndTable();
-            LoadDataFromDatabase(); // Lade die Daten beim Start der Anwendung
-            LoadTableNames();  // Lade die Tabellennamen
-        }
-
-        // Methode zum Laden der Daten aus der Datenbank
-        private void LoadDataFromDatabase()
-        {
-            List<UniversityExamCreator.Models.Task> tasks = new List<UniversityExamCreator.Models.Task>();
-           
-            using (SQLiteConnection connection = new SQLiteConnection(dbConnectionString))
-            {
-                connection.Open();
-                string selectQuery = "SELECT id, topic, type, difficulty, points, name, content, date_created, author FROM task";
-
-                using (SQLiteCommand command = new SQLiteCommand(selectQuery, connection))
-                {
-                    using (SQLiteDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            // Lese die Felder aus der Datenbank und weise sie der Task-Klasse zu
-                            int id = reader.GetInt32(0);                // ID sieht man nicht weil sie nicht in der Taskklasse definiert ist und somit auch nicht im Grid angezeigt werden kann
-                            string topic = reader.GetString(1);         // Topic
-                            string type = reader.GetString(2);          // TaskType
-                            string difficulty = reader.GetString(3);    // Difficulty
-                            int points = reader.GetInt32(4);            // Points
-                            string name = reader.GetString(5);          // TaskName
-                            string content = reader.GetString(6);       // TaskContent
-                            DateTime dateCreated = reader.GetDateTime(7); // DateCreated
-                            string author = reader.GetString(8);        // Author
-
-                            // Erstelle Task-Objekt und setze die richtigen Eigenschaften
-                            tasks.Add(new UniversityExamCreator.Models.Task(topic, author, type, difficulty, points, name, content,id));
-                        }
-                    }
-                }
-            }
-
-            // Binde die geladenen Daten an das DataGrid
-            dataGrid.ItemsSource = tasks;
-        }
-
-        // Methode zum Hinzufügen eines Eintrags in die Datenbank
-        private void AddTask_Click(object sender, RoutedEventArgs e)
-        {
-            // Werte aus den Eingabefeldern lesen
-            string topic = txtTopic.Text;                    // Thema der Aufgabe
-            string taskType = txtTaskType.Text;              // Art der Aufgabe (z. B. Multiple Choice, Essay)
-            string difficulty = txtDifficulty.Text;          // Schwierigkeitsgrad
-            int points = int.Parse(txtPoints.Text);          // Punktewert der Aufgabe
-            string taskName = txtTaskName.Text;              // Name der Aufgabe
-            string taskContent = txtTaskContent.Text;        // Inhalt der Aufgabe
-            DateTime dateCreated = dpDateCreated.SelectedDate ?? DateTime.Now;  // Erstellungsdatum (falls nicht ausgewählt, nutze das aktuelle Datum)
-            string author = txtAuthor.Text;                  // Autor der Aufgabe
-
-            // Aufgabe zur Datenbank hinzufügen
-            AddTaskToDatabase(topic, taskType, difficulty, points, taskName, taskContent, dateCreated, author);
-
-            // Aktualisiere die Anzeige im DataGrid
-            LoadDataFromDatabase();
-
-            // Felder nach dem Einfügen der Aufgabe leeren (optional)
-            txtTopic.Clear();
-            txtTaskType.Clear();
-            txtDifficulty.Clear();
-            txtPoints.Clear();
-            txtTaskName.Clear();
-            txtTaskContent.Clear();
-            txtAuthor.Clear();
-            dpDateCreated.SelectedDate = null;
-        }
-
-        // Methode zum Hinzufügen einer Person zur Datenbank
-        private void AddTaskToDatabase(string topic, string taskType, string difficulty, int points, string taskName, string taskContent, DateTime dateCreated, string author)
-        {
-            using (SQLiteConnection connection = new SQLiteConnection(dbConnectionString))
-            {
-                connection.Open();
-                string insertQuery = @"
-            INSERT INTO aufgabe (topic, type, difficulty, points, name, content, date_created, author) 
-            VALUES (@topic, @type, @difficulty, @points, @name, @content, @date_created, @author)";
-
-                using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
-                {
-                    command.Parameters.AddWithValue("@topic", topic);
-                    command.Parameters.AddWithValue("@type", taskType);
-                    command.Parameters.AddWithValue("@difficulty", difficulty);
-                    command.Parameters.AddWithValue("@points", points);
-                    command.Parameters.AddWithValue("@name", taskName);
-                    command.Parameters.AddWithValue("@content", taskContent);
-                    command.Parameters.AddWithValue("@date_created", dateCreated);
-                    command.Parameters.AddWithValue("@author", author);
-
-                    command.ExecuteNonQuery();
-                }
-            }
-        }
-
-        private void DeleteTask_Click(object sender, RoutedEventArgs e)
-        {
-            Button deleteButton = sender as Button;
-            string taskName = deleteButton.Tag as string; // Erwartet einen string als Tag-Wert
-
-            if (!string.IsNullOrEmpty(taskName))
-            {
-                DeleteTaskFromDatabase(taskName);
-                LoadDataFromDatabase();
-            }
-        }
-
-        private void DeleteTaskFromDatabase(string taskName)
-        {
-            using (SQLiteConnection connection = new SQLiteConnection(dbConnectionString))
-            {
-                connection.Open();
-
-                string deleteQuery = "DELETE FROM aufgabe WHERE name = @name";
-
-                using (SQLiteCommand command = new SQLiteCommand(deleteQuery, connection))
-                {
-                    // Setze den Parameter der SQL-Abfrage
-                    command.Parameters.AddWithValue("@name", taskName);
-
-                    // Führe die Löschabfrage aus
-                    int rowsAffected = command.ExecuteNonQuery();
-
-                    if (rowsAffected > 0)
-                    {
-                        MessageBox.Show("Aufgabe erfolgreich gelöscht!");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Keine Aufgabe gefunden mit diesem Namen.");
-                    }
-                }
-            }
-        }
-        private Dictionary<string, string> tableQueries = new Dictionary<string, string>
-    {
-        { "Task", "SELECT * FROM task" },
-        { "Exam", "SELECT * FROM exam" },
-        { "User", "SELECT * FROM user" },
-        { "Answer", "SELECT * FROM answer" },
-        { "Module", "SELECT * FROM module" },
-        { "Aufgabe", "SELECT * FROM aufgabe" },
-        { "TempExam", "SELECT * FROM tempexam"},
-        { "MCAnswers", "SELECT * FROM mcanswer"},
-        { "Hints", "SELECT * FROM hint"}
-    };
-
-        public DBTest()
-        {
-            InitializeComponent();
             LoadTableNames();
         }
 
         private void LoadTableNames()
         {
-            // Add table names to the ComboBox
+            // Definiere die Tabellen mit ihren Abfragen
+            tableQueries = new Dictionary<string, string>
+            {
+                { "task", "SELECT * FROM task" },
+                { "user", "SELECT * FROM user" },
+                { "answer", "SELECT * FROM answer" },
+                { "module", "SELECT * FROM module" },
+                { "hint", "SELECT * FROM hint" },
+                { "mcanswer", "SELECT * FROM mcanswer" }
+            };
+
+            // Lade Tabellennamen in die ComboBox
             foreach (var tableName in tableQueries.Keys)
             {
                 comboBoxTables.Items.Add(tableName);
             }
         }
 
+        private Dictionary<string, string[]> tableFields = new Dictionary<string, string[]>
+        {
+            { "task", new[] { "module", "topic", "type", "difficulty", "points", "name", "content", "date_created", "author" } },
+            { "user", new[] { "username", "password" } },
+            { "answer", new[] { "task_id", "answer_content", "username" } },
+            { "module", new[] { "moduleID", "name" } },
+            { "hint", new[] { "name", "content" } },
+            { "mcanswer", new[] { "task_id", "content", "is_correct" } }
+        };
+
         private void ComboBoxTables_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (comboBoxTables.SelectedItem != null)
             {
                 string selectedTable = comboBoxTables.SelectedItem.ToString();
-                MessageBox.Show($"Lade Daten für Tabelle: {selectedTable}");
-
-                // Lade die Daten der ausgewählten Tabelle in das DataGrid
+                GenerateDynamicFields(selectedTable);
                 LoadTableData(selectedTable);
+            }
+        }
+
+        private void GenerateDynamicFields(string tableName)
+        {
+            DynamicFieldsPanel.Children.Clear();
+
+            if (tableFields.ContainsKey(tableName))
+            {
+                foreach (var field in tableFields[tableName])
+                {
+                    // Erstelle Label und TextBox für jedes Feld
+                    TextBlock label = new TextBlock { Text = field, Margin = new Thickness(0, 5, 0, 0) };
+                    TextBox textBox = new TextBox { Name = "txt" + field, Margin = new Thickness(0, 0, 0, 10) };
+
+                    // Füge das Label und die TextBox zum StackPanel hinzu
+                    DynamicFieldsPanel.Children.Add(label);
+                    DynamicFieldsPanel.Children.Add(textBox);
+                }
             }
         }
 
@@ -223,21 +103,11 @@ namespace UniversityExamCreator.Views
                         using (SQLiteDataReader reader = command.ExecuteReader())
                         {
                             DataTable dataTable = new DataTable();
-                            dataTable.Load(reader);  // Lade die Daten in ein DataTable-Objekt
+                            dataTable.Load(reader);
 
-                            // Überprüfe, ob Daten geladen wurden
-                            if (dataTable.Rows.Count > 0)
-                            {
-                                MessageBox.Show($"{dataTable.Rows.Count} Zeilen geladen");
-                            }
-                            else
-                            {
-                                MessageBox.Show("Keine Daten geladen.");
-                            }
-
-                            dataGrid.Columns.Clear();  // Spalten zurücksetzen
-                            dataGrid.ItemsSource = dataTable.DefaultView;  // Neue Datenquelle binden
-                            dataGrid.Items.Refresh();  // Aktualisiere die Anzeige
+                            dataGrid.Columns.Clear();
+                            dataGrid.ItemsSource = dataTable.DefaultView;
+                            dataGrid.Items.Refresh();
                         }
                     }
                 }
@@ -247,6 +117,46 @@ namespace UniversityExamCreator.Views
                 MessageBox.Show("Fehler beim Laden der Daten: " + ex.Message);
             }
         }
+
+        private void AddRecord_Click(object sender, RoutedEventArgs e)
+        {
+            if (comboBoxTables.SelectedItem != null)
+            {
+                string selectedTable = comboBoxTables.SelectedItem.ToString();
+                AddRecordToDatabase(selectedTable);
+                LoadTableData(selectedTable);
+            }
+            else
+            {
+                MessageBox.Show("Bitte wähle eine Tabelle aus.");
+            }
+        }
+
+        private void AddRecordToDatabase(string tableName)
+        {
+            if (tableFields.ContainsKey(tableName))
+            {
+                string fields = string.Join(", ", tableFields[tableName]);
+                string values = string.Join(", ", tableFields[tableName].Select(f => $"@{f}"));
+                string insertQuery = $"INSERT INTO {tableName} ({fields}) VALUES ({values})";
+
+                using (SQLiteConnection connection = new SQLiteConnection(dbConnectionString))
+                {
+                    connection.Open();
+                    using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
+                    {
+                        foreach (var field in tableFields[tableName])
+                        {
+                            var textBox = DynamicFieldsPanel.Children.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "txt" + field);
+                            command.Parameters.AddWithValue($"@{field}", string.IsNullOrEmpty(textBox?.Text) ? (object)DBNull.Value : textBox.Text);
+                        }
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
+
+        private Dictionary<string, string> tableQueries;
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new ToolsPage());
