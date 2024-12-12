@@ -37,7 +37,7 @@ public class DatabaseManager
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             course VARCHAR(100) NOT NULL,
             examiner VARCHAR(100) NOT NULL,
-            date DATE NOT NULL
+            dmote DATE NOT NULL
             );";
 
             string createExamTaskTable = @"
