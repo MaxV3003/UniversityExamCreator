@@ -122,11 +122,11 @@
         </ScrollViewer>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-            <Button Content="Zurück" Click="BackButton_Click" Width="75" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
-            <Button Content="PDF generieren" Click="GeneratePDFButton_Click" Width="115" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
-            <Button Content="Antwort-PDF generieren" Click="GenerateAnswerPDF_Click" Width="150" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
-            <Button Content="PDF speichern" Click="SavePDFButton_Click" Width="95" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
-            <Button Content="Homepage" Click="HomepageButton_Click" Width="95" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
+            <Button Content="Zurück" Click="BackButton_Click" Height="35" Width="70" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="10,5,10,5"/>
+            <Button Content="PDF generieren" Click="GeneratePDFButton_Click" Height="35" Width="125" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="10,5,10,5"/>
+            <Button Content="Antwort-PDF generieren" Click="GenerateAnswerPDF_Click"  Height="35" Width="150" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="10,5,10,5"/>
+            <Button Content="PDF speichern" Click="SavePDFButton_Click" Height="35" Width="125" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="10,5,10,5"/>
+            <Button Content="Homepage" Click="HomepageButton_Click" Height="35" Width="125" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="10,5,10,5"/>
         </StackPanel>
     </Grid>
 </Page>
