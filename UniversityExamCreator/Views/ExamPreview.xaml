@@ -126,6 +126,7 @@
             <Button Content="PDF generieren" Click="GeneratePDFButton_Click" Width="115" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
             <Button Content="Antwort-PDF generieren" Click="GenerateAnswerPDF_Click" Width="150" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
             <Button Content="PDF speichern" Click="SavePDFButton_Click" Width="95" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
+            <Button Content="Homepage" Click="HomepageButton_Click" Width="95" Height="25" FontFamily="Verdana" BorderBrush="#FFAACEE9" Foreground="#FF0068B4" Background="#FFF5FBFB" Margin="5,0"/>
         </StackPanel>
     </Grid>
 </Page>

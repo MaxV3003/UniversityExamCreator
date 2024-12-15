@@ -945,7 +945,7 @@ namespace UniversityExamCreator.Views
                 string filename = dlg.FileName;
                 System.IO.File.Copy(tempFilename, filename, true);
                 System.Windows.MessageBox.Show($"PDF document has been saved as '{filename}'.", "PDF Saved", MessageBoxButton.OK, MessageBoxImage.Information);
-                NavigationService.Navigate(new ToolsPage());
+                //NavigationService.Navigate(new ToolsPage());
             }
         }
 
@@ -1166,6 +1166,19 @@ namespace UniversityExamCreator.Views
         private void ListViewInformation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void HomepageButton_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Wollen Sie wirklich zur Homepage zurück?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.No)
+            {
+                return;
+            }
+            else
+            {
+                NavigationService.Navigate(new ToolsPage());
+            }
         }
     }
 }
