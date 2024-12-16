@@ -157,6 +157,8 @@ namespace UniversityExamCreator.Views
 
             ApplyFilters();
             MessageBox.Show("Die ausgewählten Aufgaben wurden erfolgreich gelöscht.", "Erfolg", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            NavigationService.Navigate(new TaskDelete());
         }
 
         // Item class
@@ -232,7 +234,7 @@ namespace UniversityExamCreator.Views
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            NavigationService.Navigate(new ToolsPage());
         }
 
         private void SelectedItemListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -118,7 +118,6 @@ namespace UniversityExamCreator.Views
 
         private void AnswerText_TextChanged(object sender, TextChangedEventArgs e)
         {
-            // Hier kannst du logische Dinge hinzufügen, falls sich die Antwort ändert
         }
 
         private void ContentText_TextChanged(object sender, TextChangedEventArgs e)
