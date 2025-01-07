@@ -3,6 +3,9 @@ using System.IO;
 
 namespace UniversityExamCreator.Models
 {
+    /// <summary>
+    /// Class to find the correct directories and files. 
+    /// </summary>
     internal class PathFinder
     {
         private String currentPath;
